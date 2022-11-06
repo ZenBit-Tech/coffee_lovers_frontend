@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import { Wrapper } from './styles';
+import { useTranslation } from 'react-i18next';
 
 const ExampleRootPage = lazy(
   () =>
@@ -8,6 +9,8 @@ const ExampleRootPage = lazy(
 );
 
 export function App() {
+  const { t } = useTranslation();
+
   return (
     <Wrapper>
       <Routes>
@@ -16,7 +19,7 @@ export function App() {
           path="/page-2"
           element={
             <Wrapper>
-              <Link to="/">Click here to go back to root page.</Link>
+              <Link to="/">{t('router.toRoot')}</Link>
             </Wrapper>
           }
         />

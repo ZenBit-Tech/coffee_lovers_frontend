@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { StyledExampleButton } from './styles';
 
 export interface ExampleButtonProps {
   border: string;
@@ -10,9 +10,6 @@ export interface ExampleButtonProps {
   width: string;
 }
 
-const StyledExampleButton = styled.button`
-  color: black;
-`;
 export function ExampleButton({
   border,
   color,
