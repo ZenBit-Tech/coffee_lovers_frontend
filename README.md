@@ -1,4 +1,4 @@
-# Freelance Platform App
+# HeyDnR App
 
 ### To run the app locally:
 
@@ -8,31 +8,28 @@
 3. Install the basic project dependencies with the command `npm install`.
 4. Start development mode by running the command `npm start`.
 5. Navigate to the address in your browser
-   [http://localhost:4200](http://localhost:4200). This page will automatically
+   [http://localhost:3000](http://localhost:3000). This page will automatically
    reload after saving changes to project files.
 
 #### Frontend repo
 
-`<link>`: https://github.com/ZenBit-Tech/coffee_lovers_frontend
+`<link>`: https://bitbucket.org/heydnr/fe/src/main/
 
-[ Nx, React, Typescript, Redux, ReduxJs/toolkit, Styled Components,
-react-router-dom ]
+[ React, Redux, ReduxJs/toolkit, Styled Components, react-router-dom ]
 
 #### Backend repo
 
-`<link>`: <https://github.com/ZenBit-Tech/coffee_lovers_backend>
-
-[ NestJs, Typescript, Typeorm, MySql ]
+`<link>`: it can be a link
 
 ## Installation
 
-Freelance Platform App requires [Node.js](https://nodejs.org/) v10+ to run.
+HeyDnR App requires [Node.js](https://nodejs.org/) v10+ to run.
 
 Install the dependencies and devDependencies and start the server.
 
 ```sh
-git clone https://github.com/ZenBit-Tech/coffee_lovers_frontend
-cd coffee_lovers_frontend
+git clone https://Mykhailo_Kutsyi@bitbucket.org/heydnr/fe.git
+cd fe
 npm i
 npm start
 ```

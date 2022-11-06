@@ -1,19 +1,19 @@
 {
-  "name": "store-e2e",
+  "name": "freelance-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/store-e2e/src",
+  "sourceRoot": "apps/freelance-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/store-e2e/cypress.config.ts",
-        "devServerTarget": "store:serve:development",
+        "cypressConfig": "apps/freelance-e2e/cypress.config.ts",
+        "devServerTarget": "freelance:serve:development",
         "testingType": "e2e"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "store:serve:production"
+          "devServerTarget": "freelance:serve:production"
         }
       }
     },
@@ -21,10 +21,10 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/store-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/freelance-e2e/**/*.{js,ts}"]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": ["store"]
+  "implicitDependencies": ["freelance"]
 }
