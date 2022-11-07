@@ -7,6 +7,7 @@ const ExampleRootPage = lazy(
   () =>
     import(/* webpackChunkName: "ExampleRootPage" */ '../pages/ExampleRootPage')
 );
+const SignInGoogle = lazy(() => import('../pages/SignInGoogle'));
 
 export function App() {
   const { t } = useTranslation();
@@ -23,6 +24,7 @@ export function App() {
             </Wrapper>
           }
         />
+        <Route path="/googleAuth" element={<SignInGoogle />} />
       </Routes>
     </Wrapper>
   );
