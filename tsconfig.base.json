@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@freelance/components": ["libs/components/src/index.ts"],
+      "@redux-freelance/*": ["apps/freelance/src/redux/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

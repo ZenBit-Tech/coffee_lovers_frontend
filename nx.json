@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "freelance-platform-zb",
+  "npmScope": "freelance",
   "affected": {
     "defaultBase": "master"
   },
@@ -14,7 +14,7 @@
           "test",
           "e2e"
         ],
-        "accessToken": "N2ZkOTU2NzgtMGNkYy00NjYzLThjN2MtYTgxNDYyNTc5YzE2fHJlYWQtd3JpdGU="
+        "accessToken": "YTgxMTg3NDctMjVkYS00MzMyLTlmYWQtYTRhNmJhNmFlMjcyfHJlYWQtd3JpdGU="
       }
     }
   },
@@ -80,5 +80,5 @@
       }
     }
   },
-  "defaultProject": "store"
+  "defaultProject": "freelance"
 }
