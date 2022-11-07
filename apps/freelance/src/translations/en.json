@@ -1,5 +1,11 @@
 {
   "translation": {
+    "loginPage": {
+      "loginPage_name": "Log In",
+      "loginPage_email": "Email",
+      "loginPage_password": "Password",
+      "loginPage_with-google": "Log In with Google"
+    },
     "description": {
       "root_page": "This is root route",
       "welcome_to_react": "Welcome to Nx, React and react-i18next",
