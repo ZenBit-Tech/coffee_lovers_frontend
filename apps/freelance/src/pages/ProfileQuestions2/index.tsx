@@ -1,8 +1,9 @@
-import React from 'react'
+import { useTranslation } from 'react-i18next';
 
 const ProfileQuestions2 = () => {
+  const { t } = useTranslation();
   return (
-    <div>index</div>
+    <div>{t('description.profile p2 completion per')}</div>
   )
 }
 

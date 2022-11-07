@@ -26,6 +26,8 @@ i18n
             'pink circle': "I'm a pink circle!",
             'orange circle': "I'm a orange circle!",
             'yellow circle': "I'm a yellow circle!",
+            'profile p1 completion per': '20% completed',
+            'profile p2 completion per': '50% completed',
           },
           redux: {
             'redux-hook-form': 'This is the example of redux-hook-form',
