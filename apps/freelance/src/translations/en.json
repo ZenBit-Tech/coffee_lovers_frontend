@@ -1,0 +1,24 @@
+{
+  "translation": {
+    "description": {
+      "root_page": "This is root route",
+      "welcome_to_react": "Welcome to Nx, React and react-i18next",
+      "reusable_component": "This is the example of reusable component.",
+      "pink_circle": "I'm a pink circle!",
+      "orange_circle": "I'm a orange circle!",
+      "yellow_circle": "I'm a yellow circle!",
+      "profile p1 completion per": "20% completed",
+      "profile p2 completion per": "50% completed",
+      "redux": {
+        "redux_hook_form": "This is the example of redux-hook-form",
+        "pokemon": "We invited <0>{user}</0>."
+      },
+      "router": {
+        "toPage2": "Click here for page 2.",
+        "toRoot": "Click here to go back to root page.",
+        "toProfileQuestions1": "Create portfolio",
+        "toProfileQuestions2": "Continue"
+      }
+    }
+  }
+}
