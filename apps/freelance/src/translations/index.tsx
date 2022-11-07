@@ -21,7 +21,6 @@ i18n
         translation: {
           description: {
             'root page': 'This is root route',
-
             'Welcome to React': 'Welcome to React and react-i18next',
             'reusable component': 'This is the example of reusable component.',
             'pink circle': "I'm a pink circle!",
@@ -35,6 +34,8 @@ i18n
           router: {
             toPage2: 'Click here for page 2.',
             toRoot: 'Click here to go back to root page.',
+            toProfileQuestions1: 'Create portfolio',
+            toProfileQuestions2: 'Continue',
           },
         },
       },
