@@ -4,7 +4,6 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  GithubAuthProvider,
 } from 'firebase/auth';
 import { useNavigate } from 'react-router';
 const firebaseConfig = {
@@ -24,8 +23,8 @@ export function GoogleLoginButton() {
   const auth = getAuth(app);
   const providerGoogle = new GoogleAuthProvider();
 
-  const signInWihGoogle = (provider: any) => {
-    signInWithPopup(auth, provider)
+  const signInWihGoogle = () => {
+    signInWithPopup(auth, providerGoogle)
       .then((results) => {
         console.log(results.user);
         navigate('/');
@@ -36,7 +35,7 @@ export function GoogleLoginButton() {
   return (
     <StyledGoogleLoginButton
       onClick={() => {
-        signInWihGoogle(providerGoogle);
+        signInWihGoogle();
       }}
     >
       {' '}
