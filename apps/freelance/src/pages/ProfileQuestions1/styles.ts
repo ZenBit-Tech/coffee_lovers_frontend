@@ -10,5 +10,5 @@ export const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-top: clamp(70px, 90px, 80px);
+  margin-top: 10px;
 `;
