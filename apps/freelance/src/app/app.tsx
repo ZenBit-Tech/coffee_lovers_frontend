@@ -2,8 +2,10 @@ import { lazy } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import { Wrapper } from './styles';
 import { useTranslation } from 'react-i18next';
-import ProfileQuestions1 from '../pages/ProfileQuestions1';
-import ProfileQuestions2 from '../pages/ProfileQuestions2';
+// eslint-disable-next-line
+import ProfileQuestions1  from '@pages-freelance/ProfileQuestions1';
+// eslint-disable-next-line
+import ProfileQuestions2 from '@pages-freelance/ProfileQuestions2';
 
 const ExampleRootPage = lazy(
   () =>
