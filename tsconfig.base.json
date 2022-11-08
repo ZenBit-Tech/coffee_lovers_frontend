@@ -16,8 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@freelance/components": ["libs/components/src/index.ts"],
-      "@redux-freelance/*": ["apps/freelance/src/redux/*"],
-      "@pages-freelance/*": ["apps/freelance/src/pages/*"]
+      "@pages-freelance/*": ["apps/freelance/src/pages/*"],
+      "@redux-freelance/*": ["apps/freelance/src/redux/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
