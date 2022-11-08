@@ -73,8 +73,7 @@
     }
   },
   "lint-staged": {
-    "*.{ts,tsx,json,md}": [
-      "yarn format --uncommitted"
-    ]
+    "*.{ts,tsx}": "eslint --cache --fix",
+    "*.{ts,tsx,json,md}": "prettier --write"
   }
 }
