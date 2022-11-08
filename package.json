@@ -73,7 +73,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx,json,md}": [
-      "npx nx format:write --all"
+      "yarn format --uncommitted"
     ]
   }
 }
