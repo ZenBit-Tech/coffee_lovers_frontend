@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
-import { ExampleButton } from '@freelance/components';
-import { Wrapper, Title, Text } from './styles';
+import { Link } from 'react-router-dom'
+import { ExampleButton } from '@freelance/components'
+import { Wrapper, Title, Text } from './styles'
 
-import { useGetPokemonByNameQuery } from '@redux-freelance/services/pokemon';
-import { useTranslation } from 'react-i18next';
+import { useGetPokemonByNameQuery } from '@redux-freelance/services/pokemon'
+import { useTranslation } from 'react-i18next'
 
 export default function ExampleRootPage() {
-  const { t } = useTranslation();
-  const { data, error, isLoading } = useGetPokemonByNameQuery('bulbasaur');
+  const { t } = useTranslation()
+  const { data, error, isLoading } = useGetPokemonByNameQuery('bulbasaur')
 
   return (
     <Wrapper>
@@ -61,5 +61,5 @@ export default function ExampleRootPage() {
       </Wrapper>
       <Link to="/page-2">{t('router.toPage2')}</Link>
     </Wrapper>
-  );
+  )
 }

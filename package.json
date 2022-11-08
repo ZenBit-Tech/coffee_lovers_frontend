@@ -73,8 +73,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx,json,md}": [
-      "prettier --write",
-      "git add"
+      "npx nx format:write --all"
     ]
   }
 }
