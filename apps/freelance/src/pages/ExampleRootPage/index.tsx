@@ -61,7 +61,6 @@ export default function ExampleRootPage() {
       </Wrapper>
       <Link to="/page-2">{t('router.toPage2')}</Link>
       <Link to="/googleAuth">LoginWithGoogle</Link>
-
     </Wrapper>
   );
 }
