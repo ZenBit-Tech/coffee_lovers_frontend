@@ -4,7 +4,11 @@
       "loginPage_name": "Log In",
       "loginPage_email": "Email",
       "loginPage_password": "Password",
-      "loginPage_with-google": "Log In with Google"
+      "loginPage_with-google": "Log In with Google",
+      "email_error": "Please enter a valid email adress",
+      "password_error": "Please enter a valid password",
+      "signUp": "Sign Up",
+      "forgot_password": "Forgot password?"
     },
     "description": {
       "root_page": "This is root route",
