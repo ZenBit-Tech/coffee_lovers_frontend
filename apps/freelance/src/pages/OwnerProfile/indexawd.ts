@@ -2,4 +2,4 @@ const hello = ''
 
 console.log(hello)
 
-const baran = ''
+const variabke = null
