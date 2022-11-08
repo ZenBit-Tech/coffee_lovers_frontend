@@ -15,6 +15,7 @@ export default function ExampleRootPage() {
       <h2>{t('description.welcome_to_react')}</h2>
       <Text>{t('description.reusable_component')}</Text>
       <Text>{t('learnReact')}</Text>
+
       <ExampleButton
         border="none"
         color="pink"
