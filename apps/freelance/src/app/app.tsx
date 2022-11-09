@@ -1,7 +1,10 @@
 import { lazy } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
-import { Wrapper } from './styles';
 import { useTranslation } from 'react-i18next';
+
+import ProfileQuestions1  from '@pages-freelance/ProfileQuestions1';
+import ProfileQuestions2 from '@pages-freelance/ProfileQuestions2';
+import { Wrapper } from './styles';
 
 const ExampleRootPage = lazy(
   () =>
@@ -25,6 +28,8 @@ export function App() {
             </Wrapper>
           }
         />
+        <Route path="/profile-questions-1" element={<ProfileQuestions1/>}/>
+        <Route path="/profile-questions-2" element={<ProfileQuestions2/>}/>
       </Routes>
     </Wrapper>
   );
