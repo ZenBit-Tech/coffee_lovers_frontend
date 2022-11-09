@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 export default function ExampleRootPage() {
   const { t } = useTranslation();
   const { data, error, isLoading } = useGetPokemonByNameQuery('bulbasaur');
-  const baran = null;
+
   return (
     <Wrapper>
       <Title>{t('description.root_page')}</Title>
