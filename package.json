@@ -68,10 +68,8 @@
     "typescript": "~4.8.2"
   },
   "lint-staged": {
-    "./apps/freelance/src/*.{ts,tsx}": [
-      "npx eslint ./apps/freelance/src/"
-    ],
-    "./libs/components/src/*.{ts,tsx}": [
+    "*.{ts,tsx}": [
+      "npx eslint ./apps/freelance/src/",
       "npx eslint ./libs/components/src/"
     ],
     "*.{ts,tsx,json,md}": [
