@@ -32,6 +32,7 @@ export function SignUpForm() {
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
+    
     form.resetFields();
     alert(JSON.stringify(data));
   }
