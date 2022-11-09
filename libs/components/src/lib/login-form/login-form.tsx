@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import "antd/dist/antd.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {setUser } from 'apps/freelance/src/redux/auth/auth-slice';
+import { setUser } from 'apps/freelance/src/redux/auth/auth-slice';
 
 import { StyledInput, StylesButton } from './styles';
 
@@ -33,7 +33,7 @@ export function LoginForm() {
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
-    
+
     form.resetFields();
     dispatch(setUser({
       email: data.email,
