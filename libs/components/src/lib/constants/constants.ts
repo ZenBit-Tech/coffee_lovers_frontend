@@ -1,5 +1,3 @@
-
-
 export const prBarStrColor = '#021691';
 export const prBarTrailColor = '#B0C4DE';
 

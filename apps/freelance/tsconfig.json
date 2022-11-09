@@ -16,7 +16,7 @@
     "paths": {
       "@freelance/components": ["../../libs/components/src/index.ts"],
       "redux/*": ["src/redux/*"],
-      "@pages/*": ["src/pages/*"],
+      "pages/*": ["src/pages/*"]
     }
   },
   "files": [],

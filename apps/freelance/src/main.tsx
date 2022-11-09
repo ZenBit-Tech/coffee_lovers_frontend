@@ -8,7 +8,6 @@ import App from './app/app';
 import { store } from './redux/store';
 import './translations';
 
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
