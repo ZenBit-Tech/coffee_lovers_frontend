@@ -7,11 +7,24 @@
       "pink_circle": "I'm a pink circle!",
       "orange_circle": "I'm a orange circle!",
       "yellow_circle": "I'm a yellow circle!",
-      "profile p1 completion per": "20% completed",
-      "profile p2 completion per": "50% completed",
       "redux": {
         "redux_hook_form": "This is the example of redux-hook-form",
         "pokemon": "We invited <0>{user}</0>."
+      },
+      "profileQp1": {
+        "pr_bar_completion_per": "20% completed",
+        "hR": "Hourly Rate",
+        "descr": "Description",
+        "pos": "Position",
+        "avTime": "Available Time",
+        "edu": "Education",
+        "workH": "Work history",
+        "hPD": "Hours Per Day",
+        "infoEdu": "Information about education",
+        "infoWork": "Information about work history"
+      },
+      "profileQp2": {
+        "pr_bar_completion_per": "50% completed"
       },
       "router": {
         "toPage2": "Click here for page 2.",

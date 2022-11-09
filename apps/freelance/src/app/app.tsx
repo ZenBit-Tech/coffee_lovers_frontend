@@ -2,8 +2,8 @@ import { lazy } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import ProfileQuestions1 from 'pages/ProfileQuestions1';
-import ProfileQuestions2 from 'pages/ProfileQuestions2';
+import ProfileQuestions1 from '@pages/ProfileQuestions1';
+import ProfileQuestions2 from '@pages/ProfileQuestions2';
 import { Wrapper } from './styles';
 
 const ExampleRootPage = lazy(
