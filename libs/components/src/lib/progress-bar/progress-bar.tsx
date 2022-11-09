@@ -1,5 +1,7 @@
-import { StyledProgressBar } from './styles';
 import {Progress} from 'antd'
+
+import { StyledProgressBar } from './styles';
+
 
 /* eslint-disable-next-line */
 export interface ProgressBarProps {

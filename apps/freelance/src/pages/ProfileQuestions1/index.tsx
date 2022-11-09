@@ -1,20 +1,22 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ProgressBar } from '@freelance/components';
-import { FormWrapper, Wrapper } from './styles';
 import { Form, Input, Select } from 'antd';
+
+import { ProgressBar } from '@freelance/components';
 import { DefInput } from '@freelance/components';
+import { prBarStrColor, prBarTrailColor, prBarProfileQ1Per} from '@freelance/components'
+import { FormWrapper, Wrapper } from './styles';
+
 
 const ProfileQuestions1 = () => {
   const { t } = useTranslation();
-  const progressBarPer = 20;
   const { TextArea } = Input;
   const { Option } = Select;
 
   return (
     <Wrapper>
       <div>{t('description.profile p1 completion per')}</div>
-      <ProgressBar percent={progressBarPer} strokeColor={'#021691'} trailColor={'#B0C4DE'}/>
+      <ProgressBar percent={prBarProfileQ1Per} strokeColor={prBarStrColor} trailColor={prBarTrailColor}/>
       <FormWrapper>
         <Form
           name="profile_questions_1"

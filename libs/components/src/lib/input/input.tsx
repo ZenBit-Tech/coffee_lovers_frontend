@@ -1,5 +1,6 @@
 import {Input}  from 'antd'
 import { ReactNode } from 'react';
+
 import { StyledInput } from './styles';
 
 export interface InputProps {

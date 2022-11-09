@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { ExampleButton } from '@freelance/components';
 import { Wrapper, Title, Text } from './styles';
 
-// eslint-disable-next-line
 import { useGetPokemonByNameQuery } from '@redux-freelance/services/pokemon';
 import { useTranslation } from 'react-i18next';
 

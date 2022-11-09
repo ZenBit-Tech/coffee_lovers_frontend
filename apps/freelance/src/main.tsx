@@ -2,10 +2,12 @@ import { StrictMode, Suspense } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import 'antd/dist/antd.css';
+
 import App from './app/app';
 import { store } from './redux/store';
 import './translations';
-import 'antd/dist/antd.css';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
