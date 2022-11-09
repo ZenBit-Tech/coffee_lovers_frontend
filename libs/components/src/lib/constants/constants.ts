@@ -15,5 +15,6 @@ export const profileQ1WorkHistoryWrapper = 'work_history_wrapper';
 export const profileQ1WorkHistory = 'work_history';
 export const profileQ1WorkFrom = 'work_from';
 export const profileQ1WorkTo = 'work_to';
+export const profileQ1SuffixUSDH = 'USD per hour';
 
 export const prBarProfileQ2Per = 50;

@@ -12,6 +12,7 @@ import {
   profileQ1Form,
   profileQ1HR,
   profileQ1Pos,
+  profileQ1SuffixUSDH,
   profileQ1WorkFrom,
   profileQ1WorkHistory,
   profileQ1WorkHistoryWrapper,
@@ -69,7 +70,7 @@ const ProfileQuestions1 = () => {
             { required: true, message: 'Please, input your hourly rate in $!' },
           ]}
         >
-          <DefInput prefix="$" suffix="USD per hour" />
+          <DefInput prefix="$" suffix={profileQ1SuffixUSDH} />
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.descr')}
