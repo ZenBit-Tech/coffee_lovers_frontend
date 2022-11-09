@@ -1,8 +1,20 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*"],
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
   "plugins": ["@nrwl/nx"],
-  "extends": ["prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": "error"
+  },
+  "parser": "@typescript-eslint/parser",
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -25,19 +37,28 @@
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "rules": {
+        "no-unused-vars": "error",
+        "@typescript-eslint/no-unused-vars": "error"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nrwl/nx/javascript"],
-      "rules": {}
+      "rules": {
+        "no-unused-vars": "error",
+        "@typescript-eslint/no-unused-vars": "error"
+      }
     },
     {
       "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
       "env": {
         "jest": true
       },
-      "rules": {}
+      "rules": {
+        "no-unused-vars": "error",
+        "@typescript-eslint/no-unused-vars": "error"
+      }
     }
   ]
 }
