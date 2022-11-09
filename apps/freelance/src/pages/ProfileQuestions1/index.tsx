@@ -12,9 +12,9 @@ const ProfileQuestions1 = () => {
   const { t } = useTranslation();
   const { TextArea } = Input;
   const { Option } = Select;
-  const b = testing;
-  const     notgood = 123     
-
+  
+  var test = 1231
+  let              test2 = 'dsadas';
 
   return (
     <Wrapper>
