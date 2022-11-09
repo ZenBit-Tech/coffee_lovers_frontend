@@ -1,5 +1,5 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-export const Wrapper = styled.div``
-export const Title = styled.h1``
-export const Text = styled.p``
+export const Wrapper = styled.div``;
+export const Title = styled.h1``;
+export const Text = styled.p``;

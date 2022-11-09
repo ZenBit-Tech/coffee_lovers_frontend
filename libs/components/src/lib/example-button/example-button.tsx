@@ -1,13 +1,13 @@
-import { StyledExampleButton } from './styles'
+import { StyledExampleButton } from './styles';
 
 export interface ExampleButtonProps {
-  border: string
-  color: string
-  children?: React.ReactNode
-  height: string
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
-  radius: string
-  width: string
+  border: string;
+  color: string;
+  children?: React.ReactNode;
+  height: string;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  radius: string;
+  width: string;
 }
 
 export function ExampleButton({
@@ -32,7 +32,7 @@ export function ExampleButton({
     >
       {children}
     </StyledExampleButton>
-  )
+  );
 }
 
-export default ExampleButton
+export default ExampleButton;
