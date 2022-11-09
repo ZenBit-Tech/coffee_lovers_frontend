@@ -12,9 +12,6 @@ const ProfileQuestions1 = () => {
   const { t } = useTranslation();
   const { TextArea } = Input;
   const { Option } = Select;
-  
-  var test = 1231
-  let              test2 = 'dsadas';
 
   return (
     <Wrapper>
