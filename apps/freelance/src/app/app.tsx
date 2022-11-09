@@ -12,6 +12,10 @@ const LoginPage = lazy(
   () =>
     import(/* webpackChunkName: "ExampleRootPage" */ '../pages/LoginPage')
 );
+const SignupPage = lazy(
+  () =>
+    import(/* webpackChunkName: "ExampleRootPage" */ '../pages/SignupPage')
+);
 
 export function App() {
   const { t } = useTranslation();
@@ -26,6 +30,12 @@ export function App() {
             <Wrapper>
               <Link to="/">{t('router.toRoot')}</Link>
             </Wrapper>
+          }
+        />
+        <Route
+          path="signup"
+          element={
+            <SignupPage />
           }
         />
         <Route

@@ -7,7 +7,7 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "lint": "eslint \"{src,apps,libs,test}/*/.ts\" --fix"
+    "lint": "eslint \"{src,apps,libs,test}/*/.ts,.tsx\" --fix"
   },
   "private": true,
   "dependencies": {
@@ -49,8 +49,8 @@
     "@types/react-dom": "18.0.6",
     "@types/react-is": "17.0.3",
     "@types/styled-components": "5.1.26",
-    "@typescript-eslint/eslint-plugin": "^5.36.1",
-    "@typescript-eslint/parser": "^5.36.1",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
     "babel-jest": "28.1.1",
     "babel-plugin-styled-components": "1.10.7",
     "cypress": "^10.7.0",
@@ -59,7 +59,7 @@
     "eslint-plugin-cypress": "^2.10.3",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsx-a11y": "6.6.1",
-    "eslint-plugin-react": "7.31.8",
+    "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "4.6.0",
     "husky": "^8.0.1",
     "jest": "28.1.1",

@@ -5,6 +5,9 @@ import { Form, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import "antd/dist/antd.css";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {setUser } from 'apps/freelance/src/redux/auth/auth-slice';
 
 import { StyledInput, StylesButton } from './styles';
 
@@ -19,16 +22,29 @@ const schema: yup.SchemaOf<Partial<FormValues>> = yup.object({
 });
 
 export function LoginForm() {
+
   const { t } = useTranslation();
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
   const { register, handleSubmit, formState } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
+
   const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
     form.resetFields();
-    alert(JSON.stringify(data));
+    dispatch(setUser({
+      email: data.email,
+      id: data.password,
+    }));
+    navigate('/');
   }
     
+  const goToSignup = () => {
+    navigate('/signup')
+  }
+
   return (
     <Form
       name="basic"
@@ -65,7 +81,7 @@ export function LoginForm() {
       </Form.Item>
       
       <Form.Item>
-        <Button type='link' htmlType="button">{t('loginPage.signUp')}</Button >
+        <Button type='link' htmlType="button" onClick={goToSignup}>{t('loginPage.signUp')}</Button >
         <Button type='link' htmlType="button">{t('loginPage.forgot_password')}</Button >
       </Form.Item>
     </Form>
