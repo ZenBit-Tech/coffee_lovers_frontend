@@ -69,8 +69,11 @@
     "typescript": "~4.8.2"
   },
   "lint-staged": {
-    "**/*.{ts,tsx,json}": [
+    "**/*.{ts,tsx}": [
       "eslint . --fix",
+      "prettier --write ."
+    ],
+    "**/*.{json}": [
       "prettier --write ."
     ]
   }

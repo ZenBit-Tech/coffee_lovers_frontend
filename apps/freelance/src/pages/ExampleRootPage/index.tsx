@@ -10,6 +10,7 @@ export default function ExampleRootPage() {
 
   const { data, error, isLoading } = useGetPokemonByNameQuery('bulbasaur');
   const awd = null;
+  const awadwd = null;
 
   return (
     <Wrapper>
