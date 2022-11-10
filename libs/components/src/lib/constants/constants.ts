@@ -8,13 +8,13 @@ export const profileQ1Descr = 'description';
 export const profileQ1Pos = 'position';
 export const profileQ1AvTime = 'available_time';
 export const profileQ1Edu = 'education';
-export const profileQ1EduInfo = 'information-about-education1';
+export const profileQ1EduInfo = 'information_about_education';
 export const profileQ1EduForm = 'education_from';
 export const profileQ1EduTo = 'education_to';
 export const profileQ1WorkHistoryWrapper = 'work_history_wrapper';
 export const profileQ1WorkHistory = 'work_history';
 export const profileQ1WorkFrom = 'work_from';
 export const profileQ1WorkTo = 'work_to';
-export const profileQ1SuffixUSDH = 'USD per hour';
+export const profileQ1HRMin = 0;
 
 export const prBarProfileQ2Per = 50;

@@ -14,14 +14,18 @@
       "profileQp1": {
         "pr_bar_completion_per": "20% completed",
         "hR": "Hourly Rate",
+        "hRPrefix": "$",
+        "hRSuffix": "USD per hour",
         "descr": "Description",
         "pos": "Position",
         "avTime": "Available Time",
         "edu": "Education",
         "workH": "Work history",
         "hPD": "Hours Per Day",
-        "infoEdu": "Information about education",
-        "infoWork": "Information about work history"
+        "infoEdu": "Info about education",
+        "infoWork": "Info about work history",
+        "from": "From",
+        "to": "To"
       },
       "profileQp2": {
         "pr_bar_completion_per": "50% completed"

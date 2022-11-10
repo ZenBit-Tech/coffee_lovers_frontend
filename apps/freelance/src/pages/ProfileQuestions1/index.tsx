@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { DatePicker, Form, Input, Select } from 'antd';
+import { DatePicker, Form, Input, Select, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 
 import {
   profileQ1AvTime,
@@ -11,8 +11,8 @@ import {
   profileQ1EduTo,
   profileQ1Form,
   profileQ1HR,
+  profileQ1HRMin,
   profileQ1Pos,
-  profileQ1SuffixUSDH,
   profileQ1WorkFrom,
   profileQ1WorkHistory,
   profileQ1WorkHistoryWrapper,
@@ -32,6 +32,12 @@ import {
   StFormItemDateTo,
   StTextAreaWork,
   StDatePickerWork,
+  StForm,
+  StUserIcon,
+  StUserAvatarWrapper,
+  StUserUpBtn,
+  StSubButton,
+  StInputNumber,
 } from './styles';
 
 const ProfileQuestions1 = () => {
@@ -43,7 +49,7 @@ const ProfileQuestions1 = () => {
       sm: { span: 2 },
     },
     wrapperCol: {
-      sm: { span: 6 },
+      sm: { span: 4 },
     },
   };
 
@@ -55,11 +61,19 @@ const ProfileQuestions1 = () => {
         strokeColor={prBarStrColor}
         trailColor={prBarTrailColor}
       />
-      <Form
+      <StUserAvatarWrapper>
+        <StUserIcon />
+        <Upload>
+          <StUserUpBtn icon={<UploadOutlined />}>
+            Upload Profile Photo
+          </StUserUpBtn>
+        </Upload>
+      </StUserAvatarWrapper>
+      <StForm
         name={profileQ1Form}
         {...formItemLayout}
         initialValues={{ remember: true }}
-        autoComplete="off"
+        autoComplete="on"
         labelAlign="left"
         requiredMark="optional"
       >
@@ -70,7 +84,11 @@ const ProfileQuestions1 = () => {
             { required: true, message: 'Please, input your hourly rate in $!' },
           ]}
         >
-          <DefInput prefix="$" suffix={profileQ1SuffixUSDH} />
+          <StInputNumber
+            prefix={t('description.profileQp1.hRPrefix')}
+            addonAfter={t('description.profileQp1.hRSuffix')}
+            min={profileQ1HRMin}
+          />
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.descr')}
@@ -79,11 +97,11 @@ const ProfileQuestions1 = () => {
             { required: true, message: 'Please, input your description!' },
           ]}
           wrapperCol={{
-            sm: { span: 16, offset: 0 },
+            sm: { span: 12, offset: 0 },
           }}
         >
           <StTextArea
-            placeholder={t('description.profileQp1.Descr')}
+            placeholder={t('description.profileQp1.descr')}
             allowClear
             rows={4}
           />
@@ -126,13 +144,19 @@ const ProfileQuestions1 = () => {
               name={profileQ1EduForm}
               rules={[{ required: true, message: 'Field is required' }]}
             >
-              <DatePicker picker="year" />
+              <DatePicker
+                placeholder={t('description.profileQp1.from')}
+                picker="year"
+              />
             </StFormItemDateFrom>
             <StFormItemDateTo
               name={profileQ1EduTo}
               rules={[{ required: true, message: 'Field is required' }]}
             >
-              <DatePicker picker="year" />
+              <DatePicker
+                placeholder={t('description.profileQp1.to')}
+                picker="year"
+              />
             </StFormItemDateTo>
           </Input.Group>
         </Form.Item>
@@ -163,21 +187,38 @@ const ProfileQuestions1 = () => {
             rules={[{ required: true, message: 'Field is required' }]}
             noStyle
           >
-            <StDatePickerWork picker="year" />
+            <StDatePickerWork
+              placeholder={t('description.profileQp1.from')}
+              picker="year"
+            />
           </StFormItemDateTo>
           <StFormItemDateTo
             name={profileQ1WorkTo}
             rules={[{ required: true, message: 'Field is required' }]}
             noStyle
           >
-            <StDatePickerWork picker="year" />
+            <StDatePickerWork
+              placeholder={t('description.profileQp1.to')}
+              picker="year"
+            />
           </StFormItemDateTo>
         </Form.Item>
-      </Form>
-
-      <Link to="/profile-questions-2">
-        {t('description.router.toProfileQuestions2')}
-      </Link>
+        <Form.Item
+          wrapperCol={{
+            sm: { span: 20, offset: 2 },
+            lg: { span: 3, offset: 15 },
+          }}
+        >
+          <StSubButton
+            href="/profile-questions-2"
+            size="large"
+            type="primary"
+            htmlType="submit"
+          >
+            {t('description.router.toProfileQuestions2')}
+          </StSubButton>
+        </Form.Item>
+      </StForm>
     </Wrapper>
   );
 };
