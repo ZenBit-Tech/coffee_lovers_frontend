@@ -1,7 +1,9 @@
 import { lazy } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
-import { Wrapper } from './styles';
 import { useTranslation } from 'react-i18next';
+import PasswordResetRequest from '@pages/PasswordResetRequest';
+import PasswordReset from '@pages/PasswordReset';
+import { Wrapper } from './styles';
 
 const ExampleRootPage = lazy(
   () =>
@@ -23,6 +25,8 @@ export function App() {
             </Wrapper>
           }
         />
+        <Route path='/passwordreset' element={<PasswordResetRequest />}/>
+        <Route path='/passwordreset/:key' element={<PasswordReset/>}/>
       </Routes>
     </Wrapper>
   );
