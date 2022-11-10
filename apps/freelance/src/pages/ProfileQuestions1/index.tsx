@@ -3,28 +3,12 @@ import { DatePicker, Form, Input, Select, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 import {
-  profileQ1AvTime,
-  profileQ1Descr,
-  profileQ1Edu,
-  profileQ1EduForm,
-  profileQ1EduInfo,
-  profileQ1EduTo,
-  profileQ1Form,
-  profileQ1HR,
-  profileQ1HRMin,
-  profileQ1Pos,
-  profileQ1WorkFrom,
-  profileQ1WorkHistory,
-  profileQ1WorkHistoryWrapper,
-  profileQ1WorkTo,
+  profileQ1,
   ProgressBar,
-} from '@freelance/components';
-import { DefInput } from '@freelance/components';
-import {
   prBarStrColor,
   prBarTrailColor,
-  prBarProfileQ1Per,
 } from '@freelance/components';
+import { DefInput } from '@freelance/components';
 import {
   Wrapper,
   StTextArea,
@@ -57,7 +41,7 @@ const ProfileQuestions1 = () => {
     <Wrapper>
       <div>{t('description.profileQp1.pr_bar_completion_per')}</div>
       <ProgressBar
-        percent={prBarProfileQ1Per}
+        percent={profileQ1.prBarProfileQ1Per}
         strokeColor={prBarStrColor}
         trailColor={prBarTrailColor}
       />
@@ -70,7 +54,7 @@ const ProfileQuestions1 = () => {
         </Upload>
       </StUserAvatarWrapper>
       <StForm
-        name={profileQ1Form}
+        name={profileQ1.profileQ1Form}
         {...formItemLayout}
         initialValues={{ remember: true }}
         autoComplete="on"
@@ -79,7 +63,7 @@ const ProfileQuestions1 = () => {
       >
         <Form.Item
           label={t('description.profileQp1.hR')}
-          name={profileQ1HR}
+          name={profileQ1.profileQ1HR}
           rules={[
             { required: true, message: 'Please, input your hourly rate in $!' },
           ]}
@@ -87,12 +71,12 @@ const ProfileQuestions1 = () => {
           <StInputNumber
             prefix={t('description.profileQp1.hRPrefix')}
             addonAfter={t('description.profileQp1.hRSuffix')}
-            min={profileQ1HRMin}
+            min={profileQ1.profileQ1HRMin}
           />
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.descr')}
-          name={profileQ1Descr}
+          name={profileQ1.profileQ1Descr}
           rules={[
             { required: true, message: 'Please, input your description!' },
           ]}
@@ -108,14 +92,14 @@ const ProfileQuestions1 = () => {
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.pos')}
-          name={profileQ1Pos}
+          name={profileQ1.profileQ1Pos}
           rules={[{ required: true, message: 'Please, input your position!' }]}
         >
           <DefInput placeholder={t('description.profileQp1.pos')} />
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.avTime')}
-          name={profileQ1AvTime}
+          name={profileQ1.profileQ1AvTime}
           rules={[{ required: true, message: 'Please, input hours per day!' }]}
         >
           <Select placeholder={t('description.profileQp1.hPD')} allowClear>
@@ -126,14 +110,14 @@ const ProfileQuestions1 = () => {
         <Form.Item
           label={t('description.profileQp1.edu')}
           rules={[{ required: true, message: 'Education is required' }]}
-          name={profileQ1Edu}
+          name={profileQ1.profileQ1Edu}
           wrapperCol={{
             sm: { span: 24, offset: 0 },
           }}
         >
           <Input.Group compact>
             <Form.Item
-              name={profileQ1EduInfo}
+              name={profileQ1.profileQ1EduInfo}
               rules={[
                 { required: true, message: 'Education field is required' },
               ]}
@@ -141,7 +125,7 @@ const ProfileQuestions1 = () => {
               <DefInput placeholder={t('description.profileQp1.infoEdu')} />
             </Form.Item>
             <StFormItemDateFrom
-              name={profileQ1EduForm}
+              name={profileQ1.profileQ1EduForm}
               rules={[{ required: true, message: 'Field is required' }]}
             >
               <DatePicker
@@ -150,7 +134,7 @@ const ProfileQuestions1 = () => {
               />
             </StFormItemDateFrom>
             <StFormItemDateTo
-              name={profileQ1EduTo}
+              name={profileQ1.profileQ1EduTo}
               rules={[{ required: true, message: 'Field is required' }]}
             >
               <DatePicker
@@ -162,14 +146,14 @@ const ProfileQuestions1 = () => {
         </Form.Item>
         <Form.Item
           label="Work history"
-          name={profileQ1WorkHistoryWrapper}
+          name={profileQ1.profileQ1WorkHistoryWrapper}
           rules={[{ required: true, message: 'Work history is required' }]}
           wrapperCol={{
             sm: { span: 24, offset: 0 },
           }}
         >
           <Form.Item
-            name={profileQ1WorkHistory}
+            name={profileQ1.profileQ1WorkHistory}
             rules={[
               { required: true, message: 'Work history field is required' },
             ]}
@@ -183,7 +167,7 @@ const ProfileQuestions1 = () => {
             />
           </Form.Item>
           <StFormItemDateTo
-            name={profileQ1WorkFrom}
+            name={profileQ1.profileQ1WorkFrom}
             rules={[{ required: true, message: 'Field is required' }]}
             noStyle
           >
@@ -193,7 +177,7 @@ const ProfileQuestions1 = () => {
             />
           </StFormItemDateTo>
           <StFormItemDateTo
-            name={profileQ1WorkTo}
+            name={profileQ1.profileQ1WorkTo}
             rules={[{ required: true, message: 'Field is required' }]}
             noStyle
           >
