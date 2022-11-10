@@ -1,12 +1,13 @@
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ExampleButton } from '@freelance/components';
-import { Wrapper, Title, Text } from './styles';
-
 import { useGetPokemonByNameQuery } from 'redux/services/pokemon';
-import { useTranslation } from 'react-i18next';
+
+import { Text, Title, Wrapper } from './styles';
 
 export default function ExampleRootPage() {
   const { t } = useTranslation();
+
   const { data, error, isLoading } = useGetPokemonByNameQuery('bulbasaur');
 
   return (
