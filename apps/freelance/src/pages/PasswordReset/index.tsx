@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Controller, useForm, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { confirmName, passwordName } from './constants';
+import { confirmName, passwordName, passwordValidationRegExp } from './constants';
 import { Wrapper } from './styles';
 
 type Inputs = {
@@ -39,7 +39,7 @@ const PasswordReset = () => {
                 message: `${t('resetPassword.validation.noPassword')}`
               },
               {
-                pattern: new RegExp(/(?![.\n])(?=.*[A-Z])(?=.*[a-z]).{5,}.*$/),
+                pattern: passwordValidationRegExp,
                 message: `${t('resetPassword.validation.passwordRegExp')}`
               },
             ]}
