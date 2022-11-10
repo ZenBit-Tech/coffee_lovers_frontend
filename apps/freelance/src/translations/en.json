@@ -11,9 +11,26 @@
         "redux_hook_form": "This is the example of redux-hook-form",
         "pokemon": "We invited <0>{user}</0>."
       },
+      "profileQp1": {
+        "pr_bar_completion_per": "20% completed",
+        "hR": "Hourly Rate",
+        "descr": "Description",
+        "pos": "Position",
+        "avTime": "Available Time",
+        "edu": "Education",
+        "workH": "Work history",
+        "hPD": "Hours Per Day",
+        "infoEdu": "Information about education",
+        "infoWork": "Information about work history"
+      },
+      "profileQp2": {
+        "pr_bar_completion_per": "50% completed"
+      },
       "router": {
         "toPage2": "Click here for page 2.",
         "toRoot": "Click here to go back to root page.",
+        "toProfileQuestions1": "Create portfolio",
+        "toProfileQuestions2": "Continue",
         "owner": { "title": "This is owner route" }
       },
       "some-element": {

@@ -4,6 +4,10 @@ import { Link, Route, Routes } from 'react-router-dom';
 
 import { Wrapper } from './styles';
 
+import ProfileQuestions1 from '@pages/ProfileQuestions1';
+import ProfileQuestions2 from '@pages/ProfileQuestions2';
+import { Wrapper } from './styles';
+
 const ExampleRootPage = lazy(
   () =>
     import(
@@ -34,6 +38,8 @@ export function App() {
             </Wrapper>
           }
         />
+        <Route path="/profile-questions-1" element={<ProfileQuestions1 />} />
+        <Route path="/profile-questions-2" element={<ProfileQuestions2 />} />
       </Routes>
     </Wrapper>
   );

@@ -1,0 +1,5 @@
+package.json
+.eslintrc.*
+apps/freelance/tsconfig.json
+apps/freelance/src/translations/en.json
+
