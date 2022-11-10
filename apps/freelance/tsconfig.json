@@ -11,7 +11,12 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@freelance/components": ["../../libs/components/src/index.ts"],
+      "redux/*": ["src/redux/*"]
+    }
   },
   "files": [],
   "include": [],

@@ -5,7 +5,9 @@ import { useTranslation } from 'react-i18next';
 
 const ExampleRootPage = lazy(
   () =>
-    import(/* webpackChunkName: "ExampleRootPage" */ '../pages/ExampleRootPage')
+    import(
+      /* webpackChunkName: "ExampleRootPage" */ '../pages/ExampleRootPage'
+    ),
 );
 
 export function App() {

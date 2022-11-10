@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ExampleButton } from '@freelance/components';
 import { Wrapper, Title, Text } from './styles';
 
-import { useGetPokemonByNameQuery } from '@redux-freelance/services/pokemon';
+import { useGetPokemonByNameQuery } from 'redux/services/pokemon';
 import { useTranslation } from 'react-i18next';
 
 export default function ExampleRootPage() {
@@ -15,6 +15,7 @@ export default function ExampleRootPage() {
       <h2>{t('description.welcome_to_react')}</h2>
       <Text>{t('description.reusable_component')}</Text>
       <Text>{t('learnReact')}</Text>
+
       <ExampleButton
         border="none"
         color="pink"
