@@ -30,7 +30,11 @@
         "toPage2": "Click here for page 2.",
         "toRoot": "Click here to go back to root page.",
         "toProfileQuestions1": "Create portfolio",
-        "toProfileQuestions2": "Continue"
+        "toProfileQuestions2": "Continue",
+        "owner": { "title": "This is owner route" }
+      },
+      "some-element": {
+        "title": "This is some-element"
       }
     }
   }
