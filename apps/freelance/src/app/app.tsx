@@ -1,6 +1,6 @@
 import { lazy } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Link, Route, Routes } from 'react-router-dom';
 
 import ProfileQuestions1 from '@pages/ProfileQuestions1';
 import ProfileQuestions2 from '@pages/ProfileQuestions2';
@@ -13,6 +13,13 @@ const ExampleRootPage = lazy(
     ),
 );
 
+const OwnerProfilePage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "ExampleRootPage" */ '../pages/OwnerProfilePage'
+    ),
+);
+
 export function App() {
   const { t } = useTranslation();
 
@@ -20,6 +27,7 @@ export function App() {
     <Wrapper>
       <Routes>
         <Route path="/" element={<ExampleRootPage />} />
+        <Route path="/owner-profile" element={<OwnerProfilePage />} />
         <Route
           path="/page-2"
           element={
