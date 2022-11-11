@@ -1,5 +1,5 @@
-import { Input } from 'antd';
 import { ReactNode } from 'react';
+import { Input } from 'antd';
 
 import { StyledInput } from './styles';
 

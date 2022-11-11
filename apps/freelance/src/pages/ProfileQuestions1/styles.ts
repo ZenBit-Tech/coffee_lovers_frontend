@@ -1,5 +1,5 @@
+import { DatePicker, Form, Input } from 'antd';
 import styled from 'styled-components';
-import { Input, Form, DatePicker } from 'antd';
 
 const { TextArea } = Input;
 
