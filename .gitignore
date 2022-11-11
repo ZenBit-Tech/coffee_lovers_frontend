@@ -11,6 +11,7 @@ node_modules
 # IDEs and editors
 /.idea
 .env
+.eslintcache
 .project
 .classpath
 .c9/
