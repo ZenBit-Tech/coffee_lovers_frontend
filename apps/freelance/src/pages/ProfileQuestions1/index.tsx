@@ -42,7 +42,7 @@ const ProfileQuestions1 = () => {
   };
 
   const onFinish: SubmitHandler<IProfileQuestions1> = values => {
-    console.log('Received values of form: ', values);
+    alert(`description is: ${values.description}`);
   };
 
   return (
