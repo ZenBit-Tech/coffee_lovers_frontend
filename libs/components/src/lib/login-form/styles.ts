@@ -1,6 +1,5 @@
-import styled from 'styled-components';
 import { Button } from 'antd';
-import { color } from 'libs/components/styles/styles';
+import styled from 'styled-components';
 
 export const StyledExampleButton = styled.button`
   color: black;
@@ -11,22 +10,19 @@ export const StyledInput = styled.input`
   width: 100%;
   padding: 10px;
   border-radius: 5px;
-  border-color: ${color.grey};
+  border-color: var(--grey);
 
-  :hover{
-    border-color: ${color.blue};
-  }
-
-  :focus{
+  :hover,
+  :focus {
     outline: none;
-    border-color: ${color.blue};
+    border-color: var(--blue);
   }
 `;
 
 export const StylesButton = styled(Button)`
-border-radius: 5px;
+  border-radius: 5px;
 
-:hover{
-  background-color: ${color.blue};
-}
+  :hover {
+    background-color: var(--blue);
+  }
 `;

@@ -1,16 +1,17 @@
 import * as React from 'react';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Form, Button } from 'antd';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import "antd/dist/antd.css";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useLoginUserMutation } from 'apps/freelance/src/redux/auth/auth-slice';
-// import { setUser } from 'apps/freelance/src/redux/auth/auth-slice';
+import { useNavigate } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useLoginUserMutation } from '@src/redux/auth/auth-api';
+import { setUser } from '@src/redux/auth/auth-slice';
+import { Button, Form } from 'antd';
+import * as yup from 'yup';
 
 import { StyledInput, StylesButton } from './styles';
+
+import 'antd/dist/antd.css';
 
 type FormValues = {
   email: string;
@@ -22,47 +23,36 @@ const schema: yup.SchemaOf<Partial<FormValues>> = yup.object({
   password: yup.string().required(),
 });
 
-export function LoginForm() {
-
+export const LoginForm = () => {
   const { t } = useTranslation();
-  const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loginUser, {data: loginData, isSuccess, isError, error: loginError}] = useLoginUserMutation();
-  
+  const [loginUser, { data: loginData }] = useLoginUserMutation();
+
   const { register, handleSubmit, formState } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    
-    if (data.email && data.password) {
+    try {
+      if (data.email && data.password) {
         const email = data.email;
-      const password = data.password;
-      await loginUser({ email, password });
+        const password = data.password;
+        await loginUser({ email, password });
+        dispatch(setUser({ name: loginData.email, token: loginData.token }));
+      }
+    } catch (error) {
+      alert('Something went wrong...');
     }
-    else {
-      console.log("Sorry, but no...")
-    }
-    form.resetFields();
-  }
+  };
 
-  React.useEffect(() => {
-
-    if (isSuccess) {
-      alert("Bravo!!!");
-      navigate('/');
-    }
-  }, [isSuccess])
-    
   const goToSignup = () => {
-    navigate('/signup')
-  }
+    navigate('/signup');
+  };
 
   return (
     <Form
       name="basic"
-      form={form}
       wrapperCol={{ span: 8 }}
       onFinish={handleSubmit(onSubmit)}
     >
@@ -71,33 +61,35 @@ export function LoginForm() {
           type="email"
           id="email-field"
           placeholder={t('loginPage.loginPage_email')}
-          {...register("email")}
+          {...register('email')}
         />
-         {formState?.errors?.email && (<p>{t('loginPage.email_error')}</p>)}
-
+        {formState?.errors?.email && <p>{t('loginPage.email_error')}</p>}
       </Form.Item>
-     
+
       <Form.Item>
         <StyledInput
           type="password"
           id="password-field"
           placeholder={t('loginPage.loginPage_password')}
-          {...register("password")}
+          {...register('password')}
         />
-        {formState?.errors?.password && (<p>{t('loginPage.password_error')}</p>)}
+        {formState?.errors?.password && <p>{t('loginPage.password_error')}</p>}
+      </Form.Item>
 
-      </Form.Item>
-      
       <Form.Item>
-        <StylesButton size='large' type='primary' block htmlType="submit" >
+        <StylesButton size="large" type="primary" block htmlType="submit">
           {t('loginPage.loginPage_name')}
-        </StylesButton >
+        </StylesButton>
       </Form.Item>
-      
+
       <Form.Item>
-        <Button type='link' htmlType="button" onClick={goToSignup}>{t('loginPage.signUp')}</Button >
-        <Button type='link' htmlType="button">{t('loginPage.forgot_password')}</Button >
+        <Button type="link" htmlType="button" onClick={goToSignup}>
+          {t('loginPage.signUp')}
+        </Button>
+        <Button type="link" htmlType="button">
+          {t('loginPage.forgot_password')}
+        </Button>
       </Form.Item>
     </Form>
   );
-}
+};

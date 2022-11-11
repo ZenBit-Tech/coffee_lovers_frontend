@@ -1,7 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { DatePicker, Form, Input, Select } from 'antd';
-
 import {
   profileQ1AvTime,
   profileQ1Descr,
@@ -21,17 +19,19 @@ import {
 } from '@freelance/components';
 import { DefInput } from '@freelance/components';
 import {
+  prBarProfileQ1Per,
   prBarStrColor,
   prBarTrailColor,
-  prBarProfileQ1Per,
 } from '@freelance/components';
+import { DatePicker, Form, Input, Select } from 'antd';
+
 import {
-  Wrapper,
-  StTextArea,
+  StDatePickerWork,
   StFormItemDateFrom,
   StFormItemDateTo,
+  StTextArea,
   StTextAreaWork,
-  StDatePickerWork,
+  Wrapper,
 } from './styles';
 
 const ProfileQuestions1 = () => {
