@@ -1,13 +1,25 @@
 import { lazy } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import PasswordResetRequest from '@pages/PasswordResetRequest';
+import { Link, Route, Routes } from 'react-router-dom';
 import PasswordReset from '@pages/PasswordReset';
+import PasswordResetRequest from '@pages/PasswordResetRequest';
+import ProfileQuestions1 from '@pages/ProfileQuestions1';
+import ProfileQuestions2 from '@pages/ProfileQuestions2';
+
 import { Wrapper } from './styles';
 
 const ExampleRootPage = lazy(
   () =>
-    import(/* webpackChunkName: "ExampleRootPage" */ '../pages/ExampleRootPage')
+    import(
+      /* webpackChunkName: "ExampleRootPage" */ '../pages/ExampleRootPage'
+    ),
+);
+
+const OwnerProfilePage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "ExampleRootPage" */ '../pages/OwnerProfilePage'
+    ),
 );
 
 export function App() {
@@ -17,6 +29,7 @@ export function App() {
     <Wrapper>
       <Routes>
         <Route path="/" element={<ExampleRootPage />} />
+        <Route path="/owner-profile" element={<OwnerProfilePage />} />
         <Route
           path="/page-2"
           element={
@@ -25,8 +38,10 @@ export function App() {
             </Wrapper>
           }
         />
-        <Route path='/passwordreset' element={<PasswordResetRequest />}/>
-        <Route path='/passwordreset/:key' element={<PasswordReset/>}/>
+        <Route path="/profile-questions-1" element={<ProfileQuestions1 />} />
+        <Route path="/profile-questions-2" element={<ProfileQuestions2 />} />
+        <Route path="/passwordreset" element={<PasswordResetRequest />} />
+        <Route path="/passwordreset/:key" element={<PasswordReset />} />
       </Routes>
     </Wrapper>
   );
