@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { infoFontSize } from './constants';
 
 export const Wrapper = styled.div`
@@ -10,9 +11,9 @@ export const Wrapper = styled.div`
 
 export const StyledInfo = styled.p`
   font-size: ${infoFontSize};
-`
+`;
 
 export const StyledEmail = styled.p`
   align-self: center;
   font-size: ${infoFontSize};
-`
+`;
