@@ -1,27 +1,27 @@
 import { useTranslation } from 'react-i18next';
-import { DatePicker, Form, Input, Select, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-
 import {
-  profileQ1,
-  ProgressBar,
   prBarStrColor,
   prBarTrailColor,
+  profileQ1,
+  ProgressBar,
 } from '@freelance/components';
 import { DefInput } from '@freelance/components';
+import { DatePicker, Form, Input, Select, Upload } from 'antd';
+
 import {
-  Wrapper,
-  StTextArea,
-  StFormItemDateFrom,
-  StFormItemDateTo,
-  StTextAreaWork,
   StDatePickerWork,
   StForm,
-  StUserIcon,
-  StUserAvatarWrapper,
-  StUserUpBtn,
-  StSubButton,
+  StFormItemDateFrom,
+  StFormItemDateTo,
   StInputNumber,
+  StSubButton,
+  StTextArea,
+  StTextAreaWork,
+  StUserAvatarWrapper,
+  StUserIcon,
+  StUserUpBtn,
+  Wrapper,
 } from './styles';
 
 const ProfileQuestions1 = () => {

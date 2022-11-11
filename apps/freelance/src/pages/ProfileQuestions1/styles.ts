@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import { Input, Form, DatePicker, Button, InputNumber } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-
 import { prBarStrColor } from '@freelance/components';
+import { Button, DatePicker, Form, Input, InputNumber } from 'antd';
+import styled from 'styled-components';
 
 const { TextArea } = Input;
 
