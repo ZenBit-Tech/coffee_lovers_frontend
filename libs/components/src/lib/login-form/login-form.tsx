@@ -7,7 +7,8 @@ import "antd/dist/antd.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUser } from 'apps/freelance/src/redux/auth/auth-slice';
+import { useLoginUserMutation } from 'apps/freelance/src/redux/auth/auth-slice';
+// import { setUser } from 'apps/freelance/src/redux/auth/auth-slice';
 
 import { StyledInput, StylesButton } from './styles';
 
@@ -27,20 +28,32 @@ export function LoginForm() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loginUser, {data: loginData, isSuccess, isError, error: loginError}] = useLoginUserMutation();
   
   const { register, handleSubmit, formState } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
-
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    
+    if (data.email && data.password) {
+        const email = data.email;
+      const password = data.password;
+      await loginUser({ email, password });
+    }
+    else {
+      console.log("Sorry, but no...")
+    }
     form.resetFields();
-    dispatch(setUser({
-      email: data.email,
-      id: data.password,
-    }));
-    navigate('/');
   }
+
+  React.useEffect(() => {
+
+    if (isSuccess) {
+      alert("Bravo!!!");
+      navigate('/');
+    }
+  }, [isSuccess])
     
   const goToSignup = () => {
     navigate('/signup')
