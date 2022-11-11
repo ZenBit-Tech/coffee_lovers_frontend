@@ -12,6 +12,7 @@ export function GoogleLoginButton() {
       <GoogleLogin
         onSuccess={async (credentialResponse) => {
           const response = await addUser(credentialResponse);
+          console.log(response);
           navigate('/');
         }}
         onError={() => {
