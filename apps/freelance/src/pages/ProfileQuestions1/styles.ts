@@ -12,6 +12,9 @@ export const Wrapper = styled.div`
 `;
 
 export const StForm = styled(Form)`
+  .ant-form-item-label > label .ant-form-item-optional {
+    display: none;
+  }
   @media (max-width: 770px) and (min-width: 575px) {
     .ant-form-item-label > label {
       font-size: 10px;

@@ -1,3 +1,4 @@
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { UploadOutlined } from '@ant-design/icons';
 import {
@@ -9,6 +10,7 @@ import {
 import { DefInput } from '@freelance/components';
 import { DatePicker, Form, Input, Select, Upload } from 'antd';
 
+import { IProfileQuestions1 } from './model';
 import {
   StDatePickerWork,
   StForm,
@@ -26,6 +28,8 @@ import {
 
 const ProfileQuestions1 = () => {
   const { t } = useTranslation();
+  const { handleSubmit } = useForm<IProfileQuestions1>();
+
   const { Option } = Select;
 
   const formItemLayout = {
@@ -35,6 +39,10 @@ const ProfileQuestions1 = () => {
     wrapperCol: {
       sm: { span: 4 },
     },
+  };
+
+  const onFinish: SubmitHandler<IProfileQuestions1> = values => {
+    console.log('Received values of form: ', values);
   };
 
   return (
@@ -60,6 +68,9 @@ const ProfileQuestions1 = () => {
         autoComplete="on"
         labelAlign="left"
         requiredMark="optional"
+        onFinish={values =>
+          handleSubmit(onFinish(values as IProfileQuestions1))
+        }
       >
         <Form.Item
           label={t('description.profileQp1.hR')}
@@ -109,15 +120,13 @@ const ProfileQuestions1 = () => {
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.edu')}
-          rules={[{ required: true, message: 'Education is required' }]}
-          name={profileQ1.profileQ1Edu}
           wrapperCol={{
             sm: { span: 24, offset: 0 },
           }}
         >
           <Input.Group compact>
             <Form.Item
-              name={profileQ1.profileQ1EduInfo}
+              name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduInfo]}
               rules={[
                 { required: true, message: 'Education field is required' },
               ]}
@@ -125,7 +134,7 @@ const ProfileQuestions1 = () => {
               <DefInput placeholder={t('description.profileQp1.infoEdu')} />
             </Form.Item>
             <StFormItemDateFrom
-              name={profileQ1.profileQ1EduForm}
+              name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduForm]}
               rules={[{ required: true, message: 'Field is required' }]}
             >
               <DatePicker
@@ -134,7 +143,7 @@ const ProfileQuestions1 = () => {
               />
             </StFormItemDateFrom>
             <StFormItemDateTo
-              name={profileQ1.profileQ1EduTo}
+              name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduTo]}
               rules={[{ required: true, message: 'Field is required' }]}
             >
               <DatePicker
@@ -146,14 +155,15 @@ const ProfileQuestions1 = () => {
         </Form.Item>
         <Form.Item
           label="Work history"
-          name={profileQ1.profileQ1WorkHistoryWrapper}
-          rules={[{ required: true, message: 'Work history is required' }]}
           wrapperCol={{
             sm: { span: 24, offset: 0 },
           }}
         >
           <Form.Item
-            name={profileQ1.profileQ1WorkHistory}
+            name={[
+              profileQ1.profileQ1WorkHistoryWrapper,
+              profileQ1.profileQ1WorkHistory,
+            ]}
             rules={[
               { required: true, message: 'Work history field is required' },
             ]}
@@ -167,7 +177,10 @@ const ProfileQuestions1 = () => {
             />
           </Form.Item>
           <StFormItemDateTo
-            name={profileQ1.profileQ1WorkFrom}
+            name={[
+              profileQ1.profileQ1WorkHistoryWrapper,
+              profileQ1.profileQ1WorkFrom,
+            ]}
             rules={[{ required: true, message: 'Field is required' }]}
             noStyle
           >
@@ -177,7 +190,10 @@ const ProfileQuestions1 = () => {
             />
           </StFormItemDateTo>
           <StFormItemDateTo
-            name={profileQ1.profileQ1WorkTo}
+            name={[
+              profileQ1.profileQ1WorkHistoryWrapper,
+              profileQ1.profileQ1WorkTo,
+            ]}
             rules={[{ required: true, message: 'Field is required' }]}
             noStyle
           >
@@ -194,7 +210,7 @@ const ProfileQuestions1 = () => {
           }}
         >
           <StSubButton
-            href="/profile-questions-2"
+            // href="/profile-questions-2"
             size="large"
             type="primary"
             htmlType="submit"
