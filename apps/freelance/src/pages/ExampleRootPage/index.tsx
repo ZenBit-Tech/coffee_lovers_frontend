@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ExampleButton } from '@freelance/components';
 import { useGetPokemonByNameQuery } from 'redux/services/pokemon';
+
 import { Text, Title, Wrapper } from './styles';
 
 export default function ExampleRootPage() {

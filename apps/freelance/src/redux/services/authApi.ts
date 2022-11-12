@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 import * as Constants from '../constants';
 
 export const authApi = createApi({
@@ -6,9 +7,9 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${Constants.BACK_PROTO}://${Constants.BACK_HOST}:${Constants.BACK_PORT}/auth`,
   }),
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     addUserGoogle: builder.mutation({
-      query: (post) => ({
+      query: post => ({
         url: `/google`,
         method: 'POST',
         body: post,

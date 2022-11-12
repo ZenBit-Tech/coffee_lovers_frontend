@@ -1,6 +1,7 @@
-import { GoogleLogin } from '@react-oauth/google';
-import { useAddUserGoogleMutation } from '@redux-freelance/services/authApi';
 import { useNavigate } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
+import { useAddUserGoogleMutation } from 'redux/services/authApi';
+
 import { ButtonContainer } from './styles';
 
 export function GoogleLoginButton() {
@@ -10,7 +11,7 @@ export function GoogleLoginButton() {
   return (
     <ButtonContainer>
       <GoogleLogin
-        onSuccess={async (credentialResponse) => {
+        onSuccess={async credentialResponse => {
           const response = await addUser(credentialResponse);
           console.log(response);
           navigate('/');

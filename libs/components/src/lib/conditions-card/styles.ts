@@ -1,5 +1,5 @@
+import { Button, Card } from 'antd';
 import styled from 'styled-components';
-import { Card, Button } from 'antd';
 
 export const CardWrapper = styled.div`
   width: max-content;

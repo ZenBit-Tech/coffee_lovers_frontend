@@ -1,8 +1,10 @@
-import 'antd/dist/antd.css';
-import { CardWrapper, NewCard, NewButton } from './styles';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import React, { useEffect, useState, useMemo, ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { CardWrapper, NewButton, NewCard } from './styles';
+
+import 'antd/dist/antd.css';
 
 export function ConditionsCard(): ReactElement {
   const navigate = useNavigate();
@@ -21,9 +23,9 @@ export function ConditionsCard(): ReactElement {
     const observer = useMemo(
       () =>
         new IntersectionObserver(([entry]) =>
-          setIsIntersecting(entry.isIntersecting)
+          setIsIntersecting(entry.isIntersecting),
         ),
-      []
+      [],
     );
     useEffect(() => {
       observer.observe(end.current as HTMLElement);
