@@ -1,11 +1,10 @@
+import { BACK_HOST, BACK_PORT, BACK_PROTO } from '@freelance/components';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-import * as Constants from '../constants';
 
 export const authApi = createApi({
   reducerPath: 'authReducer',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${Constants.BACK_PROTO}://${Constants.BACK_HOST}:${Constants.BACK_PORT}/auth`,
+    baseUrl: `${BACK_PROTO}://${BACK_HOST}:${BACK_PORT}/auth`,
   }),
   endpoints: builder => ({
     addUserGoogle: builder.mutation({

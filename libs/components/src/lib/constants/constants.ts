@@ -18,3 +18,7 @@ export const profileQ1WorkTo = 'work_to';
 export const profileQ1SuffixUSDH = 'USD per hour';
 
 export const prBarProfileQ2Per = 50;
+
+export const BACK_HOST = 'localhost';
+export const BACK_PORT = '3000';
+export const BACK_PROTO = 'http';
