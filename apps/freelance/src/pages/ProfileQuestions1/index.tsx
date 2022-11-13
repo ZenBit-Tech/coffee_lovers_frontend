@@ -9,6 +9,7 @@ import {
 } from '@freelance/components';
 import { DefInput } from '@freelance/components';
 import { DatePicker, Form, Input, Select, Upload } from 'antd';
+import { useAddprofileQuestions1DataMutation } from 'redux/profileQuestions/profileQuestions1Api';
 
 import { IProfileQuestions1 } from './model';
 import {
@@ -29,6 +30,8 @@ import {
 const ProfileQuestions1 = () => {
   const { t } = useTranslation();
   const { handleSubmit } = useForm<IProfileQuestions1>();
+  const [form] = Form.useForm();
+  const [AddprofileQuestions1Data] = useAddprofileQuestions1DataMutation();
 
   const { Option } = Select;
 
@@ -41,8 +44,45 @@ const ProfileQuestions1 = () => {
     },
   };
 
-  const onFinish: SubmitHandler<IProfileQuestions1> = values => {
-    alert(`description is: ${values.description}`);
+  const onFinish: SubmitHandler<IProfileQuestions1> = async values => {
+    try {
+      if (values) {
+        const jsonedValues = JSON.parse(JSON.stringify(values));
+        const availableTime = jsonedValues.available_time;
+        const description = jsonedValues.description;
+        const hourlyRate = jsonedValues.hourly_rate;
+        const position = jsonedValues.position;
+        const educationDescr =
+          jsonedValues.education.information_about_education;
+        const educationFrom = jsonedValues.education.education_from.substring(
+          0,
+          4,
+        );
+        const educationTo = jsonedValues.education.education_to.substring(0, 4);
+        const workHistoryDescr = jsonedValues.work_history_wrapper.work_history;
+        const workHistoryFrom =
+          jsonedValues.work_history_wrapper.work_from.substring(0, 4);
+        const workHistoryTo =
+          jsonedValues.work_history_wrapper.work_to.substring(0, 4);
+        alert(JSON.stringify(values));
+
+        await AddprofileQuestions1Data({
+          available_time: availableTime,
+          description: description,
+          hourly_rate: hourlyRate,
+          position: position,
+          education_descr: educationDescr,
+          education_from: educationFrom,
+          education_to: educationTo,
+          work_history_descr: workHistoryDescr,
+          work_history_from: workHistoryFrom,
+          work_history_to: workHistoryTo,
+        });
+        form.resetFields();
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -66,6 +106,7 @@ const ProfileQuestions1 = () => {
         {...formItemLayout}
         initialValues={{ remember: true }}
         autoComplete="on"
+        form={form}
         labelAlign="left"
         requiredMark="optional"
         onFinish={values =>
@@ -209,12 +250,7 @@ const ProfileQuestions1 = () => {
             lg: { span: 3, offset: 15 },
           }}
         >
-          <StSubButton
-            // href="/profile-questions-2"
-            size="large"
-            type="primary"
-            htmlType="submit"
-          >
+          <StSubButton size="large" type="primary" htmlType="submit">
             {t('description.router.toProfileQuestions2')}
           </StSubButton>
         </Form.Item>
