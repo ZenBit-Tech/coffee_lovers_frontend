@@ -4,28 +4,15 @@ import {
   FLUSH,
   PAUSE,
   PERSIST,
-  persistReducer,
   persistStore,
   PURGE,
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 
 import { authApi } from './auth/auth-api';
-import { authReducer } from './auth/auth-slice';
+import { authReducer, persistedAuthReducer } from './auth/auth-slice';
 import { pokemonApi } from './services/pokemon';
-
-const authPersistConfig = {
-  key: 'user',
-  storage,
-  whitelist: ['access_token'],
-};
-
-export const persistedAuthReducer = persistReducer(
-  authPersistConfig,
-  authApi.reducer,
-);
 
 export const store = configureStore({
   reducer: {
@@ -33,7 +20,6 @@ export const store = configureStore({
     [authApi.reducerPath]: persistedAuthReducer,
     user: authReducer,
   },
-
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {

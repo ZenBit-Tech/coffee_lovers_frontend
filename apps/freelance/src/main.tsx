@@ -21,7 +21,7 @@ root.render(
   <StrictMode>
     <Suspense fallback={<div>Loading...</div>}>
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
+        <PersistGate loading={null} persistor={persistor}>
           <ThemeProvider theme={baseTheme}>
             <BrowserRouter>
               <GlobalStyle />

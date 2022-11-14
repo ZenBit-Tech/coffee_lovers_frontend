@@ -42,18 +42,22 @@ export function SignUpForm() {
   const [registerUser, { data: registerData }] = useRegisterUserMutation();
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    const firstName = data.firstName;
-    const lastName = data.lastName;
-    const email = data.email;
-    const password = data.password;
+    try {
+      const firstName = data.firstName;
+      const lastName = data.lastName;
+      const email = data.email;
+      const password = data.password;
 
-    if (password !== data.confirmPassword) {
-      alert("Passwords don't match");
-    }
-    if (firstName && lastName && password && email) {
-      await registerUser({ email, firstName, lastName, password });
-      dispatch(setUser({ access_token: registerData.access_token }));
-      navigate('/owner-profile');
+      if (password !== data.confirmPassword) {
+        alert("Passwords don't match");
+      }
+      if (firstName && lastName && password && email) {
+        await registerUser({ email, firstName, lastName, password });
+        dispatch(setUser({ access_token: registerData.access_token }));
+        navigate('/owner-profile');
+      }
+    } catch (error) {
+      alert(error);
     }
   };
 

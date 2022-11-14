@@ -38,8 +38,7 @@ export const LoginForm = () => {
         const email = data.email;
         const password = data.password;
         await loginUser({ email, password }).unwrap();
-        dispatch(setUser({ access_token: loginData }));
-        console.log(loginData);
+        dispatch(setUser({ access_token: loginData.access_token }));
       }
     } catch (error) {
       alert(error);
