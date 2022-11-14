@@ -1,4 +1,5 @@
 export * from './lib/conditions-card/conditions-card';
+export { CardWrapper } from './lib/conditions-card/styles';
 export * from './lib/constants/constants';
 export * from './lib/example-button/example-button';
 export * from './lib/google-login-button/index';

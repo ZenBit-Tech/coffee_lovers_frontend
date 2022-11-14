@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,45 +9,29 @@ import 'antd/dist/antd.css';
 export function ConditionsCard(): ReactElement {
   const navigate = useNavigate();
   const [dis, setDisabled] = useState(false);
-  const card = React.useRef<HTMLDivElement>(null);
-  const end = React.useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
-  const isInViewport2 = useIsInViewport();
+
   useEffect(() => {
-    setDisabled(!isInViewport2);
-  }, [isInViewport2]);
+    setDisabled(true);
+  }, []);
 
-  function useIsInViewport() {
-    const [isIntersecting, setIsIntersecting] = useState(false);
-
-    const observer = useMemo(
-      () =>
-        new IntersectionObserver(([entry]) =>
-          setIsIntersecting(entry.isIntersecting),
-        ),
-      [],
-    );
-    useEffect(() => {
-      observer.observe(end.current as HTMLElement);
-
-      return () => {
-        observer.disconnect();
-      };
-    }, [observer]);
-
-    return isIntersecting;
+  function handleScroll(element: HTMLElement) {
+    if (element.scrollTop + element.clientHeight === element.scrollHeight) {
+      setDisabled(false);
+    }
   }
 
   return (
     <CardWrapper>
-      <NewCard ref={card} hoverable title={t('conditions.title')}>
-        <p>
-          {t('conditions.text')}
-          <span ref={end}></span>
-        </p>
+      <NewCard
+        onScroll={e => handleScroll(e.target as HTMLElement)}
+        hoverable
+        title={t('conditions.title')}
+      >
+        <p>{t('conditions.text')}</p>
       </NewCard>
       <NewButton
-        onClick={() => navigate('/signup')}
+        onClick={() => navigate('/login')}
         disabled={dis}
         type="primary"
       >

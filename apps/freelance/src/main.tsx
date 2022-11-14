@@ -17,8 +17,9 @@ import 'antd/dist/antd.css';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
+
 root.render(
-  <GoogleOAuthProvider clientId="71848933982-oc9dn519u5k0dp3pp0a8h20maaokdap8.apps.googleusercontent.com">
+  <GoogleOAuthProvider clientId={process.env['NX_CLIENT_ID'] as string}>
     <StrictMode>
       <Suspense fallback={<div>Loading...</div>}>
         <Provider store={store}>

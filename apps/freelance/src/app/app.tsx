@@ -5,6 +5,7 @@ import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
 import ProfileQuestions1 from '@pages/ProfileQuestions1';
 import ProfileQuestions2 from '@pages/ProfileQuestions2';
+import WelcomePage from '@pages/WelcomePage';
 
 import { Wrapper } from './styles';
 
@@ -40,6 +41,7 @@ export function App() {
             </Wrapper>
           }
         />
+        <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/googleAuth" element={<SignInGoogle />} />
         <Route path="/login/conditions" element={<ConditionsPage />} />
         <Route path="/profile-questions-1" element={<ProfileQuestions1 />} />

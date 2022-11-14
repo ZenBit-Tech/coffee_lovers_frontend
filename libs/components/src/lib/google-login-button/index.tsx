@@ -12,9 +12,13 @@ export function GoogleLoginButton() {
     <ButtonContainer>
       <GoogleLogin
         onSuccess={async credentialResponse => {
-          const response = await addUser(credentialResponse);
-          console.log(response);
-          navigate('/');
+          try {
+            const response = await addUser(credentialResponse);
+            console.log(response);
+            navigate('/');
+          } catch (err) {
+            console.log(err);
+          }
         }}
         onError={() => {
           console.log('Login Failed');
