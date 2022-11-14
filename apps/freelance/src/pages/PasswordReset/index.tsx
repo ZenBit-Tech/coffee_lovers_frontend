@@ -1,15 +1,16 @@
-import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
+import { usePasswordResetMutation } from 'redux/services/user';
 
 import {
   confirmName,
+  errorMessages,
   passwordName,
   passwordValidationRegExp,
 } from './constants';
-import { Wrapper } from './styles';
+import { StyledError, StyledSuccess, Wrapper } from './styles';
 
 type Inputs = {
   password: string;
@@ -19,14 +20,11 @@ const PasswordReset = () => {
   const { t } = useTranslation();
   const { key } = useParams();
   const { handleSubmit, control } = useForm<Inputs>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [passwordReset, { isLoading, isSuccess, isError, error }] =
+    usePasswordResetMutation();
 
   const onSubmit: SubmitHandler<Inputs> = data => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      alert(`${key}, ${data.password}`);
-    }, 1500);
+    passwordReset({ password: data.password, key: key || '' });
   };
 
   return (
@@ -85,9 +83,25 @@ const PasswordReset = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" loading={loading}>
+          <Button type="primary" htmlType="submit" loading={isLoading}>
             {t('resetPassword.buttonText')}
           </Button>
+          {isError && (
+            <StyledError>
+              {t(
+                errorMessages.find(
+                  obj =>
+                    obj.error ===
+                    JSON.parse(JSON.stringify(error))?.data?.message,
+                )?.message || 'resetPassword.errors.unexpected',
+              )}
+            </StyledError>
+          )}
+          {isSuccess && (
+            <StyledSuccess>
+              {t('resetPassword.successResetMessage')}
+            </StyledSuccess>
+          )}
         </Form.Item>
       </Form>
     </Wrapper>
