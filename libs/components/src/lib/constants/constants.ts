@@ -17,6 +17,14 @@ export const profileQ1 = {
   profileQ1WorkFrom: 'work_from',
   profileQ1WorkTo: 'work_to',
   profileQ1HRMin: 0,
+  formItemLayout: {
+    labelCol: {
+      sm: { span: 2 },
+    },
+    wrapperCol: {
+      sm: { span: 4 },
+    },
+  },
 };
 
 export const prBarProfileQ2Per = 50;

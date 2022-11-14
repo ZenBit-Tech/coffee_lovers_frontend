@@ -2,30 +2,18 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { UploadOutlined } from '@ant-design/icons';
 import {
+  DefInput,
   prBarStrColor,
   prBarTrailColor,
   profileQ1,
   ProgressBar,
 } from '@freelance/components';
-import { DefInput } from '@freelance/components';
 import { DatePicker, Form, Input, Select, Upload } from 'antd';
 import { useAddprofileQuestions1DataMutation } from 'redux/profileQuestions/profileQuestions1Api';
 
+import { onFinishLogic } from './hooks';
 import { IProfileQuestions1 } from './model';
-import {
-  StDatePickerWork,
-  StForm,
-  StFormItemDateFrom,
-  StFormItemDateTo,
-  StInputNumber,
-  StSubButton,
-  StTextArea,
-  StTextAreaWork,
-  StUserAvatarWrapper,
-  StUserIcon,
-  StUserUpBtn,
-  Wrapper,
-} from './styles';
+import * as St from './styles';
 
 const ProfileQuestions1 = () => {
   const { t } = useTranslation();
@@ -34,76 +22,34 @@ const ProfileQuestions1 = () => {
   const [AddprofileQuestions1Data] = useAddprofileQuestions1DataMutation();
 
   const { Option } = Select;
-
-  const formItemLayout = {
-    labelCol: {
-      sm: { span: 2 },
-    },
-    wrapperCol: {
-      sm: { span: 4 },
-    },
-  };
-
   const onFinish: SubmitHandler<IProfileQuestions1> = async values => {
     try {
-      if (values) {
-        const jsonedValues = JSON.parse(JSON.stringify(values));
-        const availableTime = jsonedValues.available_time;
-        const description = jsonedValues.description;
-        const hourlyRate = jsonedValues.hourly_rate;
-        const position = jsonedValues.position;
-        const educationDescr =
-          jsonedValues.education.information_about_education;
-        const educationFrom = jsonedValues.education.education_from.substring(
-          0,
-          4,
-        );
-        const educationTo = jsonedValues.education.education_to.substring(0, 4);
-        const workHistoryDescr = jsonedValues.work_history_wrapper.work_history;
-        const workHistoryFrom =
-          jsonedValues.work_history_wrapper.work_from.substring(0, 4);
-        const workHistoryTo =
-          jsonedValues.work_history_wrapper.work_to.substring(0, 4);
-        alert(JSON.stringify(values));
-
-        await AddprofileQuestions1Data({
-          available_time: availableTime,
-          description: description,
-          hourly_rate: hourlyRate,
-          position: position,
-          education_descr: educationDescr,
-          education_from: educationFrom,
-          education_to: educationTo,
-          work_history_descr: workHistoryDescr,
-          work_history_from: workHistoryFrom,
-          work_history_to: workHistoryTo,
-        });
-        form.resetFields();
-      }
+      await AddprofileQuestions1Data(onFinishLogic(values));
+      form.resetFields();
     } catch (error) {
       alert(error);
     }
   };
 
   return (
-    <Wrapper>
+    <St.Wrapper>
       <div>{t('description.profileQp1.pr_bar_completion_per')}</div>
       <ProgressBar
         percent={profileQ1.prBarProfileQ1Per}
         strokeColor={prBarStrColor}
         trailColor={prBarTrailColor}
       />
-      <StUserAvatarWrapper>
-        <StUserIcon />
+      <St.StUserAvatarWrapper>
+        <St.StUserIcon />
         <Upload>
-          <StUserUpBtn icon={<UploadOutlined />}>
+          <St.StUserUpBtn icon={<UploadOutlined />}>
             Upload Profile Photo
-          </StUserUpBtn>
+          </St.StUserUpBtn>
         </Upload>
-      </StUserAvatarWrapper>
-      <StForm
+      </St.StUserAvatarWrapper>
+      <St.StForm
         name={profileQ1.profileQ1Form}
-        {...formItemLayout}
+        {...profileQ1.formItemLayout}
         initialValues={{ remember: true }}
         autoComplete="on"
         form={form}
@@ -120,7 +66,7 @@ const ProfileQuestions1 = () => {
             { required: true, message: `${t('description.profileQp1.mesHR')}` },
           ]}
         >
-          <StInputNumber
+          <St.StInputNumber
             prefix={t('description.profileQp1.hRPrefix')}
             addonAfter={t('description.profileQp1.hRSuffix')}
             min={profileQ1.profileQ1HRMin}
@@ -139,7 +85,7 @@ const ProfileQuestions1 = () => {
             sm: { span: 12, offset: 0 },
           }}
         >
-          <StTextArea
+          <St.StTextArea
             placeholder={t('description.profileQp1.descr')}
             allowClear
             rows={4}
@@ -190,7 +136,7 @@ const ProfileQuestions1 = () => {
             >
               <DefInput placeholder={t('description.profileQp1.infoEdu')} />
             </Form.Item>
-            <StFormItemDateFrom
+            <St.StFormItemDateFrom
               name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduForm]}
               rules={[
                 {
@@ -203,8 +149,8 @@ const ProfileQuestions1 = () => {
                 placeholder={t('description.profileQp1.from')}
                 picker="year"
               />
-            </StFormItemDateFrom>
-            <StFormItemDateTo
+            </St.StFormItemDateFrom>
+            <St.StFormItemDateTo
               name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduTo]}
               rules={[
                 {
@@ -217,7 +163,7 @@ const ProfileQuestions1 = () => {
                 placeholder={t('description.profileQp1.to')}
                 picker="year"
               />
-            </StFormItemDateTo>
+            </St.StFormItemDateTo>
           </Input.Group>
         </Form.Item>
         <Form.Item
@@ -242,11 +188,11 @@ const ProfileQuestions1 = () => {
               sm: { span: 26, offset: 0 },
             }}
           >
-            <StTextAreaWork
+            <St.StTextAreaWork
               placeholder={t('description.profileQp1.infoWork')}
             />
           </Form.Item>
-          <StFormItemDateTo
+          <St.StFormItemDateTo
             name={[
               profileQ1.profileQ1WorkHistoryWrapper,
               profileQ1.profileQ1WorkFrom,
@@ -259,12 +205,12 @@ const ProfileQuestions1 = () => {
             ]}
             noStyle
           >
-            <StDatePickerWork
+            <St.StDatePickerWork
               placeholder={t('description.profileQp1.from')}
               picker="year"
             />
-          </StFormItemDateTo>
-          <StFormItemDateTo
+          </St.StFormItemDateTo>
+          <St.StFormItemDateTo
             name={[
               profileQ1.profileQ1WorkHistoryWrapper,
               profileQ1.profileQ1WorkTo,
@@ -277,11 +223,11 @@ const ProfileQuestions1 = () => {
             ]}
             noStyle
           >
-            <StDatePickerWork
+            <St.StDatePickerWork
               placeholder={t('description.profileQp1.to')}
               picker="year"
             />
-          </StFormItemDateTo>
+          </St.StFormItemDateTo>
         </Form.Item>
         <Form.Item
           wrapperCol={{
@@ -289,12 +235,12 @@ const ProfileQuestions1 = () => {
             lg: { span: 3, offset: 15 },
           }}
         >
-          <StSubButton size="large" type="primary" htmlType="submit">
+          <St.StSubButton size="large" type="primary" htmlType="submit">
             {t('description.router.toProfileQuestions2')}
-          </StSubButton>
+          </St.StSubButton>
         </Form.Item>
-      </StForm>
-    </Wrapper>
+      </St.StForm>
+    </St.Wrapper>
   );
 };
 

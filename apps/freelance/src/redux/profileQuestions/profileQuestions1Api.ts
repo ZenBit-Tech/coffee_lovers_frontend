@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { profileQ1Payload } from 'redux/services/types/profileQuestions1.types';
 
 export const profileQuestions1Api = createApi({
   reducerPath: 'profileQuestions1Api',
@@ -6,32 +7,10 @@ export const profileQuestions1Api = createApi({
   tagTypes: ['ProfileQuestions1'],
   endpoints: builder => ({
     addprofileQuestions1Data: builder.mutation({
-      query: ({
-        availableTime,
-        description,
-        hourlyRate,
-        position,
-        educationDescr,
-        educationFrom,
-        educationTo,
-        workHistoryDescr,
-        workHistoryFrom,
-        workHistoryTo,
-      }) => ({
+      query: (payload: profileQ1Payload) => ({
         url: `/api/profile-questions-1`,
         method: 'POST',
-        body: {
-          available_time: availableTime,
-          description: description,
-          hourly_rate: hourlyRate,
-          position: position,
-          education_descr: educationDescr,
-          education_from: educationFrom,
-          education_to: educationTo,
-          work_history_descr: workHistoryDescr,
-          work_history_from: workHistoryFrom,
-          work_history_to: workHistoryTo,
-        },
+        body: payload,
       }),
       invalidatesTags: ['ProfileQuestions1'],
     }),
