@@ -117,7 +117,7 @@ const ProfileQuestions1 = () => {
           label={t('description.profileQp1.hR')}
           name={profileQ1.profileQ1HR}
           rules={[
-            { required: true, message: 'Please, input your hourly rate in $!' },
+            { required: true, message: `${t('description.profileQp1.mesHR')}` },
           ]}
         >
           <StInputNumber
@@ -130,7 +130,10 @@ const ProfileQuestions1 = () => {
           label={t('description.profileQp1.descr')}
           name={profileQ1.profileQ1Descr}
           rules={[
-            { required: true, message: 'Please, input your description!' },
+            {
+              required: true,
+              message: `${t('description.profileQp1.mesDescr')}`,
+            },
           ]}
           wrapperCol={{
             sm: { span: 12, offset: 0 },
@@ -145,14 +148,24 @@ const ProfileQuestions1 = () => {
         <Form.Item
           label={t('description.profileQp1.pos')}
           name={profileQ1.profileQ1Pos}
-          rules={[{ required: true, message: 'Please, input your position!' }]}
+          rules={[
+            {
+              required: true,
+              message: `${t('description.profileQp1.mesPos')}`,
+            },
+          ]}
         >
           <DefInput placeholder={t('description.profileQp1.pos')} />
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.avTime')}
           name={profileQ1.profileQ1AvTime}
-          rules={[{ required: true, message: 'Please, input hours per day!' }]}
+          rules={[
+            {
+              required: true,
+              message: `${t('description.profileQp1.mesAvTime')}`,
+            },
+          ]}
         >
           <Select placeholder={t('description.profileQp1.hPD')} allowClear>
             <Option value="Part-Time">Part-Time</Option>
@@ -169,14 +182,22 @@ const ProfileQuestions1 = () => {
             <Form.Item
               name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduInfo]}
               rules={[
-                { required: true, message: 'Education field is required' },
+                {
+                  required: true,
+                  message: `${t('description.profileQp1.mesEdu')}`,
+                },
               ]}
             >
               <DefInput placeholder={t('description.profileQp1.infoEdu')} />
             </Form.Item>
             <StFormItemDateFrom
               name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduForm]}
-              rules={[{ required: true, message: 'Field is required' }]}
+              rules={[
+                {
+                  required: true,
+                  message: `${t('description.profileQp1.mesEduTimeFrom')}`,
+                },
+              ]}
             >
               <DatePicker
                 placeholder={t('description.profileQp1.from')}
@@ -185,7 +206,12 @@ const ProfileQuestions1 = () => {
             </StFormItemDateFrom>
             <StFormItemDateTo
               name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduTo]}
-              rules={[{ required: true, message: 'Field is required' }]}
+              rules={[
+                {
+                  required: true,
+                  message: `${t('description.profileQp1.mesEduTimeTo')}`,
+                },
+              ]}
             >
               <DatePicker
                 placeholder={t('description.profileQp1.to')}
@@ -206,7 +232,10 @@ const ProfileQuestions1 = () => {
               profileQ1.profileQ1WorkHistory,
             ]}
             rules={[
-              { required: true, message: 'Work history field is required' },
+              {
+                required: true,
+                message: `${t('description.profileQp1.mesWork')}`,
+              },
             ]}
             noStyle
             wrapperCol={{
@@ -222,7 +251,12 @@ const ProfileQuestions1 = () => {
               profileQ1.profileQ1WorkHistoryWrapper,
               profileQ1.profileQ1WorkFrom,
             ]}
-            rules={[{ required: true, message: 'Field is required' }]}
+            rules={[
+              {
+                required: true,
+                message: `${t('description.profileQp1.mesWorkTimeFrom')}`,
+              },
+            ]}
             noStyle
           >
             <StDatePickerWork
@@ -235,7 +269,12 @@ const ProfileQuestions1 = () => {
               profileQ1.profileQ1WorkHistoryWrapper,
               profileQ1.profileQ1WorkTo,
             ]}
-            rules={[{ required: true, message: 'Field is required' }]}
+            rules={[
+              {
+                required: true,
+                message: `${t('description.profileQp1.mesWorkTimeTo')}`,
+              },
+            ]}
             noStyle
           >
             <StDatePickerWork
