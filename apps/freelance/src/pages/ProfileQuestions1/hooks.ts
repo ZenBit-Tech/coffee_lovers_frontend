@@ -10,7 +10,7 @@ export const onFinishLogic = (values: IProfileQuestions1): profileQ1Payload => {
     education_descr: jsonedEdu.information_about_education,
     education_from: jsonedEdu.education_from.substring(0, 4),
     education_to: jsonedEdu.education_to.substring(0, 4),
-    work_history_descr: jsonedEdu.work_history,
+    work_history_descr: jsonedWork.work_history,
     work_history_from: jsonedWork.work_from.substring(0, 4),
     work_history_to: jsonedWork.work_to.substring(0, 4),
   };
