@@ -56,6 +56,17 @@
       },
       "buttonText": "Continue",
       "sentText": "Instructions for changing the password have been sent to the mail"
+    },
+    "app_bar": {
+      "logo": "Styled Logo",
+      "nav": {
+        "projects": "Projects",
+        "proposals": "Proposals",
+        "talents": "Talents",
+        "chat": "Chat",
+        "my_profile": "My Profile",
+        "log_out": "Log out"
+      }
     }
   }
 }
