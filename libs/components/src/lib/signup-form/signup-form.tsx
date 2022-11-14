@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRegisterUserMutation } from '@src/redux/auth/auth-api';
-import { setUser } from '@src/redux/auth/auth-slice';
 import { Col, Form, Row } from 'antd';
+import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
+import { setUser } from 'src/redux/auth/auth-slice';
 import * as yup from 'yup';
 
 import { StyledInput, StylesButton } from '../login-form/styles';
@@ -52,9 +52,7 @@ export function SignUpForm() {
     }
     if (firstName && lastName && password && email) {
       await registerUser({ email, firstName, lastName, password });
-      dispatch(
-        setUser({ name: registerData.email, token: registerData.token }),
-      );
+      dispatch(setUser({ access_token: registerData.access_token }));
       navigate('/owner-profile');
     }
   };

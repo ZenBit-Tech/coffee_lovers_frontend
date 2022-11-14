@@ -1,12 +1,11 @@
-import * as React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useLoginUserMutation } from '@src/redux/auth/auth-api';
-import { setUser } from '@src/redux/auth/auth-slice';
 import { Button, Form } from 'antd';
+import { useLoginUserMutation } from 'src/redux/auth/auth-api';
+import { setUser } from 'src/redux/auth/auth-slice';
 import * as yup from 'yup';
 
 import { StyledInput, StylesButton } from './styles';
@@ -38,11 +37,12 @@ export const LoginForm = () => {
       if (data.email && data.password) {
         const email = data.email;
         const password = data.password;
-        await loginUser({ email, password });
-        dispatch(setUser({ name: loginData.email, token: loginData.token }));
+        await loginUser({ email, password }).unwrap();
+        dispatch(setUser({ access_token: loginData }));
+        console.log(loginData);
       }
     } catch (error) {
-      alert('Something went wrong...');
+      alert(error);
     }
   };
 

@@ -2,12 +2,13 @@ import { StrictMode, Suspense } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
 
 import './translations';
 
 import App from './app/app';
-import { store } from './redux/store';
+import { persistor, store } from './redux/store';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { baseTheme } from './styles/theme';
 
@@ -20,12 +21,14 @@ root.render(
   <StrictMode>
     <Suspense fallback={<div>Loading...</div>}>
       <Provider store={store}>
-        <ThemeProvider theme={baseTheme}>
-          <BrowserRouter>
-            <GlobalStyle />
-            <App />
-          </BrowserRouter>
-        </ThemeProvider>
+        <PersistGate persistor={persistor}>
+          <ThemeProvider theme={baseTheme}>
+            <BrowserRouter>
+              <GlobalStyle />
+              <App />
+            </BrowserRouter>
+          </ThemeProvider>
+        </PersistGate>
       </Provider>
     </Suspense>
   </StrictMode>,
