@@ -6,10 +6,10 @@ import { usePasswordResetMutation } from 'redux/services/user';
 
 import {
   confirmName,
-  errorMessages,
   passwordName,
   passwordValidationRegExp,
 } from './constants';
+import { getErrorMessage } from './errors';
 import { StyledError, StyledSuccess, Wrapper } from './styles';
 
 type Inputs = {
@@ -86,17 +86,7 @@ const PasswordReset = () => {
           <Button type="primary" htmlType="submit" loading={isLoading}>
             {t('resetPassword.buttonText')}
           </Button>
-          {isError && (
-            <StyledError>
-              {t(
-                errorMessages.find(
-                  obj =>
-                    obj.error ===
-                    JSON.parse(JSON.stringify(error))?.data?.message,
-                )?.message || 'resetPassword.errors.unexpected',
-              )}
-            </StyledError>
-          )}
+          {isError && <StyledError>{t(getErrorMessage(error))}</StyledError>}
           {isSuccess && (
             <StyledSuccess>
               {t('resetPassword.successResetMessage')}

@@ -2,9 +2,10 @@ import { useRef } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button, Form, Input } from 'antd';
+import { getErrorMessage } from '@pages/PasswordReset/errors';
 import { usePasswordResetRequestMutation } from 'redux/services/user';
 
-import { emailName, errorMessages } from './constants';
+import { emailName } from './constants';
 import { StyledEmail, StyledError, StyledInfo, Wrapper } from './styles';
 
 type Inputs = {
@@ -53,17 +54,7 @@ const PasswordResetRequest = () => {
             <Button type="primary" htmlType="submit" loading={isLoading}>
               {t('resetPassword.buttonText')}
             </Button>
-            {isError && (
-              <StyledError>
-                {t(
-                  errorMessages.find(
-                    obj =>
-                      obj.error ===
-                      JSON.parse(JSON.stringify(error))?.data?.message,
-                  )?.message || 'resetPassword.errors.unexpected',
-                )}
-              </StyledError>
-            )}
+            {isError && <StyledError>{t(getErrorMessage(error))}</StyledError>}
           </Form.Item>
         </Form>
       )}

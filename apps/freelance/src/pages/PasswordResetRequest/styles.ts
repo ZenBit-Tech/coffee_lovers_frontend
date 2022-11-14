@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { baseTheme } from 'src/styles/theme';
 
-import { errorColor, errorFontSize, infoFontSize } from './constants';
+import { errorFontSize, infoFontSize } from './constants';
 
 export const Wrapper = styled.div`
   padding: 1rem;
@@ -19,7 +20,7 @@ export const StyledEmail = styled.p`
 `;
 
 export const StyledError = styled.span`
-  color: ${errorColor};
+  color: ${baseTheme.colors.danger};
   font-size: ${errorFontSize};
   margin-left: 10px;
 `;

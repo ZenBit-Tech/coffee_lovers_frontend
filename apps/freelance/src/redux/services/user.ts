@@ -1,6 +1,11 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  BaseQueryFn,
+  createApi,
+  FetchArgs,
+  fetchBaseQuery,
+} from '@reduxjs/toolkit/query/react';
 
-import { PasswordResetPayload } from './types/user.types';
+import { PasswordResetPayload, UserError } from './types/user.types';
 
 const baseUrl: string = process.env['NX_API_URL'] || '';
 const route = '/user';
@@ -12,7 +17,11 @@ enum EndpointsRoutes {
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({ baseUrl: baseUrl + route }),
+  baseQuery: fetchBaseQuery({ baseUrl: baseUrl + route }) as BaseQueryFn<
+    string | FetchArgs,
+    unknown,
+    UserError
+  >,
   endpoints: builder => ({
     passwordResetRequest: builder.mutation({
       query: (email: string) => ({

@@ -28,7 +28,7 @@
           {
             "groups": [
               // Packages `react` related packages come first.
-              ["^react", "^@?\\w"],
+              ["^react", "^antd", "^styled", "^@?\\w"],
               // Internal packages.
               ["^(@|components)(/.*|$)"],
               // Side effect imports.
