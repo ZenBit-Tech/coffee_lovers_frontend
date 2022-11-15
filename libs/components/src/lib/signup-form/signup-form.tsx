@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -39,7 +39,8 @@ export function SignUpForm() {
     resolver: yupResolver(schema),
   });
 
-  const [registerUser, { data: registerData }] = useRegisterUserMutation();
+  const [registerUser, { data: registerData, isSuccess, isError }] =
+    useRegisterUserMutation();
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     try {
@@ -60,6 +61,16 @@ export function SignUpForm() {
       alert(error);
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      alert('Yes!');
+      dispatch(setUser({ access_token: registerData.access_token }));
+    }
+    if (isError) {
+      alert('Something went wrong...');
+    }
+  }, [isSuccess, isError]);
 
   return (
     <Form

@@ -4,14 +4,12 @@ import storage from 'redux-persist/lib/storage';
 
 import { RootState } from '../store';
 
-import { authApi } from './auth-api';
-
 export interface AuthState {
-  token: string | null;
+  access_token: string | null;
 }
 
 const initialState: AuthState = {
-  token: null,
+  access_token: null,
 };
 
 const authSlice = createSlice({
@@ -19,27 +17,27 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<{ access_token: string }>) {
-      state.token = action.payload.access_token;
+      state.access_token = action.payload.access_token;
     },
     logout: state => {
-      state.token = null;
+      state.access_token = null;
     },
   },
 });
 
 const authPersistConfig = {
-  key: 'userToken',
+  key: 'user',
   storage,
-  whitelist: ['token'],
+  whitelist: ['access_token'],
 };
 
 export const persistedAuthReducer = persistReducer(
   authPersistConfig,
-  authApi.reducer,
+  authSlice.reducer,
 );
 
 export const { setUser, logout } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;
 
-export const selectAuthToken = (state: RootState) => state.user.token;
+export const selectAuthToken = (state: RootState) => state.user.access_token;

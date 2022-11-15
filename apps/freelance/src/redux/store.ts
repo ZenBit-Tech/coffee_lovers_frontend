@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
+import { persistedAuthReducer } from 'redux/auth/auth-slice';
 import {
   FLUSH,
   PAUSE,
@@ -11,14 +12,13 @@ import {
 } from 'redux-persist';
 
 import { authApi } from './auth/auth-api';
-import { authReducer, persistedAuthReducer } from './auth/auth-slice';
 import { pokemonApi } from './services/pokemon';
 
 export const store = configureStore({
   reducer: {
     [pokemonApi.reducerPath]: pokemonApi.reducer,
-    [authApi.reducerPath]: persistedAuthReducer,
-    user: authReducer,
+    [authApi.reducerPath]: authApi.reducer,
+    user: persistedAuthReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

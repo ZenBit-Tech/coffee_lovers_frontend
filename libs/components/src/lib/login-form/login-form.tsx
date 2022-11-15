@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -26,7 +27,8 @@ export const LoginForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loginUser, { data: loginData }] = useLoginUserMutation();
+  const [loginUser, { data: loginData, isSuccess, isError }] =
+    useLoginUserMutation();
 
   const { register, handleSubmit, formState } = useForm<FormValues>({
     resolver: yupResolver(schema),
@@ -38,12 +40,20 @@ export const LoginForm = () => {
         const email = data.email;
         const password = data.password;
         await loginUser({ email, password }).unwrap();
-        dispatch(setUser({ access_token: loginData.access_token }));
       }
     } catch (error) {
       alert(error);
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setUser({ access_token: loginData.access_token }));
+    }
+    if (isError) {
+      alert('Something went wrong...');
+    }
+  }, [isSuccess, isError]);
 
   const goToSignup = () => {
     navigate('/signup');
