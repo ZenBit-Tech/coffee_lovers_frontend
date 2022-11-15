@@ -13,8 +13,10 @@
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",
+    "@ant-design/icons": "^4.7.0",
     "@reduxjs/toolkit": "^1.9.0",
     "antd": "^4.24.1",
+    "antd-img-crop": "^4.2.8",
     "core-js": "^3.6.5",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "i18next": "^22.0.4",

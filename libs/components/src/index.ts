@@ -1,3 +1,4 @@
+export * from './lib/avatar-upload';
 export * from './lib/constants/constants';
 export * from './lib/example-button/example-button';
 export * from './lib/input/input';
