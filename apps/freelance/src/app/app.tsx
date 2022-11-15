@@ -21,6 +21,11 @@ const OwnerProfilePage = lazy(
     ),
 );
 
+const JobPostPage = lazy(
+  () =>
+    import(/* webpackChunkName: "OwnerProfilePage" */ '../pages/JobPostPage'),
+);
+
 export function App() {
   const { t } = useTranslation();
 
@@ -29,6 +34,8 @@ export function App() {
       <Routes>
         <Route path="/" element={<ExampleRootPage />} />
         <Route path="/owner-profile" element={<OwnerProfilePage />} />
+        <Route path="/owner-profile/job-post" element={<JobPostPage />} />
+
         <Route
           path="/page-2"
           element={<Link to="/">{t('router.toRoot')}</Link>}

@@ -1,12 +1,9 @@
-import Logo from '../logo/logo';
-import Navigation from '../navigation/navigation';
+import Logo from '../logo';
+import Navigation from '../navigation';
 
 import { StyledAppBar } from './styles';
 
-/* eslint-disable-next-line */
-export interface AppBarProps {}
-
-export function AppBar(props: AppBarProps) {
+export function AppBar() {
   return (
     <StyledAppBar>
       <Logo />
