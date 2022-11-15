@@ -16,7 +16,6 @@ export const Title = styled.h3`
 export const InputsWrapper = styled.div`
   padding: 1rem;
   display: flex;
-  /* flex-direction: column; */
   justify-content: space-around;
   align-items: center;
 `;
