@@ -49,6 +49,7 @@ export const LoginForm = () => {
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser({ access_token: loginData.access_token }));
+      navigate('/owner-profile');
     }
     if (isError) {
       alert('Something went wrong...');

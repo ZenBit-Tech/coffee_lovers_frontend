@@ -54,8 +54,6 @@ export function SignUpForm() {
       }
       if (firstName && lastName && password && email) {
         await registerUser({ email, firstName, lastName, password });
-        dispatch(setUser({ access_token: registerData.access_token }));
-        navigate('/owner-profile');
       }
     } catch (error) {
       alert(error);
@@ -64,8 +62,8 @@ export function SignUpForm() {
 
   useEffect(() => {
     if (isSuccess) {
-      alert('Yes!');
       dispatch(setUser({ access_token: registerData.access_token }));
+      navigate('/owner-profile');
     }
     if (isError) {
       alert('Something went wrong...');
