@@ -17,7 +17,7 @@ export const AvatarUpload = () => {
   const handleChange: UploadProps['onChange'] = (
     info: UploadChangeParam<UploadFile>,
   ) => {
-    setImageUrl('https://i.imgur.com/Mmh6LXR.jpeg');
+    setImageUrl('');
   };
 
   return (
