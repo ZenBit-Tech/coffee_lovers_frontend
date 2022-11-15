@@ -1,6 +1,6 @@
+import { DatePicker, Form, Input, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { DatePicker, Form, Input, Select } from 'antd';
 import {
   profileQ1AvTime,
   profileQ1Descr,

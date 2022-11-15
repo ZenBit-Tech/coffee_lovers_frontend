@@ -1,7 +1,7 @@
 import { useRef } from 'react';
+import { Button, Form, Input } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Button, Form, Input } from 'antd';
 import { getErrorMessage } from '@pages/PasswordReset/errors';
 import { usePasswordResetRequestMutation } from 'redux/services/user';
 

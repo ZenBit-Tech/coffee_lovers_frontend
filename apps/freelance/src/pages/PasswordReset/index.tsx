@@ -1,7 +1,7 @@
+import { Button, Form, Input } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { Button, Form, Input } from 'antd';
 import { usePasswordResetMutation } from 'redux/services/user';
 
 import {
