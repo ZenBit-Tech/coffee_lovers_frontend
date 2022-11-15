@@ -16,7 +16,7 @@ export const profileQuestions1Api = createApi({
   endpoints: builder => ({
     addprofileQuestions1Data: builder.mutation({
       query: (payload: profileQ1Payload) => ({
-        url: `/api/profile-questions-1`,
+        url: `/profile-questions-1`,
         method: 'POST',
         body: payload,
       }),
