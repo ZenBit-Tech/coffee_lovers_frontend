@@ -69,6 +69,11 @@
         "type": "You can only upload JPG/PNG file!",
         "size": "Image must smaller than 1MB!"
       }
+    },
+    "chooseRole": {
+      "title": "I want to:",
+      "freelancer": "work as a freelancer",
+      "jobOwner": "hire for a project"
     }
   }
 }
