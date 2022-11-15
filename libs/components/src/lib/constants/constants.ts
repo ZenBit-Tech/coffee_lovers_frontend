@@ -17,6 +17,7 @@ export const profileQ1 = {
   profileQ1WorkFrom: 'work_from',
   profileQ1WorkTo: 'work_to',
   profileQ1HRMin: 0,
+  profileQ1FormatYear: 'YYYY',
   formItemLayout: {
     labelCol: {
       sm: { span: 2 },
