@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import { Button, Form, Input } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -15,12 +15,12 @@ type Inputs = {
 const PasswordResetRequest = () => {
   const { t } = useTranslation();
   const { handleSubmit, control } = useForm<Inputs>();
-  const email = useRef<string>('');
+  const [email, setEmail] = useState<string>('');
   const [passwordResetRequest, { isLoading, isSuccess, isError, error }] =
     usePasswordResetRequestMutation();
 
   const onSubmit: SubmitHandler<Inputs> = data => {
-    email.current = data.email;
+    setEmail(data.email);
     passwordResetRequest(data.email);
   };
 
@@ -61,7 +61,7 @@ const PasswordResetRequest = () => {
       {isSuccess && (
         <>
           <StyledInfo>{t('resetPassword.sentText')}</StyledInfo>
-          <StyledEmail>{email.current}</StyledEmail>
+          <StyledEmail>{email}</StyledEmail>
         </>
       )}
     </Wrapper>
