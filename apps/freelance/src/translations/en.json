@@ -56,6 +56,19 @@
       },
       "buttonText": "Continue",
       "sentText": "Instructions for changing the password have been sent to the mail"
+    },
+    "uploadImage": {
+      "uploadText": "Upload",
+      "imgAlt": "avatar",
+      "crop": {
+        "title": "Edit image",
+        "okBtn": "Ok",
+        "cancelBtn": "Cancel"
+      },
+      "errors": {
+        "type": "You can only upload JPG/PNG file!",
+        "size": "Image must smaller than 1MB!"
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Route, Routes } from 'react-router-dom';
+import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
 import ProfileQuestions1 from '@pages/ProfileQuestions1';
@@ -42,6 +43,7 @@ export function App() {
         <Route path="/profile-questions-2" element={<ProfileQuestions2 />} />
         <Route path="/passwordreset" element={<PasswordResetRequest />} />
         <Route path="/passwordreset/:key" element={<PasswordReset />} />
+        <Route path="/jobownerdashboard" element={<JobOwnerDashboard />} />
       </Routes>
     </Wrapper>
   );
