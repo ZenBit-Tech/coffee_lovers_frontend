@@ -62,6 +62,31 @@
         "unexpected": "Unexpected error. Please try again later"
       },
       "successResetMessage": "Password has been changed"
+    },
+    "uploadImage": {
+      "uploadText": "Upload",
+      "imgAlt": "avatar",
+      "crop": {
+        "title": "Edit image",
+        "okBtn": "Ok",
+        "cancelBtn": "Cancel"
+      },
+      "errors": {
+        "type": "You can only upload JPG/PNG file!",
+        "size": "Image must smaller than 1MB!"
+      }
+    },
+    "jobOwnerDashboard": {
+      "postJobBtn": "Post a job",
+      "jobListLink": "Posted jobs",
+      "showAll": "Show all",
+      "hide": "Hide",
+      "jobList": {
+        "edit": "Edit",
+        "proposal": "Proposal ({{amount}})",
+        "hired": "Hired ({{amount}})"
+      },
+      "draftsListLink": "Drafts"
     }
   }
 }
