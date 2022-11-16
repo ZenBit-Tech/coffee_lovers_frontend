@@ -1,3 +1,4 @@
+import { DatePicker, Form, Input, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {
@@ -23,7 +24,6 @@ import {
   prBarStrColor,
   prBarTrailColor,
 } from '@freelance/components';
-import { DatePicker, Form, Input, Select } from 'antd';
 
 import {
   StDatePickerWork,
