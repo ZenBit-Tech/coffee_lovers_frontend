@@ -1,3 +1,4 @@
+export * from './lib/avatar-upload';
 export * from './lib/conditions-card/conditions-card';
 export { CardWrapper } from './lib/conditions-card/styles';
 export * from './lib/constants/constants';

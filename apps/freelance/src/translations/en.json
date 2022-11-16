@@ -66,6 +66,19 @@
       "welcome": "Welcome to our platform!",
       "fill": "Fill information about yourself to find a job",
       "button": "Create portfolio"
+    },
+    "uploadImage": {
+      "uploadText": "Upload",
+      "imgAlt": "avatar",
+      "crop": {
+        "title": "Edit image",
+        "okBtn": "Ok",
+        "cancelBtn": "Cancel"
+      },
+      "errors": {
+        "type": "You can only upload JPG/PNG file!",
+        "size": "Image must smaller than 1MB!"
+      }
     }
   }
 }
