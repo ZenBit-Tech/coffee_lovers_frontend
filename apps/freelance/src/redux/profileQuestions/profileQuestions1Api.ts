@@ -6,7 +6,6 @@ declare let process: {
     NX_API_URL: string;
   };
 };
-
 const baseUrl: string = (process.env.NX_API_URL as string) || '';
 
 export const profileQuestions1Api = createApi({
@@ -16,7 +15,7 @@ export const profileQuestions1Api = createApi({
   endpoints: builder => ({
     addprofileQuestions1Data: builder.mutation({
       query: (payload: profileQ1Payload) => ({
-        url: `/profile-questions-1`,
+        url: `/user/profile-questions-1`,
         method: 'POST',
         body: payload,
       }),
