@@ -167,7 +167,7 @@ const ProfileQuestions1 = () => {
           </Input.Group>
         </Form.Item>
         <Form.Item
-          label="Work history"
+          label={t('description.profileQp1.workH')}
           wrapperCol={{
             sm: { span: 24, offset: 0 },
           }}
