@@ -15,7 +15,9 @@
       "confirm_password": "Confirm password",
       "create_account": "Create my account",
       "terms_agree": "I agree",
-      "terms": "Terms & Conditions"
+      "terms": "Terms & Conditions",
+      "match_error": "Your passwords do not match.",
+      "agreement_error": "Please accept Terms&Conditions"
     },
     "description": {
       "root_page": "This is root route",

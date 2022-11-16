@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Checkbox, Col, Form, Row, Space, Typography } from 'antd';
+import { Col, Form, Row, Space, Typography } from 'antd';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 import * as yup from 'yup';
@@ -19,22 +19,29 @@ type FormValues = {
   lastName: string;
   password: string;
   confirmPassword: string;
+  agreement: boolean;
 };
 
 const { Text, Link } = Typography;
 
 const schema: yup.SchemaOf<Partial<FormValues>> = yup.object({
-  email: yup.string().required(),
+  email: yup.string().email().required(),
   firstName: yup.string().required(),
   lastName: yup.string().required(),
-  password: yup.string().required(),
-  confirmPassword: yup.string().required(),
+  password: yup
+    .string()
+    .required()
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/),
+  confirmPassword: yup
+    .string()
+    .required()
+    .oneOf([yup.ref('password')]),
+  agreement: yup.bool().oneOf([true]),
 });
 
 export function SignUpForm() {
   const { t } = useTranslation();
   const [form] = Form.useForm();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit, formState } = useForm<FormValues>({
@@ -51,9 +58,6 @@ export function SignUpForm() {
       const email = data.email;
       const password = data.password;
 
-      if (password !== data.confirmPassword) {
-        alert("Passwords don't match");
-      }
       if (firstName && lastName && password && email) {
         await registerUser({ email, firstName, lastName, password });
       }
@@ -65,7 +69,7 @@ export function SignUpForm() {
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser({ access_token: registerData.access_token }));
-      navigate('/owner-profile');
+      navigate('/role');
     }
     if (isError) {
       alert('Something went wrong...');
@@ -135,15 +139,21 @@ export function SignUpForm() {
             placeholder={t('loginPage.confirm_password')}
             {...register('confirmPassword')}
           />
+          {formState?.errors.confirmPassword && (
+            <Text type="danger">{t('loginPage.match_error')}</Text>
+          )}
         </Col>
 
         <Col>
           <Space direction="vertical">
             <Space>
-              <Checkbox type="checkbox" />
+              <input type="checkbox" value="true" {...register('agreement')} />
               <Text>{t('loginPage.terms_agree')}</Text>
-              <Link href="#">{t('loginPage.terms')}</Link>
+              <Link>{t('loginPage.terms')}</Link>
             </Space>
+            {formState?.errors.agreement && (
+              <Text type="danger">{t('loginPage.agreement_error')}</Text>
+            )}
 
             <StylesButton size="large" type="primary" block htmlType="submit">
               {t('loginPage.signUp')}

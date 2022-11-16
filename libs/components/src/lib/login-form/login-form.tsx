@@ -51,7 +51,7 @@ export const LoginForm = () => {
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser({ access_token: loginData.access_token }));
-      navigate('/owner-profile');
+      navigate('/jobownerdashboard');
     }
     if (isError) {
       alert('Something went wrong...');
@@ -60,6 +60,10 @@ export const LoginForm = () => {
 
   const goToSignup = () => {
     navigate('/signup');
+  };
+
+  const goToReset = () => {
+    navigate('/passwordreset');
   };
 
   return (
@@ -102,7 +106,7 @@ export const LoginForm = () => {
         <Button type="link" htmlType="button" onClick={goToSignup}>
           {t('loginPage.signUp')}
         </Button>
-        <Button type="link" htmlType="button">
+        <Button type="link" htmlType="button" onClick={goToReset}>
           {t('loginPage.forgot_password')}
         </Button>
       </Form.Item>
