@@ -33,11 +33,9 @@
         "mesPos": "Please, input your position!",
         "mesAvTime": "Please, input hours per day!",
         "mesEdu": "Education field is required!",
-        "mesEduTimeFrom": "Please, input education from!",
-        "mesEduTimeTo": "Please, input education to!",
-        "mesWork": "Work history field is required!",
-        "mesWorkTimeFrom": "Please, input work from!",
-        "mesWorkTimeTo": "Please, input work to!"
+        "mesTimeFrom": "Please, input time from!",
+        "mesTimeTo": "Please, input time to!",
+        "mesWork": "Work history field is required!"
       },
       "profileQp2": {
         "pr_bar_completion_per": "50% completed"

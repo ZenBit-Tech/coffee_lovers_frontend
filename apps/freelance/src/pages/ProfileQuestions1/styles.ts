@@ -46,6 +46,12 @@ export const StFormItemDateFrom = styled(Form.Item)`
     margin-left: auto;
   }
 `;
+export const StFormItemWorkDateFrom = styled(Form.Item)`
+  margin-left: 20px;
+  @media (max-width: 740px) {
+    margin-left: auto;
+  }
+`;
 export const StFormItemDateTo = styled(Form.Item)`
   margin-left: 10px;
   @media (max-width: 740px) {
@@ -55,11 +61,10 @@ export const StFormItemDateTo = styled(Form.Item)`
 
 export const StTextAreaWork = styled(TextArea)`
   resize: none;
-  width: 270px;
+  width: 280px !important;
 `;
 
 export const StDatePickerWork = styled(DatePicker)`
-  margin-left: 10px;
   @media (max-width: 740px) {
     margin-left: auto;
   }

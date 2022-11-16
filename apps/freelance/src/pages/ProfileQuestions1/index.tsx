@@ -145,7 +145,7 @@ const ProfileQuestions1 = () => {
               rules={[
                 {
                   required: true,
-                  message: `${t('description.profileQp1.mesEduTimeFrom')}`,
+                  message: `${t('description.profileQp1.mesTimeFrom')}`,
                 },
               ]}
             >
@@ -159,7 +159,7 @@ const ProfileQuestions1 = () => {
               rules={[
                 {
                   required: true,
-                  message: `${t('description.profileQp1.mesEduTimeTo')}`,
+                  message: `${t('description.profileQp1.mesTimeTo')}`,
                 },
               ]}
             >
@@ -176,62 +176,61 @@ const ProfileQuestions1 = () => {
             sm: { span: 24, offset: 0 },
           }}
         >
-          <Form.Item
-            name={[
-              profileQ1.profileQ1WorkHistoryWrapper,
-              profileQ1.profileQ1WorkHistory,
-            ]}
-            rules={[
-              {
-                required: true,
-                message: `${t('description.profileQp1.mesWork')}`,
-              },
-            ]}
-            noStyle
-            wrapperCol={{
-              sm: { span: 26, offset: 0 },
-            }}
-          >
-            <St.StTextAreaWork
-              placeholder={t('description.profileQp1.infoWork')}
-            />
-          </Form.Item>
-          <St.StFormItemDateTo
-            name={[
-              profileQ1.profileQ1WorkHistoryWrapper,
-              profileQ1.profileQ1WorkFrom,
-            ]}
-            rules={[
-              {
-                required: true,
-                message: `${t('description.profileQp1.mesWorkTimeFrom')}`,
-              },
-            ]}
-            noStyle
-          >
-            <St.StDatePickerWork
-              placeholder={t('description.profileQp1.from')}
-              picker="year"
-            />
-          </St.StFormItemDateTo>
-          <St.StFormItemDateTo
-            name={[
-              profileQ1.profileQ1WorkHistoryWrapper,
-              profileQ1.profileQ1WorkTo,
-            ]}
-            rules={[
-              {
-                required: true,
-                message: `${t('description.profileQp1.mesWorkTimeTo')}`,
-              },
-            ]}
-            noStyle
-          >
-            <St.StDatePickerWork
-              placeholder={t('description.profileQp1.to')}
-              picker="year"
-            />
-          </St.StFormItemDateTo>
+          <Input.Group compact>
+            <Form.Item
+              name={[
+                profileQ1.profileQ1WorkHistoryWrapper,
+                profileQ1.profileQ1WorkHistory,
+              ]}
+              rules={[
+                {
+                  required: true,
+                  message: `${t('description.profileQp1.mesWork')}`,
+                },
+              ]}
+              wrapperCol={{
+                sm: { span: 26, offset: 0 },
+              }}
+            >
+              <St.StTextAreaWork
+                placeholder={t('description.profileQp1.infoWork')}
+              />
+            </Form.Item>
+            <St.StFormItemWorkDateFrom
+              name={[
+                profileQ1.profileQ1WorkHistoryWrapper,
+                profileQ1.profileQ1WorkFrom,
+              ]}
+              rules={[
+                {
+                  required: true,
+                  message: `${t('description.profileQp1.mesTimeFrom')}`,
+                },
+              ]}
+            >
+              <St.StDatePickerWork
+                placeholder={t('description.profileQp1.from')}
+                picker="year"
+              />
+            </St.StFormItemWorkDateFrom>
+            <St.StFormItemDateTo
+              name={[
+                profileQ1.profileQ1WorkHistoryWrapper,
+                profileQ1.profileQ1WorkTo,
+              ]}
+              rules={[
+                {
+                  required: true,
+                  message: `${t('description.profileQp1.mesTimeTo')}`,
+                },
+              ]}
+            >
+              <St.StDatePickerWork
+                placeholder={t('description.profileQp1.to')}
+                picker="year"
+              />
+            </St.StFormItemDateTo>
+          </Input.Group>
         </Form.Item>
         <Form.Item
           wrapperCol={{
