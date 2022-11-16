@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { SignUpForm } from '@freelance/components';
 import { Button } from 'antd';
 
-import { Wrapper } from './styles';
+import { ButtonWrap, Wrapper } from './styles';
 
 export default function SignupPage() {
   const { t } = useTranslation();
@@ -16,9 +16,11 @@ export default function SignupPage() {
   return (
     <Wrapper>
       <SignUpForm />
-      <Button type="link" htmlType="button" onClick={goToLogin}>
-        {t('loginPage.have_account')}
-      </Button>
+      <ButtonWrap>
+        <Button type="link" htmlType="button" onClick={goToLogin}>
+          {t('loginPage.have_account')}
+        </Button>
+      </ButtonWrap>
     </Wrapper>
   );
 }

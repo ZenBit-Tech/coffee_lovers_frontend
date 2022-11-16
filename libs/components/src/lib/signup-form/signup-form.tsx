@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Col, Form, Row } from 'antd';
+import { Checkbox, Col, Form, Row, Space, Typography } from 'antd';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 import * as yup from 'yup';
@@ -20,6 +20,8 @@ type FormValues = {
   password: string;
   confirmPassword: string;
 };
+
+const { Text, Link } = Typography;
 
 const schema: yup.SchemaOf<Partial<FormValues>> = yup.object({
   email: yup.string().required(),
@@ -85,7 +87,9 @@ export function SignUpForm() {
             placeholder={t('loginPage.loginPage_email')}
             {...register('email')}
           />
-          {formState?.errors?.email && <p>{t('loginPage.email_error')}</p>}
+          {formState?.errors?.email && (
+            <Text type="danger">{t('loginPage.email_error')}</Text>
+          )}
         </Col>
 
         <Col className="gutter-row" offset={12} pull={12} span={6}>
@@ -95,7 +99,9 @@ export function SignUpForm() {
             placeholder={t('loginPage.first_name')}
             {...register('firstName')}
           />
-          {formState?.errors?.firstName && <p>{t('loginPage.email_error')}</p>}
+          {formState?.errors?.firstName && (
+            <Text type="danger">{t('loginPage.email_error')}</Text>
+          )}
         </Col>
 
         <Col className="gutter-row" pull={12} span={6}>
@@ -105,7 +111,9 @@ export function SignUpForm() {
             placeholder={t('loginPage.last_name')}
             {...register('lastName')}
           />
-          {formState?.errors?.lastName && <p>{t('loginPage.email_error')}</p>}
+          {formState?.errors?.lastName && (
+            <Text type="danger">{t('loginPage.email_error')}</Text>
+          )}
         </Col>
 
         <Col offset={12} pull={12} span={6}>
@@ -116,7 +124,7 @@ export function SignUpForm() {
             {...register('password')}
           />
           {formState?.errors?.password && (
-            <p>{t('loginPage.password_error')}</p>
+            <Text type="danger">{t('loginPage.password_error')}</Text>
           )}
         </Col>
 
@@ -129,10 +137,18 @@ export function SignUpForm() {
           />
         </Col>
 
-        <Col span={12}>
-          <StylesButton size="large" type="primary" block htmlType="submit">
-            {t('loginPage.signUp')}
-          </StylesButton>
+        <Col>
+          <Space direction="vertical">
+            <Space>
+              <Checkbox type="checkbox" />
+              <Text>{t('loginPage.terms_agree')}</Text>
+              <Link href="#">{t('loginPage.terms')}</Link>
+            </Space>
+
+            <StylesButton size="large" type="primary" block htmlType="submit">
+              {t('loginPage.signUp')}
+            </StylesButton>
+          </Space>
         </Col>
       </Row>
     </Form>

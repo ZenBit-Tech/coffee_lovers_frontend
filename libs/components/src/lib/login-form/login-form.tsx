@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Form } from 'antd';
+import { Button, Form, Typography } from 'antd';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 import * as yup from 'yup';
@@ -17,6 +17,8 @@ type FormValues = {
   email: string;
   password: string;
 };
+
+const { Text } = Typography;
 
 const schema: yup.SchemaOf<Partial<FormValues>> = yup.object({
   email: yup.string().required(),
@@ -73,7 +75,9 @@ export const LoginForm = () => {
           placeholder={t('loginPage.loginPage_email')}
           {...register('email')}
         />
-        {formState?.errors?.email && <p>{t('loginPage.email_error')}</p>}
+        {formState?.errors?.email && (
+          <Text type="danger">{t('loginPage.email_error')}</Text>
+        )}
       </Form.Item>
 
       <Form.Item>
@@ -83,7 +87,9 @@ export const LoginForm = () => {
           placeholder={t('loginPage.loginPage_password')}
           {...register('password')}
         />
-        {formState?.errors?.password && <p>{t('loginPage.password_error')}</p>}
+        {formState?.errors?.password && (
+          <Text type="danger">{t('loginPage.password_error')}</Text>
+        )}
       </Form.Item>
 
       <Form.Item>
