@@ -69,6 +69,18 @@
         "type": "You can only upload JPG/PNG file!",
         "size": "Image must smaller than 1MB!"
       }
+    },
+    "jobOwnerDashboard": {
+      "postJobBtn": "Post a job",
+      "jobListLink": "Posted jobs",
+      "showAll": "Show all",
+      "hide": "Hide",
+      "jobList": {
+        "edit": "Edit",
+        "proposal": "Proposal ({{amount}})",
+        "hired": "Hired ({{amount}})"
+      },
+      "draftsListLink": "Drafts"
     }
   }
 }

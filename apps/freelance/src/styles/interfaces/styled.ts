@@ -7,6 +7,11 @@ export interface ITheme {
 
     bg: string;
     font: string;
+
+    button: {
+      green: string;
+      greenHover: string;
+    };
   };
 
   media: {
