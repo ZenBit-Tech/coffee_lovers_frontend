@@ -21,23 +21,23 @@ const JobOwnerDashboard = () => {
   const { t } = useTranslation();
   const { first_name, last_name } = mockUser;
   const [jobList, setJobList] = useState<JobItem[]>();
-  const [isShowAllJobs, setisShowAllJobs] = useState<boolean>(false);
+  const [isShowAllJobs, setIsShowAllJobs] = useState<boolean>(false);
   const [draftList, setDraftList] = useState<DraftItem[]>();
-  const [isShowAllDrafts, setisShowAllDrafts] = useState<boolean>(false);
+  const [isShowAllDrafts, setIsShowAllDrafts] = useState<boolean>(false);
 
   useEffect(() => {
     setJobList(mockJobList.slice(0, 2));
     setDraftList(mockDraftList.slice(0, 2));
   }, []);
 
-  const jobsListSizeHandler = () => {
+  const jobsListSizeHandler = (): void => {
     setJobList(isShowAllJobs ? mockJobList.slice(0, 2) : mockJobList);
-    setisShowAllJobs(prev => !prev);
+    setIsShowAllJobs(prev => !prev);
   };
 
-  const draftsListSizeHandler = () => {
+  const draftsListSizeHandler = (): void => {
     setDraftList(isShowAllDrafts ? mockDraftList.slice(0, 2) : mockDraftList);
-    setisShowAllDrafts(prev => !prev);
+    setIsShowAllDrafts(prev => !prev);
   };
 
   return (
