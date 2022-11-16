@@ -10,8 +10,8 @@ node_modules
 
 # IDEs and editors
 /.idea
+apps/freelance/.env.local
 .env
-.env.local
 .eslintcache
 .project
 .classpath
