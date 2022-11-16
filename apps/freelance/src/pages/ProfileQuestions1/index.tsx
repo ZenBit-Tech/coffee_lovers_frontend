@@ -114,8 +114,12 @@ const ProfileQuestions1 = () => {
           ]}
         >
           <Select placeholder={t('description.profileQp1.hPD')} allowClear>
-            <Option value="Part-Time">Part-Time</Option>
-            <Option value="Full-Time">Full-Time</Option>
+            <Option value={profileQ1.profileQ1PartTime}>
+              {t('description.profileQp1.partTime')}
+            </Option>
+            <Option value={profileQ1.profileQ1FullTime}>
+              {t('description.profileQp1.fullTime')}
+            </Option>
           </Select>
         </Form.Item>
         <Form.Item

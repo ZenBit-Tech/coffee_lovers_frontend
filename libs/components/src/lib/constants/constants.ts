@@ -8,6 +8,8 @@ export const profileQ1 = {
   profileQ1Descr: 'description',
   profileQ1Pos: 'position',
   profileQ1AvTime: 'available_time',
+  profileQ1PartTime: 'Part-Time',
+  profileQ1FullTime: 'Full-Time',
   profileQ1Edu: 'education',
   profileQ1EduInfo: 'information_about_education',
   profileQ1EduForm: 'education_from',

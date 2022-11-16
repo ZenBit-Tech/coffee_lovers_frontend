@@ -22,6 +22,8 @@
         "edu": "Education",
         "workH": "Work history",
         "hPD": "Hours Per Day",
+        "partTime": "Part-Time",
+        "fullTime": "Full-Time",
         "infoEdu": "Info about education",
         "infoWork": "Info about work history",
         "from": "From",
