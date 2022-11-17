@@ -12,6 +12,7 @@ node_modules
 /.idea
 .env.local
 .env
+/apps/freelance/.env.local
 .eslintcache
 .project
 .classpath

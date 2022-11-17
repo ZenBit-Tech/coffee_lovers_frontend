@@ -9,6 +9,11 @@ export const baseTheme: ITheme = {
 
     bg: '#E5E4E8',
     font: '#19191B',
+
+    button: {
+      green: '#439c46',
+      greenHover: '#5cbf60',
+    },
   },
 
   media: {
