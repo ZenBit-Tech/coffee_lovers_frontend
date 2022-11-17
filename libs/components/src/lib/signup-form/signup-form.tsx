@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
+import { Button, Checkbox, Form, Input } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Button, Checkbox, Form, Input } from 'antd';
 import { passwordValidationRegExp } from 'src/pages/PasswordReset/constants';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
@@ -168,9 +168,7 @@ export function SignUpForm() {
                     }
 
                     return Promise.reject(
-                      new Error(
-                        'The two passwords that you entered do not match!',
-                      ),
+                      new Error(`${t('loginPage.match_error')}`),
                     );
                   },
                 }),

@@ -1,7 +1,7 @@
+import { Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { SignUpForm } from '@freelance/components';
-import { Button } from 'antd';
 
 import { ButtonWrap, Wrapper } from './styles';
 
