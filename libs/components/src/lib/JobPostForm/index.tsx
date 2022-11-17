@@ -5,8 +5,8 @@ import { Form, Select } from 'antd';
 
 import Icon from '../assets/Icon';
 import { StyledButton } from '../button/styles';
-import { multipleSelectOption, options } from '../constants/options';
 
+import { multipleSelectOption, options } from './constant';
 import {
   FormContainer,
   FormTitle,
