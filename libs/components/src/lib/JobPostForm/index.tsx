@@ -1,30 +1,17 @@
-import { Form, Select } from 'antd';
+import { Form, Input, Select, Typography } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import Icon from '../assets/Icon';
 import { StyledButton } from '../button/styles';
+import { multipleSelectOptions, options, skillsOptions } from '../constants';
 
-import { multipleSelectOption, options } from './constant';
-import {
-  FormContainer,
-  FormTitle,
-  Input,
-  InputContainer,
-  StyledErrorMessage,
-  WrapperSelect,
-} from './styles';
+import { FormContainer, StyledErrorMessage } from './styles';
 import { InputsValues, schema } from './validation';
-
-export function ErrorMessage() {
-  const { t } = useTranslation();
-
-  return <StyledErrorMessage>{t('validation.required')}</StyledErrorMessage>;
-}
 
 export function JobPostForm() {
   const { t } = useTranslation();
+  const { Title, Text } = Typography;
   const {
     control,
     handleSubmit,
@@ -39,80 +26,115 @@ export function JobPostForm() {
 
   return (
     <FormContainer>
-      <FormTitle>{t('job_post_page.page_name')}</FormTitle>
-      <p>{t('job_post_page.fill_this_form')}</p>
+      <div style={{ textAlign: 'center' }}>
+        <Title>{t('job_post_page.page_name')}</Title>
+        <Title level={2}>{t('job_post_page.fill_this_form')}</Title>
+      </div>
 
       <Form onFinish={handleSubmit(onSubmit)}>
-        <InputContainer>
-          <Icon id={'#account'} />
+        <Controller
+          name="projectName"
+          control={control}
+          render={({ field }) => (
+            <Form.Item label={t('job_post_page.project_name_label')}>
+              <Input {...field} size="large" />
+              {errors.projectName && (
+                <StyledErrorMessage>
+                  {errors.projectName?.message}
+                </StyledErrorMessage>
+              )}
+            </Form.Item>
+          )}
+        />
 
-          <Controller
-            name="projectName"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <Input
-                {...field}
-                id="projectName-field"
-                placeholder={t('job_post_page.project_name_placeholder')}
-                type="text"
-              />
-            )}
-          />
-        </InputContainer>
-        {errors.projectName && <ErrorMessage />}
+        <Controller
+          name="about"
+          control={control}
+          render={({ field }) => (
+            <Form.Item label={t('job_post_page.about_label')}>
+              <Input {...field} size="large" />
+              {errors.about && (
+                <StyledErrorMessage>{errors.about?.message}</StyledErrorMessage>
+              )}
+            </Form.Item>
+          )}
+        />
 
-        <InputContainer>
-          <Icon id={'#password'} />
-          <Controller
-            name="about"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <Input
-                {...field}
-                id="about-field"
-                placeholder={t('job_post_page.about_placeholder')}
-                type="text"
-              />
-            )}
-          />
-        </InputContainer>
-        {errors.about && <ErrorMessage />}
-
-        <WrapperSelect>
-          <Controller
-            name="englishLevel"
-            control={control}
-            render={({ field }) => (
+        <Controller
+          name="englishLevel"
+          control={control}
+          render={({ field }) => (
+            <Form.Item label={t('job_post_page.english_level_label')}>
               <Select
                 {...field}
                 style={{ width: '100%' }}
-                defaultValue={t('job_post_page.english_level')}
+                size="large"
+                defaultValue={t('Required level')}
                 options={options}
               />
-            )}
-          />
-        </WrapperSelect>
-        {errors.englishLevel && <ErrorMessage />}
+              {errors.englishLevel && (
+                <StyledErrorMessage>
+                  {errors.englishLevel?.message}
+                </StyledErrorMessage>
+              )}
+            </Form.Item>
+          )}
+        />
 
-        <WrapperSelect>
-          <Controller
-            name="jobCategory"
-            control={control}
-            render={({ field }) => (
+        <Controller
+          name="jobCategory"
+          control={control}
+          render={({ field }) => (
+            <Form.Item label={t('job_post_page.job_category_label')}>
               <Select
                 {...field}
-                mode="multiple"
-                allowClear
+                size="large"
+                showSearch
+                placeholder="Search to Select"
                 style={{ width: '100%' }}
-                placeholder={t('job_post_page.job_category_placeholder')}
-                options={multipleSelectOption}
+                options={multipleSelectOptions}
+                optionFilterProp="children"
+                filterOption={(input, option) =>
+                  (option?.value ?? '').includes(input)
+                }
+                filterSort={(optionA, optionB) =>
+                  (optionA?.value ?? '')
+                    .toLowerCase()
+                    .localeCompare((optionB?.value ?? '').toLowerCase())
+                }
               />
-            )}
-          />
-          {errors.jobCategory && <ErrorMessage />}
-        </WrapperSelect>
+              {errors.jobCategory && (
+                <StyledErrorMessage>
+                  {errors.jobCategory?.message}
+                </StyledErrorMessage>
+              )}
+            </Form.Item>
+          )}
+        />
+
+        <Controller
+          name="skills"
+          control={control}
+          render={({ field }) => (
+            <Form.Item label={t('job_post_page.skills_label')}>
+              <Text>{t('job_post_page.skills_label_minimize')}</Text>
+              <Select
+                {...field}
+                mode="tags"
+                size="large"
+                style={{ width: '100%' }}
+                options={skillsOptions}
+                placeholder={t('job_post_page.skills_placeholder')}
+                tokenSeparators={[',']}
+              />
+              {errors.skills && (
+                <StyledErrorMessage>
+                  {errors.skills?.message}
+                </StyledErrorMessage>
+              )}
+            </Form.Item>
+          )}
+        />
 
         <StyledButton type="submit" style={{ margin: '0 auto 0' }}>
           {t('general.submit')}
