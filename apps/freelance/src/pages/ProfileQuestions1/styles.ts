@@ -12,6 +12,10 @@ export const Wrapper = styled.div`
 `;
 
 export const StForm = styled(Form)`
+  margin-top: 30px;
+  .ant-form-item {
+    margin-bottom: 45px;
+  }
   .ant-form-item-label > label .ant-form-item-optional {
     display: none;
   }
@@ -61,7 +65,10 @@ export const StFormItemDateTo = styled(Form.Item)`
 
 export const StTextAreaWork = styled(TextArea)`
   resize: none;
-  width: 280px !important;
+`;
+
+export const StWorkWrapper = styled.div`
+  width: 280px;
 `;
 
 export const StDatePickerWork = styled(DatePicker)`

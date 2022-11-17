@@ -192,9 +192,11 @@ const ProfileQuestions1 = () => {
                 sm: { span: 26, offset: 0 },
               }}
             >
-              <St.StTextAreaWork
-                placeholder={t('description.profileQp1.infoWork')}
-              />
+              <St.StWorkWrapper>
+                <St.StTextAreaWork
+                  placeholder={t('description.profileQp1.infoWork')}
+                />
+              </St.StWorkWrapper>
             </Form.Item>
             <St.StFormItemWorkDateFrom
               name={[
