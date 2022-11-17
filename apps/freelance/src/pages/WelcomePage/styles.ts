@@ -1,5 +1,5 @@
-import Card from 'antd/lib/card/Card';
 import styled from 'styled-components';
+import Card from 'antd/lib/card/Card';
 export const H2 = styled.h2`
   font: 40px;
 `;

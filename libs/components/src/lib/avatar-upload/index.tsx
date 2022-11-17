@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { UserOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
 import ImgCrop from 'antd-img-crop';
+import { useTranslation } from 'react-i18next';
+import { UserOutlined } from '@ant-design/icons';
 
 import { avatarSize, uploadName } from './constants';
 import { StyledUpload } from './styles';

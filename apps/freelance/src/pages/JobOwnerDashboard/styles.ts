@@ -1,6 +1,6 @@
 import { Button } from 'antd';
-import { baseTheme } from 'src/styles/theme';
 import styled from 'styled-components';
+import { baseTheme } from 'src/styles/theme';
 
 export const Wrapper = styled.div`
   padding: 1rem;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import { List, Skeleton } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { AvatarUpload } from '@freelance/components';
-import { List, Skeleton } from 'antd';
 
 import { mockDraftList, mockJobList, mockUser } from './constants';
 import {

@@ -1,0 +1,28 @@
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" >
+  <defs>
+     <symbol id="button-arrow" width="6" height="9" viewBox="0 0 6 9" fill="none">
+      <path d="M1.125 1.0625L4.5625 4.5L1.125 7.9375" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+
+
+    <symbol id="close" viewBox="0 0 32 32" >
+      <path d="M1.76 1.787l-0.612 0.613 13.598 13.6-13.6 13.6 0.628 0.626 0.626 0.628 13.6-13.6 13.6 13.6 0.626-0.628 0.628-0.626-13.6-13.6 13.6-13.6-0.628-0.626-0.626-0.628-13.6 13.6-6.788-6.788c-2.249-2.258-4.469-4.469-6.698-6.671l-0.116-0.114c-0.014 0-0.302 0.276-0.638 0.613z" />
+    </symbol>
+
+
+    <symbol id="account" fill="none" viewBox="0 0 19 18">
+      <path d="M0.5 2V16C0.5 17.1 1.39 18 2.5 18H16.5C17.6 18 18.5 17.1 18.5 16V2C18.5 0.9 17.6 0 16.5 0H2.5C1.39 0 0.5 0.9 0.5 2ZM12.5 6C12.5 7.66 11.16 9 9.5 9C7.84 9 6.5 7.66 6.5 6C6.5 4.34 7.84 3 9.5 3C11.16 3 12.5 4.34 12.5 6ZM3.5 14C3.5 12 7.5 10.9 9.5 10.9C11.5 10.9 15.5 12 15.5 14V15H3.5V14Z" fill="#E0E0E0" />
+    </symbol>
+
+
+    <symbol id="email" width="21" height="16" viewBox="0 0 21 16" fill="none">
+      <path d="M18.5 0H2.5C1.4 0 0.51 0.9 0.51 2L0.5 14C0.5 15.1 1.4 16 2.5 16H18.5C19.6 16 20.5 15.1 20.5 14V2C20.5 0.9 19.6 0 18.5 0ZM18.5 4L10.5 9L2.5 4V2L10.5 7L18.5 2V4Z" fill="#E0E0E0"/>
+    </symbol>
+
+
+    <symbol id="password" width="17" height="21" viewBox="0 0 17 21" fill="none">
+      <path d="M14.5 7H13.5V5C13.5 2.24 11.26 0 8.5 0C5.74 0 3.5 2.24 3.5 5V7H2.5C1.4 7 0.5 7.9 0.5 9V19C0.5 20.1 1.4 21 2.5 21H14.5C15.6 21 16.5 20.1 16.5 19V9C16.5 7.9 15.6 7 14.5 7ZM8.5 16C7.4 16 6.5 15.1 6.5 14C6.5 12.9 7.4 12 8.5 12C9.6 12 10.5 12.9 10.5 14C10.5 15.1 9.6 16 8.5 16ZM11.6 7H5.4V5C5.4 3.29 6.79 1.9 8.5 1.9C10.21 1.9 11.6 3.29 11.6 5V7Z" fill="#E0E0E0"/>
+    </symbol>
+
+  </defs>
+</svg>

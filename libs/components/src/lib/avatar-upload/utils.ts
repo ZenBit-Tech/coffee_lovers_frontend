@@ -1,5 +1,5 @@
-import type { RcFile } from 'antd/es/upload/interface';
 import { TFunction } from 'i18next';
+import type { RcFile } from 'antd/es/upload/interface';
 
 import { fileSize, uploadName } from './constants';
 import { CustomRequestOptions, FileTypes } from './types';

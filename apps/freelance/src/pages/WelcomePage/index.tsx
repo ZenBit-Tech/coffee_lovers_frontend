@@ -1,7 +1,7 @@
+import { Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { CardWrapper } from '@freelance/components';
-import { Button } from 'antd';
 
 import { CenterCard } from './styles';
 import { H2 } from './styles';

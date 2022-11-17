@@ -1,14 +1,13 @@
 import { lazy } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Route, Routes } from 'react-router-dom';
+import { Container } from '@freelance/components';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
 import ProfileQuestions1 from '@pages/ProfileQuestions1';
 import ProfileQuestions2 from '@pages/ProfileQuestions2';
 import WelcomePage from '@pages/WelcomePage';
-
-import { Wrapper } from './styles';
 
 const ExampleRootPage = lazy(
   () =>
@@ -20,27 +19,29 @@ const ExampleRootPage = lazy(
 const OwnerProfilePage = lazy(
   () =>
     import(
-      /* webpackChunkName: "ExampleRootPage" */ '../pages/OwnerProfilePage'
+      /* webpackChunkName: "OwnerProfilePage" */ '../pages/OwnerProfilePage'
     ),
 );
 const SignInGoogle = lazy(() => import('../pages/SignInGoogle'));
 const ConditionsPage = lazy(() => import('../pages/ConditionsPage'));
 
+const JobPostPage = lazy(
+  () => import(/* webpackChunkName: "JobPostPage" */ '../pages/JobPostPage'),
+);
+
 export function App() {
   const { t } = useTranslation();
 
   return (
-    <Wrapper>
+    <Container>
       <Routes>
         <Route path="/" element={<ExampleRootPage />} />
         <Route path="/owner-profile" element={<OwnerProfilePage />} />
+        <Route path="/owner-profile/job-post" element={<JobPostPage />} />
+
         <Route
           path="/page-2"
-          element={
-            <Wrapper>
-              <Link to="/">{t('router.toRoot')}</Link>
-            </Wrapper>
-          }
+          element={<Link to="/">{t('router.toRoot')}</Link>}
         />
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/googleAuth" element={<SignInGoogle />} />
@@ -51,7 +52,7 @@ export function App() {
         <Route path="/passwordreset/:key" element={<PasswordReset />} />
         <Route path="/jobownerdashboard" element={<JobOwnerDashboard />} />
       </Routes>
-    </Wrapper>
+    </Container>
   );
 }
 

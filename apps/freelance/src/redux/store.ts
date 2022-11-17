@@ -12,7 +12,11 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(pokemonApi.middleware, authApi.middleware, userApi.middleware),
+    getDefaultMiddleware().concat(
+      pokemonApi.middleware,
+      authApi.middleware,
+      userApi.middleware,
+    ),
 });
 
 setupListeners(store.dispatch);
