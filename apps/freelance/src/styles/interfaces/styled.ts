@@ -5,8 +5,12 @@ export interface ITheme {
     success: string;
     danger: string;
 
-    bg: string;
-    font: string;
+    button: {
+      bg: string;
+      hover: string;
+      green: string;
+      greenHover: string;
+    };
   };
 
   media: {
@@ -20,16 +24,16 @@ export interface ITheme {
     extraLarge: string;
     large: string;
     medium: string;
+    normal: string;
     small: string;
   };
 
   weight: { bold: number; medium: number; regular: number };
 
   sizes: {
-    header: { height: number };
-    container: { width: number };
-    footer: { height: number };
-    modal: { width: number };
+    header: { minHeight: string };
+    container: { width: string };
+    button: { width: string; height: string };
   };
 
   durations: {

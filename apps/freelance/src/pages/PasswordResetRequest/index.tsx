@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { Button, Form, Input } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Button, Form, Input } from 'antd';
+import { getErrorMessage } from '@pages/PasswordReset/errors';
+import { usePasswordResetRequestMutation } from 'redux/services/user';
 
 import { emailName } from './constants';
-import { StyledEmail, StyledInfo, Wrapper } from './styles';
+import { StyledEmail, StyledError, StyledInfo, Wrapper } from './styles';
 
 type Inputs = {
   email: string;
@@ -13,20 +15,18 @@ type Inputs = {
 const PasswordResetRequest = () => {
   const { t } = useTranslation();
   const { handleSubmit, control } = useForm<Inputs>();
-  const [loading, setLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
+  const [passwordResetRequest, { isLoading, isSuccess, isError, error }] =
+    usePasswordResetRequestMutation();
 
   const onSubmit: SubmitHandler<Inputs> = data => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setEmail(data.email);
-    }, 1500);
+    setEmail(data.email);
+    passwordResetRequest(data.email);
   };
 
   return (
     <Wrapper>
-      {!email && (
+      {!isSuccess && (
         <Form onFinish={handleSubmit(onSubmit)}>
           <h3>{t('resetPassword.title.passwordReset')}</h3>
           <Controller
@@ -51,13 +51,14 @@ const PasswordResetRequest = () => {
             )}
           />
           <Form.Item>
-            <Button type="primary" htmlType="submit" loading={loading}>
+            <Button type="primary" htmlType="submit" loading={isLoading}>
               {t('resetPassword.buttonText')}
             </Button>
+            {isError && <StyledError>{t(getErrorMessage(error))}</StyledError>}
           </Form.Item>
         </Form>
       )}
-      {email && (
+      {isSuccess && (
         <>
           <StyledInfo>{t('resetPassword.sentText')}</StyledInfo>
           <StyledEmail>{email}</StyledEmail>

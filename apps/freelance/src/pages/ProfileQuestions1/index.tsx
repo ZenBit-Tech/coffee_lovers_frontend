@@ -1,3 +1,4 @@
+import { DatePicker, Form, Input, Select, Upload } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { UploadOutlined } from '@ant-design/icons';
@@ -8,7 +9,6 @@ import {
   profileQ1,
   ProgressBar,
 } from '@freelance/components';
-import { DatePicker, Form, Input, Select, Upload } from 'antd';
 import { useAddprofileQuestions1DataMutation } from 'redux/profileQuestions/profileQuestions1Api';
 
 import { onFinishLogic } from './hooks';
