@@ -2,10 +2,12 @@ import { lazy } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Route, Routes } from 'react-router-dom';
 import { Container } from '@freelance/components';
+import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
 import ProfileQuestions1 from '@pages/ProfileQuestions1';
 import ProfileQuestions2 from '@pages/ProfileQuestions2';
+import WelcomePage from '@pages/WelcomePage';
 
 const ExampleRootPage = lazy(
   () =>
@@ -20,10 +22,11 @@ const OwnerProfilePage = lazy(
       /* webpackChunkName: "OwnerProfilePage" */ '../pages/OwnerProfilePage'
     ),
 );
+const SignInGoogle = lazy(() => import('../pages/SignInGoogle'));
+const ConditionsPage = lazy(() => import('../pages/ConditionsPage'));
 
 const JobPostPage = lazy(
-  () =>
-    import(/* webpackChunkName: "OwnerProfilePage" */ '../pages/JobPostPage'),
+  () => import(/* webpackChunkName: "JobPostPage" */ '../pages/JobPostPage'),
 );
 
 export function App() {
@@ -40,10 +43,14 @@ export function App() {
           path="/page-2"
           element={<Link to="/">{t('router.toRoot')}</Link>}
         />
+        <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/googleAuth" element={<SignInGoogle />} />
+        <Route path="/login/conditions" element={<ConditionsPage />} />
         <Route path="/profile-questions-1" element={<ProfileQuestions1 />} />
         <Route path="/profile-questions-2" element={<ProfileQuestions2 />} />
         <Route path="/passwordreset" element={<PasswordResetRequest />} />
         <Route path="/passwordreset/:key" element={<PasswordReset />} />
+        <Route path="/jobownerdashboard" element={<JobOwnerDashboard />} />
       </Routes>
     </Container>
   );

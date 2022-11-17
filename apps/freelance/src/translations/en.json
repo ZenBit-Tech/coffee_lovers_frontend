@@ -55,7 +55,38 @@
         "passwordRegExp": "password must contain more than 4 symbols, uppercase (A-Z) and lowercase (a-z) letters"
       },
       "buttonText": "Continue",
-      "sentText": "Instructions for changing the password have been sent to the mail"
+      "sentText": "Instructions for changing the password have been sent to the mail",
+      "errors": {
+        "userNotFound": "User with this email not found",
+        "invalidKey": "Invalid reset password link",
+        "unexpected": "Unexpected error. Please try again later"
+      },
+      "successResetMessage": "Password has been changed"
+    },
+    "uploadImage": {
+      "uploadText": "Upload",
+      "imgAlt": "avatar",
+      "crop": {
+        "title": "Edit image",
+        "okBtn": "Ok",
+        "cancelBtn": "Cancel"
+      },
+      "errors": {
+        "type": "You can only upload JPG/PNG file!",
+        "size": "Image must smaller than 1MB!"
+      }
+    },
+    "jobOwnerDashboard": {
+      "postJobBtn": "Post a job",
+      "jobListLink": "Posted jobs",
+      "showAll": "Show all",
+      "hide": "Hide",
+      "jobList": {
+        "edit": "Edit",
+        "proposal": "Proposal ({{amount}})",
+        "hired": "Hired ({{amount}})"
+      },
+      "draftsListLink": "Drafts"
     },
     "app_bar": {
       "logo": "Styled Logo",

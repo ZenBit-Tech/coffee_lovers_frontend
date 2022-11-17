@@ -4,8 +4,15 @@ export const baseTheme: ITheme = {
   colors: {
     primary: '#7986cb',
     secondary: '#2b2b2b',
+    success: '#4caf50',
+    danger: '#f44336 ',
 
-    button: { bg: '#2e38b3', hover: '#2249b3' },
+    button: {
+      bg: '#2e38b3',
+      hover: '#2249b3',
+      green: '#439c46',
+      greenHover: '#5cbf60',
+    },
   },
 
   media: {
@@ -26,6 +33,7 @@ export const baseTheme: ITheme = {
   weight: { bold: 700, medium: 500, regular: 400 },
 
   sizes: {
+    container: { width: '1200px' },
     header: { minHeight: '80px' },
     button: { width: '120px', height: '50px' },
   },

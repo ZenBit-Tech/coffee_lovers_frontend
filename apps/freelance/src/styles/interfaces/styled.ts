@@ -2,8 +2,15 @@ export interface ITheme {
   colors: {
     primary: string;
     secondary: string;
+    success: string;
+    danger: string;
 
-    button: { bg: string; hover: string };
+    button: {
+      bg: string;
+      hover: string;
+      green: string;
+      greenHover: string;
+    };
   };
 
   media: {
@@ -25,7 +32,7 @@ export interface ITheme {
 
   sizes: {
     header: { minHeight: string };
-
+    container: { width: string };
     button: { width: string; height: string };
   };
 

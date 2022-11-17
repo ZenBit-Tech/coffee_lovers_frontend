@@ -11,7 +11,9 @@ package-lock.json
 
 # IDEs and editors
 /.idea
+.env.local
 .env
+/apps/freelance/.env.local
 .eslintcache
 .project
 .classpath
