@@ -7,6 +7,7 @@
       "loginPage_with-google": "Log In with Google",
       "email_error": "Please enter a valid email adress",
       "password_error": "Please enter a valid password",
+      "name_error": "Invalid characters. Only letters are alowed.",
       "signUp": "Create my account",
       "forgot_password": "Forgot password?",
       "have_account": "I already have an account",

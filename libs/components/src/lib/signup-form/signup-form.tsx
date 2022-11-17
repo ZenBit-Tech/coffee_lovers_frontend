@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { passwordValidationRegExp } from 'src/pages/PasswordReset/constants';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
@@ -90,7 +91,7 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem
               rules={[
-                { required: true, message: `${t('loginPage.first_name')}` },
+                { required: true, message: `${t('loginPage.name_error')}` },
               ]}
               hasFeedback
               {...field}
@@ -111,7 +112,7 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem
               rules={[
-                { required: true, message: `${t('loginPage.last_name')}` },
+                { required: true, message: `${t('loginPage.name_error')}` },
               ]}
               hasFeedback
               {...field}
@@ -135,6 +136,10 @@ export function SignUpForm() {
             <FormItem
               rules={[
                 { required: true, message: `${t('loginPage.password_error')}` },
+                {
+                  pattern: passwordValidationRegExp,
+                  message: `${t('resetPassword.validation.passwordRegExp')}`,
+                },
               ]}
               hasFeedback
               {...field}
@@ -192,7 +197,9 @@ export function SignUpForm() {
             validator: (_, value) =>
               value
                 ? Promise.resolve()
-                : Promise.reject(new Error('Should accept agreement')),
+                : Promise.reject(
+                    new Error(`${t('loginPage.agreement_error')}`),
+                  ),
           },
         ]}
       >
