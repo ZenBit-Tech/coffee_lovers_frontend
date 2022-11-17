@@ -1,6 +1,13 @@
 export const prBarStrColor = '#021691';
 export const prBarTrailColor = '#B0C4DE';
 
+declare let process: {
+  env: {
+    NX_API_URL: string;
+  };
+};
+export const baseUrl: string = (process.env.NX_API_URL as string) || '';
+
 export const profileQ1 = {
   prBarProfileQ1Per: 20,
   profileQ1Form: 'profile_questions_1',

@@ -1,12 +1,6 @@
+import { baseUrl } from '@freelance/components';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { profileQ1Payload } from 'redux/services/types/profileQuestions1.types';
-
-declare let process: {
-  env: {
-    NX_API_URL: string;
-  };
-};
-const baseUrl: string = (process.env.NX_API_URL as string) || '';
 
 export const profileQuestions1Api = createApi({
   reducerPath: 'profileQuestions1Api',
