@@ -1,24 +1,16 @@
 import { useState } from 'react';
+import { Avatar } from 'antd';
+import ImgCrop from 'antd-img-crop';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
-import { Avatar } from 'antd';
-import type { UploadChangeParam } from 'antd/es/upload';
-import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
-import ImgCrop from 'antd-img-crop';
 
 import { avatarSize, uploadName } from './constants';
 import { StyledUpload } from './styles';
-import { beforeUpload } from './utils';
+import { beforeUpload, uploadImage } from './utils';
 
 export const AvatarUpload = () => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const { t } = useTranslation();
-
-  const handleChange: UploadProps['onChange'] = (
-    info: UploadChangeParam<UploadFile>,
-  ) => {
-    setImageUrl('');
-  };
 
   return (
     <ImgCrop
@@ -32,7 +24,7 @@ export const AvatarUpload = () => {
         name={uploadName}
         showUploadList={false}
         beforeUpload={beforeUpload(t)}
-        onChange={handleChange}
+        customRequest={uploadImage(setImageUrl)}
       >
         <Avatar
           icon={<UserOutlined />}

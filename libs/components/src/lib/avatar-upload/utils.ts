@@ -1,8 +1,8 @@
-import type { RcFile } from 'antd/es/upload/interface';
 import { TFunction } from 'i18next';
+import type { RcFile } from 'antd/es/upload/interface';
 
-import { fileSize } from './constants';
-import { FileTypes } from './types';
+import { fileSize, uploadName } from './constants';
+import { CustomRequestOptions, FileTypes } from './types';
 
 export const beforeUpload = (t: TFunction): ((file: RcFile) => boolean) => {
   return (file: RcFile): boolean => {
@@ -20,11 +20,13 @@ export const beforeUpload = (t: TFunction): ((file: RcFile) => boolean) => {
   };
 };
 
-export const getBase64 = (
-  img: RcFile,
-  callback: (url: string) => void,
-): void => {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result as string));
-  reader.readAsDataURL(img);
+export const uploadImage = (
+  setImageUrl: (url: string) => void,
+): ((options: CustomRequestOptions) => void) => {
+  return (options: CustomRequestOptions): void => {
+    const { file } = options;
+    const formData = new FormData();
+    formData.append(uploadName, file);
+    setImageUrl('');
+  };
 };

@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ExampleButton } from '@freelance/components';
 import { useGetPokemonByNameQuery } from 'redux/services/pokemon';
 
 import { Text, Title, Wrapper } from './styles';
@@ -17,37 +16,6 @@ export default function ExampleRootPage() {
       <Text>{t('description.reusable_component')}</Text>
       <Text>{t('learnReact')}</Text>
 
-      <ExampleButton
-        border="none"
-        color="pink"
-        height="100px"
-        onClick={() => console.log('You clicked on the pink circle!')}
-        radius="50%"
-        width="100px"
-        children={t('description.pink_circle')}
-      />
-      <br></br>
-      <br></br>
-      <ExampleButton
-        border="dotted"
-        color="#f5bc42"
-        height="100px"
-        onClick={() => console.log('You clicked on the orange circle!')}
-        radius="50%"
-        width="100px"
-        children={t('description.orange_circle')}
-      />
-      <br></br>
-      <br></br>
-      <ExampleButton
-        border="dashed"
-        color="#fdffc4"
-        height="100px"
-        onClick={() => console.log('You clicked on the yellow square!')}
-        radius="10%"
-        width="100px"
-        children={t('description.yellow_circle')}
-      />
       <Wrapper>
         {error ? (
           <>Oh no, there was an error</>

@@ -4,7 +4,7 @@ import { RootState } from '../store';
 
 const baseUrl: string = process.env['NX_API_URL'] || '';
 
-export const authApi = createApi({
+export const userAuthApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
@@ -42,4 +42,4 @@ export const authApi = createApi({
   }),
 });
 
-export const { useLoginUserMutation, useRegisterUserMutation } = authApi;
+export const { useLoginUserMutation, useRegisterUserMutation } = userAuthApi;
