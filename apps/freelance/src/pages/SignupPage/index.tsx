@@ -9,15 +9,15 @@ export default function SignupPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const goToLogin = () => {
-    navigate('/login');
-  };
-
   return (
     <Wrapper>
       <SignUpForm />
       <ButtonWrap>
-        <Button type="link" htmlType="button" onClick={goToLogin}>
+        <Button
+          type="link"
+          htmlType="button"
+          onClick={() => navigate('/login')}
+        >
           {t('loginPage.have_account')}
         </Button>
       </ButtonWrap>

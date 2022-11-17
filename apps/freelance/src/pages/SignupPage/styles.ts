@@ -7,4 +7,3 @@ export const Wrapper = styled.div`
 export const ButtonWrap = styled.div`
   margin-top: 25px;
 `;
-export const Text = styled.p``;

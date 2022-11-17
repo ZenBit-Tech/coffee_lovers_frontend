@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Col, Form, Row, Space, Typography } from 'antd';
+import { Button, Checkbox, Form, Input } from 'antd';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
-import * as yup from 'yup';
 
-import { StyledInput, StylesButton } from '../login-form/styles';
+import { FormItem } from './styles';
 
 import 'antd/dist/antd.css';
 
@@ -22,31 +20,12 @@ type FormValues = {
   agreement: boolean;
 };
 
-const { Text, Link } = Typography;
-
-const schema: yup.SchemaOf<Partial<FormValues>> = yup.object({
-  email: yup.string().email().required(),
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  password: yup
-    .string()
-    .required()
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/),
-  confirmPassword: yup
-    .string()
-    .required()
-    .oneOf([yup.ref('password')]),
-  agreement: yup.bool().oneOf([true]),
-});
-
 export function SignUpForm() {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { register, handleSubmit, formState } = useForm<FormValues>({
-    resolver: yupResolver(schema),
-  });
+  const { handleSubmit, control } = useForm<FormValues>();
 
   const [registerUser, { data: registerData, isSuccess, isError }] =
     useRegisterUserMutation();
@@ -83,84 +62,151 @@ export function SignUpForm() {
       wrapperCol={{ span: 8 }}
       onFinish={handleSubmit(onSubmit)}
     >
-      <Row gutter={[16, 32]}>
-        <Col span={12}>
-          <StyledInput
-            type="email"
-            id="email-field"
-            placeholder={t('loginPage.loginPage_email')}
-            {...register('email')}
-          />
-          {formState?.errors?.email && (
-            <Text type="danger">{t('loginPage.email_error')}</Text>
+      <Controller
+        name="email"
+        control={control}
+        render={({ field }) => (
+          <Form.Item
+            rules={[
+              { required: true, message: `${t('loginPage.email_error')}` },
+            ]}
+            hasFeedback
+            {...field}
+          >
+            <Input
+              size="large"
+              type="email"
+              id="email-field"
+              placeholder={t('loginPage.loginPage_email')}
+            />
+          </Form.Item>
+        )}
+      />
+
+      <Form.Item>
+        <Controller
+          name="firstName"
+          control={control}
+          render={({ field }) => (
+            <FormItem
+              rules={[
+                { required: true, message: `${t('loginPage.first_name')}` },
+              ]}
+              hasFeedback
+              {...field}
+            >
+              <Input
+                size="large"
+                type="firstName"
+                id="firstName-field"
+                placeholder={t('loginPage.first_name')}
+              />
+            </FormItem>
           )}
-        </Col>
+        />
 
-        <Col className="gutter-row" offset={12} pull={12} span={6}>
-          <StyledInput
-            type="firstName"
-            id="firstName-field"
-            placeholder={t('loginPage.first_name')}
-            {...register('firstName')}
-          />
-          {formState?.errors?.firstName && (
-            <Text type="danger">{t('loginPage.email_error')}</Text>
+        <Controller
+          name="lastName"
+          control={control}
+          render={({ field }) => (
+            <FormItem
+              rules={[
+                { required: true, message: `${t('loginPage.last_name')}` },
+              ]}
+              hasFeedback
+              {...field}
+            >
+              <Input
+                size="large"
+                type="lastName"
+                id="lastName-field"
+                placeholder={t('loginPage.last_name')}
+              />
+            </FormItem>
           )}
-        </Col>
+        />
+      </Form.Item>
 
-        <Col className="gutter-row" pull={12} span={6}>
-          <StyledInput
-            type="lastName"
-            id="lastName-field"
-            placeholder={t('loginPage.last_name')}
-            {...register('lastName')}
-          />
-          {formState?.errors?.lastName && (
-            <Text type="danger">{t('loginPage.email_error')}</Text>
+      <Form.Item>
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <FormItem
+              rules={[
+                { required: true, message: `${t('loginPage.password_error')}` },
+              ]}
+              hasFeedback
+              {...field}
+            >
+              <Input.Password
+                size="large"
+                type="password"
+                id="password-field"
+                placeholder={t('loginPage.loginPage_password')}
+              />
+            </FormItem>
           )}
-        </Col>
+        />
 
-        <Col offset={12} pull={12} span={6}>
-          <StyledInput
-            type="password"
-            id="password-field"
-            placeholder={t('loginPage.loginPage_password')}
-            {...register('password')}
-          />
-          {formState?.errors?.password && (
-            <Text type="danger">{t('loginPage.password_error')}</Text>
+        <Controller
+          name="confirmPassword"
+          control={control}
+          render={({ field }) => (
+            <FormItem
+              rules={[
+                { required: true, message: `${t('loginPage.match_error')}` },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+
+                    return Promise.reject(
+                      new Error(
+                        'The two passwords that you entered do not match!',
+                      ),
+                    );
+                  },
+                }),
+              ]}
+              hasFeedback
+              {...field}
+            >
+              <Input.Password
+                size="large"
+                type="password"
+                id="confirmPassword-field"
+                placeholder={t('loginPage.loginPage_password')}
+              />
+            </FormItem>
           )}
-        </Col>
+        />
+      </Form.Item>
 
-        <Col pull={12} span={6}>
-          <StyledInput
-            type="password"
-            id="confirmPassword-field"
-            placeholder={t('loginPage.confirm_password')}
-            {...register('confirmPassword')}
-          />
-          {formState?.errors.confirmPassword && (
-            <Text type="danger">{t('loginPage.match_error')}</Text>
-          )}
-        </Col>
+      <Form.Item
+        name="agreement"
+        valuePropName="checked"
+        rules={[
+          {
+            validator: (_, value) =>
+              value
+                ? Promise.resolve()
+                : Promise.reject(new Error('Should accept agreement')),
+          },
+        ]}
+      >
+        <Checkbox>
+          {t('loginPage.terms_agree')}{' '}
+          <a href="/signup">{t('loginPage.terms')}</a>
+        </Checkbox>
+      </Form.Item>
 
-        <Col>
-          <Space direction="vertical">
-            <Space>
-              <input type="checkbox" value="true" {...register('agreement')} />
-              <Text>{t('loginPage.terms_agree')}</Text>
-              <Link>{t('loginPage.terms')}</Link>
-            </Space>
-            {formState?.errors.agreement && (
-              <Text type="danger">{t('loginPage.agreement_error')}</Text>
-            )}
-
-            <StylesButton size="large" type="primary" block htmlType="submit">
-              {t('loginPage.signUp')}
-            </StylesButton>
-          </Space>
-        </Col>
-      </Row>
+      <Form.Item>
+        <Button size="large" type="primary" block htmlType="submit">
+          {t('loginPage.signUp')}
+        </Button>
+      </Form.Item>
     </Form>
   );
 }

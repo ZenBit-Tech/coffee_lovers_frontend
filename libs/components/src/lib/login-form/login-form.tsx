@@ -1,15 +1,11 @@
 import { useEffect } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Form, Typography } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
-import * as yup from 'yup';
-
-import { StyledInput, StylesButton } from './styles';
 
 import 'antd/dist/antd.css';
 
@@ -18,23 +14,13 @@ type FormValues = {
   password: string;
 };
 
-const { Text } = Typography;
-
-const schema: yup.SchemaOf<Partial<FormValues>> = yup.object({
-  email: yup.string().required(),
-  password: yup.string().required(),
-});
-
 export const LoginForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { handleSubmit, control } = useForm<FormValues>();
   const [loginUser, { data: loginData, isSuccess, isError }] =
     useLoginUserMutation();
-
-  const { register, handleSubmit, formState } = useForm<FormValues>({
-    resolver: yupResolver(schema),
-  });
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     try {
@@ -58,55 +44,73 @@ export const LoginForm = () => {
     }
   }, [isSuccess, isError]);
 
-  const goToSignup = () => {
-    navigate('/signup');
-  };
-
-  const goToReset = () => {
-    navigate('/passwordreset');
-  };
-
   return (
     <Form
       name="basic"
       wrapperCol={{ span: 8 }}
       onFinish={handleSubmit(onSubmit)}
     >
-      <Form.Item>
-        <StyledInput
-          type="email"
-          id="email-field"
-          placeholder={t('loginPage.loginPage_email')}
-          {...register('email')}
-        />
-        {formState?.errors?.email && (
-          <Text type="danger">{t('loginPage.email_error')}</Text>
+      <Controller
+        name="email"
+        control={control}
+        render={({ field }) => (
+          <Form.Item
+            rules={[
+              { required: true, message: `${t('loginPage.email_error')}` },
+            ]}
+            hasFeedback
+            {...field}
+          >
+            <Input
+              size="large"
+              type="email"
+              id="email-field"
+              placeholder={t('loginPage.loginPage_email')}
+            />
+          </Form.Item>
         )}
-      </Form.Item>
+      />
+
+      <Controller
+        name="password"
+        control={control}
+        render={({ field }) => (
+          <Form.Item
+            rules={[
+              { required: true, message: `${t('loginPage.password_error')}` },
+            ]}
+            hasFeedback
+            {...field}
+          >
+            <Input.Password
+              type="password"
+              size="large"
+              id="password-field"
+              placeholder={t('loginPage.loginPage_password')}
+            />
+          </Form.Item>
+        )}
+      />
 
       <Form.Item>
-        <StyledInput
-          type="password"
-          id="password-field"
-          placeholder={t('loginPage.loginPage_password')}
-          {...register('password')}
-        />
-        {formState?.errors?.password && (
-          <Text type="danger">{t('loginPage.password_error')}</Text>
-        )}
-      </Form.Item>
-
-      <Form.Item>
-        <StylesButton size="large" type="primary" block htmlType="submit">
+        <Button size="large" type="primary" block htmlType="submit">
           {t('loginPage.loginPage_name')}
-        </StylesButton>
+        </Button>
       </Form.Item>
 
       <Form.Item>
-        <Button type="link" htmlType="button" onClick={goToSignup}>
+        <Button
+          type="link"
+          htmlType="button"
+          onClick={() => navigate('/signup')}
+        >
           {t('loginPage.signUp')}
         </Button>
-        <Button type="link" htmlType="button" onClick={goToReset}>
+        <Button
+          type="link"
+          htmlType="button"
+          onClick={() => navigate('/passwordreset')}
+        >
           {t('loginPage.forgot_password')}
         </Button>
       </Form.Item>
