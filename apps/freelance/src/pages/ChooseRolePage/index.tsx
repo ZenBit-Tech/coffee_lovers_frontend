@@ -1,20 +1,44 @@
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Button, Checkbox, Form } from 'antd';
+import { Button, Checkbox, Form, Space, Typography } from 'antd';
 
 import { FormWrap, InputsWrapper, InputText, Title } from './styles';
+
 type Inputs = {
   jobOwner: boolean;
   freelancer: boolean;
 };
 
+const { Text } = Typography;
+
 const ChooseRole = () => {
   const { t } = useTranslation();
   const { handleSubmit } = useForm<Inputs>();
+  const [freelancer, setFreelancer] = useState(false);
+  const [jobOwner, setJobOwner] = useState(false);
 
   const onSubmit: SubmitHandler<Inputs> = data => {
-    console.log(data);
+    freelancer ? alert('freelancer') : alert('jobOwner');
   };
+
+  const onFreelancerClick = () => {
+    if (jobOwner) {
+      setJobOwner(false);
+      freelancer ? setFreelancer(true) : setFreelancer(false);
+    }
+    freelancer ? setFreelancer(false) : setFreelancer(true);
+  };
+
+  const onJobOwnerClick = () => {
+    if (freelancer) {
+      jobOwner ? setJobOwner(true) : setJobOwner(false);
+      setFreelancer(false);
+    }
+    jobOwner ? setJobOwner(false) : setJobOwner(true);
+  };
+
+  const disabled = !freelancer && !jobOwner;
 
   return (
     <FormWrap>
@@ -22,19 +46,34 @@ const ChooseRole = () => {
       <Form onFinish={handleSubmit(onSubmit)}>
         <Form.Item>
           <InputsWrapper>
-            <Checkbox type="checkbox">
+            <Checkbox
+              type="checkbox"
+              checked={jobOwner}
+              onChange={onJobOwnerClick}
+            >
               <InputText>{t('chooseRole.jobOwner')}</InputText>
             </Checkbox>
 
-            <Checkbox type="checkbox">
+            <Checkbox
+              type="checkbox"
+              checked={freelancer}
+              onChange={onFreelancerClick}
+            >
               <InputText>{t('chooseRole.freelancer')}</InputText>
             </Checkbox>
           </InputsWrapper>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            {t('resetPassword.buttonText')}
-          </Button>
+          <Space>
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={!freelancer && !jobOwner}
+            >
+              {t('resetPassword.buttonText')}
+            </Button>
+            {disabled && <Text type="danger">Please make your choice</Text>}
+          </Space>
         </Form.Item>
       </Form>
     </FormWrap>
