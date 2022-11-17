@@ -24,7 +24,6 @@ body {
   font-family: 'Poppins', sans-serif;
   font-size: 18px;
   font-weight: 400;
-  line-height: 28px;
   color: var(--black-color);
   background-color: var(--white-color);
 }

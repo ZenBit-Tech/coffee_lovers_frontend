@@ -7,10 +7,13 @@ tmp
 
 # dependencies
 node_modules
+package-lock.json
 
 # IDEs and editors
 /.idea
+.env.local
 .env
+/apps/freelance/.env.local
 .env.local
 .eslintcache
 .project
@@ -19,7 +22,6 @@ node_modules
 *.launch
 .settings/
 *.sublime-workspace
-
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
