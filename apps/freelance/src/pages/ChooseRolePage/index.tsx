@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { Button, Checkbox, Form, Space, Typography } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Button, Checkbox, Form, Space, Typography } from 'antd';
 
 import { FormWrap, InputsWrapper, InputText, Title } from './styles';
 
