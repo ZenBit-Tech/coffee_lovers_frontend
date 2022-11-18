@@ -1,15 +1,35 @@
-import { baseUrl } from '@freelance/components';
+import { baseUrl, route } from '@freelance/components';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { profileQ1Payload } from 'redux/services/types/profileQuestions1.types';
+import {
+  AddEducation,
+  AddWorkhistory,
+  UpdateUser,
+} from 'redux/services/types/user.types';
 
 export const profileQuestions1Api = createApi({
   reducerPath: 'profileQuestions1Api',
-  baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
+  baseQuery: fetchBaseQuery({ baseUrl: baseUrl + route }),
   tagTypes: ['ProfileQuestions1'],
   endpoints: builder => ({
-    addprofileQuestions1Data: builder.mutation({
-      query: (payload: profileQ1Payload) => ({
-        url: `/user/profile-questions-1`,
+    updateUserInfo: builder.mutation({
+      query: (payload: UpdateUser) => ({
+        url: `/user-info`,
+        method: 'POST',
+        body: payload,
+      }),
+      invalidatesTags: ['ProfileQuestions1'],
+    }),
+    addUserEduInfo: builder.mutation({
+      query: (payload: AddEducation) => ({
+        url: `/education-info`,
+        method: 'POST',
+        body: payload,
+      }),
+      invalidatesTags: ['ProfileQuestions1'],
+    }),
+    addUserWorkhistoryInfo: builder.mutation({
+      query: (payload: AddWorkhistory) => ({
+        url: `/workhistory-info`,
         method: 'POST',
         body: payload,
       }),
@@ -18,4 +38,8 @@ export const profileQuestions1Api = createApi({
   }),
 });
 
-export const { useAddprofileQuestions1DataMutation } = profileQuestions1Api;
+export const {
+  useAddUserEduInfoMutation,
+  useUpdateUserInfoMutation,
+  useAddUserWorkhistoryInfoMutation,
+} = profileQuestions1Api;
