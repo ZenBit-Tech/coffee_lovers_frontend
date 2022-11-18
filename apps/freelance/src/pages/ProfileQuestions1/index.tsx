@@ -1,184 +1,251 @@
-import { DatePicker, Form, Input, Select } from 'antd';
+import { DatePicker, Form, Input, Select, Upload } from 'antd';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { UploadOutlined } from '@ant-design/icons';
 import {
-  profileQ1AvTime,
-  profileQ1Descr,
-  profileQ1Edu,
-  profileQ1EduForm,
-  profileQ1EduInfo,
-  profileQ1EduTo,
-  profileQ1Form,
-  profileQ1HR,
-  profileQ1Pos,
-  profileQ1SuffixUSDH,
-  profileQ1WorkFrom,
-  profileQ1WorkHistory,
-  profileQ1WorkHistoryWrapper,
-  profileQ1WorkTo,
-  ProgressBar,
-} from '@freelance/components';
-import { DefInput } from '@freelance/components';
-import {
-  prBarProfileQ1Per,
+  DefInput,
   prBarStrColor,
   prBarTrailColor,
+  profileQ1,
+  ProgressBar,
 } from '@freelance/components';
+import { useAddprofileQuestions1DataMutation } from 'redux/profileQuestions/profileQuestions1Api';
 
-import {
-  StDatePickerWork,
-  StFormItemDateFrom,
-  StFormItemDateTo,
-  StTextArea,
-  StTextAreaWork,
-  Wrapper,
-} from './styles';
+import { onFinishLogic } from './hooks';
+import { IProfileQuestions1 } from './model';
+import * as St from './styles';
 
 const ProfileQuestions1 = () => {
   const { t } = useTranslation();
-  const { Option } = Select;
+  const { handleSubmit } = useForm<IProfileQuestions1>();
+  const [form] = Form.useForm();
+  const [AddprofileQuestions1Data] = useAddprofileQuestions1DataMutation();
 
-  const formItemLayout = {
-    labelCol: {
-      sm: { span: 2 },
-    },
-    wrapperCol: {
-      sm: { span: 6 },
-    },
+  const { Option } = Select;
+  const onFinish: SubmitHandler<IProfileQuestions1> = async values => {
+    try {
+      await AddprofileQuestions1Data(onFinishLogic(values));
+      form.resetFields();
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
-    <Wrapper>
+    <St.Wrapper>
       <div>{t('description.profileQp1.pr_bar_completion_per')}</div>
       <ProgressBar
-        percent={prBarProfileQ1Per}
+        percent={profileQ1.prBarProfileQ1Per}
         strokeColor={prBarStrColor}
         trailColor={prBarTrailColor}
       />
-      <Form
-        name={profileQ1Form}
-        {...formItemLayout}
+      <St.StUserAvatarWrapper>
+        <St.StUserIcon />
+        <Upload>
+          <St.StUserUpBtn icon={<UploadOutlined />}>
+            Upload Profile Photo
+          </St.StUserUpBtn>
+        </Upload>
+      </St.StUserAvatarWrapper>
+      <St.StForm
+        name={profileQ1.profileQ1Form}
+        {...profileQ1.formItemLayout}
         initialValues={{ remember: true }}
-        autoComplete="off"
+        autoComplete="on"
+        form={form}
         labelAlign="left"
         requiredMark="optional"
+        onFinish={values =>
+          handleSubmit(onFinish(values as IProfileQuestions1))
+        }
       >
         <Form.Item
           label={t('description.profileQp1.hR')}
-          name={profileQ1HR}
+          name={profileQ1.profileQ1HR}
           rules={[
-            { required: true, message: 'Please, input your hourly rate in $!' },
+            { required: true, message: `${t('description.profileQp1.mesHR')}` },
           ]}
         >
-          <DefInput prefix="$" suffix={profileQ1SuffixUSDH} />
+          <St.StInputNumber
+            prefix={t('description.profileQp1.hRPrefix')}
+            addonAfter={t('description.profileQp1.hRSuffix')}
+            min={profileQ1.profileQ1HRMin}
+          />
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.descr')}
-          name={profileQ1Descr}
+          name={profileQ1.profileQ1Descr}
           rules={[
-            { required: true, message: 'Please, input your description!' },
+            {
+              required: true,
+              message: `${t('description.profileQp1.mesDescr')}`,
+            },
           ]}
           wrapperCol={{
-            sm: { span: 16, offset: 0 },
+            sm: { span: 12, offset: 0 },
           }}
         >
-          <StTextArea
-            placeholder={t('description.profileQp1.Descr')}
+          <St.StTextArea
+            placeholder={t('description.profileQp1.descr')}
             allowClear
             rows={4}
           />
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.pos')}
-          name={profileQ1Pos}
-          rules={[{ required: true, message: 'Please, input your position!' }]}
+          name={profileQ1.profileQ1Pos}
+          rules={[
+            {
+              required: true,
+              message: `${t('description.profileQp1.mesPos')}`,
+            },
+          ]}
         >
           <DefInput placeholder={t('description.profileQp1.pos')} />
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.avTime')}
-          name={profileQ1AvTime}
-          rules={[{ required: true, message: 'Please, input hours per day!' }]}
+          name={profileQ1.profileQ1AvTime}
+          rules={[
+            {
+              required: true,
+              message: `${t('description.profileQp1.mesAvTime')}`,
+            },
+          ]}
         >
           <Select placeholder={t('description.profileQp1.hPD')} allowClear>
-            <Option value="Part-Time">Part-Time</Option>
-            <Option value="Full-Time">Full-Time</Option>
+            <Option value={profileQ1.profileQ1PartTime}>
+              {t('description.profileQp1.partTime')}
+            </Option>
+            <Option value={profileQ1.profileQ1FullTime}>
+              {t('description.profileQp1.fullTime')}
+            </Option>
           </Select>
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.edu')}
-          rules={[{ required: true, message: 'Education is required' }]}
-          name={profileQ1Edu}
           wrapperCol={{
             sm: { span: 24, offset: 0 },
           }}
         >
           <Input.Group compact>
             <Form.Item
-              name={profileQ1EduInfo}
+              name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduInfo]}
               rules={[
-                { required: true, message: 'Education field is required' },
+                {
+                  required: true,
+                  message: `${t('description.profileQp1.mesEdu')}`,
+                },
               ]}
             >
               <DefInput placeholder={t('description.profileQp1.infoEdu')} />
             </Form.Item>
-            <StFormItemDateFrom
-              name={profileQ1EduForm}
-              rules={[{ required: true, message: 'Field is required' }]}
+            <St.StFormItemDateFrom
+              name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduForm]}
+              rules={[
+                {
+                  required: true,
+                  message: `${t('description.profileQp1.mesTimeFrom')}`,
+                },
+              ]}
             >
-              <DatePicker picker="year" />
-            </StFormItemDateFrom>
-            <StFormItemDateTo
-              name={profileQ1EduTo}
-              rules={[{ required: true, message: 'Field is required' }]}
+              <DatePicker
+                placeholder={t('description.profileQp1.from')}
+                picker="year"
+              />
+            </St.StFormItemDateFrom>
+            <St.StFormItemDateTo
+              name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduTo]}
+              rules={[
+                {
+                  required: true,
+                  message: `${t('description.profileQp1.mesTimeTo')}`,
+                },
+              ]}
             >
-              <DatePicker picker="year" />
-            </StFormItemDateTo>
+              <DatePicker
+                placeholder={t('description.profileQp1.to')}
+                picker="year"
+              />
+            </St.StFormItemDateTo>
           </Input.Group>
         </Form.Item>
         <Form.Item
-          label="Work history"
-          name={profileQ1WorkHistoryWrapper}
-          rules={[{ required: true, message: 'Work history is required' }]}
+          label={t('description.profileQp1.workH')}
           wrapperCol={{
             sm: { span: 24, offset: 0 },
           }}
         >
-          <Form.Item
-            name={profileQ1WorkHistory}
-            rules={[
-              { required: true, message: 'Work history field is required' },
-            ]}
-            noStyle
-            wrapperCol={{
-              sm: { span: 26, offset: 0 },
-            }}
-          >
-            <StTextAreaWork
-              placeholder={t('description.profileQp1.infoWork')}
-            />
-          </Form.Item>
-          <StFormItemDateTo
-            name={profileQ1WorkFrom}
-            rules={[{ required: true, message: 'Field is required' }]}
-            noStyle
-          >
-            <StDatePickerWork picker="year" />
-          </StFormItemDateTo>
-          <StFormItemDateTo
-            name={profileQ1WorkTo}
-            rules={[{ required: true, message: 'Field is required' }]}
-            noStyle
-          >
-            <StDatePickerWork picker="year" />
-          </StFormItemDateTo>
+          <Input.Group compact>
+            <Form.Item
+              name={[
+                profileQ1.profileQ1WorkHistoryWrapper,
+                profileQ1.profileQ1WorkHistory,
+              ]}
+              rules={[
+                {
+                  required: true,
+                  message: `${t('description.profileQp1.mesWork')}`,
+                },
+              ]}
+              wrapperCol={{
+                sm: { span: 26, offset: 0 },
+              }}
+            >
+              <St.StWorkWrapper>
+                <St.StTextAreaWork
+                  placeholder={t('description.profileQp1.infoWork')}
+                />
+              </St.StWorkWrapper>
+            </Form.Item>
+            <St.StFormItemWorkDateFrom
+              name={[
+                profileQ1.profileQ1WorkHistoryWrapper,
+                profileQ1.profileQ1WorkFrom,
+              ]}
+              rules={[
+                {
+                  required: true,
+                  message: `${t('description.profileQp1.mesTimeFrom')}`,
+                },
+              ]}
+            >
+              <St.StDatePickerWork
+                placeholder={t('description.profileQp1.from')}
+                picker="year"
+              />
+            </St.StFormItemWorkDateFrom>
+            <St.StFormItemDateTo
+              name={[
+                profileQ1.profileQ1WorkHistoryWrapper,
+                profileQ1.profileQ1WorkTo,
+              ]}
+              rules={[
+                {
+                  required: true,
+                  message: `${t('description.profileQp1.mesTimeTo')}`,
+                },
+              ]}
+            >
+              <St.StDatePickerWork
+                placeholder={t('description.profileQp1.to')}
+                picker="year"
+              />
+            </St.StFormItemDateTo>
+          </Input.Group>
         </Form.Item>
-      </Form>
-
-      <Link to="/profile-questions-2">
-        {t('description.router.toProfileQuestions2')}
-      </Link>
-    </Wrapper>
+        <Form.Item
+          wrapperCol={{
+            sm: { span: 20, offset: 2 },
+            lg: { span: 3, offset: 15 },
+          }}
+        >
+          <St.StSubButton size="large" type="primary" htmlType="submit">
+            {t('description.router.toProfileQuestions2')}
+          </St.StSubButton>
+        </Form.Item>
+      </St.StForm>
+    </St.Wrapper>
   );
 };
 
