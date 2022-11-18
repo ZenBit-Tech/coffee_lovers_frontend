@@ -113,6 +113,25 @@
       "no_results": "No results found",
       "at_least_three_skills": "Must be at least 3 skills"
     },
-    "general": { "submit": "Submit" }
+    "general": { "submit": "Submit" },
+    "filters": {
+      "title": "Filters",
+      "category": "Category",
+      "category_placeholder": "Start typing to search categories",
+      "skills": "Skills",
+      "skills_placeholder": "Start typing to search skills",
+      "hrly_rate": "Hourly rate",
+      "time": "Time available",
+      "time_placeholder": "Hrs per day",
+      "english_level": "English level",
+      "english_level_placeholder": "My level is",
+      "buttons": {
+        "clear": "Clear",
+        "apply": "Apply"
+      },
+      "errors": {
+        "hourly_rate": "Wrong hourly rate, start value must be smaller"
+      }
+    }
   }
 }

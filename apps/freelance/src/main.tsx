@@ -32,6 +32,5 @@ root.render(
         </Provider>
       </Suspense>
     </StrictMode>
-    ,
   </GoogleOAuthProvider>,
 );

@@ -4,6 +4,8 @@ export interface ITheme {
     secondary: string;
     success: string;
     danger: string;
+    lightGrey: string;
+    grey: string;
 
     button: {
       bg: string;
