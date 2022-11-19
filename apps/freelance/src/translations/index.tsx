@@ -1,7 +1,8 @@
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import en from './en.json';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { initReactI18next } from 'react-i18next';
+
+import en from './en.json';
 
 declare module 'react-i18next' {
   interface CustomTypeOptions {

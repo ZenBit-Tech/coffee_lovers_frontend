@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import GoogleLoginButton from '.';
+import SomeElement from './some-element';
 
-describe('GoogleLoginButton', () => {
+describe('SomeElement', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<GoogleLoginButton />);
+    const { baseElement } = render(<SomeElement />);
     expect(baseElement).toBeTruthy();
   });
 });

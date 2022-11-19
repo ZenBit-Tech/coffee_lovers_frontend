@@ -16,10 +16,7 @@
         "main": "apps/freelance/src/main.tsx",
         "polyfills": "apps/freelance/src/polyfills.ts",
         "tsConfig": "apps/freelance/tsconfig.app.json",
-        "assets": [
-          "apps/freelance/src/favicon.ico",
-          "apps/freelance/src/assets"
-        ],
+        "assets": ["apps/freelance/src/favicon.ico"],
         "styles": [],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"

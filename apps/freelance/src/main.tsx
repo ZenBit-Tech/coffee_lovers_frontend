@@ -1,22 +1,37 @@
 import { StrictMode, Suspense } from 'react';
 import * as ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import App from './app/app';
-import { store } from './redux/store';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 import './translations';
 
+import App from './app/app';
+import { store } from './redux/store';
+import { GlobalStyle } from './styles/GlobalStyle';
+import { baseTheme } from './styles/theme';
+
+import 'antd/dist/antd.css';
+
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
+
 root.render(
-  <StrictMode>
-    <Suspense fallback={<div>Loading...</div>}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </Suspense>
-  </StrictMode>
+  <GoogleOAuthProvider clientId={process.env['NX_CLIENT_ID'] as string}>
+    <StrictMode>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Provider store={store}>
+          <ThemeProvider theme={baseTheme}>
+            <BrowserRouter>
+              <GlobalStyle />
+              <App />
+            </BrowserRouter>
+          </ThemeProvider>
+        </Provider>
+      </Suspense>
+    </StrictMode>
+    ,
+  </GoogleOAuthProvider>,
 );

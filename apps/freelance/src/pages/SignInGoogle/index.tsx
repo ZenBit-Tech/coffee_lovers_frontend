@@ -1,11 +1,12 @@
 import React, { ReactElement } from 'react';
-import { Wrapper } from '../ExampleRootPage/styles';
 import { GoogleLoginButton } from '@freelance/components';
+
+import { Wrapper } from '../ExampleRootPage/styles';
 
 const SignInGoogle = (): ReactElement => {
   return (
     <Wrapper>
-      <GoogleLoginButton/>
+      <GoogleLoginButton />
     </Wrapper>
   );
 };

@@ -1,8 +1,4 @@
 import styled from 'styled-components';
-export const StyledGoogleLoginButton = styled.button`
-  color: pink;
-  font-size:30px;
+export const ButtonContainer = styled.div`
+  width: 200px;
 `;
-
-
-
