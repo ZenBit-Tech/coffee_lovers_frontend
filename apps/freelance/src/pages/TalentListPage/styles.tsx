@@ -1,5 +1,11 @@
+import { Card } from 'antd';
 import styled from 'styled-components';
 import { baseTheme } from 'src/styles/theme';
+
+export const StyledCard = styled(Card)`
+  margin-bottom: 20px;
+  width: 600px;
+`;
 export const StyledName = styled.p`
   font-size: ${baseTheme.fontSize.medium};
   margin-left: 20px;
