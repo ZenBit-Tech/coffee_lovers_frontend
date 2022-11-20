@@ -1,9 +1,13 @@
-import { Card } from 'antd';
+import { Card, Skeleton } from 'antd';
 import styled from 'styled-components';
 import { baseTheme } from 'src/styles/theme';
 
 export const StyledCard = styled(Card)`
   margin-bottom: 20px;
+  width: 600px;
+`;
+
+export const StyledSkeleton = styled(Skeleton)`
   width: 600px;
 `;
 export const StyledName = styled.p`

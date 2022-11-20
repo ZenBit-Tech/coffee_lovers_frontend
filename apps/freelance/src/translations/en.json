@@ -132,6 +132,12 @@
       "welcome": "Welcome on our platform!",
       "job": "Fill information about yourself to find a job",
       "button": "Create portfolio"
+    },
+    "talent": {
+      "header": "Talent based on your job post",
+      "search": "Search",
+      "filter": "Filter",
+      "name": "{{name}}"
     }
   }
 }

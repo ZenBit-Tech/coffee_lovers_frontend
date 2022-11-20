@@ -1,9 +1,11 @@
-import { ReactElement, useCallback, useEffect, useState } from 'react';
-import { Avatar, Col, Input, List, Row, Skeleton } from 'antd';
+import { ReactElement, useState } from 'react';
+import { Avatar, Col, Input, List, Row } from 'antd';
+import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { UserOutlined } from '@ant-design/icons';
 import { SmallCard } from '@freelance/components';
 
+import { useGetTalentsHook } from './hooks/getTalents';
 import {
   SmallCardContainer,
   StyledCard,
@@ -11,75 +13,42 @@ import {
   StyledHeader,
   StyledInformation,
   StyledName,
+  StyledSkeleton,
 } from './styles';
-const { Search } = Input;
-
-interface user {
-  email: string;
-  name: name;
-  picture: picture;
-}
-
-interface picture {
-  large: string;
-}
-
-interface name {
-  last: string;
-}
 
 const TalentListPage = (): ReactElement => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [data, setData] = useState<user[]>([]);
+  const { Search } = Input;
   const [search, setSearch] = useState<string>('');
-  console.log(search);
-
-  const loadMoreData = useCallback(() => {
-    if (loading) {
-      return;
-    }
-    setLoading(true);
-    fetch(
-      'https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo',
-    )
-      .then(res => res.json())
-      .then(body => {
-        setData([...data, ...body.results]);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  }, [data, loading]);
-  useEffect(() => {
-    if (!data[0]) {
-      loadMoreData();
-    }
-  }, [data, loadMoreData]);
+  const { t } = useTranslation();
+  const { loadMoreData, data } = useGetTalentsHook();
+  async function handleSearch(value: string) {
+    setSearch(value);
+  }
 
   return (
     <>
       <StyledHeader>
-        <StyledInformation>Talent based on your job post</StyledInformation>
+        <StyledInformation>{t('talent.header')}</StyledInformation>
         <Row justify="end" gutter={8}>
           <Col className="gutter-row" span={8}>
             <Search
+              value={search}
               onChange={e => {
-                setSearch(e.target.value);
+                handleSearch(e.target.value);
               }}
-              placeholder="Search"
+              placeholder={t('talent.search')}
             />
           </Col>
           <Col className="gutter-row" span={8}>
-            <Input placeholder="Filter" />
+            <Input placeholder={t('talent.filter')} />
           </Col>
         </Row>
       </StyledHeader>
       <InfiniteScroll
         dataLength={data.length}
         next={loadMoreData}
-        hasMore={data.length < 20}
-        loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
+        hasMore={true}
+        loader={<StyledSkeleton avatar paragraph={{ rows: 3 }} />}
         scrollableTarget="scrollableDiv"
       >
         <List
@@ -93,12 +62,14 @@ const TalentListPage = (): ReactElement => {
                     size={130}
                     icon={<UserOutlined />}
                   />
-                  <StyledName>{item.name.last}</StyledName>
+                  <StyledName>
+                    {t('talent.name', { name: item.name.last })}
+                  </StyledName>
                 </StyledCardHeader>
               }
             >
               <SmallCardContainer>
-                <SmallCard text={item.email} />
+                <SmallCard text={'category'} />
                 <SmallCard text={'category'} />
                 <SmallCard text={'category'} />
                 <SmallCard text={'category'} />
