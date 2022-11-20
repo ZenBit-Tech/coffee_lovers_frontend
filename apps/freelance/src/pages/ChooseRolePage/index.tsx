@@ -72,7 +72,9 @@ const ChooseRole = () => {
             >
               {t('resetPassword.buttonText')}
             </Button>
-            {disabled && <Text type="danger">Please make your choice</Text>}
+            {disabled && (
+              <Text type="danger">{t('chooseRole.role_error')}</Text>
+            )}
           </Space>
         </Form.Item>
       </Form>
