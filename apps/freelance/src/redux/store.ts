@@ -12,6 +12,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { persistedAuthReducer } from 'redux/auth/auth-slice';
 
 import { userAuthApi } from './auth/auth-api';
+import { profileQuestions1Api } from './profileQuestions/profileQuestions1Api';
 import { authApi } from './services/authApi';
 import { pokemonApi } from './services/pokemon';
 import { userApi } from './services/user';
@@ -23,6 +24,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     user: persistedAuthReducer,
+    [profileQuestions1Api.reducerPath]: profileQuestions1Api.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -32,6 +34,7 @@ export const store = configureStore({
     }).concat(
       userAuthApi.middleware,
       pokemonApi.middleware,
+      profileQuestions1Api.middleware,
       authApi.middleware,
       userApi.middleware,
     ),
