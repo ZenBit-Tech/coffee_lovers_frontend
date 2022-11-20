@@ -16,9 +16,7 @@ export function useGetTalentsHook() {
       return;
     }
     setLoading(true);
-    fetch(
-      'https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo',
-    )
+    fetch(`${process.env['NX_API_URL']}/jobs`)
       .then(res => res.json())
       .then(body => {
         setData([...data, ...body.results]);
