@@ -4,11 +4,16 @@ type OptionProps = {
   value: string;
 };
 
-export const options: OptionProps[] = [
+export const englishOptions: OptionProps[] = [
   { value: 'No English' },
   { value: 'Pre-Intermediate' },
   { value: 'Intermediate' },
   { value: 'Upper-Intermediate' },
+];
+
+export const durationOptions: OptionProps[] = [
+  { value: 'Month' },
+  { value: 'Week' },
 ];
 
 // in future must get from back
