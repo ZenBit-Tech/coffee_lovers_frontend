@@ -8,6 +8,7 @@ export * from './lib/constants/constants';
 export * from './lib/constants/constants';
 export * from './lib/container/container';
 export * from './lib/example-button/example-button';
+export * from './lib/filters';
 export * from './lib/google-login-button/index';
 export * from './lib/input/input';
 export * from './lib/JobPostForm';
