@@ -10,8 +10,6 @@ import { setUser } from 'src/redux/auth/auth-slice';
 
 import { FormItem } from './styles';
 
-import 'antd/dist/antd.css';
-
 type FormValues = {
   email: string;
   firstName: string;
@@ -203,7 +201,7 @@ export function SignUpForm() {
       >
         <Checkbox>
           {t('loginPage.terms_agree')}{' '}
-          <a href="/signup">{t('loginPage.terms')}</a>
+          <a href="/login/conditions">{t('loginPage.terms')}</a>
         </Checkbox>
       </Form.Item>
 

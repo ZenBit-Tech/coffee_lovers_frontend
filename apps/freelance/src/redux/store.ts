@@ -29,7 +29,12 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(pokemonApi.middleware, authApi.middleware, userApi.middleware),
+    }).concat(
+      userAuthApi.middleware,
+      pokemonApi.middleware,
+      authApi.middleware,
+      userApi.middleware,
+    ),
 });
 
 export const persistor = persistStore(store);

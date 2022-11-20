@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
-import 'antd/dist/antd.css';
-
 type FormValues = {
   email: string;
   password: string;
