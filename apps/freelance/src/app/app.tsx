@@ -30,6 +30,13 @@ const JobPostPage = lazy(
   () => import(/* webpackChunkName: "JobPostPage" */ '../pages/JobPostPage'),
 );
 
+const LoginPage = lazy(
+  () => import(/* webpackChunkName: "ExampleRootPage" */ '../pages/LoginPage'),
+);
+const SignupPage = lazy(
+  () => import(/* webpackChunkName: "ExampleRootPage" */ '../pages/SignupPage'),
+);
+
 export function App() {
   const { t } = useTranslation();
 
@@ -49,6 +56,8 @@ export function App() {
         <Route path="/login/conditions" element={<ConditionsPage />} />
         <Route path="/profile-questions-1" element={<ProfileQuestions1 />} />
         <Route path="/profile-questions-2" element={<ProfileQuestions2 />} />
+        <Route path="signup" element={<SignupPage />} />
+        <Route path="login" element={<LoginPage />} />
         <Route path="/passwordreset" element={<PasswordResetRequest />} />
         <Route path="/passwordreset/:key" element={<PasswordReset />} />
         <Route path="/jobownerdashboard" element={<JobOwnerDashboard />} />
