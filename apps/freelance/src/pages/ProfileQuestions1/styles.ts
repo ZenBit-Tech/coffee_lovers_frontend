@@ -32,6 +32,8 @@ export const StForm = styled(Form)`
 `;
 
 export const StInputNumber = styled(InputNumber)`
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px var(--grey);
   @media (max-width: 980px) and (min-width: 575px) {
     .ant-input-number-group-addon {
       white-space: normal;
@@ -42,22 +44,34 @@ export const StInputNumber = styled(InputNumber)`
 
 export const StTextArea = styled(TextArea)`
   resize: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px var(--grey);
 `;
 
 export const StFormItemDateFrom = styled(Form.Item)`
   margin-left: 100px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px var(--grey);
   @media (max-width: 740px) {
     margin-left: auto;
   }
 `;
+
 export const StFormItemWorkDateFrom = styled(Form.Item)`
   margin-left: 20px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px var(--grey);
   @media (max-width: 740px) {
     margin-left: auto;
   }
 `;
+
 export const StFormItemDateTo = styled(Form.Item)`
   margin-left: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px var(--grey);
+  outline: none;
   @media (max-width: 740px) {
     margin-left: auto;
   }
@@ -65,6 +79,9 @@ export const StFormItemDateTo = styled(Form.Item)`
 
 export const StTextAreaWork = styled(TextArea)`
   resize: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px var(--grey);
 `;
 
 export const StWorkWrapper = styled.div`
@@ -93,6 +110,7 @@ export const StUserAvatarWrapper = styled.div`
     right: 0;
   }
 `;
+
 export const StUserIcon = styled(UserOutlined)`
   font-size: 60px;
   margin-bottom: 5px;
@@ -105,6 +123,7 @@ export const StUserIcon = styled(UserOutlined)`
     right: 0;
   }
 `;
+
 export const StUserUpBtn = styled(Button)`
   @media (max-width: 426px) {
     font-size: 8px;

@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { StyledInput } from '@freelance/components';
 import { getErrorMessage } from '@pages/PasswordReset/errors';
 import { usePasswordResetRequestMutation } from 'redux/services/user';
 
@@ -46,7 +47,9 @@ const PasswordResetRequest = () => {
                 ]}
                 {...field}
               >
-                <Input placeholder={t('resetPassword.placeholder.email')} />
+                <StyledInput
+                  placeholder={t('resetPassword.placeholder.email')}
+                />
               </Form.Item>
             )}
           />

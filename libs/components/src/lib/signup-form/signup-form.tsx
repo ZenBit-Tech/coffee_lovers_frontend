@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { passwordValidationRegExp } from 'src/pages/PasswordReset/constants';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
+
+import { StyledInput, StyledPasswordInput } from '../input/styles';
 
 import { FormItem } from './styles';
 
@@ -58,7 +60,7 @@ export function SignUpForm() {
     <Form
       name="basic"
       form={form}
-      wrapperCol={{ span: 8 }}
+      wrapperCol={{ span: 12 }}
       onFinish={handleSubmit(onSubmit)}
     >
       <Controller
@@ -72,7 +74,7 @@ export function SignUpForm() {
             hasFeedback
             {...field}
           >
-            <Input
+            <StyledInput
               size="large"
               type="email"
               id="email-field"
@@ -94,7 +96,7 @@ export function SignUpForm() {
               hasFeedback
               {...field}
             >
-              <Input
+              <StyledInput
                 size="large"
                 type="firstName"
                 id="firstName-field"
@@ -115,7 +117,7 @@ export function SignUpForm() {
               hasFeedback
               {...field}
             >
-              <Input
+              <StyledInput
                 size="large"
                 type="lastName"
                 id="lastName-field"
@@ -142,7 +144,7 @@ export function SignUpForm() {
               hasFeedback
               {...field}
             >
-              <Input.Password
+              <StyledPasswordInput
                 size="large"
                 type="password"
                 id="password-field"
@@ -174,7 +176,7 @@ export function SignUpForm() {
               hasFeedback
               {...field}
             >
-              <Input.Password
+              <StyledPasswordInput
                 size="large"
                 type="password"
                 id="confirmPassword-field"
