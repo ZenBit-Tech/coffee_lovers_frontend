@@ -9,7 +9,11 @@ import {
   profileQ1,
   ProgressBar,
 } from '@freelance/components';
-import { useAddprofileQuestions1DataMutation } from 'redux/profileQuestions/profileQuestions1Api';
+import {
+  useAddUserEduInfoMutation,
+  useAddUserWorkhistoryInfoMutation,
+  useUpdateUserInfoMutation,
+} from 'redux/profileQuestions/profileQuestions1Api';
 
 import { onFinishLogic } from './hooks';
 import { IProfileQuestions1 } from './model';
@@ -19,12 +23,17 @@ const ProfileQuestions1 = () => {
   const { t } = useTranslation();
   const { handleSubmit } = useForm<IProfileQuestions1>();
   const [form] = Form.useForm();
-  const [AddprofileQuestions1Data] = useAddprofileQuestions1DataMutation();
+  const [UpdateUserInfo] = useUpdateUserInfoMutation();
+  const [AddUserEduInfo] = useAddUserEduInfoMutation();
+  const [AddUserWorkhistory] = useAddUserWorkhistoryInfoMutation();
 
   const { Option } = Select;
   const onFinish: SubmitHandler<IProfileQuestions1> = async values => {
+    const [educationPayload, workPayload, userPayload] = onFinishLogic(values);
     try {
-      await AddprofileQuestions1Data(onFinishLogic(values));
+      await UpdateUserInfo(userPayload);
+      await AddUserEduInfo(educationPayload);
+      await AddUserWorkhistory(workPayload);
       form.resetFields();
     } catch (error) {
       alert(error);

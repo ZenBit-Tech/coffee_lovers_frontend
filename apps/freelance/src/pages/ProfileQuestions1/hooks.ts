@@ -1,11 +1,26 @@
 import { profileQ1 } from '@freelance/components';
-import { profileQ1Payload } from 'redux/services/types/profileQuestions1.types';
+import {
+  AddEducation,
+  AddWorkhistory,
+  UpdateUser,
+} from 'redux/services/types/user.types';
 
 import { IProfileQuestions1 } from './model';
 
-export const onFinishLogic = (values: IProfileQuestions1): profileQ1Payload => {
-  return {
-    ...values,
+export const onFinishLogic = (
+  values: IProfileQuestions1,
+): [
+  educationPayload: AddEducation,
+  workPayload: AddWorkhistory,
+  userPayload: UpdateUser,
+] => {
+  const userPayload = {
+    available_time: values.available_time,
+    description: values.description,
+    hourly_rate: values.hourly_rate,
+    position: values.position,
+  };
+  const educationPayload = {
     education_descr: values.education.information_about_education,
     education_from: values.education.education_from.format(
       profileQ1.profileQ1FormatYear,
@@ -13,6 +28,8 @@ export const onFinishLogic = (values: IProfileQuestions1): profileQ1Payload => {
     education_to: values.education.education_to.format(
       profileQ1.profileQ1FormatYear,
     ),
+  };
+  const workPayload = {
     work_history_descr: values.work_history_wrapper.work_history,
     work_history_from: values.work_history_wrapper.work_from.format(
       profileQ1.profileQ1FormatYear,
@@ -21,4 +38,6 @@ export const onFinishLogic = (values: IProfileQuestions1): profileQ1Payload => {
       profileQ1.profileQ1FormatYear,
     ),
   };
+
+  return [educationPayload, workPayload, userPayload];
 };
