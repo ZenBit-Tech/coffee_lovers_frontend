@@ -58,7 +58,18 @@
         "mesWork": "Work history field is required!"
       },
       "profileQp2": {
-        "pr_bar_completion_per": "50% completed"
+        "pr_bar_completion_per": "50% completed",
+        "skills_top": "Skills",
+        "skills_bottom": "Enter at least 3 skills that best describes you",
+        "skills_descr": "Start typing to search skills",
+        "english_level": "English level",
+        "english_level_descr": "My level is",
+        "other_exp": "Other experience",
+        "other_exp_descr": "Add a text",
+        "category": "Category",
+        "mesSkills": "Please, input skills!",
+        "mesCategory": "Please, input category!",
+        "mesOtherExp": "Please, input other experience!"
       },
       "router": {
         "toPage2": "Click here for page 2.",
