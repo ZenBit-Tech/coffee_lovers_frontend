@@ -54,4 +54,3 @@ export const profileQ2 = {
     },
   },
 };
-// export const prBarProfileQ2Per = 50;
