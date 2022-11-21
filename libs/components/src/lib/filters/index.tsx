@@ -3,16 +3,15 @@ import { Button, Form, InputNumber, message, Select } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MinusOutlined } from '@ant-design/icons';
+import useProperties from 'src/hooks/useProperties';
 
 import {
   categoriesName,
   englishLevelName,
-  englishOptions,
   hrlyRateEndName,
   hrlyRateStartName,
   inputNumberMin,
   inputNumberRegExp,
-  options,
   skillsName,
   timeName,
   timeOptions,
@@ -33,6 +32,13 @@ import { FiltersProps, FormItems } from './types';
 export const Filters: FC<FiltersProps> = ({ visibility, closeHandler }) => {
   const { t } = useTranslation();
   const { handleSubmit, control } = useForm<FormItems>();
+  const {
+    categories,
+    skills,
+    englishLevels,
+    getOptionsForSelectWithId,
+    getOptionsForSelectString,
+  } = useProperties();
 
   const onSubmit: SubmitHandler<FormItems> = data => {
     if (data[hrlyRateStartName] > data[hrlyRateEndName]) {
@@ -57,7 +63,7 @@ export const Filters: FC<FiltersProps> = ({ visibility, closeHandler }) => {
                   mode="multiple"
                   allowClear
                   placeholder={t('filters.skills_placeholder')}
-                  options={options}
+                  options={getOptionsForSelectWithId(skills)}
                   {...field}
                 />
               )}
@@ -75,7 +81,7 @@ export const Filters: FC<FiltersProps> = ({ visibility, closeHandler }) => {
                   mode="multiple"
                   allowClear
                   placeholder={t('filters.category_placeholder')}
-                  options={options}
+                  options={getOptionsForSelectWithId(categories)}
                 />
               )}
             />
@@ -144,7 +150,7 @@ export const Filters: FC<FiltersProps> = ({ visibility, closeHandler }) => {
                   <Select
                     {...field}
                     defaultValue={t('filters.english_level_placeholder')}
-                    options={englishOptions}
+                    options={getOptionsForSelectString(englishLevels)}
                     allowClear
                   />
                 )}

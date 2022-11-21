@@ -144,6 +144,12 @@
         "log_out": "Log out"
       }
     },
+    "chooseRole": {
+      "title": "I want to:",
+      "freelancer": "work as a freelancer",
+      "jobOwner": "hire for a project",
+      "role_error": "Please make your choice"
+    },
     "job_post_page": {
       "page_name": "Post a job page",
       "fill_this_form": "Please fill this form",
