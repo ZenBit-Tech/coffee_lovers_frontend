@@ -21,7 +21,7 @@ export const ProfileQuestions2 = () => {
   const [form] = Form.useForm();
 
   const onFinish: SubmitHandler<IProfileQuestions2> = async values => {
-    console.log(values);
+    alert(values);
   };
 
   return (
