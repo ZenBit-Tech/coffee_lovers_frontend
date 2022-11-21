@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Route, Routes } from 'react-router-dom';
 import { Container } from '@freelance/components';
+import useProperties from '@hooks/useProperties';
 import FindJobs from '@pages/FindJobs';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import PasswordReset from '@pages/PasswordReset';
@@ -39,6 +40,7 @@ const SignupPage = lazy(
 
 export function App() {
   const { t } = useTranslation();
+  useProperties();
 
   return (
     <Container>

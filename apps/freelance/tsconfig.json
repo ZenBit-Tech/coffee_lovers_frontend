@@ -15,8 +15,12 @@
     "baseUrl": ".",
     "paths": {
       "@freelance/components": ["../../libs/components/src/index.ts"],
+      "@freelance/constants": [
+        "../../libs/components/src/lib/constants/index.ts"
+      ],
       "redux/*": ["src/redux/*"],
-      "@pages/*": ["src/pages/*"]
+      "@pages/*": ["src/pages/*"],
+      "@hooks/*": ["src/hooks/*"]
     }
   },
   "files": [],
