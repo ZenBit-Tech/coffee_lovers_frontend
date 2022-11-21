@@ -30,7 +30,7 @@ export const profileQ1 = {
   profileQ1FormatYear: 'YYYY',
   formItemLayout: {
     labelCol: {
-      sm: { span: 2 },
+      sm: { span: 3 },
     },
     wrapperCol: {
       sm: { span: 4 },
@@ -38,4 +38,20 @@ export const profileQ1 = {
   },
 };
 
-export const prBarProfileQ2Per = 50;
+export const profileQ2 = {
+  prBarProfileQ2Per: 50,
+  form: 'profile_questions_2',
+  skills: 'skills',
+  category: 'category',
+  englishLevel: 'english_level',
+  otherExp: 'other_experience',
+  formItemLayout: {
+    labelCol: {
+      sm: { span: 4 },
+    },
+    wrapperCol: {
+      sm: { span: 4 },
+    },
+  },
+};
+// export const prBarProfileQ2Per = 50;

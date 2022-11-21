@@ -6,8 +6,7 @@ import FindJobs from '@pages/FindJobs';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
-import ProfileQuestions1 from '@pages/ProfileQuestions1';
-import ProfileQuestions2 from '@pages/ProfileQuestions2';
+import { ProfileQuestions1, ProfileQuestions2 } from '@pages/ProfileQuestions';
 import WelcomePage from '@pages/WelcomePage';
 
 const ExampleRootPage = lazy(
