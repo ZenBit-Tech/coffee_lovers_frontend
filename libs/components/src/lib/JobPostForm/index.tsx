@@ -172,6 +172,7 @@ export function JobPostForm() {
           </Form>
         </>
       )}
+
       {!firstPage && (
         <Form
           onFinish={handleSubmitForSecondPage(onSubmitSecondPage)}
@@ -237,19 +238,9 @@ export function JobPostForm() {
           />
 
           <Form.Item>
-            <Button
-              size="large"
-              type="primary"
-              htmlType="submit"
-              style={{ margin: '0 auto 0' }}
-            >
+            <Button size="large" type="primary" htmlType="submit">
               {t('general.submit')}
             </Button>
-          </Form.Item>
-          <Form.Item>
-            <StyledButton type="submit" style={{ margin: '0 auto 0' }}>
-              {t('general.submit')}
-            </StyledButton>
           </Form.Item>
         </Form>
       )}
