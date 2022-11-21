@@ -1,5 +1,25 @@
 {
   "translation": {
+    "loginPage": {
+      "loginPage_name": "Log In",
+      "loginPage_email": "Email",
+      "loginPage_password": "Password",
+      "loginPage_with-google": "Log In with Google",
+      "email_error": "Please enter a valid email adress",
+      "password_error": "Please enter a valid password",
+      "name_error": "Invalid characters. Only letters are alowed.",
+      "signUp": "Create my account",
+      "forgot_password": "Forgot password?",
+      "have_account": "I already have an account",
+      "first_name": "First name",
+      "last_name": "Last Name",
+      "confirm_password": "Confirm password",
+      "create_account": "Create my account",
+      "terms_agree": "I agree",
+      "terms": "Terms & Conditions",
+      "match_error": "Your passwords do not match.",
+      "agreement_error": "Please accept Terms&Conditions"
+    },
     "description": {
       "root_page": "This is root route",
       "welcome_to_react": "Welcome to Nx, React and react-i18next",
@@ -133,6 +153,25 @@
       "no_results": "No results found",
       "at_least_three_skills": "Must be at least 3 skills"
     },
-    "general": { "submit": "Submit" }
+    "general": { "submit": "Submit" },
+    "filters": {
+      "title": "Filters",
+      "category": "Category",
+      "category_placeholder": "Start typing to search categories",
+      "skills": "Skills",
+      "skills_placeholder": "Start typing to search skills",
+      "hrly_rate": "Hourly rate",
+      "time": "Time available",
+      "time_placeholder": "Hrs per day",
+      "english_level": "English level",
+      "english_level_placeholder": "My level is",
+      "buttons": {
+        "clear": "Clear",
+        "apply": "Apply"
+      },
+      "errors": {
+        "hourly_rate": "Wrong hourly rate, start value must be smaller"
+      }
+    }
   }
 }

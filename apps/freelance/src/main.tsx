@@ -4,11 +4,12 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import './translations';
 
 import App from './app/app';
-import { store } from './redux/store';
+import { persistor, store } from './redux/store';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { baseTheme } from './styles/theme';
 
@@ -23,15 +24,16 @@ root.render(
     <StrictMode>
       <Suspense fallback={<div>Loading...</div>}>
         <Provider store={store}>
-          <ThemeProvider theme={baseTheme}>
-            <BrowserRouter>
-              <GlobalStyle />
-              <App />
-            </BrowserRouter>
-          </ThemeProvider>
+          <PersistGate loading={null} persistor={persistor}>
+            <ThemeProvider theme={baseTheme}>
+              <BrowserRouter>
+                <GlobalStyle />
+                <App />
+              </BrowserRouter>
+            </ThemeProvider>
+          </PersistGate>
         </Provider>
       </Suspense>
     </StrictMode>
-    ,
   </GoogleOAuthProvider>,
 );

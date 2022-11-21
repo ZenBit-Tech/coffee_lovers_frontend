@@ -7,6 +7,7 @@ declare let process: {
   };
 };
 export const baseUrl: string = (process.env.NX_API_URL as string) || '';
+export const route = '/user';
 
 export const profileQ1 = {
   prBarProfileQ1Per: 20,

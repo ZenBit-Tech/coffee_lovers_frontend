@@ -6,6 +6,8 @@ export const baseTheme: ITheme = {
     secondary: '#2b2b2b',
     success: '#4caf50',
     danger: '#f44336 ',
+    lightGrey: '#d6d6d6',
+    grey: '#bfbfbf',
 
     button: {
       bg: '#2e38b3',
