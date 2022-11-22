@@ -8,12 +8,17 @@ export const baseTheme: ITheme = {
     danger: '#f44336 ',
     lightGrey: '#d6d6d6',
     grey: '#bfbfbf',
+    white: '#fff',
 
     button: {
       bg: '#2e38b3',
       hover: '#2249b3',
       green: '#439c46',
       greenHover: '#5cbf60',
+    },
+
+    border: {
+      lightGrey: '#f0f0f0',
     },
   },
 

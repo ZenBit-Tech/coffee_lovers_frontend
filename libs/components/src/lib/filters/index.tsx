@@ -29,7 +29,14 @@ import {
 } from './styles';
 import { FiltersProps, FormItems } from './types';
 
-export const Filters: FC<FiltersProps> = ({ visibility, closeHandler }) => {
+export const Filters: FC<FiltersProps> = ({
+  visibility,
+  closeHandler,
+  top,
+  left,
+  right,
+  bottom,
+}) => {
   const { t } = useTranslation();
   const { handleSubmit, control } = useForm<FormItems>();
   const {
@@ -47,7 +54,13 @@ export const Filters: FC<FiltersProps> = ({ visibility, closeHandler }) => {
   };
 
   return (
-    <Wrapper visibility={visibility}>
+    <Wrapper
+      visibility={visibility}
+      top={top}
+      left={left}
+      right={right}
+      bottom={bottom}
+    >
       <StyledClose onClick={() => closeHandler()} />
       <StyledTitle>{t('filters.title')}</StyledTitle>
 

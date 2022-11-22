@@ -6,12 +6,17 @@ export interface ITheme {
     danger: string;
     lightGrey: string;
     grey: string;
+    white: string;
 
     button: {
       bg: string;
       hover: string;
       green: string;
       greenHover: string;
+    };
+
+    border: {
+      lightGrey: string;
     };
   };
 

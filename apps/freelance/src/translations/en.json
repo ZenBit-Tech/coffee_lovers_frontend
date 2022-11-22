@@ -185,7 +185,13 @@
       }
     },
     "findJobs": {
-      "title": "Find jobs"
+      "title": "Find jobs",
+      "filters": "Filters"
+    },
+    "jobCard": {
+      "hrly_rate": "$ {{rate}} / hr",
+      "desc_hide": "hide",
+      "desc_show": "show"
     }
   }
 }
