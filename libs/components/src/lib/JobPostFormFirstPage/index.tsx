@@ -1,8 +1,13 @@
-import { Form, Input, Select, Typography } from 'antd';
+import { Form, Typography } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { StyledButton } from '@freelance/components';
+import {
+  StyledButton,
+  StyledInput,
+  StyledSelect,
+  StyledTextArea,
+} from '@freelance/components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useProperties from 'src/hooks/useProperties';
 
@@ -15,7 +20,6 @@ export function JobPostFormFirstPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { Title, Text } = Typography;
-  const { TextArea } = Input;
   const {
     control,
     handleSubmit,
@@ -42,7 +46,7 @@ export function JobPostFormFirstPage() {
           control={control}
           render={({ field }) => (
             <Form.Item label={t('job_post_page.project_name_label')}>
-              <Input {...field} size="large" />
+              <StyledInput {...field} size="large" />
               {errors.projectName && (
                 <StyledErrorMessage>
                   {errors.projectName?.message}
@@ -57,7 +61,7 @@ export function JobPostFormFirstPage() {
           control={control}
           render={({ field }) => (
             <Form.Item label={t('job_post_page.about_label')}>
-              <TextArea
+              <StyledTextArea
                 {...field}
                 allowClear
                 size="large"
@@ -77,7 +81,7 @@ export function JobPostFormFirstPage() {
           control={control}
           render={({ field }) => (
             <Form.Item label={t('job_post_page.job_category_label')}>
-              <Select
+              <StyledSelect
                 {...field}
                 size="large"
                 showSearch
@@ -100,7 +104,7 @@ export function JobPostFormFirstPage() {
           render={({ field }) => (
             <Form.Item label={t('job_post_page.skills_label')}>
               <Text>{t('job_post_page.skills_label_minimize')}</Text>
-              <Select
+              <StyledSelect
                 {...field}
                 mode="multiple"
                 size="large"

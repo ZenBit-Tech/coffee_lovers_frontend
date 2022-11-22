@@ -1,7 +1,7 @@
-import { Form, Input, Select } from 'antd';
+import { Form } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { StyledButton } from '@freelance/components';
+import { StyledButton, StyledInput, StyledSelect } from '@freelance/components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useProperties from 'src/hooks/useProperties';
 
@@ -43,7 +43,7 @@ export function JobPostFormSecondPage() {
         control={controlForSecondPage}
         render={({ field }) => (
           <Form.Item label={t('job_post_page.english_level_label')}>
-            <Select
+            <StyledSelect
               {...field}
               style={{ width: '100%' }}
               size="large"
@@ -63,7 +63,7 @@ export function JobPostFormSecondPage() {
         control={controlForSecondPage}
         render={({ field }) => (
           <Form.Item label={t('job_post_page.duration')}>
-            <Input
+            <StyledInput
               {...field}
               size="large"
               placeholder={t('job_post_page.duration_amount_placeholder')}
@@ -81,7 +81,7 @@ export function JobPostFormSecondPage() {
         control={controlForSecondPage}
         render={({ field }) => (
           <Form.Item>
-            <Select
+            <StyledSelect
               {...field}
               style={{ width: '100%' }}
               size="large"
