@@ -143,7 +143,10 @@
         "talents": "Talents",
         "chat": "Chat",
         "my_profile": "My Profile",
-        "log_out": "Log out"
+        "log_out": "Log out",
+        "offers": "Offers",
+        "jobs": "Jobs",
+        "contracts": "My Contracts"
       }
     },
     "chooseRole": {
@@ -185,6 +188,18 @@
       "errors": {
         "hourly_rate": "Wrong hourly rate, start value must be smaller"
       }
+    },
+    "job_details": {
+      "name": "Project name",
+      "date": "Date of posting",
+      "category": "Category",
+      "duration": "Duration",
+      "rate": "Rate $",
+      "time": "Available time",
+      "descr": "Job Description",
+      "skills": "Required skills:",
+      "send_proposal": "Send proposal",
+      "owners_name": "Job owner's name"
     }
   }
 }

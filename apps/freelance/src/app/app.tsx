@@ -4,6 +4,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { Container } from '@freelance/components';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
+import JobDetailsPage from '@pages/JobDetailsPage';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
@@ -63,6 +64,7 @@ export function App() {
         <Route path="/jobownerdashboard" element={<JobOwnerDashboard />} />
         <Route path="/role" element={<ChooseRole />} />
         <Route path="/findjobs" element={<FindJobs />} />
+        <Route path="/jobdetails" element={<JobDetailsPage />} />
       </Routes>
     </Container>
   );
