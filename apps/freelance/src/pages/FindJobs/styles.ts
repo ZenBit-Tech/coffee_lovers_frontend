@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  padding-top: 10px;
 `;
 
 export const PageBar = styled.div`
