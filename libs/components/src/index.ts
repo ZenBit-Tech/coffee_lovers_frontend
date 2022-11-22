@@ -10,6 +10,7 @@ export * from './lib/example-button/example-button';
 export * from './lib/filters';
 export * from './lib/google-login-button/index';
 export * from './lib/input/input';
+export * from './lib/input/styles';
 export * from './lib/job-card';
 export * from './lib/JobPostForm';
 export * from './lib/login-form/login-form';

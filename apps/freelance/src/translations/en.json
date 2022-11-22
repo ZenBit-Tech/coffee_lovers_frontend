@@ -1,6 +1,8 @@
 {
   "translation": {
     "loginPage": {
+      "welcome": "Welcome to our Freelance Platform!",
+      "title": "Here you can find the best people to work with",
       "loginPage_name": "Log In",
       "loginPage_email": "Email",
       "loginPage_password": "Password",
