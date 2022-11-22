@@ -1,13 +1,11 @@
+import { ApiRoutes, baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-import { RootState } from '../store';
-
-const baseUrl: string = process.env['NX_API_URL'] || '';
+import { RootState } from 'redux/store';
 
 export const userAuthApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
+    baseUrl: baseUrl + ApiRoutes.AUTH,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).user.access_token;
       if (token) {
@@ -20,7 +18,7 @@ export const userAuthApi = createApi({
   endpoints: builder => ({
     loginUser: builder.mutation({
       query: (body: { email: string; password: string }) => ({
-        url: '/auth/signin',
+        url: '/signin',
         method: 'POST',
         body,
       }),
@@ -33,7 +31,7 @@ export const userAuthApi = createApi({
         password: string;
       }) => {
         return {
-          url: '/auth/signup',
+          url: '/signup',
           method: 'POST',
           body,
         };
