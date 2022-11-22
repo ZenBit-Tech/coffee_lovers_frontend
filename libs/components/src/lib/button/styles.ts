@@ -1,6 +1,7 @@
+import { Button } from 'antd';
 import styled from 'styled-components';
 
-export const StyledButton = styled.button`
+export const StyledButton = styled(Button)`
   width: ${({ theme }) => theme.sizes.button.width};
   height: ${({ theme }) => theme.sizes.button.height};
 

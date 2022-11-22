@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { Input } from 'antd';
 
 import { StyledInput } from './styles';
 
@@ -11,11 +10,7 @@ export interface InputProps {
 }
 
 export const DefInput = (props: InputProps) => {
-  return (
-    <StyledInput>
-      <Input {...props} />
-    </StyledInput>
-  );
+  return <StyledInput {...props} />;
 };
 
 export default DefInput;

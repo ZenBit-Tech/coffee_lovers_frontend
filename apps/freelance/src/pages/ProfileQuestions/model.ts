@@ -20,3 +20,11 @@ interface workProps {
   work_from: Moment;
   work_to: Moment;
 }
+
+export interface IProfileQuestions2 {
+  [key: string]: string | number | object | undefined;
+  category: string;
+  english_level: string;
+  other_experience: string;
+  skills: [];
+}
