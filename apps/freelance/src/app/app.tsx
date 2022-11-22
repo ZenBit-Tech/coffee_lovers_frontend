@@ -27,10 +27,6 @@ const OwnerProfilePage = lazy(
 const SignInGoogle = lazy(() => import('../pages/SignInGoogle'));
 const ConditionsPage = lazy(() => import('../pages/ConditionsPage'));
 
-// const JobPostSecondPage = lazy(
-//   () => import(/* webpackChunkName: "JobPostPage" */ '@pages/JobPostPage'),
-// );
-
 const LoginPage = lazy(
   () => import(/* webpackChunkName: "ExampleRootPage" */ '../pages/LoginPage'),
 );
