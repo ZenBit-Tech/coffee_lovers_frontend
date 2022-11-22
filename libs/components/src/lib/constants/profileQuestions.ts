@@ -32,6 +32,14 @@ export const profileQ1 = {
   },
 };
 
+export const prBarProfileQ2Per = 50;
+
+export const validation = {
+  atLeastThree: 'Enter at least 3 skills',
+  required: 'This field is required',
+  mustBeNumber: 'Duration must be a number',
+};
+
 export const profileQ2 = {
   prBarProfileQ2Per: 50,
   form: 'profile_questions_2',

@@ -1,15 +1,15 @@
 import { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { AppBar, JobPostForm } from '@freelance/components';
+import { AppBar, JobPostFormFirstPage } from '@freelance/components';
 
-export default function JobPostPage() {
+export function JobPostFirstPage() {
   const { t } = useTranslation();
 
   return (
     <Fragment>
       <AppBar />
-      <JobPostForm />
+      <JobPostFormFirstPage />
       <Link to="/">{t('description.router.toRoot')}</Link>
     </Fragment>
   );
