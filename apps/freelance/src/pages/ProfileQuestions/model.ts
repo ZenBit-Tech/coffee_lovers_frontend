@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
 
-export interface IProfileQuestions1 {
+export interface IProfileQuestions {
   [key: string]: string | number | object | undefined;
   available_time: string;
   description: string;
@@ -8,6 +8,10 @@ export interface IProfileQuestions1 {
   position: string;
   education: educationProps;
   work_history_wrapper: workProps;
+  category: string;
+  english_level: string;
+  other_experience: string;
+  skills: [];
 }
 
 interface educationProps {
@@ -19,12 +23,4 @@ interface workProps {
   work_history: string;
   work_from: Moment;
   work_to: Moment;
-}
-
-export interface IProfileQuestions2 {
-  [key: string]: string | number | object | undefined;
-  category: string;
-  english_level: string;
-  other_experience: string;
-  skills: [];
 }

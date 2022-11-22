@@ -5,10 +5,10 @@ import {
   UpdateUser,
 } from 'redux/services/types/user.types';
 
-import { IProfileQuestions1 } from './model';
+import { IProfileQuestions } from './model';
 
 export const onFinishLogic = (
-  values: IProfileQuestions1,
+  values: IProfileQuestions,
 ): [
   educationPayload: AddEducation,
   workPayload: AddWorkhistory,

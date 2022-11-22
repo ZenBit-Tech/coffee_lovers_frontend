@@ -13,10 +13,14 @@ export interface UserError {
 }
 
 export interface UpdateUser {
-  available_time: string;
-  description: string;
-  hourly_rate: number;
-  position: string;
+  available_time?: string;
+  description?: string;
+  hourly_rate?: number;
+  position?: string;
+  category?: string;
+  english_level?: string;
+  other_experience?: string;
+  skills?: [];
 }
 
 export interface AddWorkhistory {
