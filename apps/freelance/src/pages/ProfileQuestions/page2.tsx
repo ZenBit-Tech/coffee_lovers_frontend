@@ -21,7 +21,8 @@ export const ProfileQuestions2 = () => {
   const [form] = Form.useForm();
 
   const onFinish: SubmitHandler<IProfileQuestions2> = async values => {
-    alert(values);
+    // alert(values);
+    console.log(values);
   };
 
   return (
@@ -57,8 +58,14 @@ export const ProfileQuestions2 = () => {
           name={profileQ2.skills}
           rules={[
             {
-              required: true,
-              message: `${t('description.profileQp2.mesSkills')}`,
+              validator: (_, value = profileQ2.emptyStr, callback) => {
+                if (!value.length) {
+                  callback(t('description.profileQp2.mesSkills'));
+                }
+                if (value.length < 3) {
+                  callback(t('description.profileQp2.mesSkillsMin'));
+                }
+              },
             },
           ]}
           wrapperCol={{
@@ -66,7 +73,7 @@ export const ProfileQuestions2 = () => {
           }}
         >
           <Select
-            mode="tags"
+            mode="multiple"
             size="large"
             options={skillsOptions}
             placeholder={t('description.profileQp2.skills_descr')}

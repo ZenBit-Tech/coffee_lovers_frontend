@@ -67,7 +67,8 @@
         "other_exp": "Other experience",
         "other_exp_descr": "Add a text",
         "category": "Category",
-        "mesSkills": "Please, input skills!",
+        "mesSkills": "Please, select skills!",
+        "mesSkillsMin": "Please, select at least 3 skills!",
         "mesCategory": "Please, input category!",
         "mesOtherExp": "Please, input other experience!"
       },
