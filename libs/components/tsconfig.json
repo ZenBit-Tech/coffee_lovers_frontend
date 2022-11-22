@@ -11,7 +11,10 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["../../apps/freelance/src/*"]
+    }
   },
   "files": [],
   "include": [],
