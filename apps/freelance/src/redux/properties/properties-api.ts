@@ -1,10 +1,8 @@
-import { baseUrl } from '@freelance/constants';
+import { ApiRoutes, baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'redux/store';
 
 import { PropertiesResponse } from './types';
-
-const route = '/properties';
 
 enum EndpointsRoutes {
   getAllProperties = '',
@@ -13,7 +11,7 @@ enum EndpointsRoutes {
 export const propertiesApi = createApi({
   reducerPath: 'propertiesApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl + route,
+    baseUrl: baseUrl + ApiRoutes.PROPERTIES,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).user.access_token;
       if (token) {

@@ -185,6 +185,15 @@
       "errors": {
         "hourly_rate": "Wrong hourly rate, start value must be smaller"
       }
+    },
+    "findJobs": {
+      "title": "Find jobs",
+      "filters": "Filters"
+    },
+    "jobCard": {
+      "hrly_rate": "$ {{rate}} / hr",
+      "desc_hide": "hide",
+      "desc_show": "show"
     }
   }
 }
