@@ -4,10 +4,9 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { StyledInput, StyledPasswordInput } from '@freelance/components';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
-
-import { StyledInput, StyledPasswordInput } from '../input/styles';
 
 type FormValues = {
   email: string;
