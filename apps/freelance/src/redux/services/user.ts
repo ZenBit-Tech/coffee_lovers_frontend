@@ -1,3 +1,4 @@
+import { ApiRoutes, baseUrl } from '@freelance/constants';
 import {
   BaseQueryFn,
   createApi,
@@ -7,9 +8,6 @@ import {
 
 import { PasswordResetPayload, UserError } from './types/user.types';
 
-const baseUrl: string = process.env['NX_API_URL'] || '';
-const route = '/user';
-
 enum EndpointsRoutes {
   passwordResetRequest = '/passwordresetrequest',
   passwordReset = '/passwordreset',
@@ -17,11 +15,9 @@ enum EndpointsRoutes {
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({ baseUrl: baseUrl + route }) as BaseQueryFn<
-    string | FetchArgs,
-    unknown,
-    UserError
-  >,
+  baseQuery: fetchBaseQuery({
+    baseUrl: baseUrl + ApiRoutes.USER,
+  }) as BaseQueryFn<string | FetchArgs, unknown, UserError>,
   endpoints: builder => ({
     passwordResetRequest: builder.mutation({
       query: (email: string) => ({

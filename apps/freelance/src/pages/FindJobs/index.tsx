@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Filters } from '@freelance/components';
 
-import { Wrapper } from './styles';
+import { TitleContainer, Wrapper } from './styles';
 
 const FindJobs = () => {
-  const [filtersVisibility, setFiltersVisibility] = useState<boolean>(true);
+  const [filtersVisibility, setFiltersVisibility] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
@@ -12,6 +14,8 @@ const FindJobs = () => {
         visibility={filtersVisibility}
         closeHandler={() => setFiltersVisibility(false)}
       />
+
+      <TitleContainer>{t('findJobs.title')}</TitleContainer>
     </Wrapper>
   );
 };

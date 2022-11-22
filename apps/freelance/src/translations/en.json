@@ -183,6 +183,9 @@
       "errors": {
         "hourly_rate": "Wrong hourly rate, start value must be smaller"
       }
+    },
+    "findJobs": {
+      "title": "Find jobs"
     }
   }
 }
