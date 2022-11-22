@@ -13,6 +13,8 @@ import { persistedAuthReducer } from 'redux/auth/auth-slice';
 
 import { userAuthApi } from './auth/auth-api';
 import { profileQuestions1Api } from './profileQuestions/profileQuestions1Api';
+import { propertiesApi } from './properties/properties-api';
+import { persistedPropertiesReducer } from './properties/properties-slice';
 import { authApi } from './services/authApi';
 import { pokemonApi } from './services/pokemon';
 import { userApi } from './services/user';
@@ -25,6 +27,8 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     user: persistedAuthReducer,
     [profileQuestions1Api.reducerPath]: profileQuestions1Api.reducer,
+    properties: persistedPropertiesReducer,
+    [propertiesApi.reducerPath]: propertiesApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -37,6 +41,7 @@ export const store = configureStore({
       profileQuestions1Api.middleware,
       authApi.middleware,
       userApi.middleware,
+      propertiesApi.middleware,
     ),
 });
 

@@ -20,7 +20,7 @@ import { onFinishLogic } from './hooks';
 import { IProfileQuestions1 } from './model';
 import * as St from './styles';
 
-const ProfileQuestions1 = () => {
+export const ProfileQuestions1 = () => {
   const { t } = useTranslation();
   const { handleSubmit } = useForm<IProfileQuestions1>();
   const [form] = Form.useForm();
@@ -261,5 +261,3 @@ const ProfileQuestions1 = () => {
     </St.Wrapper>
   );
 };
-
-export default ProfileQuestions1;
