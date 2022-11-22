@@ -8,6 +8,7 @@ import {
   prBarTrailColor,
   profileQ1,
   ProgressBar,
+  StyledSelect,
 } from '@freelance/components';
 import {
   useAddUserEduInfoMutation,
@@ -120,14 +121,17 @@ export const ProfileQuestions1 = () => {
             },
           ]}
         >
-          <Select placeholder={t('description.profileQp1.hPD')} allowClear>
+          <StyledSelect
+            placeholder={t('description.profileQp1.hPD')}
+            allowClear
+          >
             <Option value={profileQ1.profileQ1PartTime}>
               {t('description.profileQp1.partTime')}
             </Option>
             <Option value={profileQ1.profileQ1FullTime}>
               {t('description.profileQp1.fullTime')}
             </Option>
-          </Select>
+          </StyledSelect>
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.edu')}

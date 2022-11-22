@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { StyledInput, StyledPasswordInput } from '@freelance/components';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
@@ -45,7 +46,7 @@ export const LoginForm = () => {
   return (
     <Form
       name="basic"
-      wrapperCol={{ span: 8 }}
+      wrapperCol={{ span: 12 }}
       onFinish={handleSubmit(onSubmit)}
     >
       <Controller
@@ -59,7 +60,7 @@ export const LoginForm = () => {
             hasFeedback
             {...field}
           >
-            <Input
+            <StyledInput
               size="large"
               type="email"
               id="email-field"
@@ -80,7 +81,7 @@ export const LoginForm = () => {
             hasFeedback
             {...field}
           >
-            <Input.Password
+            <StyledPasswordInput
               type="password"
               size="large"
               id="password-field"
