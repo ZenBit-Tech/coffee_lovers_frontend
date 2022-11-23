@@ -2,7 +2,7 @@ import { Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { AvatarUpload, JobAppBar } from '@freelance/components';
-import { skills } from '@pages/JobPostPage/constants';
+import { skills } from '@pages/JobDetailsPage/constants';
 
 import {
   JobDescrText,
