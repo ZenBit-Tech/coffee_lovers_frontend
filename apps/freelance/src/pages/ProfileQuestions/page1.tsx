@@ -8,6 +8,7 @@ import {
   prBarTrailColor,
   profileQ1,
   ProgressBar,
+  StyledSelect,
 } from '@freelance/components';
 import {
   useAddUserEduInfoMutation,
@@ -16,19 +17,19 @@ import {
 } from 'redux/profileQuestions/profileQuestions1Api';
 
 import { onFinishLogic } from './hooks';
-import { IProfileQuestions1 } from './model';
+import { IProfileQuestions } from './model';
 import * as St from './styles';
 
-const ProfileQuestions1 = () => {
+export const ProfileQuestions1 = () => {
   const { t } = useTranslation();
-  const { handleSubmit } = useForm<IProfileQuestions1>();
+  const { handleSubmit } = useForm<IProfileQuestions>();
   const [form] = Form.useForm();
   const [UpdateUserInfo] = useUpdateUserInfoMutation();
   const [AddUserEduInfo] = useAddUserEduInfoMutation();
   const [AddUserWorkhistory] = useAddUserWorkhistoryInfoMutation();
 
   const { Option } = Select;
-  const onFinish: SubmitHandler<IProfileQuestions1> = async values => {
+  const onFinish: SubmitHandler<IProfileQuestions> = async values => {
     const [educationPayload, workPayload, userPayload] = onFinishLogic(values);
     try {
       await UpdateUserInfo(userPayload);
@@ -64,9 +65,7 @@ const ProfileQuestions1 = () => {
         form={form}
         labelAlign="left"
         requiredMark="optional"
-        onFinish={values =>
-          handleSubmit(onFinish(values as IProfileQuestions1))
-        }
+        onFinish={values => handleSubmit(onFinish(values as IProfileQuestions))}
       >
         <Form.Item
           label={t('description.profileQp1.hR')}
@@ -122,14 +121,17 @@ const ProfileQuestions1 = () => {
             },
           ]}
         >
-          <Select placeholder={t('description.profileQp1.hPD')} allowClear>
+          <StyledSelect
+            placeholder={t('description.profileQp1.hPD')}
+            allowClear
+          >
             <Option value={profileQ1.profileQ1PartTime}>
               {t('description.profileQp1.partTime')}
             </Option>
             <Option value={profileQ1.profileQ1FullTime}>
               {t('description.profileQp1.fullTime')}
             </Option>
-          </Select>
+          </StyledSelect>
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.edu')}
@@ -257,5 +259,3 @@ const ProfileQuestions1 = () => {
     </St.Wrapper>
   );
 };
-
-export default ProfileQuestions1;

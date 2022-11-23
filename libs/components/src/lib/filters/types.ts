@@ -10,6 +10,10 @@ import {
 export interface FiltersProps {
   visibility: boolean;
   closeHandler: () => void;
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
 }
 
 export type FormItems = {

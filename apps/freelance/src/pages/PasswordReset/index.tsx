@@ -1,7 +1,8 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { StyledPasswordInput } from '@freelance/components';
 import { usePasswordResetMutation } from 'redux/services/user';
 
 import {
@@ -49,7 +50,7 @@ const PasswordReset = () => {
               hasFeedback
               {...field}
             >
-              <Input.Password
+              <StyledPasswordInput
                 placeholder={t('resetPassword.placeholder.password')}
               />
             </Form.Item>
@@ -78,7 +79,7 @@ const PasswordReset = () => {
           ]}
           hasFeedback
         >
-          <Input.Password
+          <StyledPasswordInput
             placeholder={t('resetPassword.placeholder.password')}
           />
         </Form.Item>

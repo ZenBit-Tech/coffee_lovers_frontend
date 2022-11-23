@@ -1,18 +1,22 @@
 // temporary template objects for selector options
-
 type OptionProps = {
   value: string;
 };
 
-export const options: OptionProps[] = [
+export const englishOptions: OptionProps[] = [
   { value: 'No English' },
   { value: 'Pre-Intermediate' },
   { value: 'Intermediate' },
   { value: 'Upper-Intermediate' },
 ];
 
+export const durationOptions: OptionProps[] = [
+  { value: 'Month' },
+  { value: 'Week' },
+];
+
 // in future must get from back
-export const multipleSelectOption: OptionProps[] = [
+export const multipleSelectOptions: OptionProps[] = [
   { value: 'JavaScript' },
   { value: 'Front-End' },
   { value: 'Java' },
@@ -26,4 +30,12 @@ export const multipleSelectOption: OptionProps[] = [
   { value: 'C' },
   { value: 'C++' },
   { value: 'Rust' },
+];
+
+export const skillsOptions: OptionProps[] = [
+  { value: 'Mobile app development' },
+  { value: 'HTML' },
+  { value: 'CSS' },
+  { value: 'JavaScript' },
+  { value: 'Node' },
 ];

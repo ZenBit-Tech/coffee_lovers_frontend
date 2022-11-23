@@ -1,13 +1,17 @@
 import { Moment } from 'moment';
 
-export interface IProfileQuestions1 {
-  [key: string]: string | number | object | undefined;
+export interface IProfileQuestions {
+  [key: string]: string | number | object;
   available_time: string;
   description: string;
   hourly_rate: number;
   position: string;
   education: educationProps;
   work_history_wrapper: workProps;
+  category: string;
+  english_level: string;
+  other_experience: string;
+  skills: number[];
 }
 
 interface educationProps {
