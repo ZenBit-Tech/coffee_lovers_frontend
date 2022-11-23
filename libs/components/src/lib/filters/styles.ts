@@ -1,3 +1,4 @@
+import { Form } from 'antd';
 import styled from 'styled-components';
 import { CloseOutlined } from '@ant-design/icons';
 
@@ -93,4 +94,8 @@ export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+`;
+
+export const StyledFormItem = styled(Form.Item)`
+  margin-bottom: 0px;
 `;

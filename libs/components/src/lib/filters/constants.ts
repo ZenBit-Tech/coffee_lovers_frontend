@@ -10,8 +10,7 @@ export const englishLevelName = 'englishLevel';
 export const itemFontSize = '14px';
 export const inputNumberRegExp = /\B(?=(\d{3})+(?!\d))/g;
 export const inputNumberMin = 0;
-
-// mock data until backend will be done
+export const selectMaxItems = 6;
 
 export const timeOptions: TimeOptions[] = [
   { value: 1 },
