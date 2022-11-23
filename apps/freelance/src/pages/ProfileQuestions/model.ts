@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
 
 export interface IProfileQuestions {
-  [key: string]: string | number | object | undefined;
+  [key: string]: string | number | object;
   available_time: string;
   description: string;
   hourly_rate: number;
@@ -11,7 +11,7 @@ export interface IProfileQuestions {
   category: string;
   english_level: string;
   other_experience: string;
-  skills: [];
+  skills: number[];
 }
 
 interface educationProps {

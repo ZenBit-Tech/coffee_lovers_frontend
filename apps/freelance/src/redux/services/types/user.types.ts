@@ -20,7 +20,7 @@ export interface UpdateUser {
   category?: string;
   english_level?: string;
   other_experience?: string;
-  skills?: [];
+  skills?: number[];
 }
 
 export interface AddWorkhistory {
