@@ -44,7 +44,7 @@ export const profileQ2 = {
   prBarProfileQ2Per: 50,
   form: 'profile_questions_2',
   skills: 'skills',
-  category: 'category',
+  category: 'category_id',
   englishLevel: 'english_level',
   otherExp: 'other_experience',
   formItemLayout: {
