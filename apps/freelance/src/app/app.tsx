@@ -5,6 +5,7 @@ import { Container } from '@freelance/components';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
+import { JobPostFirstPage, JobPostSecondPage } from '@pages/JobPostPage';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
 import { ProfileQuestions1, ProfileQuestions2 } from '@pages/ProfileQuestions';
@@ -26,10 +27,6 @@ const OwnerProfilePage = lazy(
 const SignInGoogle = lazy(() => import('../pages/SignInGoogle'));
 const ConditionsPage = lazy(() => import('../pages/ConditionsPage'));
 
-const JobPostPage = lazy(
-  () => import(/* webpackChunkName: "JobPostPage" */ '../pages/JobPostPage'),
-);
-
 const LoginPage = lazy(
   () => import(/* webpackChunkName: "ExampleRootPage" */ '../pages/LoginPage'),
 );
@@ -45,7 +42,14 @@ export function App() {
       <Routes>
         <Route path="/" element={<ExampleRootPage />} />
         <Route path="/owner-profile" element={<OwnerProfilePage />} />
-        <Route path="/owner-profile/job-post" element={<JobPostPage />} />
+        <Route
+          path="/owner-profile/job-post-first-page"
+          element={<JobPostFirstPage />}
+        />
+        <Route
+          path="/owner-profile/job-post-second-page"
+          element={<JobPostSecondPage />}
+        />
 
         <Route
           path="/page-2"

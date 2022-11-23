@@ -1,14 +1,22 @@
-import { baseUrl, route } from '@freelance/components';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { ApiRoutes, baseUrl } from '@freelance/constants';
+import {
+  BaseQueryFn,
+  createApi,
+  FetchArgs,
+  fetchBaseQuery,
+} from '@reduxjs/toolkit/query/react';
 import {
   AddEducation,
   AddWorkhistory,
   UpdateUser,
+  UserError,
 } from 'redux/services/types/user.types';
 
 export const profileQuestions1Api = createApi({
   reducerPath: 'profileQuestions1Api',
-  baseQuery: fetchBaseQuery({ baseUrl: baseUrl + route }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: baseUrl + ApiRoutes.USER,
+  }) as BaseQueryFn<string | FetchArgs, unknown, UserError>,
   tagTypes: ['ProfileQuestions1'],
   endpoints: builder => ({
     updateUserInfo: builder.mutation({
