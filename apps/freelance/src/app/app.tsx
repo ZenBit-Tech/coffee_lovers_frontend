@@ -4,6 +4,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { Container } from '@freelance/components';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
+import JobDetailsPage from '@pages/JobDetailsPage';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import { JobPostFirstPage, JobPostSecondPage } from '@pages/JobPostPage';
 import PasswordReset from '@pages/PasswordReset';
@@ -143,6 +144,14 @@ export function App() {
           element={
             <PrivateRoute>
               <FindJobs />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/jobdetails"
+          element={
+            <PrivateRoute>
+              <JobDetailsPage />
             </PrivateRoute>
           }
         />
