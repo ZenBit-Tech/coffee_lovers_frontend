@@ -2,6 +2,7 @@ import { Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { AvatarUpload, JobAppBar } from '@freelance/components';
+import { skills } from '@pages/JobPostPage/constants';
 
 import {
   JobDescrText,
@@ -14,7 +15,6 @@ import {
 } from './styles';
 
 export default function JobDetailsPage() {
-  const skills = ['skill1', 'skill2', 'skill3'];
   const navigate = useNavigate();
   const { t } = useTranslation();
 
