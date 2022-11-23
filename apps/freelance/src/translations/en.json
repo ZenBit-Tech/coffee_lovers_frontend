@@ -194,7 +194,7 @@
         "apply": "Apply"
       },
       "errors": {
-        "hourly_rate": "Wrong hourly rate, start value must be smaller"
+        "selectMax": "Maximum 6 items"
       }
     },
     "findJobs": {

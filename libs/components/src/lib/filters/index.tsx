@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Button, Form, InputNumber, message, Select } from 'antd';
+import { Button, Form, InputNumber, Select } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MinusOutlined } from '@ant-design/icons';
@@ -24,21 +24,26 @@ import {
   ItemContainer,
   StyledClose,
   StyledFilterTitle,
+  StyledFormItem,
   StyledTitle,
   Wrapper,
 } from './styles';
-import { FiltersProps, FormItems } from './types';
+import { FilterFormItems, FiltersProps } from './types';
+import { getSelectMaxItemsValidator } from './validation';
 
 export const Filters: FC<FiltersProps> = ({
   visibility,
   closeHandler,
+  submit,
   top,
   left,
   right,
   bottom,
 }) => {
   const { t } = useTranslation();
-  const { handleSubmit, control } = useForm<FormItems>();
+  const { handleSubmit, control, reset, getValues } =
+    useForm<FilterFormItems>();
+  const [form] = Form.useForm();
   const {
     categories,
     skills,
@@ -47,10 +52,14 @@ export const Filters: FC<FiltersProps> = ({
     getOptionsForSelectString,
   } = useProperties();
 
-  const onSubmit: SubmitHandler<FormItems> = data => {
-    if (data[hrlyRateStartName] > data[hrlyRateEndName]) {
-      message.error(t('filters.errors.hourly_rate'));
-    }
+  const onSubmit: SubmitHandler<FilterFormItems> = data => {
+    submit(data);
+    closeHandler();
+  };
+
+  const clearHandler = () => {
+    form.resetFields();
+    reset();
   };
 
   return (
@@ -64,7 +73,7 @@ export const Filters: FC<FiltersProps> = ({
       <StyledClose onClick={() => closeHandler()} />
       <StyledTitle>{t('filters.title')}</StyledTitle>
 
-      <Form onFinish={handleSubmit(onSubmit)}>
+      <Form onFinish={handleSubmit(onSubmit)} form={form}>
         <Container>
           <ItemContainer>
             <StyledFilterTitle>{t('filters.skills')}</StyledFilterTitle>
@@ -72,13 +81,18 @@ export const Filters: FC<FiltersProps> = ({
               name={skillsName}
               control={control}
               render={({ field }) => (
-                <Select
-                  mode="multiple"
-                  allowClear
-                  placeholder={t('filters.skills_placeholder')}
-                  options={getOptionsForSelectWithId(skills)}
+                <StyledFormItem
+                  rules={[getSelectMaxItemsValidator(t)]}
                   {...field}
-                />
+                >
+                  <Select
+                    mode="multiple"
+                    allowClear
+                    placeholder={t('filters.skills_placeholder')}
+                    options={getOptionsForSelectWithId(skills)}
+                    {...field}
+                  />
+                </StyledFormItem>
               )}
             />
           </ItemContainer>
@@ -89,13 +103,18 @@ export const Filters: FC<FiltersProps> = ({
               name={categoriesName}
               control={control}
               render={({ field }) => (
-                <Select
+                <StyledFormItem
+                  rules={[getSelectMaxItemsValidator(t)]}
                   {...field}
-                  mode="multiple"
-                  allowClear
-                  placeholder={t('filters.category_placeholder')}
-                  options={getOptionsForSelectWithId(categories)}
-                />
+                >
+                  <Select
+                    mode="multiple"
+                    allowClear
+                    placeholder={t('filters.category_placeholder')}
+                    options={getOptionsForSelectWithId(categories)}
+                    {...field}
+                  />
+                </StyledFormItem>
               )}
             />
           </ItemContainer>
@@ -113,6 +132,7 @@ export const Filters: FC<FiltersProps> = ({
                     }
                     min={inputNumberMin}
                     {...field}
+                    max={getValues(hrlyRateEndName)}
                   />
                 )}
               />
@@ -125,7 +145,7 @@ export const Filters: FC<FiltersProps> = ({
                     formatter={value =>
                       `$ ${value}`.replace(inputNumberRegExp, ',')
                     }
-                    min={inputNumberMin}
+                    min={getValues(hrlyRateStartName) || inputNumberMin}
                     {...field}
                   />
                 )}
@@ -170,8 +190,9 @@ export const Filters: FC<FiltersProps> = ({
               />
             </HorizontalContainer>
           </ItemContainer>
+
           <ButtonsContainer>
-            <Button>{t('filters.buttons.clear')}</Button>
+            <Button onClick={clearHandler}>{t('filters.buttons.clear')}</Button>
             <Button htmlType="submit" type="primary">
               {t('filters.buttons.apply')}
             </Button>
@@ -181,3 +202,5 @@ export const Filters: FC<FiltersProps> = ({
     </Wrapper>
   );
 };
+
+export { FilterFormItems } from './types';
