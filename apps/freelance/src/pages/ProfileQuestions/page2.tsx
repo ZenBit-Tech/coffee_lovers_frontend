@@ -3,25 +3,37 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { UploadOutlined } from '@ant-design/icons';
 import {
-  englishOptions,
-  multipleSelectOptions,
   prBarStrColor,
   prBarTrailColor,
   profileQ2,
   ProgressBar,
-  skillsOptions,
 } from '@freelance/components';
+import useProperties from '@hooks/useProperties';
+import { useUpdateUserInfoMutation } from 'redux/profileQuestions/profileQuestions1Api';
 
-import { IProfileQuestions2 } from './model';
+import { IProfileQuestions } from './model';
 import * as St from './styles';
 
 export const ProfileQuestions2 = () => {
   const { t } = useTranslation();
-  const { handleSubmit } = useForm<IProfileQuestions2>();
+  const { handleSubmit } = useForm<IProfileQuestions>();
   const [form] = Form.useForm();
+  const [UpdateUserInfo] = useUpdateUserInfoMutation();
+  const {
+    categories,
+    skills,
+    englishLevels,
+    getOptionsForSelectString,
+    getOptionsForSelectWithId,
+  } = useProperties();
 
-  const onFinish: SubmitHandler<IProfileQuestions2> = async values => {
-    alert(values);
+  const onFinish: SubmitHandler<IProfileQuestions> = async values => {
+    try {
+      await UpdateUserInfo(values);
+      form.resetFields();
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -48,17 +60,25 @@ export const ProfileQuestions2 = () => {
         form={form}
         labelAlign="left"
         requiredMark="optional"
-        onFinish={values =>
-          handleSubmit(onFinish(values as IProfileQuestions2))
-        }
+        onFinish={values => handleSubmit(onFinish(values as IProfileQuestions))}
       >
         <Form.Item
           label={t('description.profileQp2.skills_top')}
           name={profileQ2.skills}
           rules={[
             {
-              required: true,
-              message: `${t('description.profileQp2.mesSkills')}`,
+              validator: (_, value = profileQ2.emptyStr) => {
+                if (!value.length) {
+                  return Promise.reject(t('description.profileQp2.mesSkills'));
+                }
+                if (value.length < 3) {
+                  return Promise.reject(
+                    t('description.profileQp2.mesSkillsMin'),
+                  );
+                }
+
+                return Promise.resolve();
+              },
             },
           ]}
           wrapperCol={{
@@ -66,9 +86,9 @@ export const ProfileQuestions2 = () => {
           }}
         >
           <Select
-            mode="tags"
+            mode="multiple"
             size="large"
-            options={skillsOptions}
+            options={getOptionsForSelectWithId(skills)}
             placeholder={t('description.profileQp2.skills_descr')}
             showSearch
             tokenSeparators={[',']}
@@ -88,15 +108,15 @@ export const ProfileQuestions2 = () => {
             size="large"
             showSearch
             placeholder={t('description.profileQp2.category')}
-            options={multipleSelectOptions}
+            options={getOptionsForSelectWithId(categories)}
             optionFilterProp="children"
             filterOption={(input, option) =>
-              (option?.value ?? '').includes(input)
+              (option?.label ?? '').includes(input)
             }
             filterSort={(optionA, optionB) =>
-              (optionA?.value ?? '')
+              (optionA?.label ?? '')
                 .toLowerCase()
-                .localeCompare((optionB?.value ?? '').toLowerCase())
+                .localeCompare((optionB?.label ?? '').toLowerCase())
             }
           />
         </Form.Item>
@@ -105,11 +125,9 @@ export const ProfileQuestions2 = () => {
           label={t('description.profileQp2.english_level')}
         >
           <Select
-            style={{ width: '100%' }}
             placeholder={t('description.profileQp2.english_level_descr')}
             size="large"
-            defaultValue={t('description.profileQp2.english_level_descr')}
-            options={englishOptions}
+            options={getOptionsForSelectString(englishLevels)}
           />
         </Form.Item>
         <Form.Item
