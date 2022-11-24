@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, List } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { Filters, JobCard } from '@freelance/components';
+import { FilterFormItems, Filters, JobCard } from '@freelance/components';
 
 import { filterRight, filterTop, jobsList } from './constants';
 import { PageBar, StyledPagination, TitleContainer, Wrapper } from './styles';
@@ -9,6 +9,10 @@ import { PageBar, StyledPagination, TitleContainer, Wrapper } from './styles';
 const FindJobs = () => {
   const [filtersVisibility, setFiltersVisibility] = useState<boolean>(false);
   const { t } = useTranslation();
+
+  const submitFilter = (data: FilterFormItems) => {
+    alert(data);
+  };
 
   return (
     <Wrapper>
@@ -26,6 +30,7 @@ const FindJobs = () => {
         <Filters
           visibility={filtersVisibility}
           closeHandler={() => setFiltersVisibility(false)}
+          submit={submitFilter}
           top={filterTop}
           right={filterRight}
         />

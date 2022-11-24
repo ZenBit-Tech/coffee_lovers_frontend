@@ -17,7 +17,7 @@ export interface UpdateUser {
   description?: string;
   hourly_rate?: number;
   position?: string;
-  category?: string;
+  category_id?: number;
   english_level?: string;
   other_experience?: string;
   skills?: number[];
