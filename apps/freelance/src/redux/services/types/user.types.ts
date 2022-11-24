@@ -21,6 +21,7 @@ export interface UpdateUser {
   english_level?: string;
   other_experience?: string;
   skills?: number[];
+  role?: string;
 }
 
 export interface AddWorkhistory {
@@ -33,4 +34,12 @@ export interface AddEducation {
   education_descr: string;
   education_from: string;
   education_to: string;
+}
+
+export interface IUserInfo {
+  email: string;
+  first_name: string;
+  last_name: string;
+  profile_image: null;
+  role: 'Freelancer' | 'JobOwner';
 }

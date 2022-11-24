@@ -1,25 +1,28 @@
 import { useState } from 'react';
 import { Button, Checkbox, Form, Space, Typography } from 'antd';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useAddUserRoleMutation } from 'src/redux/services/user';
 
 import { FormWrap, InputsWrapper, InputText, Title } from './styles';
 
-type Inputs = {
-  jobOwner: boolean;
-  freelancer: boolean;
-};
+interface IRole {
+  role: 'Freelancer' | 'JobOwner';
+}
 
 const { Text } = Typography;
 
 const ChooseRole = () => {
   const { t } = useTranslation();
-  const { handleSubmit } = useForm<Inputs>();
-  const [freelancer, setFreelancer] = useState(false);
+  const navigate = useNavigate();
+  const [role, setRole] = useState<IRole>({ role: 'Freelancer' });
+  const [freelancer, setFreelancer] = useState(true);
   const [jobOwner, setJobOwner] = useState(false);
+  const [addUserRole] = useAddUserRoleMutation();
 
-  const onSubmit: SubmitHandler<Inputs> = data => {
-    freelancer ? alert('freelancer') : alert('jobOwner');
+  const onClick = () => {
+    addUserRole(role);
+    freelancer ? navigate('/jobownerdashboard') : navigate('/owner-profile');
   };
 
   const onFreelancerClick = () => {
@@ -28,6 +31,7 @@ const ChooseRole = () => {
       freelancer ? setFreelancer(true) : setFreelancer(false);
     }
     freelancer ? setFreelancer(false) : setFreelancer(true);
+    setRole({ role: 'Freelancer' });
   };
 
   const onJobOwnerClick = () => {
@@ -36,6 +40,7 @@ const ChooseRole = () => {
       setFreelancer(false);
     }
     jobOwner ? setJobOwner(false) : setJobOwner(true);
+    setRole({ role: 'JobOwner' });
   };
 
   const disabled = !freelancer && !jobOwner;
@@ -43,7 +48,7 @@ const ChooseRole = () => {
   return (
     <FormWrap>
       <Title>{t('chooseRole.title')}</Title>
-      <Form onFinish={handleSubmit(onSubmit)}>
+      <Form>
         <Form.Item>
           <InputsWrapper>
             <Checkbox
@@ -68,6 +73,7 @@ const ChooseRole = () => {
             <Button
               type="primary"
               htmlType="submit"
+              onClick={onClick}
               disabled={!freelancer && !jobOwner}
             >
               {t('resetPassword.buttonText')}
