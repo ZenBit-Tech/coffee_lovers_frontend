@@ -5,8 +5,7 @@ import {
   FetchArgs,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
-
-import { PasswordResetPayload, UserError } from './types/user.types';
+import { PasswordResetPayload, UserError } from 'src/redux/types/user.types';
 
 enum EndpointsRoutes {
   passwordResetRequest = '/passwordresetrequest',

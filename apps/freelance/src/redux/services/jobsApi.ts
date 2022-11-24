@@ -1,16 +1,16 @@
 import { ApiRoutes, baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'redux/store';
-import { PropertiesResponse } from 'src/redux/types/properties.types';
+import { FindJobsResponse, GetJobParams } from 'redux/types/jobs.types';
 
 enum EndpointsRoutes {
-  getAllProperties = '',
+  findJobs = '/find',
 }
 
-export const propertiesApi = createApi({
-  reducerPath: 'propertiesApi',
+export const jobsApi = createApi({
+  reducerPath: 'jobsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl + ApiRoutes.PROPERTIES,
+    baseUrl: baseUrl + ApiRoutes.JOBS,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).user.access_token;
       if (token) {
@@ -21,10 +21,13 @@ export const propertiesApi = createApi({
     },
   }),
   endpoints: builder => ({
-    getAllProperties: builder.query<PropertiesResponse, void>({
-      query: () => EndpointsRoutes.getAllProperties,
+    findJobs: builder.query<FindJobsResponse, GetJobParams>({
+      query: params => ({
+        url: EndpointsRoutes.findJobs,
+        params,
+      }),
     }),
   }),
 });
 
-export const { useGetAllPropertiesQuery } = propertiesApi;
+export const { useFindJobsQuery } = jobsApi;

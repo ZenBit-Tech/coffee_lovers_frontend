@@ -5,13 +5,17 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 10px;
+  padding-bottom: 40px;
 `;
 
 export const PageBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  background-color: ${({ theme }) => theme.colors.white};
+  position: sticky;
+  top: 0;
+  z-index: 10;
 `;
 
 export const TitleContainer = styled.div`
@@ -32,4 +36,7 @@ export const TitleContainer = styled.div`
 
 export const StyledPagination = styled(Pagination)`
   align-self: center;
+  position: fixed;
+  bottom: 5px;
+  background-color: ${({ theme }) => theme.colors.white};
 `;
