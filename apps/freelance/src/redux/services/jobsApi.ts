@@ -1,3 +1,4 @@
+import queryString from 'query-string';
 import { ApiRoutes, baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'redux/store';
@@ -18,6 +19,9 @@ export const jobsApi = createApi({
       }
 
       return headers;
+    },
+    paramsSerializer: params => {
+      return queryString.stringify(params, { arrayFormat: 'bracket' });
     },
   }),
   endpoints: builder => ({
