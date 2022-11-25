@@ -14,7 +14,7 @@ export const getFilterParams = (filter: FilterFormItems): GetJobParams => {
 
   if (filter.categories) params.categories = filter.categories;
 
-  if (filter.skills) params.categories = filter.skills;
+  if (filter.skills) params.skills = filter.skills;
 
   return params;
 };
