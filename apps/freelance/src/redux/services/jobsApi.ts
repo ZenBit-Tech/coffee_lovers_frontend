@@ -5,7 +5,7 @@ import { RootState } from 'redux/store';
 import { FindJobsResponse, GetJobParams } from 'redux/types/jobs.types';
 
 enum EndpointsRoutes {
-  findJobs = '/find',
+  findJobs = '/',
 }
 
 export const jobsApi = createApi({
