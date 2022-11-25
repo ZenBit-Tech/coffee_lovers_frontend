@@ -9,6 +9,7 @@ export interface Job {
   available_time?: number;
   english_level?: string;
   owner: User;
+  created_at: string;
   category: Property;
   skills: Property[];
 }

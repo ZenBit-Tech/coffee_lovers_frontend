@@ -59,7 +59,7 @@ const FindJobs = () => {
               title={item.title || ''}
               description={item.description || t('findJobs.no_description')}
               category={item.category?.name || t('findJobs.no_category')}
-              date={new Date()}
+              date={new Date(item.created_at)}
               duration={t('findJobs.no_duration')}
               owner={`${item.owner?.first_name || ''} ${
                 item.owner?.last_name || ''
