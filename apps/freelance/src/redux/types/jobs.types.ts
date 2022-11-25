@@ -16,6 +16,12 @@ export interface Job {
 export interface GetJobParams {
   limit?: number;
   offset?: number;
+  skills?: number[];
+  categories?: number[];
+  hourly_rate_start?: number;
+  hourly_rate_end?: number;
+  available_time?: number;
+  english_level?: string;
 }
 
 export interface FindJobsResponse {

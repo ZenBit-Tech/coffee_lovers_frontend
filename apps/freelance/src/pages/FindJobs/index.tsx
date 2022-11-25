@@ -1,20 +1,27 @@
 import { useState } from 'react';
-import { Button, List, PaginationProps, Spin } from 'antd';
+import { Button, List, PaginationProps } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { FilterFormItems, Filters, JobCard } from '@freelance/components';
 import { useFindJobsQuery } from 'redux/services/jobsApi';
+import { GetJobParams } from 'redux/types/jobs.types';
 
 import { fetchLimit, filterRight, filterTop } from './constants';
 import { PageBar, StyledPagination, TitleContainer, Wrapper } from './styles';
+import { getFilterParams } from './utils';
 
 const FindJobs = () => {
   const [filtersVisibility, setFiltersVisibility] = useState<boolean>(false);
   const [offset, setOffset] = useState<number>(0);
+  const [filterPayload, setFilterPayload] = useState<GetJobParams>();
   const { t } = useTranslation();
-  const { data, isLoading } = useFindJobsQuery({ limit: fetchLimit, offset });
+  const { data, isLoading } = useFindJobsQuery({
+    limit: fetchLimit,
+    offset,
+    ...filterPayload,
+  });
 
   const submitFilter = (filterData: FilterFormItems) => {
-    alert(filterData);
+    setFilterPayload(getFilterParams(filterData));
   };
 
   const onChangePagination: PaginationProps['onChange'] = page => {
@@ -43,35 +50,32 @@ const FindJobs = () => {
         />
       </PageBar>
 
-      {isLoading ? (
-        <Spin size="large" />
-      ) : (
-        <>
-          <List
-            dataSource={data?.jobs}
-            renderItem={item => (
-              <List.Item>
-                <JobCard
-                  key={item.id}
-                  title={item.title || ''}
-                  description={item.description || t('findJobs.no_description')}
-                  category={item.category?.name || t('findJobs.no_category')}
-                  date={new Date()}
-                  duration={t('findJobs.no_duration')}
-                  owner={`${item.owner?.first_name || ''} ${
-                    item.owner?.last_name || ''
-                  }`}
-                  rate={item.hourly_rate || null}
-                />
-              </List.Item>
-            )}
-          />
-          <StyledPagination
-            total={data?.meta.totalCount}
-            pageSize={fetchLimit}
-            onChange={onChangePagination}
-          />
-        </>
+      <List
+        dataSource={data?.jobs}
+        renderItem={item => (
+          <List.Item>
+            <JobCard
+              key={item.id}
+              title={item.title || ''}
+              description={item.description || t('findJobs.no_description')}
+              category={item.category?.name || t('findJobs.no_category')}
+              date={new Date()}
+              duration={t('findJobs.no_duration')}
+              owner={`${item.owner?.first_name || ''} ${
+                item.owner?.last_name || ''
+              }`}
+              rate={item.hourly_rate || null}
+            />
+          </List.Item>
+        )}
+        loading={isLoading}
+      />
+      {!isLoading && (
+        <StyledPagination
+          total={data?.meta.totalCount}
+          pageSize={fetchLimit}
+          onChange={onChangePagination}
+        />
       )}
     </Wrapper>
   );
