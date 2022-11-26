@@ -23,6 +23,7 @@ export interface GetJobParams {
   hourly_rate_end?: number;
   available_time?: number;
   english_level?: string;
+  search?: string;
 }
 
 export interface FindJobsResponse {

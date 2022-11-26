@@ -202,7 +202,8 @@
       "filters": "Filters",
       "no_description": "No description",
       "no_category": "No category",
-      "no_duration": "No duration"
+      "no_duration": "No duration",
+      "searchPlaceholder": "Search"
     },
     "jobCard": {
       "hrly_rate": "$ {{rate}} / hr",

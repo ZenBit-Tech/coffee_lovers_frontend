@@ -18,6 +18,14 @@ export const PageBar = styled.div`
   z-index: 10;
 `;
 
+export const PageBarRightSideContainer = styled.div`
+  display: flex;
+
+  & > *:first-child {
+    margin-right: 15px;
+  }
+`;
+
 export const TitleContainer = styled.div`
   display: flex;
 
