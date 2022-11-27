@@ -1,9 +1,7 @@
-import { useState } from 'react';
-import { Button, Input, List, PaginationProps } from 'antd';
+import { Button, Input, List } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { FilterFormItems, Filters, JobCard } from '@freelance/components';
+import { Filters, JobCard } from '@freelance/components';
 import { useFindJobsQuery } from 'redux/services/jobsApi';
-import { GetJobParams } from 'redux/types/jobs.types';
 
 import { fetchLimit, filterRight, filterTop } from './constants';
 import {
@@ -13,33 +11,26 @@ import {
   TitleContainer,
   Wrapper,
 } from './styles';
-import { getFilterParams } from './utils';
+import useFindJobs from './useFindJobs';
 
 const FindJobs = () => {
-  const [filtersVisibility, setFiltersVisibility] = useState<boolean>(false);
-  const [offset, setOffset] = useState<number>(0);
-  const [filterPayload, setFilterPayload] = useState<GetJobParams>();
-  const [search, setSearch] = useState<string>();
   const { t } = useTranslation();
-  const { Search } = Input;
+  const {
+    offset,
+    search,
+    filterPayload,
+    submitFilter,
+    onChangePagination,
+    onSearch,
+    filtersVisibility,
+    setFiltersVisibility,
+  } = useFindJobs();
   const { data, isLoading } = useFindJobsQuery({
     limit: fetchLimit,
     offset,
     ...filterPayload,
     ...(search && { search }),
   });
-
-  const submitFilter = (filterData: FilterFormItems) => {
-    setFilterPayload(getFilterParams(filterData));
-  };
-
-  const onChangePagination: PaginationProps['onChange'] = page => {
-    setOffset((page - 1) * fetchLimit);
-  };
-
-  const onSearch = (value: string) => {
-    setSearch(value.trim());
-  };
 
   return (
     <Wrapper>
@@ -49,7 +40,7 @@ const FindJobs = () => {
           <div>{data?.meta.totalCount || 0}</div>
         </TitleContainer>
         <PageBarRightSideContainer>
-          <Search
+          <Input.Search
             placeholder={t('findJobs.searchPlaceholder')}
             onSearch={onSearch}
           />
