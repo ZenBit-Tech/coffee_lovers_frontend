@@ -34,3 +34,7 @@ export interface AddEducation {
   education_from: string;
   education_to: string;
 }
+
+export interface SetProfileImageResponse {
+  file: string;
+}
