@@ -1,10 +1,26 @@
-import { Card, Skeleton } from 'antd';
+import { Card, Pagination, Skeleton } from 'antd';
 import styled from 'styled-components';
 import { baseTheme } from 'src/styles/theme';
 
 export const StyledCard = styled(Card)`
   margin-bottom: 20px;
   width: 600px;
+`;
+
+export const StyledPagination = styled(Pagination)`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background-color: white;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+`;
+
+export const Container = styled.div`
+  margin-top: 50px;
+  margin-bottom: 72px;
 `;
 
 export const StyledSkeleton = styled(Skeleton)`

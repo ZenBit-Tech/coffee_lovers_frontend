@@ -1,26 +1,29 @@
 import { ReactElement, useState } from 'react';
 import { Avatar, Col, Input, List, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { UserOutlined } from '@ant-design/icons';
 import { SmallCard } from '@freelance/components';
+import { useGetFreelancerQuery } from 'redux/services/freelancers';
 
-import { useGetTalentsHook } from './hooks/getTalents';
+import { User } from './model';
+import { StyledPagination } from './styles';
 import {
+  Container,
   SmallCardContainer,
   StyledCard,
   StyledCardHeader,
   StyledHeader,
   StyledInformation,
   StyledName,
-  StyledSkeleton,
 } from './styles';
 
 const TalentListPage = (): ReactElement => {
   const { Search } = Input;
   const [search, setSearch] = useState<string>('');
   const { t } = useTranslation();
-  const { loadMoreData, data } = useGetTalentsHook();
+  const [page, setPage] = useState<number>(1);
+  const { data } = useGetFreelancerQuery(page);
+
   async function handleSearch(value: string) {
     setSearch(value);
   }
@@ -44,26 +47,16 @@ const TalentListPage = (): ReactElement => {
           </Col>
         </Row>
       </StyledHeader>
-      <InfiniteScroll
-        dataLength={data.length}
-        next={loadMoreData}
-        hasMore={true}
-        loader={<StyledSkeleton avatar paragraph={{ rows: 3 }} />}
-        scrollableTarget="scrollableDiv"
-      >
+      <Container>
         <List
-          dataSource={data}
-          renderItem={item => (
+          dataSource={data ? data[0] : []}
+          renderItem={(item: User) => (
             <StyledCard
               title={
                 <StyledCardHeader>
-                  <Avatar
-                    src={item.picture.large}
-                    size={130}
-                    icon={<UserOutlined />}
-                  />
+                  <Avatar src={'no'} size={130} icon={<UserOutlined />} />
                   <StyledName>
-                    {t('talent.name', { name: item.name.last })}
+                    {t('talent.name', { name: item.email })}
                   </StyledName>
                 </StyledCardHeader>
               }
@@ -77,7 +70,20 @@ const TalentListPage = (): ReactElement => {
             </StyledCard>
           )}
         />
-      </InfiniteScroll>
+      </Container>
+      <StyledPagination
+        onChange={page => {
+          setPage(page);
+        }}
+        style={{
+          alignItems: 'center',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+        total={data && data[1]}
+        defaultCurrent={1}
+        defaultPageSize={10}
+      />
     </>
   );
 };
