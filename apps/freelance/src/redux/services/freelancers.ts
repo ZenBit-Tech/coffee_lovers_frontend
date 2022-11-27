@@ -4,7 +4,7 @@ import { RootState } from 'redux/store';
 export const freelancersApi = createApi({
   reducerPath: 'freelancersReducer',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env['NX_API_URL']}`,
+    baseUrl: `${process.env['NX_API_URL']}/user/freelancer`,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).user.access_token as string;
 
@@ -17,7 +17,7 @@ export const freelancersApi = createApi({
   }),
   endpoints: builder => ({
     getFreelancer: builder.query({
-      query: (page: number) => `/user/freelancer/?page=${page}`,
+      query: (page: number) => `/?page=${page}`,
     }),
   }),
 });

@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { Avatar, Col, Input, List, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
@@ -27,9 +27,6 @@ const TalentListPage = (): ReactElement => {
   async function handleSearch(value: string) {
     setSearch(value);
   }
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <>
