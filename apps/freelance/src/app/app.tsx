@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Outlet, Route, Routes } from 'react-router-dom';
 import { Container } from '@freelance/components';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
@@ -43,125 +43,58 @@ export function App() {
   return (
     <Container>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <PublicRoute>
-              <ExampleRootPage />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/owner-profile"
-          element={
-            <PrivateRoute>
-              <OwnerProfilePage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/owner-profile/job-post"
-          element={
-            <PrivateRoute>
-              <JobPostFirstPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/owner-profile/job-post"
-          element={
-            <PrivateRoute>
-              <JobPostSecondPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/page-2"
-          element={<Link to="/">{t('router.toRoot')}</Link>}
-        />
-        <Route path="/welcome" element={<WelcomePage />} />
-        <Route path="/googleAuth" element={<SignInGoogle />} />
-        <Route path="/login/conditions" element={<ConditionsPage />} />
-        <Route
-          path="/profile-questions-1"
-          element={
-            <PrivateRoute>
-              <ProfileQuestions1 />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/profile-questions-2"
-          element={
-            <PrivateRoute>
-              <ProfileQuestions2 />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="signup"
-          element={
-            <PublicRoute>
-              <SignupPage />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="login"
-          element={
-            <PublicRoute>
-              <LoginPage />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/passwordreset"
-          element={
-            <PublicRoute>
-              <PasswordResetRequest />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/passwordreset/:key"
-          element={
-            <PublicRoute>
-              <PasswordReset />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/jobownerdashboard"
-          element={
-            <PrivateRoute>
-              <JobOwnerDashboard />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/role"
-          element={
-            <PrivateRoute>
-              <ChooseRole />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/findjobs"
-          element={
-            <PrivateRoute>
-              <FindJobs />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/jobdetails"
-          element={
-            <PrivateRoute>
-              <JobDetailsPage />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/" element={<Outlet />}>
+          <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/googleAuth" element={<SignInGoogle />} />
+          <Route path="/login/conditions" element={<ConditionsPage />} />
+
+          {/* Public routes */}
+          <Route element={<PublicRoute />}>
+            <Route path="/" element={<ExampleRootPage />} />
+            <Route path="signup" element={<SignupPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="/passwordreset" element={<PasswordResetRequest />} />
+            <Route path="/passwordreset/:key" element={<PasswordReset />} />
+          </Route>
+
+          {/* Protected routes */}
+          <Route element={<PrivateRoute allowedRoles={null} />}>
+            <Route path="/role" element={<ChooseRole />} />
+          </Route>
+
+          {/* Freelancer's routes */}
+          <Route element={<PrivateRoute allowedRoles={'Freelancer'} />}>
+            <Route path="/owner-profile" element={<OwnerProfilePage />} />
+            <Route
+              path="/owner-profile/job-post"
+              element={<JobPostFirstPage />}
+            />
+            <Route
+              path="/owner-profile/job-post"
+              element={<JobPostSecondPage />}
+            />
+            <Route path="/findjobs" element={<FindJobs />} />
+            <Route path="/jobdetails" element={<JobDetailsPage />} />
+          </Route>
+
+          {/* Job Owner's routes */}
+          <Route element={<PrivateRoute allowedRoles={'JobOwner'} />}>
+            <Route
+              path="/profile-questions-1"
+              element={<ProfileQuestions1 />}
+            />
+            <Route
+              path="/profile-questions-2"
+              element={<ProfileQuestions2 />}
+            />
+            <Route path="/jobownerdashboard" element={<JobOwnerDashboard />} />
+          </Route>
+
+          <Route
+            path="/page-2"
+            element={<Link to="/">{t('router.toRoot')}</Link>}
+          />
+        </Route>
       </Routes>
     </Container>
   );
