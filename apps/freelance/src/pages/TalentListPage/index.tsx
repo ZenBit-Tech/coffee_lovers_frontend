@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { Avatar, Col, Input, List, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
@@ -27,6 +27,9 @@ const TalentListPage = (): ReactElement => {
   async function handleSearch(value: string) {
     setSearch(value);
   }
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <>
@@ -54,7 +57,11 @@ const TalentListPage = (): ReactElement => {
             <StyledCard
               title={
                 <StyledCardHeader>
-                  <Avatar src={'no'} size={130} icon={<UserOutlined />} />
+                  <Avatar
+                    src={item.profile_image}
+                    size={130}
+                    icon={<UserOutlined />}
+                  />
                   <StyledName>
                     {t('talent.name', { name: item.email })}
                   </StyledName>
@@ -62,10 +69,24 @@ const TalentListPage = (): ReactElement => {
               }
             >
               <SmallCardContainer>
-                <SmallCard text={'category'} />
-                <SmallCard text={'category'} />
-                <SmallCard text={'category'} />
-                <SmallCard text={'category'} />
+                <SmallCard
+                  text={t('talent.position', { position: item.position })}
+                />
+                <SmallCard
+                  text={t('talent.category', {
+                    category: item.category ? item.category.name : '',
+                  })}
+                />
+                <SmallCard
+                  text={t('talent.available_time', {
+                    available_time: item.available_time + ' h',
+                  })}
+                />
+                <SmallCard
+                  text={t('talent.hourly_rate', {
+                    hourly_rate: item.hourly_rate + ' $',
+                  })}
+                />
               </SmallCardContainer>
             </StyledCard>
           )}

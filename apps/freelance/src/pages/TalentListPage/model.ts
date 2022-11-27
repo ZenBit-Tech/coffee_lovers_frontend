@@ -2,11 +2,16 @@ export interface User {
   id: number;
   email: string;
   name: Name;
-  picture: Picture;
+  profile_image: string;
+  category: Category;
+  position: string;
+  available_time: string;
+  hourly_rate: string;
 }
 
-interface Picture {
-  large: string;
+interface Category {
+  name: string;
+  id: number;
 }
 
 interface Name {
