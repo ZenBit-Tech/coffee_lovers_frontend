@@ -10,9 +10,14 @@ import {
 export interface FiltersProps {
   visibility: boolean;
   closeHandler: () => void;
+  submit: (data: FilterFormItems) => void;
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
 }
 
-export type FormItems = {
+export type FilterFormItems = {
   [skillsName]: object[];
   [categoriesName]: object[];
   [hrlyRateStartName]: number;

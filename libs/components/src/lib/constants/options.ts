@@ -1,5 +1,4 @@
 // temporary template objects for selector options
-
 type OptionProps = {
   value: string;
 };

@@ -17,19 +17,19 @@ import {
 } from 'redux/profileQuestions/profileQuestions1Api';
 
 import { onFinishLogic } from './hooks';
-import { IProfileQuestions1 } from './model';
+import { IProfileQuestions } from './model';
 import * as St from './styles';
 
 export const ProfileQuestions1 = () => {
   const { t } = useTranslation();
-  const { handleSubmit } = useForm<IProfileQuestions1>();
+  const { handleSubmit } = useForm<IProfileQuestions>();
   const [form] = Form.useForm();
   const [UpdateUserInfo] = useUpdateUserInfoMutation();
   const [AddUserEduInfo] = useAddUserEduInfoMutation();
   const [AddUserWorkhistory] = useAddUserWorkhistoryInfoMutation();
 
   const { Option } = Select;
-  const onFinish: SubmitHandler<IProfileQuestions1> = async values => {
+  const onFinish: SubmitHandler<IProfileQuestions> = async values => {
     const [educationPayload, workPayload, userPayload] = onFinishLogic(values);
     try {
       await UpdateUserInfo(userPayload);
@@ -65,9 +65,7 @@ export const ProfileQuestions1 = () => {
         form={form}
         labelAlign="left"
         requiredMark="optional"
-        onFinish={values =>
-          handleSubmit(onFinish(values as IProfileQuestions1))
-        }
+        onFinish={values => handleSubmit(onFinish(values as IProfileQuestions))}
       >
         <Form.Item
           label={t('description.profileQp1.hR')}

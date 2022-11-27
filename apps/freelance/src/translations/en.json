@@ -69,7 +69,8 @@
         "other_exp": "Other experience",
         "other_exp_descr": "Add a text",
         "category": "Category",
-        "mesSkills": "Please, input skills!",
+        "mesSkills": "Please, select skills!",
+        "mesSkillsMin": "Please, select at least 3 skills!",
         "mesCategory": "Please, input category!",
         "mesOtherExp": "Please, input other experience!"
       },
@@ -143,7 +144,10 @@
         "talents": "Talents",
         "chat": "Chat",
         "my_profile": "My Profile",
-        "log_out": "Log out"
+        "log_out": "Log out",
+        "offers": "Offers",
+        "jobs": "Jobs",
+        "contracts": "My Contracts"
       }
     },
     "chooseRole": {
@@ -155,10 +159,17 @@
     "job_post_page": {
       "page_name": "Post a job page",
       "fill_this_form": "Please fill this form",
-      "project_name_placeholder": "Add a name for your project*",
-      "about_placeholder": "Tell more about your project*",
-      "english_level": "Choose English level*",
-      "job_category_placeholder": "Please select job category*",
+      "project_name_label": "Add a name for your project*",
+      "about_label": "Tell more about your project*",
+      "english_level_label": "English level*",
+      "english_level_placeholder": "Required level",
+      "job_category_label": "Please select job category*",
+      "skills_label": "What skills are required?",
+      "skills_label_minimize": "Enter at least 3 skills",
+      "skills_placeholder": "Start typing to search skills",
+      "duration": "Duration",
+      "duration_amount_placeholder": "Amount",
+      "duration_placeholder": "Month/Week",
       "post_a_job": "Post a job"
     },
     "validation": {
@@ -193,9 +204,30 @@
           "apply": "Apply"
         },
         "errors": {
-          "hourly_rate": "Wrong hourly rate, start value must be smaller"
+          "selectMax": "Maximum 6 items"
         }
       }
+    },
+    "findJobs": {
+      "title": "Find jobs",
+      "filters": "Filters"
+    },
+    "jobCard": {
+      "hrly_rate": "$ {{rate}} / hr",
+      "desc_hide": "hide",
+      "desc_show": "show"
+    },
+    "job_details": {
+      "name": "Project name",
+      "date": "Date of posting",
+      "category": "Category",
+      "duration": "Duration",
+      "rate": "Rate $",
+      "time": "Available time",
+      "descr": "Job Description",
+      "skills": "Required skills:",
+      "send_proposal": "Send proposal",
+      "owners_name": "Job owner's name"
     }
   }
 }

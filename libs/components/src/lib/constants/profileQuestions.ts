@@ -1,12 +1,6 @@
 export const prBarStrColor = '#021691';
 export const prBarTrailColor = '#B0C4DE';
 
-declare let process: {
-  env: {
-    NX_API_URL: string;
-  };
-};
-export const baseUrl: string = (process.env.NX_API_URL as string) || '';
 export const route = '/user';
 
 export const profileQ1 = {
@@ -38,11 +32,19 @@ export const profileQ1 = {
   },
 };
 
+export const prBarProfileQ2Per = 50;
+
+export const validation = {
+  atLeastThree: 'Enter at least 3 skills',
+  required: 'This field is required',
+  mustBeNumber: 'Duration must be a number',
+};
+
 export const profileQ2 = {
   prBarProfileQ2Per: 50,
   form: 'profile_questions_2',
   skills: 'skills',
-  category: 'category',
+  category: 'category_id',
   englishLevel: 'english_level',
   otherExp: 'other_experience',
   formItemLayout: {
@@ -53,4 +55,5 @@ export const profileQ2 = {
       sm: { span: 4 },
     },
   },
+  emptyStr: '',
 };

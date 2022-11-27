@@ -1,10 +1,9 @@
-import { Button } from 'antd';
+import { Button, Space } from 'antd';
 import styled from 'styled-components';
 
 export const StyledButton = styled(Button)`
-  width: ${({ theme }) => theme.sizes.button.width};
   height: ${({ theme }) => theme.sizes.button.height};
-
+  min-width: ${({ theme }) => theme.sizes.button.width};
   font-weight: ${({ theme }) => theme.weight.medium};
   font-size: ${({ theme }) => theme.fontSize.normal};
   outline: 0;
@@ -20,8 +19,10 @@ export const StyledButton = styled(Button)`
   &:hover {
     background-color: ${({ theme }) => theme.colors.button.hover};
   }
-  &:disabled {
-    cursor: default;
-    opacity: 0.7;
-  }
+`;
+
+export const ButtonsWrapper = styled(Space)`
+  display: flex;
+  justify-content: end;
+  margin-bottom: 50px;
 `;
