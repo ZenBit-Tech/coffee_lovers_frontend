@@ -1,7 +1,7 @@
 import { Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { AvatarUpload, JobAppBar } from '@freelance/components';
+import { AppBar, AvatarUpload } from '@freelance/components';
 import { skills } from '@pages/JobDetailsPage/constants';
 
 import {
@@ -20,7 +20,7 @@ export default function JobDetailsPage() {
 
   return (
     <Wrapper>
-      <JobAppBar />
+      <AppBar />
 
       <Space direction="vertical" size="middle">
         <h2>{t('job_details.name')}</h2>

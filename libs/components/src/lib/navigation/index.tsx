@@ -1,32 +1,39 @@
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { selectRole } from 'src/redux/auth/auth-slice';
+import { logout } from 'src/redux/auth/auth-slice';
 
-import Button from '../button/button';
-
-import { LinkWrapper, Nav } from './styles';
+import { Nav, StyledButton } from './styles';
 
 export function Navigation() {
   const { t } = useTranslation();
+  const role = useSelector(selectRole);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const Logout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
 
   return (
     <Nav>
-      <LinkWrapper to="">
-        <Button>{t('app_bar.nav.projects')}</Button>
-      </LinkWrapper>
-      <LinkWrapper to="">
-        <Button>{t('app_bar.nav.proposals')}</Button>
-      </LinkWrapper>
-      <LinkWrapper to="">
-        <Button>{t('app_bar.nav.talents')}</Button>
-      </LinkWrapper>
-      <LinkWrapper to="">
-        <Button>{t('app_bar.nav.chat')}</Button>
-      </LinkWrapper>
-      <LinkWrapper to="">
-        <Button>{t('app_bar.nav.my_profile')}</Button>
-      </LinkWrapper>
-      <LinkWrapper to="">
-        <Button>{t('app_bar.nav.log_out')}</Button>
-      </LinkWrapper>
+      {role === 'Freelancer' ? (
+        <>
+          <StyledButton>{t('app_bar.nav.jobs')}</StyledButton>
+          <StyledButton>{t('app_bar.nav.contracts')}</StyledButton>
+          <StyledButton>{t('app_bar.nav.offers')}</StyledButton>
+        </>
+      ) : (
+        <>
+          <StyledButton>{t('app_bar.nav.projects')}</StyledButton>
+          <StyledButton>{t('app_bar.nav.proposals')}</StyledButton>
+          <StyledButton>{t('app_bar.nav.talents')}</StyledButton>
+        </>
+      )}
+      <StyledButton>{t('app_bar.nav.chat')}</StyledButton>
+      <StyledButton>{t('app_bar.nav.my_profile')}</StyledButton>
+      <StyledButton onClick={Logout}>{t('app_bar.nav.log_out')}</StyledButton>
     </Nav>
   );
 }

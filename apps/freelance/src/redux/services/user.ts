@@ -7,7 +7,12 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'redux/store';
 
-import { IUserInfo, PasswordResetPayload, UserError } from './types/user.types';
+import {
+  IUserInfo,
+  PasswordResetPayload,
+  Role,
+  UserError,
+} from './types/user.types';
 
 enum EndpointsRoutes {
   passwordResetRequest = '/passwordresetrequest',
@@ -43,7 +48,7 @@ export const userApi = createApi({
       }),
     }),
     addUserRole: builder.mutation({
-      query: (body: { role: string }) => {
+      query: (body: { role: Role }) => {
         return {
           url: '/user-info',
           method: 'POST',

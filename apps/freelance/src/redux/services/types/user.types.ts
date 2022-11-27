@@ -36,10 +36,12 @@ export interface AddEducation {
   education_to: string;
 }
 
+export type Role = 'Freelancer' | 'JobOwner' | null;
+
 export interface IUserInfo {
   email: string;
   first_name: string;
   last_name: string;
-  profile_image: null;
-  role: 'Freelancer' | 'JobOwner';
+  profile_image: string | null;
+  role: Role;
 }

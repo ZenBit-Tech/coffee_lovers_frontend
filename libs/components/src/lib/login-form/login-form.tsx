@@ -36,7 +36,6 @@ export const LoginForm = () => {
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser({ access_token: loginData.access_token }));
-      navigate('/jobownerdashboard');
     }
     if (isError) {
       alert('Something went wrong...');

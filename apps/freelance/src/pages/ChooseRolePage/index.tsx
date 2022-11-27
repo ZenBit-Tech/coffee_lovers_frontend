@@ -2,22 +2,25 @@ import { useState } from 'react';
 import { Button, Checkbox, Form, Space, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { Role } from 'redux/services/types/user.types';
 import { useAddUserRoleMutation } from 'src/redux/services/user';
 
 import { FormWrap, InputsWrapper, InputText, Title } from './styles';
 
 interface IRole {
-  role: 'Freelancer' | 'JobOwner';
+  role: Role;
 }
+
+type RoleType = boolean;
 
 const { Text } = Typography;
 
 const ChooseRole = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [role, setRole] = useState<IRole>({ role: 'Freelancer' });
-  const [freelancer, setFreelancer] = useState(true);
-  const [jobOwner, setJobOwner] = useState(false);
+  const [role, setRole] = useState<IRole>({ role: null });
+  const [freelancer, setFreelancer] = useState<RoleType>(false);
+  const [jobOwner, setJobOwner] = useState<RoleType>(false);
   const [addUserRole] = useAddUserRoleMutation();
 
   const onClick = () => {

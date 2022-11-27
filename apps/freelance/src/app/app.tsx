@@ -43,7 +43,14 @@ export function App() {
   return (
     <Container>
       <Routes>
-        <Route path="/" element={<ExampleRootPage />} />
+        <Route
+          path="/"
+          element={
+            <PublicRoute>
+              <ExampleRootPage />
+            </PublicRoute>
+          }
+        />
         <Route
           path="/owner-profile"
           element={

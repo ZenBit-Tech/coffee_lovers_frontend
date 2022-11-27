@@ -16,7 +16,6 @@ export * from './lib/input/styles';
 export * from './lib/job-card';
 export * from './lib/JobPostFormFirstPage';
 export * from './lib/JobPostFormSecondPage';
-export * from './lib/jobs-app-bar/index';
 export * from './lib/login-form/login-form';
 export * from './lib/logo';
 export * from './lib/navigation';
