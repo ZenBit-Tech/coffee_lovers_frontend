@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { PaginationProps } from 'antd';
 import { FilterFormItems } from '@freelance/components';
 import { GetJobParams } from 'redux/types/jobs.types';
@@ -6,7 +6,18 @@ import { GetJobParams } from 'redux/types/jobs.types';
 import { defaultOffset, fetchLimit } from './constants';
 import { getFilterParams } from './utils';
 
-const useFindJobs = () => {
+interface useFindJobsReturn {
+  offset: number;
+  filterPayload: GetJobParams | undefined;
+  search: string | undefined;
+  filtersVisibility: boolean;
+  setFiltersVisibility: Dispatch<SetStateAction<boolean>>;
+  submitFilter: (filterData: FilterFormItems) => void;
+  onChangePagination: (page: number, pageSize: number) => void;
+  onSearch: (value: string) => void;
+}
+
+const useFindJobs = (): useFindJobsReturn => {
   const [offset, setOffset] = useState<number>(0);
   const [filterPayload, setFilterPayload] = useState<GetJobParams>();
   const [search, setSearch] = useState<string>();
