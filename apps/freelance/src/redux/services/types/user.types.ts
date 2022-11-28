@@ -23,10 +23,6 @@ export interface UpdateUser {
   skills?: number[];
 }
 
-// export interface AddWorkhistoryArr {
-
-// }
-
 export interface AddWorkhistory {
   work_history_descr: string;
   work_history_from: string;

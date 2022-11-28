@@ -207,7 +207,7 @@ export const ProfileQuestions1 = () => {
               <Form.Item>
                 <Button
                   type="dashed"
-                  onClick={() => add()}
+                  onClick={add}
                   block
                   icon={<PlusOutlined />}
                 >
@@ -293,7 +293,7 @@ export const ProfileQuestions1 = () => {
               <Form.Item>
                 <Button
                   type="dashed"
-                  onClick={() => add()}
+                  onClick={add}
                   block
                   icon={<PlusOutlined />}
                 >
