@@ -20,13 +20,6 @@ export const onFinishLogic = (
     hourly_rate: values.hourly_rate,
     position: values.position,
   };
-  // const educationPayload = {
-  //   education_descr: values.education.information_about_education,
-  //   education_from: values.education.education_from.format(
-  //     profileQ1.formatYear,
-  //   ),
-  //   education_to: values.education.education_to.format(profileQ1.formatYear),
-  // };
   const educationPayloadArr = () => {
     return values.education.map(el => {
       return {
