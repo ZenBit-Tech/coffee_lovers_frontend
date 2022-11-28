@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
 
 import { avatarSize, uploadName } from './constants';
-import { StyledUpload } from './styles';
+import { StyledUpload, StyledUploadLine } from './styles';
 import useProfileImage from './useProfileImage';
 import { beforeUpload } from './utils';
 
@@ -31,6 +31,7 @@ export const AvatarUpload = () => {
           size={avatarSize}
           src={imageUrl ? imageUrl : null}
         />
+        <StyledUploadLine>{t('uploadImage.uploadText')}</StyledUploadLine>
       </StyledUpload>
     </ImgCrop>
   );

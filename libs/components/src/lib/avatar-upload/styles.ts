@@ -3,10 +3,17 @@ import styled from 'styled-components';
 
 export const StyledUpload = styled(Upload)`
   cursor: pointer;
+  text-align: center;
 `;
 
 export const StyledUploadLine = styled.div`
-  margin-top: 8px;
+  font-size: ${({ theme }) => theme.fontSize.small};
+  color: ${({ theme }) => theme.colors.grey};
+
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 export const StyledImg = styled.img`

@@ -112,7 +112,7 @@
       "successResetMessage": "Password has been changed"
     },
     "uploadImage": {
-      "uploadText": "Upload",
+      "uploadText": "Upload image",
       "imgAlt": "avatar",
       "crop": {
         "title": "Edit image",
