@@ -1,12 +1,14 @@
 import { Button, DatePicker, Form, Input, Select, Upload } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import {
   DefInput,
   prBarStrColor,
   prBarTrailColor,
   profileQ1,
+  proFileQuestions,
   ProgressBar,
   StyledSelect,
 } from '@freelance/components';
@@ -27,10 +29,10 @@ export const ProfileQuestions1 = () => {
   const [UpdateUserInfo] = useUpdateUserInfoMutation();
   const [AddUserEduInfo] = useAddUserEduInfoMutation();
   const [AddUserWorkhistory] = useAddUserWorkhistoryInfoMutation();
+  const navigate = useNavigate();
 
   const { Option } = Select;
   const onFinish: SubmitHandler<IProfileQuestions> = async values => {
-    console.log(values);
     const [educationPayload, userPayload, workArr] = onFinishLogic(values);
 
     try {
@@ -38,6 +40,7 @@ export const ProfileQuestions1 = () => {
       await AddUserEduInfo(educationPayload);
       await AddUserWorkhistory(workArr());
       form.resetFields();
+      navigate(proFileQuestions.profileQuestions2);
     } catch (error) {
       alert(error);
     }
