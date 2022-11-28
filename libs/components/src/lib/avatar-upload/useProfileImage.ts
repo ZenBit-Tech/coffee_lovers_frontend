@@ -13,18 +13,18 @@ const useProfileImage = (): useProfileImageReturn => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [setProfileImage, { data }] = useSetProfileImageMutation();
 
+  useEffect(() => {
+    if (data?.file) {
+      setImageUrl(`${process.env['NX_API_URL']}/${data.file}`);
+    }
+  }, [data]);
+
   const uploadImage = (options: CustomRequestOptions): void => {
     const { file } = options;
     const formData = new FormData();
     formData.append(uploadName, file);
     setProfileImage(formData);
   };
-
-  useEffect(() => {
-    if (data?.file) {
-      setImageUrl(`${process.env['NX_API_URL']}/${data.file}`);
-    }
-  }, [data]);
 
   return {
     imageUrl,
