@@ -11,8 +11,8 @@ export const onFinishLogic = (
   values: IProfileQuestions,
 ): [
   educationPayload: AddEducation,
-  workPayload: AddWorkhistory,
   userPayload: UpdateUser,
+  workPayloadArr: () => AddWorkhistory[],
 ] => {
   const userPayload = {
     available_time: values.available_time,
@@ -23,21 +23,19 @@ export const onFinishLogic = (
   const educationPayload = {
     education_descr: values.education.information_about_education,
     education_from: values.education.education_from.format(
-      profileQ1.profileQ1FormatYear,
+      profileQ1.formatYear,
     ),
-    education_to: values.education.education_to.format(
-      profileQ1.profileQ1FormatYear,
-    ),
+    education_to: values.education.education_to.format(profileQ1.formatYear),
   };
-  const workPayload = {
-    work_history_descr: values.work_history_wrapper.work_history,
-    work_history_from: values.work_history_wrapper.work_from.format(
-      profileQ1.profileQ1FormatYear,
-    ),
-    work_history_to: values.work_history_wrapper.work_to.format(
-      profileQ1.profileQ1FormatYear,
-    ),
+  const workPayloadArr = () => {
+    return values.work_history_wrapper.map(el => {
+      return {
+        work_history_descr: el.work_history,
+        work_history_from: el.work_from.format(profileQ1.formatYear),
+        work_history_to: el.work_to.format(profileQ1.formatYear),
+      };
+    });
   };
 
-  return [educationPayload, workPayload, userPayload];
+  return [educationPayload, userPayload, workPayloadArr];
 };

@@ -45,7 +45,7 @@ export const profileQuestions1Api = createApi({
       invalidatesTags: ['ProfileQuestions1'],
     }),
     addUserWorkhistoryInfo: builder.mutation({
-      query: (payload: AddWorkhistory) => ({
+      query: (payload: AddWorkhistory[]) => ({
         url: `/workhistory-info`,
         method: 'POST',
         body: payload,

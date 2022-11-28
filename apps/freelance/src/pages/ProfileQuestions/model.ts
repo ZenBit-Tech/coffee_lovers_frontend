@@ -7,7 +7,7 @@ export interface IProfileQuestions {
   hourly_rate: number;
   position: string;
   education: educationProps;
-  work_history_wrapper: workProps;
+  work_history_wrapper: workProps[];
   category_id: number;
   english_level: string;
   other_experience: string;
