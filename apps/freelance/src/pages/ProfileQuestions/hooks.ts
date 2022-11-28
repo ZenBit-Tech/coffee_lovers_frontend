@@ -10,7 +10,7 @@ import { IProfileQuestions } from './model';
 export const onFinishLogic = (
   values: IProfileQuestions,
 ): [
-  educationPayload: AddEducation,
+  educationPayloadArr: () => AddEducation[],
   userPayload: UpdateUser,
   workPayloadArr: () => AddWorkhistory[],
 ] => {
@@ -20,12 +20,21 @@ export const onFinishLogic = (
     hourly_rate: values.hourly_rate,
     position: values.position,
   };
-  const educationPayload = {
-    education_descr: values.education.information_about_education,
-    education_from: values.education.education_from.format(
-      profileQ1.formatYear,
-    ),
-    education_to: values.education.education_to.format(profileQ1.formatYear),
+  // const educationPayload = {
+  //   education_descr: values.education.information_about_education,
+  //   education_from: values.education.education_from.format(
+  //     profileQ1.formatYear,
+  //   ),
+  //   education_to: values.education.education_to.format(profileQ1.formatYear),
+  // };
+  const educationPayloadArr = () => {
+    return values.education.map(el => {
+      return {
+        education_descr: el.information_about_education,
+        education_from: el.education_from.format(profileQ1.formatYear),
+        education_to: el.education_to.format(profileQ1.formatYear),
+      };
+    });
   };
   const workPayloadArr = () => {
     return values.work_history_wrapper.map(el => {
@@ -37,5 +46,5 @@ export const onFinishLogic = (
     });
   };
 
-  return [educationPayload, userPayload, workPayloadArr];
+  return [educationPayloadArr, userPayload, workPayloadArr];
 };

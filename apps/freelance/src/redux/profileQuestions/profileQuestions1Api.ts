@@ -37,7 +37,7 @@ export const profileQuestions1Api = createApi({
       invalidatesTags: ['ProfileQuestions1'],
     }),
     addUserEduInfo: builder.mutation({
-      query: (payload: AddEducation) => ({
+      query: (payload: AddEducation[]) => ({
         url: `/education-info`,
         method: 'POST',
         body: payload,
