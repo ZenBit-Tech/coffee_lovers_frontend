@@ -9,6 +9,7 @@ export const JobOptionsText = styled.p`
   padding: 5px 10px;
   border: 1px solid var(--grey);
   box-shadow: 2px 2px 2px var(--grey);
+  border-radius: 5px;
   margin-right: 10px;
 `;
 
@@ -17,6 +18,7 @@ export const JobDescrText = styled.p`
   min-height: 200px;
   border: 1px solid var(--grey);
   box-shadow: 2px 2px 2px var(--grey);
+  border-radius: 5px;
   margin-bottom: 20px;
 `;
 
@@ -25,6 +27,7 @@ export const JobSkillsText = styled.p`
   width: 100px;
   border: 1px solid var(--grey);
   box-shadow: 2px 2px 2px var(--grey);
+  border-radius: 5px;
   margin-right: 10px;
 `;
 

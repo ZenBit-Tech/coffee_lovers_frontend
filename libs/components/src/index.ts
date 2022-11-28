@@ -21,5 +21,6 @@ export * from './lib/login-form/login-form';
 export * from './lib/logo';
 export * from './lib/navigation';
 export * from './lib/progress-bar/progress-bar';
+export * from './lib/proposal-modal/index';
 export * from './lib/signup-form/signup-form';
 export * from './lib/some-element/some-element';

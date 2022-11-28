@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { Space } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { AvatarUpload, JobAppBar } from '@freelance/components';
+import { AvatarUpload, JobAppBar, ProposalModal } from '@freelance/components';
 import { skills } from '@pages/JobDetailsPage/constants';
 
 import {
@@ -14,9 +14,19 @@ import {
   Wrapper,
 } from './styles';
 
+type Open = boolean;
+
 export default function JobDetailsPage() {
-  const navigate = useNavigate();
   const { t } = useTranslation();
+  const [openModal, setOpenModal] = useState<Open>(false);
+
+  const showModal = () => {
+    setOpenModal(true);
+  };
+
+  const onCancel = () => {
+    setOpenModal(false);
+  };
 
   return (
     <Wrapper>
@@ -43,7 +53,7 @@ export default function JobDetailsPage() {
           ))}
         </SkillsWrapper>
 
-        <StyledButton onClick={() => navigate('/')}>
+        <StyledButton onClick={showModal}>
           {t('job_details.send_proposal')}
         </StyledButton>
       </Space>
@@ -52,6 +62,7 @@ export default function JobDetailsPage() {
         <AvatarUpload />
         <p>{t('job_details.owners_name')}</p>
       </LogoWrapper>
+      <ProposalModal openModal={openModal} onCancel={onCancel} />
     </Wrapper>
   );
 }
