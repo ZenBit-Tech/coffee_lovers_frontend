@@ -10,6 +10,7 @@ import { JobPostFirstPage, JobPostSecondPage } from '@pages/JobPostPage';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
 import { ProfileQuestions1, ProfileQuestions2 } from '@pages/ProfileQuestions';
+import ProposalsList from '@pages/ProposalsList';
 import WelcomePage from '@pages/WelcomePage';
 import PrivateRoute from 'src/Routes/PrivateRoute';
 import PublicRoute from 'src/Routes/PublicRoute';
@@ -152,6 +153,14 @@ export function App() {
           element={
             <PrivateRoute>
               <JobDetailsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/job/:id/proposals"
+          element={
+            <PrivateRoute>
+              <ProposalsList />
             </PrivateRoute>
           }
         />

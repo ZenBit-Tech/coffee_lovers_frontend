@@ -12,6 +12,17 @@ export interface UserError {
   status: number;
 }
 
+export interface User {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  profile_image: string;
+  position: string;
+  available_time: string;
+  skills: number[];
+}
+
 export interface UpdateUser {
   available_time?: string;
   description?: string;
