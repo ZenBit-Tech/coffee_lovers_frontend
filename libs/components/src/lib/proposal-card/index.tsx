@@ -2,9 +2,8 @@ import { FC } from 'react';
 import { Avatar } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
-import { Property } from 'src/redux/properties/types';
-import { User } from 'src/redux/services/types/user.types';
-import { getPropertyById } from 'src/utils/properties';
+import { Property } from 'src/redux/types/properties.types';
+import { User } from 'src/redux/types/user.types';
 import { getSizedText } from 'src/utils/text';
 
 import { avatarSize, coverLetterMaxLength } from './constants';
@@ -59,9 +58,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             <FreelancerDetailsContainer>
               <FreelancerDetail>{user.position}</FreelancerDetail>
               {user.skills.map(skill => (
-                <FreelancerDetail key={skill}>
-                  {getPropertyById(skills, skill)?.name}
-                </FreelancerDetail>
+                <FreelancerDetail key={skill.id}>{skill.name}</FreelancerDetail>
               ))}
             </FreelancerDetailsContainer>
           </FreelancerInfoContainer>

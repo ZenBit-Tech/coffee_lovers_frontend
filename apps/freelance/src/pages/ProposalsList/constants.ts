@@ -1,4 +1,4 @@
-import { User } from 'redux/services/types/user.types';
+import { User } from 'redux/types/user.types';
 
 export const mockProjectName = 'Test project';
 
@@ -21,8 +21,12 @@ export const mockProposals: mockProposalType[] = [
       position: 'Full Stack Developer',
       available_time: 'Full-time',
       profile_image: '',
-      skills: [1, 2, 4],
-    },
+      skills: [
+        { id: 1, name: 'HTML' },
+        { id: 2, name: 'CSS' },
+        { id: 4, name: 'Web development' },
+      ],
+    } as User,
     hourly_rate: 30,
     available_time: 'Full-time',
     cover_letter: 'Cover letter text',
@@ -37,8 +41,11 @@ export const mockProposals: mockProposalType[] = [
       position: 'Java Developer',
       available_time: 'Full-time',
       profile_image: '',
-      skills: [3, 5],
-    },
+      skills: [
+        { id: 3, name: 'Mobile app development' },
+        { id: 5, name: 'REST API development' },
+      ],
+    } as User,
     hourly_rate: 35,
     available_time: 'Part-time',
     cover_letter:

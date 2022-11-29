@@ -19,7 +19,7 @@ interface JobCardProps {
   date: Date;
   category: string;
   duration: string;
-  rate: number;
+  rate: number | null;
 }
 
 export const JobCard: FC<JobCardProps> = props => {

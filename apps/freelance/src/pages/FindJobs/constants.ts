@@ -1,6 +1,9 @@
 export const filterTop = '45px';
 export const filterRight = '0px';
 
+export const fetchLimit = 5;
+export const defaultOffset = 0;
+
 // mock data
 interface User {
   first_name: string;

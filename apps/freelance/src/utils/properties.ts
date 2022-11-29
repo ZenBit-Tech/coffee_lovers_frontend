@@ -1,4 +1,4 @@
-import { Property } from 'redux/properties/types';
+import { Property } from 'redux/types/properties.types';
 
 export const getPropertyById = (
   properties: Property[],
