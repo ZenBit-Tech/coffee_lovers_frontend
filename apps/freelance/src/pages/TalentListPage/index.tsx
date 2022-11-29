@@ -18,11 +18,11 @@ import {
 } from './styles';
 
 const TalentListPage = (): ReactElement => {
-  const { Search } = Input;
   const [search, setSearch] = useState<string>('');
-  const { t } = useTranslation();
   const [page, setPage] = useState<number>(1);
+  const { t } = useTranslation();
   const { data } = useGetFreelancerQuery(page);
+  const { Search } = Input;
 
   async function handleSearch(value: string) {
     setSearch(value);
