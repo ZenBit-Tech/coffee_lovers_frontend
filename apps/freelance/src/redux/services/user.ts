@@ -5,32 +5,27 @@ import {
   FetchArgs,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
-import { RootState } from 'redux/store';
+import { getHeaders } from '@utils/api';
 
 import {
   IUserInfo,
   PasswordResetPayload,
   Role,
+  SetProfileImageResponse,
   UserError,
 } from './types/user.types';
 
 enum EndpointsRoutes {
   passwordResetRequest = '/passwordresetrequest',
   passwordReset = '/passwordreset',
+  setProfileImage = '/setprofileimage',
 }
 
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl + ApiRoutes.USER,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).user.access_token;
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
-      }
-
-      return headers;
-    },
+    prepareHeaders: getHeaders(),
   }) as BaseQueryFn<string | FetchArgs, unknown, UserError>,
   endpoints: builder => ({
     passwordResetRequest: builder.mutation({
@@ -45,6 +40,13 @@ export const userApi = createApi({
         url: EndpointsRoutes.passwordReset,
         method: 'POST',
         body: payload,
+      }),
+    }),
+    setProfileImage: builder.mutation<SetProfileImageResponse, FormData>({
+      query: (formData: FormData) => ({
+        url: EndpointsRoutes.setProfileImage,
+        method: 'POST',
+        body: formData,
       }),
     }),
     addUserRole: builder.mutation({
@@ -68,6 +70,7 @@ export const userApi = createApi({
 export const {
   usePasswordResetRequestMutation,
   usePasswordResetMutation,
+  useSetProfileImageMutation,
   useAddUserRoleMutation,
   useGetUserInfoQuery,
 } = userApi;

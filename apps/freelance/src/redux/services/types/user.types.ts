@@ -45,3 +45,7 @@ export interface IUserInfo {
   profile_image: string | null;
   role: Role;
 }
+
+export interface SetProfileImageResponse {
+  file: string;
+}

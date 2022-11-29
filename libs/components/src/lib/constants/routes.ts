@@ -18,4 +18,5 @@ export const routes = {
   jobOwnerDashboard: '/jobownerdashboard',
   jobPost: '/owner-profile/job-post',
   ownerProfile: '/owner-profile',
+  talents: '/talents',
 };

@@ -10,6 +10,7 @@ import { JobPostFirstPage, JobPostSecondPage } from '@pages/JobPostPage';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
 import { ProfileQuestions1, ProfileQuestions2 } from '@pages/ProfileQuestions';
+import TalentListPage from '@pages/TalentListPage/index';
 import WelcomePage from '@pages/WelcomePage';
 import PrivateRoute from 'src/Routes/PrivateRoute';
 import PublicRoute from 'src/Routes/PublicRoute';
@@ -86,6 +87,7 @@ export function App() {
               path={routes.jobOwnerDashboard}
               element={<JobOwnerDashboard />}
             />
+            <Route path={routes.talents} element={<TalentListPage />} />
           </Route>
         </Route>
       </Routes>
