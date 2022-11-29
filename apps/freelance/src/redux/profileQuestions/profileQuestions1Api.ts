@@ -5,13 +5,13 @@ import {
   FetchArgs,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
+import { RootState } from 'redux/store';
 import {
   AddEducation,
   AddWorkhistory,
   UpdateUser,
   UserError,
-} from 'redux/services/types/user.types';
-import { RootState } from 'redux/store';
+} from 'redux/types/user.types';
 
 export const profileQuestions1Api = createApi({
   reducerPath: 'profileQuestions1Api',

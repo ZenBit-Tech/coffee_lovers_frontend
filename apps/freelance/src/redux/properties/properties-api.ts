@@ -1,8 +1,7 @@
 import { ApiRoutes, baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'redux/store';
-
-import { PropertiesResponse } from './types';
+import { PropertiesResponse } from 'src/redux/types/properties.types';
 
 enum EndpointsRoutes {
   getAllProperties = '',

@@ -6,12 +6,11 @@ import {
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
-
 import {
   PasswordResetPayload,
   SetProfileImageResponse,
   UserError,
-} from './types/user.types';
+} from 'redux/types/user.types';
 
 enum EndpointsRoutes {
   passwordResetRequest = '/passwordresetrequest',

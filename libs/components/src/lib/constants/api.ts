@@ -10,4 +10,5 @@ export enum ApiRoutes {
   USER = '/user',
   AUTH = '/auth',
   PROPERTIES = '/properties',
+  JOBS = '/jobs',
 }
