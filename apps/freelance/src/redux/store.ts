@@ -16,6 +16,7 @@ import { profileQuestions1Api } from './profileQuestions/profileQuestions1Api';
 import { propertiesApi } from './properties/properties-api';
 import { persistedPropertiesReducer } from './properties/properties-slice';
 import { authApi } from './services/authApi';
+import { freelancersApi } from './services/freelancers';
 import { pokemonApi } from './services/pokemon';
 import { userApi } from './services/user';
 
@@ -25,6 +26,7 @@ export const store = configureStore({
     [userAuthApi.reducerPath]: userAuthApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
+    [freelancersApi.reducerPath]: freelancersApi.reducer,
     user: persistedAuthReducer,
     [profileQuestions1Api.reducerPath]: profileQuestions1Api.reducer,
     properties: persistedPropertiesReducer,
@@ -42,6 +44,7 @@ export const store = configureStore({
       authApi.middleware,
       userApi.middleware,
       propertiesApi.middleware,
+      freelancersApi.middleware,
     ),
 });
 
