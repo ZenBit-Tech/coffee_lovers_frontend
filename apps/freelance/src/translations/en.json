@@ -177,7 +177,7 @@
       "no_results": "No results found",
       "at_least_three_skills": "Must be at least 3 skills"
     },
-    "general": { "submit": "Submit" },
+    "general": { "submit": "Submit", "continue": "Continue" },
     "filters": {
       "title": "Filters",
       "category": "Category",

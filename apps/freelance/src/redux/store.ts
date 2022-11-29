@@ -12,6 +12,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { persistedAuthReducer } from 'redux/auth/auth-slice';
 
 import { userAuthApi } from './auth/auth-api';
+import { jobPostApi } from './job-post/job-post';
 import { profileQuestions1Api } from './profileQuestions/profileQuestions1Api';
 import { propertiesApi } from './properties/properties-api';
 import { persistedPropertiesReducer } from './properties/properties-slice';
@@ -29,6 +30,7 @@ export const store = configureStore({
     [profileQuestions1Api.reducerPath]: profileQuestions1Api.reducer,
     properties: persistedPropertiesReducer,
     [propertiesApi.reducerPath]: propertiesApi.reducer,
+    [jobPostApi.reducerPath]: jobPostApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -42,6 +44,7 @@ export const store = configureStore({
       authApi.middleware,
       userApi.middleware,
       propertiesApi.middleware,
+      jobPostApi.middleware,
     ),
 });
 

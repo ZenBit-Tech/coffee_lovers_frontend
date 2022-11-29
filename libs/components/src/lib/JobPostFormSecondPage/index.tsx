@@ -3,6 +3,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { StyledButton, StyledInput, StyledSelect } from '@freelance/components';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { usePostJobsMutation } from 'redux/job-post/job-post';
 import useProperties from 'src/hooks/useProperties';
 
 import {
@@ -15,6 +16,8 @@ import { StyledErrorMessage } from './styles';
 
 export function JobPostFormSecondPage() {
   const { t } = useTranslation();
+  const [PostJob] = usePostJobsMutation();
+
   const {
     englishLevels,
 
@@ -29,8 +32,24 @@ export function JobPostFormSecondPage() {
     resolver: yupResolver(schemaSecondPage),
   });
 
-  const onSubmitSecondPage: SubmitHandler<InputsValuesSecondPage> = data => {
+  const onSubmitSecondPage: SubmitHandler<
+    InputsValuesSecondPage
+  > = async data => {
     console.log(data);
+
+    try {
+      await PostJob({
+        title: 'Landing page',
+        description: 'I need create landing page',
+        hourly_rate: 14,
+        available_time: 45,
+        category: 4,
+        english_level: 'Upper-Intermediate',
+        skills: [4, 5, 3],
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

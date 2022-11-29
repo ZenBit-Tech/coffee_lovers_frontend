@@ -53,7 +53,7 @@ export function App() {
           }
         />
         <Route
-          path="/owner-profile/job-post"
+          path="/owner-profile/job-post-first-page"
           element={
             <PrivateRoute>
               <JobPostFirstPage />
@@ -61,7 +61,7 @@ export function App() {
           }
         />
         <Route
-          path="/owner-profile/job-post"
+          path="/owner-profile/job-post-second-page"
           element={
             <PrivateRoute>
               <JobPostSecondPage />

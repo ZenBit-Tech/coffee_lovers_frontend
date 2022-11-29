@@ -15,11 +15,12 @@ import { InputsValues, schema } from '../constants';
 
 import { StyledErrorMessage } from './styles';
 
+const { Title, Text } = Typography;
+
 export function JobPostFormFirstPage() {
   const { categories, skills, getOptionsForSelectWithId } = useProperties();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { Title, Text } = Typography;
   const {
     control,
     handleSubmit,
@@ -28,7 +29,7 @@ export function JobPostFormFirstPage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmitFirstPage: SubmitHandler<InputsValues> = data => {
+  const onSubmitFirstPage: SubmitHandler<InputsValues> = async data => {
     navigate('/owner-profile/job-post-second-page');
     console.log(data);
   };
@@ -122,7 +123,7 @@ export function JobPostFormFirstPage() {
           )}
         />
         <Form.Item>
-          <StyledButton htmlType="submit">{t('general.submit')}</StyledButton>
+          <StyledButton htmlType="submit">{t('general.continue')}</StyledButton>
         </Form.Item>
       </Form>
     </>
