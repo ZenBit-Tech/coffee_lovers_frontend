@@ -221,9 +221,7 @@
       "searchPlaceholder": "Search"
     },
     "jobCard": {
-      "hrly_rate": "$ {{rate}} / hr",
-      "desc_hide": "hide",
-      "desc_show": "show"
+      "hrly_rate": "$ {{rate}} / hr"
     },
     "job_details": {
       "name": "Project name",
@@ -236,6 +234,13 @@
       "skills": "Required skills:",
       "send_proposal": "Send proposal",
       "owners_name": "Job owner's name"
+    },
+    "proposalsList": {
+      "hourly_rate": "${{rate}} per hour"
+    },
+    "textVisibility": {
+      "hide": "hide",
+      "show": "show"
     }
   }
 }

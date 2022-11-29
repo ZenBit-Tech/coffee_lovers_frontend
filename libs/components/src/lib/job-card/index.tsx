@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { t } from 'i18next';
 import { formatDate } from 'src/utils/dates';
+import { getSizedText } from 'src/utils/text';
 
 import { cardDescriptionMaxLength } from './constants';
 import {
@@ -10,7 +11,6 @@ import {
   StyledTitle,
   Wrapper,
 } from './styles';
-import { getSizedDescription } from './utils';
 
 interface JobCardProps {
   title: string;
@@ -36,7 +36,7 @@ export const JobCard: FC<JobCardProps> = props => {
         <div>
           {descriptionVisibility
             ? props.description
-            : getSizedDescription(props.description)}
+            : getSizedText(props.description, cardDescriptionMaxLength)}
         </div>
       </StyledDescription>
 
@@ -44,7 +44,11 @@ export const JobCard: FC<JobCardProps> = props => {
         <DescriptionVisibility
           onClick={() => setDescriptionVisibility(prev => !prev)}
         >
-          {t(descriptionVisibility ? 'jobCard.desc_hide' : 'jobCard.desc_show')}
+          {t(
+            descriptionVisibility
+              ? 'textVisibility.hide'
+              : 'textVisibility.show',
+          )}
         </DescriptionVisibility>
       )}
 
