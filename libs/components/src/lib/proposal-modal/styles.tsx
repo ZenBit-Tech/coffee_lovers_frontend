@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 const { TextArea } = Input;
 
+export const StyledForm = styled(Form)`
+  padding: 30px 15px 20px 15px;
+`;
+
 export const StyledNumInput = styled(InputNumber)`
   border-radius: 5px;
   box-shadow: 2px 2px 2px var(--grey);

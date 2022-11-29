@@ -2,15 +2,12 @@ import { Form, Modal, ModalProps } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { profileQ1 } from '@freelance/constants';
-import { hourRate, jobRate, skills } from 'src/pages/JobDetailsPage/constants';
-import {
-  JobSkillsText,
-  SkillsWrapper,
-  StyledButton,
-} from 'src/pages/JobDetailsPage/styles';
+import { hourRate, jobRate } from 'src/pages/JobDetailsPage/constants';
+import { StyledButton } from 'src/pages/JobDetailsPage/styles';
 
 import {
   RateWrapper,
+  StyledForm,
   StyledNumInput,
   StyledText,
   StyledTextArea,
@@ -49,21 +46,15 @@ export const ProposalModal = ({
       width={800}
       footer={null}
     >
-      <StyledText>{t('job_details.skills')}</StyledText>
-      <SkillsWrapper>
-        {skills?.map(skill => (
-          <JobSkillsText>{skill}</JobSkillsText>
-        ))}
-      </SkillsWrapper>
-      <StyledText>
-        {t('job_details.Profile_rate')} {hourRate} $
-      </StyledText>
-
-      <Form
+      <StyledForm
         name="basic"
         requiredMark="optional"
         onFinish={values => handleSubmit(onFinish(values as IProposal))}
       >
+        <StyledText>
+          {t('job_details.Profile_rate')} {hourRate} $
+        </StyledText>
+
         <RateWrapper
           label={t('job_details.setup_rate')}
           name={profileQ1.profileQ1HR}
@@ -99,7 +90,7 @@ export const ProposalModal = ({
         <StyledButton htmlType="submit" type="primary">
           {t('job_details.send_proposal')}
         </StyledButton>
-      </Form>
+      </StyledForm>
     </Modal>
   );
 };
