@@ -1,16 +1,16 @@
-import { useState } from 'react';
 import { Avatar } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
 
 import { avatarSize, uploadName } from './constants';
-import { StyledUpload } from './styles';
-import { beforeUpload, uploadImage } from './utils';
+import { StyledUpload, StyledUploadLine } from './styles';
+import useProfileImage from './useProfileImage';
+import { beforeUpload } from './utils';
 
 export const AvatarUpload = () => {
-  const [imageUrl, setImageUrl] = useState<string>('');
   const { t } = useTranslation();
+  const { imageUrl, uploadImage } = useProfileImage();
 
   return (
     <ImgCrop
@@ -24,13 +24,14 @@ export const AvatarUpload = () => {
         name={uploadName}
         showUploadList={false}
         beforeUpload={beforeUpload(t)}
-        customRequest={uploadImage(setImageUrl)}
+        customRequest={uploadImage}
       >
         <Avatar
           icon={<UserOutlined />}
           size={avatarSize}
           src={imageUrl ? imageUrl : null}
         />
+        <StyledUploadLine>{t('uploadImage.uploadText')}</StyledUploadLine>
       </StyledUpload>
     </ImgCrop>
   );
