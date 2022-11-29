@@ -45,6 +45,7 @@ export const StyledFreelancerName = styled.span`
 
 export const FreelancerDetailsContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 export const FreelancerDetail = styled.div`
