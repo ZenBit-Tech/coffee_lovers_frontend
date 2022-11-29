@@ -4,6 +4,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { Container } from '@freelance/components';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
+import FreelancerPageInfo from '@pages/FreelancerPageInfo';
 import JobDetailsPage from '@pages/JobDetailsPage';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import { JobPostFirstPage, JobPostSecondPage } from '@pages/JobPostPage';
@@ -88,6 +89,14 @@ export function App() {
           element={
             <PrivateRoute>
               <ProfileQuestions2 />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/freelancer-info"
+          element={
+            <PrivateRoute>
+              <FreelancerPageInfo />
             </PrivateRoute>
           }
         />
