@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { TFunction } from 'i18next';
 import type { RcFile } from 'antd/es/upload/interface';
 
@@ -9,11 +10,11 @@ export const beforeUpload = (t: TFunction): ((file: RcFile) => boolean) => {
     const isFormat =
       file.type === FileTypes.JPEG || file.type === FileTypes.PNG;
     if (!isFormat) {
-      alert(t('uploadImage.errors.type'));
+      message.error(t('uploadImage.errors.type'));
     }
     const isSize = file.size < fileSize;
     if (!isSize) {
-      alert(t('uploadImage.errors.size'));
+      message.error(t('uploadImage.errors.size'));
     }
 
     return isFormat && isSize;

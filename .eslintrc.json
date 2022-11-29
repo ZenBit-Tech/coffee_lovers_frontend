@@ -15,7 +15,7 @@
     "simple-import-sort/exports": "error",
     "padding-line-between-statements": [
       "error",
-      { "blankLine": "always", "prev": "*", "next": "return" }
+      { "blankLine": "always", "prev": "var", "next": "return" }
     ]
   },
   "parser": "@typescript-eslint/parser",

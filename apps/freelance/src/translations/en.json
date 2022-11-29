@@ -112,7 +112,7 @@
       "successResetMessage": "Password has been changed"
     },
     "uploadImage": {
-      "uploadText": "Upload",
+      "uploadText": "Upload image",
       "imgAlt": "avatar",
       "crop": {
         "title": "Edit image",
@@ -121,7 +121,7 @@
       },
       "errors": {
         "type": "You can only upload JPG/PNG file!",
-        "size": "Image must smaller than 1MB!"
+        "size": "Image must be smaller than 1MB!"
       }
     },
     "jobOwnerDashboard": {
@@ -178,23 +178,38 @@
       "at_least_three_skills": "Must be at least 3 skills"
     },
     "general": { "submit": "Submit" },
-    "filters": {
-      "title": "Filters",
-      "category": "Category",
-      "category_placeholder": "Start typing to search categories",
-      "skills": "Skills",
-      "skills_placeholder": "Start typing to search skills",
-      "hrly_rate": "Hourly rate",
-      "time": "Time available",
-      "time_placeholder": "Hrs per day",
-      "english_level": "English level",
-      "english_level_placeholder": "My level is",
-      "buttons": {
-        "clear": "Clear",
-        "apply": "Apply"
-      },
-      "errors": {
-        "selectMax": "Maximum 6 items"
+    "welcome": {
+      "welcome": "Welcome on our platform!",
+      "job": "Fill information about yourself to find a job",
+      "button": "Create portfolio"
+    },
+    "talent": {
+      "category": "{{category}}",
+      "position": "{{position}}",
+      "available_time": "{{available_time}}",
+      "hourly_rate": "{{hourly_rate}}",
+      "header": "Talent based on your job post",
+      "search": "Search",
+      "filter": "Filter",
+      "name": "{{name}}",
+      "filters": {
+        "title": "Filters",
+        "category": "Category",
+        "category_placeholder": "Start typing to search categories",
+        "skills": "Skills",
+        "skills_placeholder": "Start typing to search skills",
+        "hrly_rate": "Hourly rate",
+        "time": "Time available",
+        "time_placeholder": "Hrs per day",
+        "english_level": "English level",
+        "english_level_placeholder": "My level is",
+        "buttons": {
+          "clear": "Clear",
+          "apply": "Apply"
+        },
+        "errors": {
+          "selectMax": "Maximum 6 items"
+        }
       }
     },
     "findJobs": {
