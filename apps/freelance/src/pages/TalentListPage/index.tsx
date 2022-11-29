@@ -21,10 +21,11 @@ const TalentListPage = (): ReactElement => {
   const [search, setSearch] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const { t } = useTranslation();
-  const { data } = useGetFreelancerQuery(page);
+  const { data, isLoading } = useGetFreelancerQuery({ page, search });
   const { Search } = Input;
 
   async function handleSearch(value: string) {
+    setPage(1);
     setSearch(value);
   }
 
@@ -48,46 +49,50 @@ const TalentListPage = (): ReactElement => {
         </Row>
       </StyledHeader>
       <Container>
-        <List
-          dataSource={data ? data[0] : []}
-          renderItem={(item: User) => (
-            <StyledCard
-              title={
-                <StyledCardHeader>
-                  <Avatar
-                    src={item.profile_image}
-                    size={130}
-                    icon={<UserOutlined />}
+        {!isLoading && (
+          <List
+            dataSource={data ? data[0] : []}
+            renderItem={(item: User) => (
+              <StyledCard
+                title={
+                  <StyledCardHeader>
+                    <Avatar
+                      src={item.profile_image}
+                      size={130}
+                      icon={<UserOutlined />}
+                    />
+                    <StyledName>
+                      {t('talent.name', {
+                        name: item.first_name + ' ' + item.last_name,
+                      })}
+                    </StyledName>
+                  </StyledCardHeader>
+                }
+              >
+                <SmallCardContainer>
+                  <SmallCard
+                    text={t('talent.position', { position: item.position })}
                   />
-                  <StyledName>
-                    {t('talent.name', { name: item.email })}
-                  </StyledName>
-                </StyledCardHeader>
-              }
-            >
-              <SmallCardContainer>
-                <SmallCard
-                  text={t('talent.position', { position: item.position })}
-                />
-                <SmallCard
-                  text={t('talent.category', {
-                    category: item.category ? item.category.name : '',
-                  })}
-                />
-                <SmallCard
-                  text={t('talent.available_time', {
-                    available_time: item.available_time + ' h',
-                  })}
-                />
-                <SmallCard
-                  text={t('talent.hourly_rate', {
-                    hourly_rate: item.hourly_rate + ' $',
-                  })}
-                />
-              </SmallCardContainer>
-            </StyledCard>
-          )}
-        />
+                  <SmallCard
+                    text={t('talent.category', {
+                      category: item.category ? item.category.name : '',
+                    })}
+                  />
+                  <SmallCard
+                    text={t('talent.available_time', {
+                      available_time: item.available_time + ' h',
+                    })}
+                  />
+                  <SmallCard
+                    text={t('talent.hourly_rate', {
+                      hourly_rate: item.hourly_rate + ' $',
+                    })}
+                  />
+                </SmallCardContainer>
+              </StyledCard>
+            )}
+          />
+        )}
       </Container>
       <StyledPagination
         onChange={page => {

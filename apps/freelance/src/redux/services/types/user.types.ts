@@ -38,3 +38,8 @@ export interface AddEducation {
 export interface SetProfileImageResponse {
   file: string;
 }
+
+export interface FreelancerQuery {
+  page: number;
+  search: string;
+}
