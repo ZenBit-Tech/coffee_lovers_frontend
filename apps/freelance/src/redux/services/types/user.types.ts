@@ -36,7 +36,7 @@ export interface AddEducation {
   education_to: string;
 }
 
-export type Role = 'Freelancer' | 'JobOwner' | null;
+export type Role = 'Freelancer' | 'JobOwner' | 'Visitor';
 
 export interface IUserInfo {
   email: string;

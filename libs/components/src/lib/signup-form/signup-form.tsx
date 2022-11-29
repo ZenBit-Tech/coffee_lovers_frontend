@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { StyledInput, StyledPasswordInput } from '@freelance/components';
+import { routes } from '@freelance/constants';
 import { passwordValidationRegExp } from 'src/pages/PasswordReset/constants';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
@@ -41,14 +42,14 @@ export function SignUpForm() {
         await registerUser({ email, firstName, lastName, password });
       }
     } catch (error) {
-      alert(error);
+      alert(JSON.stringify(error));
     }
   };
 
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser({ access_token: registerData.access_token }));
-      navigate('/role');
+      navigate(`${routes.role}`);
     }
     if (isError) {
       alert('Something went wrong...');
@@ -202,7 +203,7 @@ export function SignUpForm() {
       >
         <Checkbox>
           {t('loginPage.terms_agree')}{' '}
-          <a href="/login/conditions">{t('loginPage.terms')}</a>
+          <a href={routes.conditions}>{t('loginPage.terms')}</a>
         </Checkbox>
       </Form.Item>
 

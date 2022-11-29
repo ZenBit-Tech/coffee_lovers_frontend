@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { StyledInput, StyledPasswordInput } from '@freelance/components';
+import { routes } from '@freelance/components';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
@@ -26,10 +27,10 @@ export const LoginForm = () => {
       if (data.email && data.password) {
         const email = data.email;
         const password = data.password;
-        await loginUser({ email, password }).unwrap();
+        await loginUser({ email, password });
       }
     } catch (error) {
-      alert(error);
+      alert(JSON.stringify(error));
     }
   };
 
@@ -100,14 +101,14 @@ export const LoginForm = () => {
         <Button
           type="link"
           htmlType="button"
-          onClick={() => navigate('/signup')}
+          onClick={() => navigate(`${routes.signup}`)}
         >
           {t('loginPage.signUp')}
         </Button>
         <Button
           type="link"
           htmlType="button"
-          onClick={() => navigate('/passwordreset')}
+          onClick={() => navigate(`${routes.passwordreset}`)}
         >
           {t('loginPage.forgot_password')}
         </Button>

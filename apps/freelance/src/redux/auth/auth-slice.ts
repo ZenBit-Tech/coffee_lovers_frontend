@@ -12,7 +12,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
   access_token: null,
-  role: null,
+  role: 'Visitor',
 };
 
 const authSlice = createSlice({
@@ -24,7 +24,7 @@ const authSlice = createSlice({
     },
     logout: state => {
       state.access_token = null;
-      state.role = null;
+      state.role = 'Visitor';
     },
     setRole(state, action: PayloadAction<{ role: Role }>) {
       state.role = action.payload.role;

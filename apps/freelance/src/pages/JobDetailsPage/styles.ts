@@ -22,7 +22,7 @@ export const JobDescrText = styled.p`
 
 export const JobSkillsText = styled.p`
   padding: 5px;
-  width: 100px;
+  min-width: 100px;
   border: 1px solid var(--grey);
   box-shadow: 2px 2px 2px var(--grey);
   margin-right: 10px;
