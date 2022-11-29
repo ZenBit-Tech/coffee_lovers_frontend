@@ -60,7 +60,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
               <FreelancerDetail>{user.position}</FreelancerDetail>
               {user.skills.map(skill => (
                 <FreelancerDetail key={skill}>
-                  {getPropertyById(skills, skill)?.name || null}
+                  {getPropertyById(skills, skill)?.name}
                 </FreelancerDetail>
               ))}
             </FreelancerDetailsContainer>
