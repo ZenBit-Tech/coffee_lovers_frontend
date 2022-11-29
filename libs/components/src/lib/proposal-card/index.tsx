@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Avatar } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
@@ -22,6 +22,7 @@ import {
   StyledTopRightSide,
   Wrapper,
 } from './styles';
+import useProposalCard from './useProposalCard';
 
 interface ProposalCardProps {
   user: User;
@@ -39,11 +40,11 @@ export const ProposalCard: FC<ProposalCardProps> = ({
   coverLetter,
 }) => {
   const { t } = useTranslation();
-  const [coverLetterVisibility, setCoverLetterVisibility] =
-    useState<boolean>(false);
+  const { coverLetterVisibility, coverLetterVisibilityHandler } =
+    useProposalCard();
 
   return (
-    <Wrapper onClick={() => console.log('wrapper click')}>
+    <Wrapper>
       <StyledTop>
         <StyledTopLeftSide>
           <Avatar
@@ -82,9 +83,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
               : getSizedText(coverLetter, coverLetterMaxLength)}
           </div>
           {coverLetter.length > coverLetterMaxLength && (
-            <CoverLetterVisibility
-              onClick={() => setCoverLetterVisibility(prev => !prev)}
-            >
+            <CoverLetterVisibility onClick={coverLetterVisibilityHandler}>
               {t(
                 coverLetterVisibility
                   ? 'textVisibility.hide'
