@@ -23,4 +23,5 @@ export * from './lib/navigation';
 export * from './lib/progress-bar/progress-bar';
 export * from './lib/proposal-card';
 export * from './lib/signup-form/signup-form';
+export * from './lib/small-card/small-card';
 export * from './lib/some-element/some-element';
