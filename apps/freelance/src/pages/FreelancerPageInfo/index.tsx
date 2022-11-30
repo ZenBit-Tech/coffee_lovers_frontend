@@ -1,7 +1,7 @@
 import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { AvatarUpload, JobAppBar } from '@freelance/components';
+import { AvatarUpload } from '@freelance/components';
 import {
   mockEducationData,
   mockUserData,
@@ -16,7 +16,6 @@ const FreelancerPageInfo = () => {
 
   return (
     <St.Wrapper>
-      <JobAppBar />
       <St.LogoWrapper direction="vertical">
         <AvatarUpload />
         <p>
