@@ -1,6 +1,6 @@
 import { Button, DatePicker, Form, Input, InputNumber } from 'antd';
 import styled from 'styled-components';
-import { UserOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { prBarStrColor } from '@freelance/components';
 
 const { TextArea } = Input;
@@ -59,7 +59,7 @@ export const StFormItemDateFrom = styled(Form.Item)`
 `;
 
 export const StFormItemWorkDateFrom = styled(Form.Item)`
-  margin-left: 20px;
+  margin-left: 30px;
   border-radius: 5px;
   box-shadow: 2px 2px 2px var(--grey);
   @media (max-width: 740px) {
@@ -86,6 +86,12 @@ export const StTextAreaWork = styled(TextArea)`
 
 export const StWorkWrapper = styled.div`
   width: 280px;
+`;
+
+export const StFormList = styled.div`
+  > .ant-form-item {
+    margin-bottom: 0;
+  }
 `;
 
 export const StDatePickerWork = styled(DatePicker)`
@@ -122,6 +128,10 @@ export const StUserIcon = styled(UserOutlined)`
     font-size: 30px;
     right: 0;
   }
+`;
+
+export const StMinusOutlined = styled(MinusCircleOutlined)`
+  padding: 10px;
 `;
 
 export const StUserUpBtn = styled(Button)`
