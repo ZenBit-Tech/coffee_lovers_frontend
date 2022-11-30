@@ -17,19 +17,21 @@ import { profileQuestions1Api } from './profileQuestions/profileQuestions1Api';
 import { propertiesApi } from './properties/properties-api';
 import { persistedPropertiesReducer } from './properties/properties-slice';
 import { authApi } from './services/authApi';
-import { pokemonApi } from './services/pokemon';
+import { freelancersApi } from './services/freelancers';
+import { jobsApi } from './services/jobsApi';
 import { userApi } from './services/user';
 
 export const store = configureStore({
   reducer: {
-    [pokemonApi.reducerPath]: pokemonApi.reducer,
     [userAuthApi.reducerPath]: userAuthApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
+    [freelancersApi.reducerPath]: freelancersApi.reducer,
     user: persistedAuthReducer,
     [profileQuestions1Api.reducerPath]: profileQuestions1Api.reducer,
     properties: persistedPropertiesReducer,
     [propertiesApi.reducerPath]: propertiesApi.reducer,
+    [jobsApi.reducerPath]: jobsApi.reducer,
     [jobPostApi.reducerPath]: jobPostApi.reducer,
   },
   middleware: getDefaultMiddleware =>
@@ -39,15 +41,17 @@ export const store = configureStore({
       },
     }).concat(
       userAuthApi.middleware,
-      pokemonApi.middleware,
       profileQuestions1Api.middleware,
       authApi.middleware,
       userApi.middleware,
       propertiesApi.middleware,
+      jobsApi.middleware,
+      freelancersApi.middleware,
       jobPostApi.middleware,
     ),
 });
 
 export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 setupListeners(store.dispatch);

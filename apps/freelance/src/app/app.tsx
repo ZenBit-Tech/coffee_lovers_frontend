@@ -1,13 +1,17 @@
 import { lazy } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import { Container } from '@freelance/components';
+import { routes } from '@freelance/components';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
+import FreelancerPageInfo from '@pages/FreelancerPageInfo';
 import JobDetailsPage from '@pages/JobDetailsPage';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
 import { ProfileQuestions1, ProfileQuestions2 } from '@pages/ProfileQuestions';
+import ProposalsList from '@pages/ProposalsList';
+import TalentListPage from '@pages/TalentListPage/index';
 import WelcomePage from '@pages/WelcomePage';
 import PrivateRoute from 'src/Routes/PrivateRoute';
 import PublicRoute from 'src/Routes/PublicRoute';
@@ -43,107 +47,55 @@ export function App() {
   return (
     <Container>
       <Routes>
-        <Route path="/" element={<ExampleRootPage />} />
-        <Route
-          path="/owner-profile"
-          element={
-            <PrivateRoute>
-              <OwnerProfilePage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/owner-profile/job-post-page"
-          element={
-            <PrivateRoute>
-              <JobPostPage />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/" element={<Outlet />}>
+          <Route path={routes.welcome} element={<WelcomePage />} />
+          <Route path={routes.googleAuth} element={<SignInGoogle />} />
+          <Route path={routes.conditions} element={<ConditionsPage />} />
 
-        <Route path="/welcome" element={<WelcomePage />} />
-        <Route path="/googleAuth" element={<SignInGoogle />} />
-        <Route path="/login/conditions" element={<ConditionsPage />} />
-        <Route
-          path="/profile-questions-1"
-          element={
-            <PrivateRoute>
-              <ProfileQuestions1 />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/profile-questions-2"
-          element={
-            <PrivateRoute>
-              <ProfileQuestions2 />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="signup"
-          element={
-            <PublicRoute>
-              <SignupPage />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="login"
-          element={
-            <PublicRoute>
-              <LoginPage />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/passwordreset"
-          element={
-            <PublicRoute>
-              <PasswordResetRequest />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/passwordreset/:key"
-          element={
-            <PublicRoute>
-              <PasswordReset />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/jobownerdashboard"
-          element={
-            <PrivateRoute>
-              <JobOwnerDashboard />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/role"
-          element={
-            <PrivateRoute>
-              <ChooseRole />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/findjobs"
-          element={
-            <PrivateRoute>
-              <FindJobs />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/jobdetails"
-          element={
-            <PrivateRoute>
-              <JobDetailsPage />
-            </PrivateRoute>
-          }
-        />
+          {/* Public routes */}
+          <Route element={<PublicRoute />}>
+            <Route path="/" element={<ExampleRootPage />} />
+            <Route path={routes.signup} element={<SignupPage />} />
+            <Route path={routes.login} element={<LoginPage />} />
+            <Route
+              path={routes.passwordreset}
+              element={<PasswordResetRequest />}
+            />
+            <Route path={routes.passwordresetKey} element={<PasswordReset />} />
+          </Route>
+
+          {/* Protected routes */}
+          <Route element={<PrivateRoute allowedRoles={'Visitor'} />}>
+            <Route path={routes.role} element={<ChooseRole />} />
+          </Route>
+
+          {/* Freelancer's routes */}
+          <Route element={<PrivateRoute allowedRoles={'Freelancer'} />}>
+            <Route
+              path={routes.profileQuestions1}
+              element={<ProfileQuestions1 />}
+            />
+            <Route
+              path={routes.profileQuestions2}
+              element={<ProfileQuestions2 />}
+            />
+            <Route path="/freelancer-info" element={<FreelancerPageInfo />} />
+            <Route path={routes.findJobs} element={<FindJobs />} />
+            <Route path={routes.jobDetails} element={<JobDetailsPage />} />
+            <Route path={routes.proposalsList} element={<ProposalsList />} />
+          </Route>
+
+          {/* Job Owner's routes */}
+          <Route element={<PrivateRoute allowedRoles={'JobOwner'} />}>
+            <Route path={routes.ownerProfile} element={<OwnerProfilePage />} />
+            <Route path={routes.jobPost} element={<JobPostPage />} />
+            <Route
+              path={routes.jobOwnerDashboard}
+              element={<JobOwnerDashboard />}
+            />
+            <Route path={routes.talents} element={<TalentListPage />} />
+          </Route>
+        </Route>
       </Routes>
     </Container>
   );

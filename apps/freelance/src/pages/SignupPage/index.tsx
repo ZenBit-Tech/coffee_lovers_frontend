@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { SignUpForm } from '@freelance/components';
+import { routes, SignUpForm } from '@freelance/components';
 
 import { ButtonWrap, Wrapper } from './styles';
 
@@ -16,7 +16,7 @@ export default function SignupPage() {
         <Button
           type="link"
           htmlType="button"
-          onClick={() => navigate('/login')}
+          onClick={() => navigate(`${routes.login}`)}
         >
           {t('loginPage.have_account')}
         </Button>
