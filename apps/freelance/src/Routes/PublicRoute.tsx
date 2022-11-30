@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import { routes } from '@freelance/constants';
 import { selectAuthToken } from 'redux/auth/auth-slice';
 
-export default function PublicRoute({ children }: { children: JSX.Element }) {
+export default function PublicRoute() {
   const token = useSelector(selectAuthToken);
 
-  return token ? <Navigate to="/jobownerdashboard" /> : children;
+  return token ? <Navigate to={routes.jobOwnerDashboard} /> : <Outlet />;
 }

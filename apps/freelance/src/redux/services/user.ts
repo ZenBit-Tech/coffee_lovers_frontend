@@ -7,7 +7,9 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
 import {
+  IUserInfo,
   PasswordResetPayload,
+  Role,
   SetProfileImageResponse,
   UserError,
 } from 'redux/types/user.types';
@@ -46,6 +48,21 @@ export const userApi = createApi({
         body: formData,
       }),
     }),
+    addUserRole: builder.mutation({
+      query: (body: { role: Role }) => {
+        return {
+          url: '/user-info',
+          method: 'POST',
+          body,
+        };
+      },
+    }),
+    getUserInfo: builder.query<IUserInfo, void>({
+      query: () => ({
+        url: `/`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -53,4 +70,6 @@ export const {
   usePasswordResetRequestMutation,
   usePasswordResetMutation,
   useSetProfileImageMutation,
+  useAddUserRoleMutation,
+  useGetUserInfoQuery,
 } = userApi;

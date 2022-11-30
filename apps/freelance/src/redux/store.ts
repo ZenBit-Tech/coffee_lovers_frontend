@@ -18,12 +18,10 @@ import { persistedPropertiesReducer } from './properties/properties-slice';
 import { authApi } from './services/authApi';
 import { freelancersApi } from './services/freelancers';
 import { jobsApi } from './services/jobsApi';
-import { pokemonApi } from './services/pokemon';
 import { userApi } from './services/user';
 
 export const store = configureStore({
   reducer: {
-    [pokemonApi.reducerPath]: pokemonApi.reducer,
     [userAuthApi.reducerPath]: userAuthApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
@@ -41,7 +39,6 @@ export const store = configureStore({
       },
     }).concat(
       userAuthApi.middleware,
-      pokemonApi.middleware,
       profileQuestions1Api.middleware,
       authApi.middleware,
       userApi.middleware,
@@ -53,4 +50,5 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 setupListeners(store.dispatch);
