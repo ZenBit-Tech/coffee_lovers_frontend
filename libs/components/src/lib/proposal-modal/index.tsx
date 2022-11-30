@@ -57,7 +57,7 @@ export const ProposalModal = ({
 
         <RateWrapper
           label={t('job_details.setup_rate')}
-          name={profileQ1.profileQ1HR}
+          name={profileQ1.hR}
           rules={[
             { required: true, message: `${t('description.profileQp1.mesHR')}` },
           ]}
@@ -66,14 +66,14 @@ export const ProposalModal = ({
             defaultValue={jobRate}
             prefix={t('description.profileQp1.hRPrefix')}
             addonAfter={t('description.profileQp1.hRSuffix')}
-            min={profileQ1.profileQ1HRMin}
+            min={profileQ1.hRMin}
           />
         </RateWrapper>
 
         <StyledText>{t('job_details.cover_letter')}</StyledText>
 
         <Form.Item
-          name={profileQ1.profileQ1Descr}
+          name={profileQ1.descr}
           rules={[
             {
               required: true,

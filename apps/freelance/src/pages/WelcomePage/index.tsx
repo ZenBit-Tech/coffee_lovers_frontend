@@ -16,10 +16,10 @@ const WelcomePage = () => {
     <div className="site-card-border-less-wrapper">
       <CardWrapper>
         <CenterCard hoverable>
-          <H2>{t('welcomePage.welcome')}</H2>
-          <H2>{t('welcomePage.fill')}</H2>
+          <H2>{t('welcome.welcome')}</H2>
+          <H2>{t('welcome.job')}</H2>
           <Button onClick={() => navigate('/freelancer')} type="primary">
-            {t('welcomePage.button')}
+            {t('welcome.button')}
           </Button>
         </CenterCard>
       </CardWrapper>

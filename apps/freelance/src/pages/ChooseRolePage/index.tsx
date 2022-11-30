@@ -1,25 +1,35 @@
 import { useState } from 'react';
 import { Button, Checkbox, Form, Space, Typography } from 'antd';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { routes } from '@freelance/constants';
+import { roles } from '@freelance/constants';
+import { Role } from 'redux/types/user.types';
+import { useAddUserRoleMutation } from 'src/redux/services/user';
 
 import { FormWrap, InputsWrapper, InputText, Title } from './styles';
 
-type Inputs = {
-  jobOwner: boolean;
-  freelancer: boolean;
-};
+interface IRole {
+  role: Role;
+}
+
+type RoleType = boolean;
 
 const { Text } = Typography;
 
 const ChooseRole = () => {
   const { t } = useTranslation();
-  const { handleSubmit } = useForm<Inputs>();
-  const [freelancer, setFreelancer] = useState(false);
-  const [jobOwner, setJobOwner] = useState(false);
+  const navigate = useNavigate();
+  const [role, setRole] = useState<IRole>({ role: roles.visitor });
+  const [freelancer, setFreelancer] = useState<RoleType>(false);
+  const [jobOwner, setJobOwner] = useState<RoleType>(false);
+  const [addUserRole] = useAddUserRoleMutation();
 
-  const onSubmit: SubmitHandler<Inputs> = data => {
-    freelancer ? alert('freelancer') : alert('jobOwner');
+  const onClick = () => {
+    addUserRole(role);
+    freelancer
+      ? navigate(`${routes.welcome}`)
+      : navigate(`${routes.jobOwnerDashboard}`);
   };
 
   const onFreelancerClick = () => {
@@ -28,6 +38,7 @@ const ChooseRole = () => {
       freelancer ? setFreelancer(true) : setFreelancer(false);
     }
     freelancer ? setFreelancer(false) : setFreelancer(true);
+    setRole({ role: roles.freelancer });
   };
 
   const onJobOwnerClick = () => {
@@ -36,6 +47,7 @@ const ChooseRole = () => {
       setFreelancer(false);
     }
     jobOwner ? setJobOwner(false) : setJobOwner(true);
+    setRole({ role: roles.jobOwner });
   };
 
   const disabled = !freelancer && !jobOwner;
@@ -43,7 +55,7 @@ const ChooseRole = () => {
   return (
     <FormWrap>
       <Title>{t('chooseRole.title')}</Title>
-      <Form onFinish={handleSubmit(onSubmit)}>
+      <Form>
         <Form.Item>
           <InputsWrapper>
             <Checkbox
@@ -68,6 +80,7 @@ const ChooseRole = () => {
             <Button
               type="primary"
               htmlType="submit"
+              onClick={onClick}
               disabled={!freelancer && !jobOwner}
             >
               {t('resetPassword.buttonText')}

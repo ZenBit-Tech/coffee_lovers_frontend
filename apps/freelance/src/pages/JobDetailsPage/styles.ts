@@ -1,10 +1,6 @@
 import { Button, Space } from 'antd';
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-  margin-top: 50px;
-`;
-
 export const JobOptionsText = styled.p`
   padding: 5px 10px;
   border: 1px solid var(--grey);
@@ -24,7 +20,7 @@ export const JobDescrText = styled.p`
 
 export const JobSkillsText = styled.p`
   padding: 5px;
-  width: 100px;
+  min-width: 100px;
   border: 1px solid var(--grey);
   box-shadow: 2px 2px 2px var(--grey);
   border-radius: 5px;
@@ -56,6 +52,7 @@ export const StyledButton = styled(Button)`
 `;
 
 export const LogoWrapper = styled(Space)`
+  margin-top: 30px;
   margin-left: 80px;
   align-items: center;
 `;

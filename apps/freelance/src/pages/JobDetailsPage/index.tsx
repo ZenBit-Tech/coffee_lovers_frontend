@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Space } from 'antd';
+import { Avatar, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { AvatarUpload, JobAppBar, ProposalModal } from '@freelance/components';
+import { UserOutlined } from '@ant-design/icons';
+import { AppBar, ProposalModal } from '@freelance/components';
 import { skills } from '@pages/JobDetailsPage/constants';
 
 import {
@@ -11,7 +12,6 @@ import {
   LogoWrapper,
   SkillsWrapper,
   StyledButton,
-  Wrapper,
 } from './styles';
 
 type Open = boolean;
@@ -29,8 +29,8 @@ export default function JobDetailsPage() {
   };
 
   return (
-    <Wrapper>
-      <JobAppBar />
+    <>
+      <AppBar />
 
       <Space direction="vertical" size="middle">
         <h2>{t('job_details.name')}</h2>
@@ -59,10 +59,11 @@ export default function JobDetailsPage() {
       </Space>
 
       <LogoWrapper direction="vertical">
-        <AvatarUpload />
+        <Avatar size={64} icon={<UserOutlined />} />
+        {/* <AvatarUpload /> */}
         <p>{t('job_details.owners_name')}</p>
       </LogoWrapper>
       <ProposalModal openModal={openModal} onCancel={onCancel} />
-    </Wrapper>
+    </>
   );
 }
