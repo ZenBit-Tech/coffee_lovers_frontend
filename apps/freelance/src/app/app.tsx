@@ -111,19 +111,19 @@ export function App() {
           }
         />
         <Route
-          path="/talents"
-          element={
-            <PrivateRoute>
-              <TalentListPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
           path="login"
           element={
             <PublicRoute>
               <LoginPage />
             </PublicRoute>
+          }
+        />
+        <Route
+          path="/talents"
+          element={
+            <PrivateRoute>
+              <TalentListPage />
+            </PrivateRoute>
           }
         />
         <Route
@@ -167,18 +167,18 @@ export function App() {
           }
         />
         <Route
-          path="/job/:id/proposals"
-          element={
-            <PrivateRoute>
-              <ProposalsList />
-            </PrivateRoute>
-          }
-        />
-        <Route
           path="/jobdetails"
           element={
             <PrivateRoute>
               <JobDetailsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/job/:id/proposals"
+          element={
+            <PrivateRoute>
+              <ProposalsList />
             </PrivateRoute>
           }
         />
