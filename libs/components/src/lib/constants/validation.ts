@@ -6,9 +6,6 @@ export type InputsValues = {
   about: string;
   jobCategory: string;
   skills: number[];
-};
-
-export type InputsValuesSecondPage = {
   englishLevel: string;
   duration: string;
   durationAmount: number;
@@ -21,15 +18,11 @@ export const schema: yup.SchemaOf<InputsValues> = yup.object({
   about: yup.string().required(required),
   jobCategory: yup.string().required(required),
   skills: yup.array().required(required).min(3, atLeastThree),
+  englishLevel: yup.string().required(required),
+  duration: yup.string().required(required),
+  durationAmount: yup
+    .number()
+    .typeError(mustBeNumber)
+    .positive()
+    .required(required),
 });
-
-export const schemaSecondPage: yup.SchemaOf<InputsValuesSecondPage> =
-  yup.object({
-    englishLevel: yup.string().required(required),
-    duration: yup.string().required(required),
-    durationAmount: yup
-      .number()
-      .typeError(mustBeNumber)
-      .positive()
-      .required(required),
-  });

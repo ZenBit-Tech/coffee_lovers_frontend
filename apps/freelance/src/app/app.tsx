@@ -1,12 +1,10 @@
 import { lazy } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Container } from '@freelance/components';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
 import JobDetailsPage from '@pages/JobDetailsPage';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
-import { JobPostFirstPage, JobPostSecondPage } from '@pages/JobPostPage';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
 import { ProfileQuestions1, ProfileQuestions2 } from '@pages/ProfileQuestions';
@@ -37,9 +35,11 @@ const SignupPage = lazy(
   () => import(/* webpackChunkName: "ExampleRootPage" */ '../pages/SignupPage'),
 );
 
-export function App() {
-  const { t } = useTranslation();
+const JobPostPage = lazy(
+  () => import(/* webpackChunkName: "JobPostPage" */ '../pages/JobPostPage'),
+);
 
+export function App() {
   return (
     <Container>
       <Routes>
@@ -53,25 +53,14 @@ export function App() {
           }
         />
         <Route
-          path="/owner-profile/job-post-first-page"
+          path="/owner-profile/job-post-page"
           element={
             <PrivateRoute>
-              <JobPostFirstPage />
+              <JobPostPage />
             </PrivateRoute>
           }
         />
-        <Route
-          path="/owner-profile/job-post-second-page"
-          element={
-            <PrivateRoute>
-              <JobPostSecondPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/page-2"
-          element={<Link to="/">{t('router.toRoot')}</Link>}
-        />
+
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/googleAuth" element={<SignInGoogle />} />
         <Route path="/login/conditions" element={<ConditionsPage />} />
