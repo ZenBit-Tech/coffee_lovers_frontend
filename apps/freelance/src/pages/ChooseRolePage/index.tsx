@@ -3,6 +3,7 @@ import { Button, Checkbox, Form, Space, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '@freelance/constants';
+import { roles } from '@freelance/constants';
 import { Role } from 'redux/services/types/user.types';
 import { useAddUserRoleMutation } from 'src/redux/services/user';
 
@@ -19,7 +20,7 @@ const { Text } = Typography;
 const ChooseRole = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [role, setRole] = useState<IRole>({ role: 'Visitor' });
+  const [role, setRole] = useState<IRole>({ role: roles.visitor });
   const [freelancer, setFreelancer] = useState<RoleType>(false);
   const [jobOwner, setJobOwner] = useState<RoleType>(false);
   const [addUserRole] = useAddUserRoleMutation();
@@ -37,7 +38,7 @@ const ChooseRole = () => {
       freelancer ? setFreelancer(true) : setFreelancer(false);
     }
     freelancer ? setFreelancer(false) : setFreelancer(true);
-    setRole({ role: 'Freelancer' });
+    setRole({ role: roles.freelancer });
   };
 
   const onJobOwnerClick = () => {
@@ -46,7 +47,7 @@ const ChooseRole = () => {
       setFreelancer(false);
     }
     jobOwner ? setJobOwner(false) : setJobOwner(true);
-    setRole({ role: 'JobOwner' });
+    setRole({ role: roles.jobOwner });
   };
 
   const disabled = !freelancer && !jobOwner;

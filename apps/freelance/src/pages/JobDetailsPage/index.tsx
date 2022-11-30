@@ -1,7 +1,8 @@
-import { Space } from 'antd';
+import { Avatar, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { AppBar, AvatarUpload } from '@freelance/components';
+import { UserOutlined } from '@ant-design/icons';
+import { AppBar } from '@freelance/components';
 import { skills } from '@pages/JobDetailsPage/constants';
 
 import {
@@ -11,7 +12,6 @@ import {
   LogoWrapper,
   SkillsWrapper,
   StyledButton,
-  Wrapper,
 } from './styles';
 
 export default function JobDetailsPage() {
@@ -19,7 +19,7 @@ export default function JobDetailsPage() {
   const { t } = useTranslation();
 
   return (
-    <Wrapper>
+    <>
       <AppBar />
 
       <Space direction="vertical" size="middle">
@@ -49,9 +49,10 @@ export default function JobDetailsPage() {
       </Space>
 
       <LogoWrapper direction="vertical">
-        <AvatarUpload />
+        <Avatar size={64} icon={<UserOutlined />} />
+        {/* <AvatarUpload /> */}
         <p>{t('job_details.owners_name')}</p>
       </LogoWrapper>
-    </Wrapper>
+    </>
   );
 }

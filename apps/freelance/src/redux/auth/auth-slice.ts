@@ -1,9 +1,9 @@
+import { roles } from '@freelance/constants';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Role } from 'redux/services/types/user.types';
+import { RootState } from 'redux/store';
 import persistReducer from 'redux-persist/lib/persistReducer';
 import storage from 'redux-persist/lib/storage';
-
-import { RootState } from '../store';
 
 export interface AuthState {
   access_token: string | null;
@@ -12,7 +12,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
   access_token: null,
-  role: 'Visitor',
+  role: roles.visitor,
 };
 
 const authSlice = createSlice({
@@ -24,7 +24,7 @@ const authSlice = createSlice({
     },
     logout: state => {
       state.access_token = null;
-      state.role = 'Visitor';
+      state.role = roles.visitor;
     },
     setRole(state, action: PayloadAction<{ role: Role }>) {
       state.role = action.payload.role;

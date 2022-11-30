@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '@freelance/components';
+import { roles, routes } from '@freelance/components';
 import { selectRole } from 'src/redux/auth/auth-slice';
 import { logout } from 'src/redux/auth/auth-slice';
 
@@ -19,7 +19,7 @@ export function Navigation() {
 
   return (
     <Nav>
-      {role === 'Freelancer' ? (
+      {role === roles.freelancer ? (
         <>
           <StyledButton onClick={() => navigate(`${routes.findJobs}`)}>
             {t('app_bar.nav.jobs')}
