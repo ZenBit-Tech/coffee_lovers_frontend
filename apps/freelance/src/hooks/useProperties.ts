@@ -3,7 +3,7 @@ import { categoriesRefreshTime } from '@freelance/constants';
 import useAppSelector from '@hooks/useAppSelector';
 import { useGetAllPropertiesQuery } from 'redux/properties/properties-api';
 import { setProperties } from 'redux/properties/properties-slice';
-import { Property } from 'redux/properties/types';
+import { Property } from 'redux/types/properties.types';
 
 interface SelectOptionWithId {
   label: string;

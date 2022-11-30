@@ -3,8 +3,8 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { routes } from '@freelance/constants';
 import { selectAuthToken } from 'redux/auth/auth-slice';
 import { setRole } from 'redux/auth/auth-slice';
-import { Role } from 'redux/services/types/user.types';
 import { useGetUserInfoQuery } from 'redux/services/user';
+import { Role } from 'redux/types/user.types';
 
 export default function PrivateRoute({ allowedRoles }: { allowedRoles: Role }) {
   const token = useSelector(selectAuthToken);

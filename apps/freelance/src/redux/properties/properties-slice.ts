@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import persistReducer from 'redux-persist/lib/persistReducer';
 import storage from 'redux-persist/lib/storage';
-
-import { PropertiesState } from './types';
+import { PropertiesState } from 'src/redux/types/properties.types';
 
 const initialState: PropertiesState = {
   categories: [],

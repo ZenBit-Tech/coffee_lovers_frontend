@@ -1,7 +1,7 @@
 import { roles } from '@freelance/constants';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Role } from 'redux/services/types/user.types';
 import { RootState } from 'redux/store';
+import { Role } from 'redux/types/user.types';
 import persistReducer from 'redux-persist/lib/persistReducer';
 import storage from 'redux-persist/lib/storage';
 

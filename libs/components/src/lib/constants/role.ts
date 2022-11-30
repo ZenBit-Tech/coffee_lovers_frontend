@@ -1,4 +1,4 @@
-import { Role } from 'src/redux/services/types/user.types';
+import { Role } from 'src/redux/types/user.types';
 
 interface IRoles {
   freelancer: Role;

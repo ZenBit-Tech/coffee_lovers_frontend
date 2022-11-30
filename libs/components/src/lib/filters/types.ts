@@ -18,12 +18,12 @@ export interface FiltersProps {
 }
 
 export type FilterFormItems = {
-  [skillsName]: object[];
-  [categoriesName]: object[];
+  [skillsName]: number[];
+  [categoriesName]: number[];
   [hrlyRateStartName]: number;
   [hrlyRateEndName]: number;
-  [timeName]: object;
-  [englishLevelName]: object;
+  [timeName]: number;
+  [englishLevelName]: string;
 };
 
 export type Options = {

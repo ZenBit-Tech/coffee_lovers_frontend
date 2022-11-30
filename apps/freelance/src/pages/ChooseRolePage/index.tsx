@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '@freelance/constants';
 import { roles } from '@freelance/constants';
-import { Role } from 'redux/services/types/user.types';
+import { Role } from 'redux/types/user.types';
 import { useAddUserRoleMutation } from 'src/redux/services/user';
 
 import { FormWrap, InputsWrapper, InputText, Title } from './styles';

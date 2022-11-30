@@ -3,7 +3,7 @@ import {
   AddEducation,
   AddWorkhistory,
   UpdateUser,
-} from 'redux/services/types/user.types';
+} from 'redux/types/user.types';
 
 import { IProfileQuestions } from './model';
 
