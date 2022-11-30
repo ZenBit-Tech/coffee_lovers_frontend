@@ -2,7 +2,8 @@ import { Button, Space } from 'antd';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  margin-top: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 `;
 
 export const FreelancerInfo = styled.div`
@@ -45,6 +46,7 @@ export const FreelancerData = styled.p`
 
 export const FlexWrapper = styled.div`
   display: flex;
+  margin-bottom: 20px;
 `;
 
 export const EduData = styled.p`
@@ -88,6 +90,9 @@ export const Skill = styled.p`
   border: 1px solid var(--grey);
   box-shadow: 2px 2px 2px var(--grey);
   padding: 5px 10px;
+  &:last-child {
+    margin-right: 0;
+  }
 `;
 
 export const StyledButton = styled(Button)`
@@ -110,16 +115,12 @@ export const StyledButton = styled(Button)`
   }
 `;
 
-export const ButtonInviteWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 20%;
-`;
-
-export const ButtonOfferWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 30%;
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  & > *:first-child {
+    margin-right: 20px;
+  }
 `;
 
 export const LogoWrapper = styled(Space)`
