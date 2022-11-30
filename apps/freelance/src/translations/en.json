@@ -191,25 +191,25 @@
       "header": "Talent based on your job post",
       "search": "Search",
       "filter": "Filter",
-      "name": "{{name}}",
-      "filters": {
-        "title": "Filters",
-        "category": "Category",
-        "category_placeholder": "Start typing to search categories",
-        "skills": "Skills",
-        "skills_placeholder": "Start typing to search skills",
-        "hrly_rate": "Hourly rate",
-        "time": "Time available",
-        "time_placeholder": "Hrs per day",
-        "english_level": "English level",
-        "english_level_placeholder": "My level is",
-        "buttons": {
-          "clear": "Clear",
-          "apply": "Apply"
-        },
-        "errors": {
-          "selectMax": "Maximum 6 items"
-        }
+      "name": "{{name}}"
+    },
+    "filters": {
+      "title": "Filters",
+      "category": "Category",
+      "category_placeholder": "Start typing to search categories",
+      "skills": "Skills",
+      "skills_placeholder": "Start typing to search skills",
+      "hrly_rate": "Hourly rate",
+      "time": "Time available",
+      "time_placeholder": "Hrs per day",
+      "english_level": "English level",
+      "english_level_placeholder": "My level is",
+      "buttons": {
+        "clear": "Clear",
+        "apply": "Apply"
+      },
+      "errors": {
+        "selectMax": "Maximum 6 items"
       }
     },
     "findJobs": {
@@ -236,7 +236,8 @@
       "owners_name": "Job owner's name"
     },
     "proposalsList": {
-      "hourly_rate": "${{rate}} per hour"
+      "hourly_rate": "${{rate}} per hour",
+      "start_chat": "Start chat"
     },
     "textVisibility": {
       "hide": "hide",

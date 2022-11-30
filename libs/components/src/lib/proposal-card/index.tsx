@@ -1,8 +1,7 @@
 import { FC } from 'react';
-import { Avatar } from 'antd';
+import { Avatar, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
-import { Property } from 'src/redux/types/properties.types';
 import { User } from 'src/redux/types/user.types';
 import { getSizedText } from 'src/utils/text';
 
@@ -13,6 +12,7 @@ import {
   FreelancerDetail,
   FreelancerDetailsContainer,
   FreelancerInfoContainer,
+  HourlyRateContainer,
   StyledBottom,
   StyledFreelancerName,
   StyledHourlyRate,
@@ -25,7 +25,6 @@ import useProposalCard from './useProposalCard';
 
 interface ProposalCardProps {
   user: User;
-  skills: Property[];
   hourlyRate: number;
   availableTime: string;
   coverLetter: string;
@@ -33,7 +32,6 @@ interface ProposalCardProps {
 
 export const ProposalCard: FC<ProposalCardProps> = ({
   user,
-  skills,
   hourlyRate,
   availableTime,
   coverLetter,
@@ -65,10 +63,13 @@ export const ProposalCard: FC<ProposalCardProps> = ({
         </StyledTopLeftSide>
 
         <StyledTopRightSide>
-          <StyledHourlyRate>
-            {t('proposalsList.hourly_rate', { rate: hourlyRate })}
-          </StyledHourlyRate>
-          <FreelancerDetail>{availableTime}</FreelancerDetail>
+          <HourlyRateContainer>
+            <StyledHourlyRate>
+              {t('proposalsList.hourly_rate', { rate: hourlyRate })}
+            </StyledHourlyRate>
+            <FreelancerDetail>{availableTime}</FreelancerDetail>
+          </HourlyRateContainer>
+          <Button>{t('proposalsList.start_chat')}</Button>
         </StyledTopRightSide>
       </StyledTop>
 

@@ -22,6 +22,15 @@ export const StyledTopLeftSide = styled.div`
 
 export const StyledTopRightSide = styled.div`
   display: flex;
+  align-items: center;
+
+  & > div:first-child {
+    margin-right: 15px;
+  }
+`;
+
+export const HourlyRateContainer = styled.div`
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
