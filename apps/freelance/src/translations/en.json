@@ -74,6 +74,25 @@
         "mesCategory": "Please, input category!",
         "mesOtherExp": "Please, input other experience!"
       },
+      "freelancerPageInfo": {
+        "category": "Front-End Development",
+        "hR": 12,
+        "descr": "I am a very energetic and self-motivated person. I always strive for the best. Like to listen to music",
+        "pos": "Software engeneer",
+        "avTime": "Full-Time",
+        "edu": "BA In International Business Administration. LCC IU",
+        "eduFrom": 2010,
+        "eduTo": 2014,
+        "workH": "Full-Stack Developer at Apple inc",
+        "workFrom": 2016,
+        "workTo": 2022,
+        "JavaScript": "JavaScript",
+        "HTML": "HTML",
+        "CSS": "CSS",
+        "english_level": "Upper-Intermediate",
+        "sendOffer": "Send offer",
+        "inviteInterview": "Invite to interview"
+      },
       "router": {
         "toPage2": "Click here for page 2.",
         "toRoot": "Click here to go back to root page.",

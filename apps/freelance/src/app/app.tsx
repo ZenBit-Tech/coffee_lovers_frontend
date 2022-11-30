@@ -4,14 +4,13 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { Container } from '@freelance/components';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
+import FreelancerPageInfo from '@pages/FreelancerPageInfo';
 import JobDetailsPage from '@pages/JobDetailsPage';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import { JobPostFirstPage, JobPostSecondPage } from '@pages/JobPostPage';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
 import { ProfileQuestions1, ProfileQuestions2 } from '@pages/ProfileQuestions';
-import ProposalsList from '@pages/ProposalsList';
-import TalentListPage from '@pages/TalentListPage/index';
 import WelcomePage from '@pages/WelcomePage';
 import PrivateRoute from 'src/Routes/PrivateRoute';
 import PublicRoute from 'src/Routes/PublicRoute';
@@ -94,6 +93,14 @@ export function App() {
           }
         />
         <Route
+          path="/freelancer-info"
+          element={
+            <PrivateRoute>
+              <FreelancerPageInfo />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="signup"
           element={
             <PublicRoute>
@@ -107,14 +114,6 @@ export function App() {
             <PublicRoute>
               <LoginPage />
             </PublicRoute>
-          }
-        />
-        <Route
-          path="/talents"
-          element={
-            <PrivateRoute>
-              <TalentListPage />
-            </PrivateRoute>
           }
         />
         <Route
@@ -162,14 +161,6 @@ export function App() {
           element={
             <PrivateRoute>
               <JobDetailsPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/job/:id/proposals"
-          element={
-            <PrivateRoute>
-              <ProposalsList />
             </PrivateRoute>
           }
         />
