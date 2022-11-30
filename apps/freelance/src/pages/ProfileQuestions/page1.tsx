@@ -1,8 +1,8 @@
-import { Button, DatePicker, Form, Input, Select, Upload } from 'antd';
+import { Form, Select, Upload } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 import {
   DefInput,
   prBarStrColor,
@@ -18,6 +18,8 @@ import {
   useUpdateUserInfoMutation,
 } from 'redux/profileQuestions/profileQuestions1Api';
 
+import FormEduList from './FormEduList';
+import FormWorkList from './FormWorkList';
 import { onFinishLogic } from './hooks';
 import { IProfileQuestions } from './model';
 import * as St from './styles';
@@ -139,170 +141,8 @@ export const ProfileQuestions1 = () => {
             </Option>
           </StyledSelect>
         </Form.Item>
-        <Form.List name={profileQ1.edu} initialValue={profileQ1.workDefValue}>
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => (
-                <St.StFormList key={key}>
-                  <Form.Item
-                    label={t('description.profileQp1.edu')}
-                    wrapperCol={{
-                      sm: { span: 24, offset: 0 },
-                    }}
-                  >
-                    <Input.Group compact>
-                      <Form.Item
-                        {...restField}
-                        name={[name, profileQ1.eduInfo]}
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t('description.profileQp1.mesEdu')}`,
-                          },
-                        ]}
-                      >
-                        <DefInput
-                          placeholder={t('description.profileQp1.infoEdu')}
-                        />
-                      </Form.Item>
-                      <St.StFormItemDateFrom
-                        {...restField}
-                        name={[name, profileQ1.eduForm]}
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t(
-                              'description.profileQp1.mesTimeFrom',
-                            )}`,
-                          },
-                        ]}
-                      >
-                        <DatePicker
-                          placeholder={t('description.profileQp1.from')}
-                          picker="year"
-                        />
-                      </St.StFormItemDateFrom>
-                      <St.StFormItemDateTo
-                        {...restField}
-                        name={[name, profileQ1.eduTo]}
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t('description.profileQp1.mesTimeTo')}`,
-                          },
-                        ]}
-                      >
-                        <DatePicker
-                          placeholder={t('description.profileQp1.to')}
-                          picker="year"
-                        />
-                      </St.StFormItemDateTo>
-                      {fields.length > 1 && (
-                        <St.StMinusOutlined onClick={() => remove(name)} />
-                      )}
-                    </Input.Group>
-                  </Form.Item>
-                </St.StFormList>
-              ))}
-              <Form.Item>
-                <Button
-                  type="dashed"
-                  onClick={add}
-                  block
-                  icon={<PlusOutlined />}
-                >
-                  {t('description.profileQp1.add_one_more')}
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-        <Form.List
-          name={profileQ1.workHistoryWrapper}
-          initialValue={profileQ1.workDefValue}
-        >
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => (
-                <St.StFormList key={key}>
-                  <Form.Item
-                    label={t('description.profileQp1.workH')}
-                    wrapperCol={{
-                      sm: { span: 24, offset: 0 },
-                    }}
-                  >
-                    <Input.Group compact>
-                      <Form.Item
-                        {...restField}
-                        name={[name, profileQ1.workHistory]}
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t('description.profileQp1.mesWork')}`,
-                          },
-                        ]}
-                        wrapperCol={{
-                          sm: { span: 26, offset: 0 },
-                        }}
-                      >
-                        <St.StWorkWrapper>
-                          <St.StTextAreaWork
-                            placeholder={t('description.profileQp1.infoWork')}
-                          />
-                        </St.StWorkWrapper>
-                      </Form.Item>
-                      <St.StFormItemWorkDateFrom
-                        {...restField}
-                        name={[name, profileQ1.workFrom]}
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t(
-                              'description.profileQp1.mesTimeFrom',
-                            )}`,
-                          },
-                        ]}
-                      >
-                        <St.StDatePickerWork
-                          placeholder={t('description.profileQp1.from')}
-                          picker="year"
-                        />
-                      </St.StFormItemWorkDateFrom>
-                      <St.StFormItemDateTo
-                        {...restField}
-                        name={[name, profileQ1.workTo]}
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t('description.profileQp1.mesTimeTo')}`,
-                          },
-                        ]}
-                      >
-                        <St.StDatePickerWork
-                          placeholder={t('description.profileQp1.to')}
-                          picker="year"
-                        />
-                      </St.StFormItemDateTo>
-                      {fields.length > 1 && (
-                        <St.StMinusOutlined onClick={() => remove(name)} />
-                      )}
-                    </Input.Group>
-                  </Form.Item>
-                </St.StFormList>
-              ))}
-              <Form.Item>
-                <Button
-                  type="dashed"
-                  onClick={add}
-                  block
-                  icon={<PlusOutlined />}
-                >
-                  {t('description.profileQp1.add_one_more')}
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
+        <FormEduList />
+        <FormWorkList />
         <Form.Item
           wrapperCol={{
             sm: { span: 20, offset: 2 },
