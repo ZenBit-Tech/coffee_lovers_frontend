@@ -75,6 +75,10 @@
         "mesCategory": "Please, input category!",
         "mesOtherExp": "Please, input other experience!"
       },
+      "freelancerPageInfo": {
+        "sendOffer": "Send offer",
+        "inviteInterview": "Invite to interview"
+      },
       "router": {
         "toPage2": "Click here for page 2.",
         "toRoot": "Click here to go back to root page.",
