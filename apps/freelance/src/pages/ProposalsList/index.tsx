@@ -1,23 +1,36 @@
+import { Spin } from 'antd';
 import { ProposalCard } from '@freelance/components';
 
-import { mockProjectName, mockProposals } from './constants';
 import { ListContainer, StyledProjectName, Wrapper } from './styles';
+import useProposalsList from './useProposalsList';
 
 const ProposalsList = () => {
+  const { data, isLoading, isSuccess } = useProposalsList();
+
+  console.log(data);
+
+  if (isLoading) {
+    return <Spin />;
+  }
+
   return (
     <Wrapper>
-      <StyledProjectName>{mockProjectName}</StyledProjectName>
-      <ListContainer>
-        {mockProposals.map(proposal => (
-          <ProposalCard
-            key={proposal.id}
-            user={proposal.user}
-            hourlyRate={proposal.hourly_rate}
-            availableTime={proposal.available_time}
-            coverLetter={proposal.cover_letter}
-          />
-        ))}
-      </ListContainer>
+      {isSuccess && (
+        <>
+          <StyledProjectName>{data?.job.title}</StyledProjectName>
+          <ListContainer>
+            {data?.proposals.map(proposal => (
+              <ProposalCard
+                key={proposal.id}
+                user={proposal.user}
+                hourlyRate={proposal.hourly_rate}
+                availableTime={proposal.user?.available_time}
+                coverLetter={proposal.cover_letter}
+              />
+            ))}
+          </ListContainer>
+        </>
+      )}
     </Wrapper>
   );
 };

@@ -3,6 +3,7 @@ import { Avatar, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
 import { User } from 'src/redux/types/user.types';
+import { getFileUrl } from 'src/utils/api';
 import { getSizedText } from 'src/utils/text';
 
 import { avatarSize, coverLetterMaxLength } from './constants';
@@ -24,9 +25,9 @@ import {
 import useProposalCard from './useProposalCard';
 
 interface ProposalCardProps {
-  user: User;
+  user: User | undefined;
   hourlyRate: number;
-  availableTime: string;
+  availableTime: string | undefined;
   coverLetter: string;
 }
 
@@ -47,15 +48,17 @@ export const ProposalCard: FC<ProposalCardProps> = ({
           <Avatar
             icon={<UserOutlined />}
             size={avatarSize}
-            src={user.profile_image}
+            src={getFileUrl(user?.profile_image)}
           />
           <FreelancerInfoContainer>
             <StyledFreelancerName>
-              {`${user.first_name} ${user.last_name}`}
+              {`${user?.first_name} ${user?.last_name}`}
             </StyledFreelancerName>
             <FreelancerDetailsContainer>
-              <FreelancerDetail>{user.position}</FreelancerDetail>
-              {user.skills.map(skill => (
+              {user?.position && (
+                <FreelancerDetail>{user?.position}</FreelancerDetail>
+              )}
+              {user?.skills?.map(skill => (
                 <FreelancerDetail key={skill.id}>{skill.name}</FreelancerDetail>
               ))}
             </FreelancerDetailsContainer>
@@ -67,7 +70,9 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             <StyledHourlyRate>
               {t('proposalsList.hourly_rate', { rate: hourlyRate })}
             </StyledHourlyRate>
-            <FreelancerDetail>{availableTime}</FreelancerDetail>
+            {availableTime && (
+              <FreelancerDetail>{availableTime}</FreelancerDetail>
+            )}
           </HourlyRateContainer>
           <Button>{t('proposalsList.start_chat')}</Button>
         </StyledTopRightSide>
