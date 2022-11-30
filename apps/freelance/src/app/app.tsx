@@ -4,6 +4,7 @@ import { Container } from '@freelance/components';
 import { routes } from '@freelance/components';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
+import FreelancerPageInfo from '@pages/FreelancerPageInfo';
 import JobDetailsPage from '@pages/JobDetailsPage';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import { JobPostFirstPage, JobPostSecondPage } from '@pages/JobPostPage';
@@ -75,6 +76,7 @@ export function App() {
               path={routes.profileQuestions2}
               element={<ProfileQuestions2 />}
             />
+            <Route path="/freelancer-info" element={<FreelancerPageInfo />} />
             <Route path={routes.findJobs} element={<FindJobs />} />
             <Route path={routes.jobDetails} element={<JobDetailsPage />} />
             <Route path={routes.proposalsList} element={<ProposalsList />} />

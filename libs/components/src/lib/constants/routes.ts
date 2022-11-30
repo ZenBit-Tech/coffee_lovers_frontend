@@ -21,3 +21,6 @@ export const routes = {
   ownerProfile: '/owner-profile',
   talents: '/talents',
 };
+export const proFileQuestions = {
+  profileQuestions2: '/profile-questions-2',
+};

@@ -1,12 +1,14 @@
-import { DatePicker, Form, Input, Select, Upload } from 'antd';
+import { Form, Select, Upload } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons';
 import {
   DefInput,
   prBarStrColor,
   prBarTrailColor,
   profileQ1,
+  proFileQuestions,
   ProgressBar,
   StyledSelect,
 } from '@freelance/components';
@@ -16,6 +18,8 @@ import {
   useUpdateUserInfoMutation,
 } from 'redux/profileQuestions/profileQuestions1Api';
 
+import FormEduList from './FormEduList';
+import FormWorkList from './FormWorkList';
 import { onFinishLogic } from './hooks';
 import { IProfileQuestions } from './model';
 import * as St from './styles';
@@ -27,15 +31,19 @@ export const ProfileQuestions1 = () => {
   const [UpdateUserInfo] = useUpdateUserInfoMutation();
   const [AddUserEduInfo] = useAddUserEduInfoMutation();
   const [AddUserWorkhistory] = useAddUserWorkhistoryInfoMutation();
+  const navigate = useNavigate();
 
   const { Option } = Select;
   const onFinish: SubmitHandler<IProfileQuestions> = async values => {
-    const [educationPayload, workPayload, userPayload] = onFinishLogic(values);
+    const [educationPayloadArr, userPayload, workPayloadArr] =
+      onFinishLogic(values);
+
     try {
       await UpdateUserInfo(userPayload);
-      await AddUserEduInfo(educationPayload);
-      await AddUserWorkhistory(workPayload);
+      await AddUserEduInfo(educationPayloadArr());
+      await AddUserWorkhistory(workPayloadArr());
       form.resetFields();
+      navigate(proFileQuestions.profileQuestions2);
     } catch (error) {
       alert(error);
     }
@@ -53,12 +61,12 @@ export const ProfileQuestions1 = () => {
         <St.StUserIcon />
         <Upload>
           <St.StUserUpBtn icon={<UploadOutlined />}>
-            Upload Profile Photo
+            {t('description.profileQp1.upload_profile_photo')}
           </St.StUserUpBtn>
         </Upload>
       </St.StUserAvatarWrapper>
       <St.StForm
-        name={profileQ1.profileQ1Form}
+        name={profileQ1.form}
         {...profileQ1.formItemLayout}
         initialValues={{ remember: true }}
         autoComplete="on"
@@ -69,7 +77,7 @@ export const ProfileQuestions1 = () => {
       >
         <Form.Item
           label={t('description.profileQp1.hR')}
-          name={profileQ1.profileQ1HR}
+          name={profileQ1.hR}
           rules={[
             { required: true, message: `${t('description.profileQp1.mesHR')}` },
           ]}
@@ -77,12 +85,12 @@ export const ProfileQuestions1 = () => {
           <St.StInputNumber
             prefix={t('description.profileQp1.hRPrefix')}
             addonAfter={t('description.profileQp1.hRSuffix')}
-            min={profileQ1.profileQ1HRMin}
+            min={profileQ1.hRMin}
           />
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.descr')}
-          name={profileQ1.profileQ1Descr}
+          name={profileQ1.descr}
           rules={[
             {
               required: true,
@@ -101,7 +109,7 @@ export const ProfileQuestions1 = () => {
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.pos')}
-          name={profileQ1.profileQ1Pos}
+          name={profileQ1.pos}
           rules={[
             {
               required: true,
@@ -113,7 +121,7 @@ export const ProfileQuestions1 = () => {
         </Form.Item>
         <Form.Item
           label={t('description.profileQp1.avTime')}
-          name={profileQ1.profileQ1AvTime}
+          name={profileQ1.avTime}
           rules={[
             {
               required: true,
@@ -122,129 +130,19 @@ export const ProfileQuestions1 = () => {
           ]}
         >
           <StyledSelect
-            placeholder={t('description.profileQp1.hPD')}
+            placeholder={t('description.profileQp1.avTime')}
             allowClear
           >
-            <Option value={profileQ1.profileQ1PartTime}>
+            <Option value={profileQ1.partTime}>
               {t('description.profileQp1.partTime')}
             </Option>
-            <Option value={profileQ1.profileQ1FullTime}>
+            <Option value={profileQ1.fullTime}>
               {t('description.profileQp1.fullTime')}
             </Option>
           </StyledSelect>
         </Form.Item>
-        <Form.Item
-          label={t('description.profileQp1.edu')}
-          wrapperCol={{
-            sm: { span: 24, offset: 0 },
-          }}
-        >
-          <Input.Group compact>
-            <Form.Item
-              name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduInfo]}
-              rules={[
-                {
-                  required: true,
-                  message: `${t('description.profileQp1.mesEdu')}`,
-                },
-              ]}
-            >
-              <DefInput placeholder={t('description.profileQp1.infoEdu')} />
-            </Form.Item>
-            <St.StFormItemDateFrom
-              name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduForm]}
-              rules={[
-                {
-                  required: true,
-                  message: `${t('description.profileQp1.mesTimeFrom')}`,
-                },
-              ]}
-            >
-              <DatePicker
-                placeholder={t('description.profileQp1.from')}
-                picker="year"
-              />
-            </St.StFormItemDateFrom>
-            <St.StFormItemDateTo
-              name={[profileQ1.profileQ1Edu, profileQ1.profileQ1EduTo]}
-              rules={[
-                {
-                  required: true,
-                  message: `${t('description.profileQp1.mesTimeTo')}`,
-                },
-              ]}
-            >
-              <DatePicker
-                placeholder={t('description.profileQp1.to')}
-                picker="year"
-              />
-            </St.StFormItemDateTo>
-          </Input.Group>
-        </Form.Item>
-        <Form.Item
-          label={t('description.profileQp1.workH')}
-          wrapperCol={{
-            sm: { span: 24, offset: 0 },
-          }}
-        >
-          <Input.Group compact>
-            <Form.Item
-              name={[
-                profileQ1.profileQ1WorkHistoryWrapper,
-                profileQ1.profileQ1WorkHistory,
-              ]}
-              rules={[
-                {
-                  required: true,
-                  message: `${t('description.profileQp1.mesWork')}`,
-                },
-              ]}
-              wrapperCol={{
-                sm: { span: 26, offset: 0 },
-              }}
-            >
-              <St.StWorkWrapper>
-                <St.StTextAreaWork
-                  placeholder={t('description.profileQp1.infoWork')}
-                />
-              </St.StWorkWrapper>
-            </Form.Item>
-            <St.StFormItemWorkDateFrom
-              name={[
-                profileQ1.profileQ1WorkHistoryWrapper,
-                profileQ1.profileQ1WorkFrom,
-              ]}
-              rules={[
-                {
-                  required: true,
-                  message: `${t('description.profileQp1.mesTimeFrom')}`,
-                },
-              ]}
-            >
-              <St.StDatePickerWork
-                placeholder={t('description.profileQp1.from')}
-                picker="year"
-              />
-            </St.StFormItemWorkDateFrom>
-            <St.StFormItemDateTo
-              name={[
-                profileQ1.profileQ1WorkHistoryWrapper,
-                profileQ1.profileQ1WorkTo,
-              ]}
-              rules={[
-                {
-                  required: true,
-                  message: `${t('description.profileQp1.mesTimeTo')}`,
-                },
-              ]}
-            >
-              <St.StDatePickerWork
-                placeholder={t('description.profileQp1.to')}
-                picker="year"
-              />
-            </St.StFormItemDateTo>
-          </Input.Group>
-        </Form.Item>
+        <FormEduList />
+        <FormWorkList />
         <Form.Item
           wrapperCol={{
             sm: { span: 20, offset: 2 },
