@@ -79,22 +79,24 @@ export const ProposalCard: FC<ProposalCardProps> = ({
       </StyledTop>
 
       <StyledBottom>
-        <CoverLetterText>
-          <div>
-            {coverLetterVisibility
-              ? coverLetter
-              : getSizedText(coverLetter, coverLetterMaxLength)}
-          </div>
-          {coverLetter.length > coverLetterMaxLength && (
-            <CoverLetterVisibility onClick={coverLetterVisibilityHandler}>
-              {t(
-                coverLetterVisibility
-                  ? 'textVisibility.hide'
-                  : 'textVisibility.show',
-              )}
-            </CoverLetterVisibility>
-          )}
-        </CoverLetterText>
+        {coverLetter && (
+          <CoverLetterText>
+            <div>
+              {coverLetterVisibility
+                ? coverLetter
+                : getSizedText(coverLetter, coverLetterMaxLength)}
+            </div>
+            {coverLetter.length > coverLetterMaxLength && (
+              <CoverLetterVisibility onClick={coverLetterVisibilityHandler}>
+                {t(
+                  coverLetterVisibility
+                    ? 'textVisibility.hide'
+                    : 'textVisibility.show',
+                )}
+              </CoverLetterVisibility>
+            )}
+          </CoverLetterText>
+        )}
       </StyledBottom>
     </Wrapper>
   );

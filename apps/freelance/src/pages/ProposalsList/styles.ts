@@ -16,3 +16,11 @@ export const StyledProjectName = styled.p`
   font-size: ${({ theme }) => theme.fontSize.extraLarge};
   margin-bottom: 10px;
 `;
+
+export const SpinContainer = styled.div`
+  width: 100%;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

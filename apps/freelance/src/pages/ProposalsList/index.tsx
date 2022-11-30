@@ -1,16 +1,23 @@
 import { Spin } from 'antd';
 import { ProposalCard } from '@freelance/components';
 
-import { ListContainer, StyledProjectName, Wrapper } from './styles';
+import {
+  ListContainer,
+  SpinContainer,
+  StyledProjectName,
+  Wrapper,
+} from './styles';
 import useProposalsList from './useProposalsList';
 
 const ProposalsList = () => {
   const { data, isLoading, isSuccess } = useProposalsList();
 
-  console.log(data);
-
   if (isLoading) {
-    return <Spin />;
+    return (
+      <SpinContainer>
+        <Spin />
+      </SpinContainer>
+    );
   }
 
   return (
