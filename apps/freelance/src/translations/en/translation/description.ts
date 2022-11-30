@@ -12,6 +12,8 @@ export default {
     },
     profileQp1: {
       pr_bar_completion_per: '20% completed',
+      upload_profile_photo: 'Upload Profile Photo',
+      add_one_more: 'Add one more',
       hR: 'Hourly Rate',
       hRPrefix: '$',
       hRSuffix: 'USD per hour',
@@ -20,7 +22,6 @@ export default {
       avTime: 'Available Time',
       edu: 'Education',
       workH: 'Work history',
-      hPD: 'Hours Per Day',
       partTime: 'Part-Time',
       fullTime: 'Full-Time',
       infoEdu: 'Info about education',
@@ -30,7 +31,7 @@ export default {
       mesHR: 'Please, input hourly rate!',
       mesDescr: 'Please, input description!',
       mesPos: 'Please, input position!',
-      mesAvTime: 'Please, input hours per day!',
+      mesAvTime: 'Please, input time!',
       mesEdu: 'Education field is required!',
       mesTimeFrom: 'Please, input time from!',
       mesTimeTo: 'Please, input time to!',
@@ -50,6 +51,10 @@ export default {
       mesSkillsMin: 'Please, select at least 3 skills!',
       mesCategory: 'Please, input category!',
       mesOtherExp: 'Please, input other experience!',
+    },
+    freelancerPageInfo: {
+      sendOffer: 'Send offer',
+      inviteInterview: 'Invite to interview',
     },
     router: {
       toPage2: 'Click here for page 2.',
