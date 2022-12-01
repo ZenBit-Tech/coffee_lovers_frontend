@@ -22,6 +22,3 @@ export const routes = {
   talents: '/talents',
   freelancerInfo: '/freelancer-info',
 };
-export const proFileQuestions = {
-  profileQuestions2: '/profile-questions-2',
-};
