@@ -23,7 +23,6 @@ const TalentListPage = (): ReactElement => {
   const { t } = useTranslation();
   const { data, isLoading } = useGetFreelancerQuery({ page, search });
   const { Search } = Input;
-
   async function handleSearch(value: string) {
     setPage(1);
     setSearch(value);
