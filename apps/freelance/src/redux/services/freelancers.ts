@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'redux/store';
 
-import { FreelancerQuery } from './types/user.types';
+import { FreelancerQuery } from '../types/user.types';
 
 export const freelancersApi = createApi({
   reducerPath: 'freelancersReducer',
@@ -19,8 +19,10 @@ export const freelancersApi = createApi({
   }),
   endpoints: builder => ({
     getFreelancer: builder.query({
-      query: ({ page, search }: FreelancerQuery) =>
-        `/?page=${page}&search=${search}`,
+      query: (params: FreelancerQuery) => ({
+        url: '/',
+        params,
+      }),
     }),
   }),
 });

@@ -19,3 +19,16 @@ interface Category {
 interface Name {
   last: string;
 }
+
+export interface GetFreelancerParams {
+  limit?: number;
+  offset?: number;
+  skills?: number[];
+  categories?: number[];
+  hourly_rate_start?: number;
+  hourly_rate_end?: number;
+  available_time?: number;
+  english_level?: string;
+  search?: string;
+  page?: number;
+}

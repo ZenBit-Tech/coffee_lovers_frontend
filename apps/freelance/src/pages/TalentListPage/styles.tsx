@@ -16,6 +16,8 @@ export const StyledPagination = styled(Pagination)`
   padding: 20px 0;
   display: flex;
   justify-content: center;
+  align-items: center;
+  display: 'flex';
 `;
 
 export const Container = styled.div`

@@ -1,8 +1,15 @@
-import { ReactElement, useState } from 'react';
-import { Avatar, Col, Input, List, Row } from 'antd';
+import { ReactElement } from 'react';
+import { Avatar, Input, List } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
-import { SmallCard } from '@freelance/components';
+import { Button, Filters, SmallCard } from '@freelance/components';
+import { AppBar } from '@freelance/components';
+import { filterRight, filterTop } from '@pages/FindJobs/constants';
+import {
+  PageBar,
+  PageBarRightSideContainer,
+  TitleContainer,
+} from '@pages/FindJobs/styles';
 import { useGetFreelancerQuery } from 'redux/services/freelancers';
 
 import { User } from './model';
@@ -12,42 +19,61 @@ import {
   SmallCardContainer,
   StyledCard,
   StyledCardHeader,
-  StyledHeader,
-  StyledInformation,
   StyledName,
 } from './styles';
+import useFindFreelancers from './useFindFreelancers';
 
 const TalentListPage = (): ReactElement => {
-  const [search, setSearch] = useState<string>('');
-  const [page, setPage] = useState<number>(1);
+  const {
+    filterPayload,
+    page,
+    search,
+    take,
+    filtersVisibility,
+    submitFilter,
+    onSearch,
+    setPage,
+    setFiltersVisibility,
+  } = useFindFreelancers();
+
   const { t } = useTranslation();
-  const { data, isLoading } = useGetFreelancerQuery({ page, search });
-  const { Search } = Input;
-  async function handleSearch(value: string) {
-    setPage(1);
-    setSearch(value);
-  }
+  const req = {
+    page,
+    search,
+    take,
+    ...filterPayload,
+  };
+  const { data, isLoading } = useGetFreelancerQuery(req);
 
   return (
     <>
-      <StyledHeader>
-        <StyledInformation>{t('talent.header')}</StyledInformation>
-        <Row justify="end" gutter={8}>
-          <Col className="gutter-row" span={8}>
-            <Search
-              value={search}
-              onChange={e => {
-                handleSearch(e.target.value);
-              }}
-              placeholder={t('talent.search')}
-            />
-          </Col>
-          <Col className="gutter-row" span={8}>
-            <Input placeholder={t('talent.filter')} />
-          </Col>
-        </Row>
-      </StyledHeader>
+      <AppBar />
       <Container>
+        <PageBar>
+          <TitleContainer>
+            <div>{t('talent.header')}</div>
+            <div>{data ? data[1] : 0}</div>
+          </TitleContainer>
+          <PageBarRightSideContainer>
+            <Input.Search
+              placeholder={t('findJobs.searchPlaceholder')}
+              onSearch={onSearch}
+            />
+            <Button
+              height="35px"
+              onClick={() => setFiltersVisibility(prev => !prev)}
+            >
+              {t('findJobs.filters')}
+            </Button>
+            <Filters
+              visibility={filtersVisibility}
+              closeHandler={() => setFiltersVisibility(false)}
+              submit={submitFilter}
+              top={filterTop}
+              right={filterRight}
+            />
+          </PageBarRightSideContainer>
+        </PageBar>
         {!isLoading && (
           <List
             dataSource={data ? data[0] : []}
@@ -70,6 +96,7 @@ const TalentListPage = (): ReactElement => {
               >
                 <SmallCardContainer>
                   <SmallCard
+                    width="large"
                     text={t('talent.position', { position: item.position })}
                   />
                   <SmallCard
@@ -96,11 +123,6 @@ const TalentListPage = (): ReactElement => {
       <StyledPagination
         onChange={page => {
           setPage(page);
-        }}
-        style={{
-          alignItems: 'center',
-          display: 'flex',
-          justifyContent: 'center',
         }}
         total={data && data[1]}
         defaultCurrent={1}

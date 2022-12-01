@@ -69,6 +69,13 @@ export interface SetProfileImageResponse {
 }
 
 export interface FreelancerQuery {
-  page: number;
-  search: string;
+  skills?: number[];
+  categories?: number[];
+  hourly_rate_start?: number;
+  hourly_rate_end?: number;
+  available_time?: number;
+  english_level?: string;
+  search?: string;
+  page?: number;
+  take?: number;
 }
