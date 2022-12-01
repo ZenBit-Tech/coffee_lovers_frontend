@@ -1,5 +1,5 @@
 import { SerializedError } from '@reduxjs/toolkit';
-import { UserError } from 'redux/services/types/user.types';
+import { UserError } from 'redux/types/user.types';
 
 const errorMessages: { error: string; message: string }[] = [
   { error: 'User not found', message: 'resetPassword.errors.userNotFound' },

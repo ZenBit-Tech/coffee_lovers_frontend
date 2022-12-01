@@ -29,7 +29,6 @@ import {
   Wrapper,
 } from './styles';
 import { FilterFormItems, FiltersProps } from './types';
-import { getSelectMaxItemsValidator } from './validation';
 
 export const Filters: FC<FiltersProps> = ({
   visibility,
@@ -81,10 +80,7 @@ export const Filters: FC<FiltersProps> = ({
               name={skillsName}
               control={control}
               render={({ field }) => (
-                <StyledFormItem
-                  rules={[getSelectMaxItemsValidator(t)]}
-                  {...field}
-                >
+                <StyledFormItem {...field}>
                   <Select
                     mode="multiple"
                     allowClear
@@ -103,10 +99,7 @@ export const Filters: FC<FiltersProps> = ({
               name={categoriesName}
               control={control}
               render={({ field }) => (
-                <StyledFormItem
-                  rules={[getSelectMaxItemsValidator(t)]}
-                  {...field}
-                >
+                <StyledFormItem {...field}>
                   <Select
                     mode="multiple"
                     allowClear

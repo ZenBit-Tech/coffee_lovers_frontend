@@ -5,13 +5,13 @@ import {
   FetchArgs,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
+import { RootState } from 'redux/store';
 import {
   AddEducation,
   AddWorkhistory,
   UpdateUser,
   UserError,
-} from 'redux/services/types/user.types';
-import { RootState } from 'redux/store';
+} from 'redux/types/user.types';
 
 export const profileQuestions1Api = createApi({
   reducerPath: 'profileQuestions1Api',
@@ -37,7 +37,7 @@ export const profileQuestions1Api = createApi({
       invalidatesTags: ['ProfileQuestions1'],
     }),
     addUserEduInfo: builder.mutation({
-      query: (payload: AddEducation) => ({
+      query: (payload: AddEducation[]) => ({
         url: `/education-info`,
         method: 'POST',
         body: payload,
@@ -45,7 +45,7 @@ export const profileQuestions1Api = createApi({
       invalidatesTags: ['ProfileQuestions1'],
     }),
     addUserWorkhistoryInfo: builder.mutation({
-      query: (payload: AddWorkhistory) => ({
+      query: (payload: AddWorkhistory[]) => ({
         url: `/workhistory-info`,
         method: 'POST',
         body: payload,
