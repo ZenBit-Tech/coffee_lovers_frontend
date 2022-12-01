@@ -1,15 +1,15 @@
-import { Form, Select, Upload } from 'antd';
+import { Form, Select } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { UploadOutlined } from '@ant-design/icons';
 import {
+  AvatarUpload,
   DefInput,
   prBarStrColor,
   prBarTrailColor,
   profileQ1,
-  proFileQuestions,
   ProgressBar,
+  routes,
   StyledSelect,
 } from '@freelance/components';
 import {
@@ -41,9 +41,11 @@ export const ProfileQuestions1 = () => {
     try {
       await UpdateUserInfo(userPayload);
       await AddUserEduInfo(educationPayloadArr());
-      await AddUserWorkhistory(workPayloadArr());
+      if (workPayloadArr() !== undefined) {
+        await AddUserWorkhistory(workPayloadArr());
+      }
       form.resetFields();
-      navigate(proFileQuestions.profileQuestions2);
+      navigate(routes.profileQuestions2);
     } catch (error) {
       alert(error);
     }
@@ -58,13 +60,9 @@ export const ProfileQuestions1 = () => {
         trailColor={prBarTrailColor}
       />
       <St.StUserAvatarWrapper>
-        <St.StUserIcon />
-        <Upload>
-          <St.StUserUpBtn icon={<UploadOutlined />}>
-            {t('description.profileQp1.upload_profile_photo')}
-          </St.StUserUpBtn>
-        </Upload>
+        <AvatarUpload />
       </St.StUserAvatarWrapper>
+
       <St.StForm
         name={profileQ1.form}
         {...profileQ1.formItemLayout}

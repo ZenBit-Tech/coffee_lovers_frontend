@@ -20,6 +20,7 @@ export const routes = {
   jobPost: '/owner-profile/job-post',
   ownerProfile: '/owner-profile',
   talents: '/talents',
+  freelancerInfo: '/freelancer-info',
 };
 export const proFileQuestions = {
   profileQuestions2: '/profile-questions-2',
