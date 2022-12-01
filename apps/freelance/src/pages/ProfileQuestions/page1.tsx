@@ -37,12 +37,13 @@ export const ProfileQuestions1 = () => {
   const onFinish: SubmitHandler<IProfileQuestions> = async values => {
     const [educationPayloadArr, userPayload, workPayloadArr] =
       onFinishLogic(values);
+    const workPayload = workPayloadArr();
 
     try {
       await UpdateUserInfo(userPayload);
       await AddUserEduInfo(educationPayloadArr());
-      if (workPayloadArr() !== undefined) {
-        await AddUserWorkhistory(workPayloadArr());
+      if (workPayload.length) {
+        await AddUserWorkhistory(workPayload);
       }
       form.resetFields();
       navigate(routes.profileQuestions2);
