@@ -2,16 +2,19 @@ import { useState } from 'react';
 import { Avatar, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
-import { AppBar, ProposalModal } from '@freelance/components';
-import { skills } from '@pages/JobDetailsPage/constants';
+import { AppBar, ProposalModal, StyledButton } from '@freelance/components';
+import { projectDetails, skills } from '@pages/JobDetailsPage/constants';
 
 import {
   JobDescrText,
+  JobDetailsWrapper,
   JobOptionsText,
   JobSkillsText,
+  LabelText,
   LogoWrapper,
   SkillsWrapper,
-  StyledButton,
+  Text,
+  Wrapper,
 } from './styles';
 
 type Open = boolean;
@@ -31,38 +34,61 @@ export default function JobDetailsPage() {
   return (
     <>
       <AppBar />
+      <Wrapper>
+        <Space direction="vertical" size="middle">
+          <h2>{projectDetails.name}</h2>
+          <JobDetailsWrapper>
+            <Space>
+              <JobOptionsText>
+                <LabelText>{t('job_details.date')}:</LabelText>
+                <Text>{projectDetails.date}</Text>
+              </JobOptionsText>
+              <JobOptionsText>
+                <LabelText>{t('job_details.category')}:</LabelText>
+                <Text>{projectDetails.category}</Text>
+              </JobOptionsText>
+              <JobOptionsText>
+                <LabelText>{t('job_details.duration')}:</LabelText>
+                <Text>{projectDetails.duration}</Text>
+              </JobOptionsText>
+              <JobOptionsText>
+                <LabelText> {t('job_details.rate')}:</LabelText>
+                <Text>{projectDetails.rate}</Text>
+              </JobOptionsText>
+              <JobOptionsText>
+                <LabelText>{t('job_details.time')}:</LabelText>
+                <Text>{projectDetails.availableTime}</Text>
+              </JobOptionsText>
+              <JobOptionsText>
+                <LabelText>
+                  {t('description.profileQp2.english_level')}:
+                </LabelText>
+                <Text>{projectDetails.englishLevel}</Text>
+              </JobOptionsText>
+            </Space>
+          </JobDetailsWrapper>
+          <JobDescrText>
+            <Text>{projectDetails.discription}</Text>
+          </JobDescrText>
 
-      <Space direction="vertical" size="middle">
-        <h2>{t('job_details.name')}</h2>
-        <Space>
-          <JobOptionsText>{t('job_details.date')}</JobOptionsText>
-          <JobOptionsText>{t('job_details.category')}</JobOptionsText>
-          <JobOptionsText>{t('job_details.duration')}</JobOptionsText>
-          <JobOptionsText>{t('job_details.rate')}</JobOptionsText>
-          <JobOptionsText>{t('job_details.time')}</JobOptionsText>
-          <JobOptionsText>
-            {t('description.profileQp2.english_level')}
-          </JobOptionsText>
+          <LabelText>{t('job_details.skills')}</LabelText>
+          <SkillsWrapper>
+            {skills?.map(skill => (
+              <JobSkillsText>{skill}</JobSkillsText>
+            ))}
+          </SkillsWrapper>
+
+          <StyledButton onClick={showModal}>
+            {t('job_details.send_proposal')}
+          </StyledButton>
         </Space>
 
-        <JobDescrText>{t('job_details.descr')}</JobDescrText>
-        <p>{t('job_details.skills')}</p>
-        <SkillsWrapper>
-          {skills?.map(skill => (
-            <JobSkillsText>{skill}</JobSkillsText>
-          ))}
-        </SkillsWrapper>
+        <LogoWrapper>
+          <Avatar size={64} icon={<UserOutlined />} />
+          <LabelText>{projectDetails.jobOwnerName}</LabelText>
+        </LogoWrapper>
+      </Wrapper>
 
-        <StyledButton onClick={showModal}>
-          {t('job_details.send_proposal')}
-        </StyledButton>
-      </Space>
-
-      <LogoWrapper direction="vertical">
-        <Avatar size={64} icon={<UserOutlined />} />
-        {/* <AvatarUpload /> */}
-        <p>{t('job_details.owners_name')}</p>
-      </LogoWrapper>
       <ProposalModal openModal={openModal} onCancel={onCancel} />
     </>
   );

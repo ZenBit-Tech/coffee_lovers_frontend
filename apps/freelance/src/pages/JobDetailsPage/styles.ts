@@ -1,17 +1,41 @@
-import { Button, Space } from 'antd';
+import { Space } from 'antd';
 import styled from 'styled-components';
+import { baseTheme } from 'src/styles/theme';
 
-export const JobOptionsText = styled.p`
+export const Wrapper = styled.div`
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const JobDetailsWrapper = styled.div`
+  margin-top: 40px;
+  margin-bottom: 20px;
+`;
+
+export const JobOptionsText = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 5px 10px;
   border: 1px solid var(--grey);
   box-shadow: 2px 2px 2px var(--grey);
   border-radius: 5px;
   margin-right: 10px;
+  align-items: center;
 `;
 
-export const JobDescrText = styled.p`
-  padding: 5px;
-  min-height: 200px;
+export const LabelText = styled.p`
+  font-size: ${baseTheme.fontSize.large};
+`;
+
+export const Text = styled.p`
+  font-size: ${baseTheme.fontSize.medium};
+`;
+
+export const JobDescrText = styled.div`
+  max-width: 900px;
+  padding: 15px;
+  min-height: 100px;
   border: 1px solid var(--grey);
   box-shadow: 2px 2px 2px var(--grey);
   border-radius: 5px;
@@ -19,40 +43,23 @@ export const JobDescrText = styled.p`
 `;
 
 export const JobSkillsText = styled.p`
-  padding: 5px;
-  min-width: 100px;
+  padding: 5px 10px;
+  min-width: 70px;
   border: 1px solid var(--grey);
   box-shadow: 2px 2px 2px var(--grey);
   border-radius: 5px;
   margin-right: 10px;
+  text-align: center;
 `;
 
 export const SkillsWrapper = styled(Space)`
   margin-bottom: 20px;
 `;
 
-export const StyledButton = styled(Button)`
-  height: ${({ theme }) => theme.sizes.button.height};
-  min-width: ${({ theme }) => theme.sizes.button.width};
-  font-weight: ${({ theme }) => theme.weight.medium};
-  font-size: ${({ theme }) => theme.fontSize.normal};
-  outline: 0;
-  border: none;
-  border-radius: 8px;
-
-  color: white;
-  box-shadow: 0px 3px 5px -3px rgba(66, 75, 178, 0.36);
-  background-color: ${({ theme }) => theme.colors.button.bg};
-
-  transition: var(--animation-cubic-bezier);
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.button.hover};
-  }
-`;
-
-export const LogoWrapper = styled(Space)`
-  margin-top: 30px;
-  margin-left: 80px;
+export const LogoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  margin-left: auto;
   align-items: center;
 `;

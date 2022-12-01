@@ -1,9 +1,9 @@
 import { Form, Modal, ModalProps } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { StyledButton } from '@freelance/components';
 import { profileQ1 } from '@freelance/constants';
 import { hourRate, jobRate } from 'src/pages/JobDetailsPage/constants';
-import { StyledButton } from 'src/pages/JobDetailsPage/styles';
 
 import {
   RateWrapper,

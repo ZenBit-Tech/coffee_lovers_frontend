@@ -1,5 +1,6 @@
 import { Form, Input, InputNumber } from 'antd';
 import styled from 'styled-components';
+import { baseTheme } from 'src/styles/theme';
 
 const { TextArea } = Input;
 
@@ -19,15 +20,15 @@ export const StyledTextArea = styled(TextArea)`
 
 export const RateWrapper = styled(Form.Item)`
   display: flex;
-  max-width: 280px;
+  max-width: 310px;
   margin-top: 15px;
 
   label {
-    font-weight: 500;
+    font-size: ${baseTheme.fontSize.large};
   }
 `;
 
 export const StyledText = styled.p`
   margin-bottom: 10px;
-  font-weight: 500;
+  font-size: ${baseTheme.fontSize.large};
 `;
