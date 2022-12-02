@@ -19,10 +19,10 @@ const FindJobs = () => {
     offset,
     search,
     filterPayload,
+    filtersVisibility,
     submitFilter,
     onChangePagination,
     onSearch,
-    filtersVisibility,
     setFiltersVisibility,
   } = useFindJobs();
   const { data, isLoading } = useFindJobsQuery({
