@@ -1,8 +1,8 @@
-import { Form, Select, Upload } from 'antd';
+import { Form, Select } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { UploadOutlined } from '@ant-design/icons';
 import {
+  AvatarUpload,
   prBarStrColor,
   prBarTrailColor,
   profileQ2,
@@ -45,12 +45,7 @@ export const ProfileQuestions2 = () => {
         trailColor={prBarTrailColor}
       />
       <St.StUserAvatarWrapper>
-        <St.StUserIcon />
-        <Upload>
-          <St.StUserUpBtn icon={<UploadOutlined />}>
-            Upload Profile Photo
-          </St.StUserUpBtn>
-        </Upload>
+        <AvatarUpload />
       </St.StUserAvatarWrapper>
       <St.StForm
         name={profileQ2.form}
