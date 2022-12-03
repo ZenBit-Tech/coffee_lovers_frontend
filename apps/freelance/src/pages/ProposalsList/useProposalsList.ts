@@ -8,9 +8,13 @@ interface UseProposalsListResponse {
   isLoading: boolean;
 }
 
+type ProposalsListParams = {
+  id: string;
+};
+
 const useProposalsList = (): UseProposalsListResponse => {
-  const { id } = useParams();
-  const { data, isSuccess, isLoading } = useGetJobProposalsQuery(id || '');
+  const { id } = useParams<keyof ProposalsListParams>() as ProposalsListParams;
+  const { data, isSuccess, isLoading } = useGetJobProposalsQuery(id);
 
   return {
     data,
