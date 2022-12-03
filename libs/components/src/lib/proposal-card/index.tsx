@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Avatar, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
+import { InformationSticker } from '@freelance/components';
 import { User } from 'src/redux/types/user.types';
 import { getFileUrl } from 'src/utils/api';
 import { getSizedText } from 'src/utils/text';
@@ -10,7 +11,6 @@ import { avatarSize, coverLetterMaxLength } from './constants';
 import {
   CoverLetterText,
   CoverLetterVisibility,
-  FreelancerDetail,
   FreelancerDetailsContainer,
   FreelancerInfoContainer,
   HourlyRateContainer,
@@ -56,10 +56,12 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             </StyledFreelancerName>
             <FreelancerDetailsContainer>
               {user?.position && (
-                <FreelancerDetail>{user?.position}</FreelancerDetail>
+                <InformationSticker>{user?.position}</InformationSticker>
               )}
               {user?.skills?.map(skill => (
-                <FreelancerDetail key={skill.id}>{skill.name}</FreelancerDetail>
+                <InformationSticker key={skill.id}>
+                  {skill.name}
+                </InformationSticker>
               ))}
             </FreelancerDetailsContainer>
           </FreelancerInfoContainer>
@@ -71,7 +73,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
               {t('proposalsList.hourly_rate', { rate: hourlyRate })}
             </StyledHourlyRate>
             {availableTime && (
-              <FreelancerDetail>{availableTime}</FreelancerDetail>
+              <InformationSticker>{availableTime}</InformationSticker>
             )}
           </HourlyRateContainer>
           <Button>{t('proposalsList.start_chat')}</Button>

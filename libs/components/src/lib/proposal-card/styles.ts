@@ -55,14 +55,10 @@ export const StyledFreelancerName = styled.span`
 export const FreelancerDetailsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-`;
 
-export const FreelancerDetail = styled.div`
-  margin-right: 15px;
-  font-size: ${({ theme }) => theme.fontSize.normal};
-  border: 1px ${({ theme }) => theme.colors.grey} solid;
-  padding: 2px 8px;
-  border-radius: 10px;
+  & > div {
+    margin-right: 10px;
+  }
 `;
 
 export const StyledHourlyRate = styled.div``;
