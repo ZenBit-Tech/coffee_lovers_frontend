@@ -125,9 +125,7 @@ export const ButtonWrapper = styled.div`
 
 export const LogoWrapper = styled(Space)`
   align-items: center;
-  position: absolute;
-  left: 20%;
-  top: 30px;
+  margin-top: 5px;
   font-weight: ${({ theme }) => theme.weight.bold};
   font-size: ${({ theme }) => theme.fontSize.large};
 `;
