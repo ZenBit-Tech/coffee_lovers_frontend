@@ -43,7 +43,7 @@ export const validation = {
 
 export const profileQ2 = {
   prBarProfileQ2Per: 50,
-  form: 'profile_questions_2',
+  form: 'profile_questions_1',
   skills: 'skills',
   category: 'category_id',
   englishLevel: 'english_level',

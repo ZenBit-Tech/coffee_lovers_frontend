@@ -3,7 +3,7 @@ import {
   AddEducation,
   AddWorkhistory,
   UpdateUser,
-} from 'redux/types/user.types';
+} from 'src/redux/types/user.types';
 
 import { IProfileQuestions } from './model';
 
@@ -19,6 +19,10 @@ export const onFinishLogic = (
     description: values.description,
     hourly_rate: values.hourly_rate,
     position: values.position,
+    category_id: values.category_id,
+    english_level: values.english_level,
+    other_experience: values.other_experience,
+    skills: values.skills,
   };
   const educationPayloadArr = () => {
     return values.education.map(el => {
