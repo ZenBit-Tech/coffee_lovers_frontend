@@ -2,6 +2,9 @@ import { Form, Space, Typography } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
+  durationOptions,
+  InputsValues,
+  schema,
   StyledButton,
   StyledInput,
   StyledInputNumber,
@@ -10,8 +13,6 @@ import {
 } from '@freelance/components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useProperties from 'src/hooks/useProperties';
-
-import { durationOptions, InputsValues, schema } from '../constants';
 
 import {
   ButtonWrapper,
