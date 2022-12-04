@@ -1,4 +1,4 @@
-import { Input, Select } from 'antd';
+import { Input, InputNumber, Select } from 'antd';
 import styled from 'styled-components';
 
 const { TextArea } = Input;
@@ -23,6 +23,11 @@ export const StyledSelect = styled(Select)`
 `;
 
 export const StyledTextArea = styled(TextArea)`
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px var(--grey);
+`;
+
+export const StyledInputNumber = styled(InputNumber)`
   border-radius: 5px;
   box-shadow: 2px 2px 2px var(--grey);
 `;

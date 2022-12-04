@@ -1,16 +1,15 @@
 import { Form, Space, Typography } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import {
   StyledButton,
   StyledInput,
+  StyledInputNumber,
   StyledSelect,
   StyledTextArea,
 } from '@freelance/components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useProperties from 'src/hooks/useProperties';
-import { usePostJobsMutation } from 'src/redux/job-post/job-post';
 
 import { durationOptions, InputsValues, schema } from '../constants';
 
@@ -22,7 +21,6 @@ import {
 } from './styles';
 
 const { Title, Text } = Typography;
-
 export function JobPostForm() {
   const {
     categories,
@@ -32,8 +30,6 @@ export function JobPostForm() {
     getOptionsForSelectWithId,
     getOptionsForSelectString,
   } = useProperties();
-  const navigate = useNavigate();
-  const [PostJob] = usePostJobsMutation();
 
   const { t } = useTranslation();
   const {
@@ -45,22 +41,7 @@ export function JobPostForm() {
   });
 
   const onSubmitFirstPage: SubmitHandler<InputsValues> = async data => {
-    navigate('/talent-list');
     console.log(data);
-
-    try {
-      await PostJob({
-        title: 'Landing page',
-        description: 'I need create landing page',
-        hourly_rate: 14,
-        available_time: 45,
-        category: 4,
-        english_level: 'Upper-Intermediate',
-        skills: [4, 5, 3],
-      });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
@@ -72,14 +53,38 @@ export function JobPostForm() {
           </TitleWrapper>
         </Form.Item>
         <Controller
-          name="projectName"
+          name="title"
           control={control}
           render={({ field }) => (
-            <Form.Item label={t('job_post_page.project_name_label')}>
-              <StyledInput {...field} size="large" />
-              {errors.projectName && (
+            <Form.Item label={t('job_post_page.title_label')}>
+              <StyledInput
+                {...field}
+                size="large"
+                placeholder={t('job_post_page.title_label_placeholder')}
+              />
+              {errors.title && (
+                <StyledErrorMessage>{errors.title?.message}</StyledErrorMessage>
+              )}
+            </Form.Item>
+          )}
+        />
+
+        <Controller
+          name="description"
+          control={control}
+          render={({ field }) => (
+            <Form.Item label={t('job_post_page.description_label')}>
+              <StyledTextArea
+                {...field}
+                allowClear
+                size="large"
+                placeholder={t('job_post_page.description_label_placeholder')}
+                maxLength={250}
+                autoSize={true}
+              />
+              {errors.description && (
                 <StyledErrorMessage>
-                  {errors.projectName?.message}
+                  {errors.description?.message}
                 </StyledErrorMessage>
               )}
             </Form.Item>
@@ -87,41 +92,42 @@ export function JobPostForm() {
         />
 
         <Controller
-          name="about"
+          name="hourly_rate"
           control={control}
           render={({ field }) => (
-            <Form.Item label={t('job_post_page.about_label')}>
-              <StyledTextArea
+            <Form.Item label={t('job_post_page.hourly_rate')}>
+              <StyledInputNumber
                 {...field}
-                allowClear
-                size="large"
-                placeholder="maxLength is 250"
-                maxLength={250}
-                autoSize={true}
+                prefix={t('description.profileQp1.hRPrefix')}
+                addonAfter={t('description.profileQp1.hRSuffix')}
+                style={{ width: '100%' }}
+                min={1}
               />
-              {errors.about && (
-                <StyledErrorMessage>{errors.about?.message}</StyledErrorMessage>
+              {errors.hourly_rate && (
+                <StyledErrorMessage>
+                  {errors.hourly_rate?.message}
+                </StyledErrorMessage>
               )}
             </Form.Item>
           )}
         />
 
         <Controller
-          name="jobCategory"
+          name="category"
           control={control}
           render={({ field }) => (
-            <Form.Item label={t('job_post_page.job_category_label')}>
+            <Form.Item label={t('job_post_page.category_label')}>
               <StyledSelect
                 {...field}
                 size="large"
                 showSearch
-                placeholder="Select to search"
+                placeholder={t('job_post_page.select_to_search')}
                 style={{ width: '100%' }}
                 options={getOptionsForSelectWithId(categories)}
               />
-              {errors.jobCategory && (
+              {errors.category && (
                 <StyledErrorMessage>
-                  {errors.jobCategory?.message}
+                  {errors.category?.message}
                 </StyledErrorMessage>
               )}
             </Form.Item>
@@ -154,7 +160,7 @@ export function JobPostForm() {
         />
 
         <Controller
-          name="englishLevel"
+          name="english_level"
           control={control}
           render={({ field }) => (
             <Form.Item label={t('job_post_page.english_level_label')}>
@@ -165,9 +171,9 @@ export function JobPostForm() {
                 defaultValue={t('job_post_page.english_level_placeholder')}
                 options={getOptionsForSelectString(englishLevels)}
               />
-              {errors.englishLevel && (
+              {errors.english_level && (
                 <StyledErrorMessage>
-                  {errors.englishLevel?.message}
+                  {errors.english_level?.message}
                 </StyledErrorMessage>
               )}
             </Form.Item>
@@ -175,7 +181,7 @@ export function JobPostForm() {
         />
         <Space>
           <Controller
-            name="durationAmount"
+            name="duration_amount"
             control={control}
             render={({ field }) => (
               <Form.Item label={t('job_post_page.duration')}>
@@ -184,9 +190,9 @@ export function JobPostForm() {
                   style={{ width: '100%' }}
                   placeholder={t('job_post_page.duration_amount_placeholder')}
                 />
-                {errors.durationAmount && (
+                {errors.duration_amount && (
                   <StyledErrorMessage>
-                    {errors.durationAmount?.message}
+                    {errors.duration_amount?.message}
                   </StyledErrorMessage>
                 )}
               </Form.Item>
@@ -213,6 +219,29 @@ export function JobPostForm() {
             )}
           />
         </Space>
+
+        <Controller
+          name="available_time"
+          control={control}
+          render={({ field }) => (
+            <Form.Item label={t('job_post_page.available_time')}>
+              <StyledSelect
+                {...field}
+                size="large"
+                showSearch
+                placeholder={t('job_post_page.available_time_placeholder')}
+                allowClear
+                style={{ width: '100%' }}
+                options={getOptionsForSelectWithId(categories)}
+              />
+              {errors.available_time && (
+                <StyledErrorMessage>
+                  {errors.available_time?.message}
+                </StyledErrorMessage>
+              )}
+            </Form.Item>
+          )}
+        />
 
         <Form.Item>
           <ButtonWrapper>
