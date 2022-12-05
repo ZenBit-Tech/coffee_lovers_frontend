@@ -30,13 +30,18 @@ export const onFinishLogic = (
     });
   };
   const workPayloadArr = () => {
-    return values.work_history_wrapper.map(el => {
-      return {
-        work_history_descr: el.work_history,
-        work_history_from: el.work_from.format(profileQ1.formatYear),
-        work_history_to: el.work_to.format(profileQ1.formatYear),
-      };
-    });
+    return values.work_history_wrapper
+      ?.map(el => {
+        return {
+          work_history_descr: el.work_history,
+          work_history_from: el.work_from?.format(profileQ1.formatYear),
+          work_history_to: el.work_to?.format(profileQ1.formatYear),
+        };
+      })
+      .filter(
+        el =>
+          el.work_history_descr || el.work_history_from || el.work_history_to,
+      );
   };
 
   return [educationPayloadArr, userPayload, workPayloadArr];

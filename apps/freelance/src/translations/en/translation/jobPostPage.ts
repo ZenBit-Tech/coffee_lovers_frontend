@@ -1,18 +1,32 @@
 export default {
   job_post_page: {
-    page_name: 'Post a job page',
-    fill_this_form: 'Please fill this form',
-    project_name_label: 'Add a name for your project*',
-    about_label: 'Tell more about your project*',
-    english_level_label: 'English level*',
-    english_level_placeholder: 'Required level',
-    job_category_label: 'Please select job category*',
-    skills_label: 'What skills are required?',
+    form_title: 'Please fill this form to post a job',
+
+    title_label: 'Project title*',
+    title_label_placeholder: 'Add a title for your project',
+
+    description_label: 'Tell more about your project*',
+    description_label_placeholder: 'Max length is 250 symbols',
+
+    hourly_rate: 'Hourly rate',
+
+    category_label: 'Job category*',
+
+    skills_label: 'What skills are required?*',
     skills_label_minimize: 'Enter at least 3 skills',
     skills_placeholder: 'Start typing to search skills',
-    duration: 'Duration',
+
+    english_level_label: 'English level*',
+    english_level_placeholder: 'Required level',
+
+    duration: 'Duration*',
     duration_amount_placeholder: 'Amount',
     duration_placeholder: 'Month/Week',
+
+    available_time: 'Available time',
+    available_time_placeholder: 'Hrs per day',
+
     post_a_job: 'Post a job',
+    select_to_search: 'Select to search',
   },
 };

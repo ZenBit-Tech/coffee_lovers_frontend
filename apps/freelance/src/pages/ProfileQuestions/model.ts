@@ -20,7 +20,7 @@ interface educationProps {
   education_to: Moment;
 }
 interface workProps {
-  work_history: string;
-  work_from: Moment;
-  work_to: Moment;
+  work_history?: string;
+  work_from?: Moment;
+  work_to?: Moment;
 }
