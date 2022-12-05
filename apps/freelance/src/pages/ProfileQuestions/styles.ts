@@ -9,10 +9,8 @@ export const Wrapper = styled.div`
 export const StUserAvatarWrapper = styled.div`
   position: absolute;
   top: 0;
-  right: 20%;
+  right: 30%;
   padding: inherit;
-  display: flex;
-  flex-direction: column;
   @media (max-width: 769px) {
     right: 0;
   }

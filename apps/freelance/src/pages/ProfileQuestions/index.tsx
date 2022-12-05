@@ -1,7 +1,6 @@
-import { Upload } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { UploadOutlined } from '@ant-design/icons';
 import {
+  AvatarUpload,
   FreelancerForm,
   prBarStrColor,
   prBarTrailColor,
@@ -24,12 +23,7 @@ const ProfileQuestions = () => {
         trailColor={prBarTrailColor}
       />
       <St.StUserAvatarWrapper>
-        <St.StUserIcon />
-        <Upload>
-          <St.StUserUpBtn icon={<UploadOutlined />}>
-            {t('description.profileQp1.upload_profile_photo')}
-          </St.StUserUpBtn>
-        </Upload>
+        <AvatarUpload />
       </St.StUserAvatarWrapper>
       <FreelancerForm
         submitText={t('description.profileQp1.finish')}

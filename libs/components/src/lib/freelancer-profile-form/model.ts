@@ -20,9 +20,9 @@ interface educationProps {
   education_to: Moment;
 }
 interface workProps {
-  work_history_descr: string;
-  work_history_from: Moment;
-  work_history_to: Moment;
+  work_history_descr?: string;
+  work_history_from?: Moment;
+  work_history_to?: Moment;
 }
 
 export interface workConvertedProps extends workProps {

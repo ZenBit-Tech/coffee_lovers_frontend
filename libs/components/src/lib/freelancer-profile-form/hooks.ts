@@ -40,13 +40,18 @@ export const onFinishLogic = (
     });
   };
   const workPayloadArr = () => {
-    return values.work_history_wrapper.map(el => {
-      return {
-        work_history_descr: el.work_history_descr,
-        work_history_from: el.work_history_from.format(profileQ1.formatYear),
-        work_history_to: el.work_history_to.format(profileQ1.formatYear),
-      };
-    });
+    return values.work_history_wrapper
+      ?.map(el => {
+        return {
+          work_history_descr: el.work_history_descr,
+          work_history_from: el.work_history_from?.format(profileQ1.formatYear),
+          work_history_to: el.work_history_to?.format(profileQ1.formatYear),
+        };
+      })
+      .filter(
+        el =>
+          el.work_history_descr || el.work_history_from || el.work_history_to,
+      );
   };
 
   return [educationPayloadArr, userPayload, workPayloadArr];
@@ -63,8 +68,10 @@ export const convertWorkTime = (work: mockWork[]): workConvertedProps[] => {
   });
 };
 
-export const convertEduTime = (work: mockEducation[]): eduConvertedProps[] => {
-  return work?.map(el => {
+export const convertEduTime = (
+  education: mockEducation[],
+): eduConvertedProps[] => {
+  return education?.map(el => {
     return {
       id: el.id,
       education_descr: el.education_descr,

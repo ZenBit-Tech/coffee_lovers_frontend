@@ -34,12 +34,6 @@ const FormWorkList: FC<freelancerWorkProps> = ({ work }) => {
                   <St.StWorkWrapper
                     {...restField}
                     name={[name, profileQ1.workHistory]}
-                    rules={[
-                      {
-                        required: true,
-                        message: `${t('description.profileQp1.mesWork')}`,
-                      },
-                    ]}
                     wrapperCol={{
                       sm: { span: 26, offset: 0 },
                     }}
@@ -51,12 +45,6 @@ const FormWorkList: FC<freelancerWorkProps> = ({ work }) => {
                   <St.StFormItemWorkDateFrom
                     {...restField}
                     name={[name, profileQ1.workFrom]}
-                    rules={[
-                      {
-                        required: true,
-                        message: `${t('description.profileQp1.mesTimeFrom')}`,
-                      },
-                    ]}
                   >
                     <St.StDatePickerWork
                       placeholder={t('description.profileQp1.from')}
@@ -66,12 +54,6 @@ const FormWorkList: FC<freelancerWorkProps> = ({ work }) => {
                   <St.StFormItemDateTo
                     {...restField}
                     name={[name, profileQ1.workTo]}
-                    rules={[
-                      {
-                        required: true,
-                        message: `${t('description.profileQp1.mesTimeTo')}`,
-                      },
-                    ]}
                   >
                     <St.StDatePickerWork
                       placeholder={t('description.profileQp1.to')}
