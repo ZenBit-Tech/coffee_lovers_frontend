@@ -78,7 +78,7 @@ export const StTextAreaWork = styled(TextArea)`
   box-shadow: 2px 2px 2px var(--grey);
 `;
 
-export const StWorkWrapper = styled.div`
+export const StWorkWrapper = styled(Form.Item)`
   width: 280px;
 `;
 

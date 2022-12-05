@@ -38,4 +38,5 @@ const ProfileQuestions = () => {
     </St.Wrapper>
   );
 };
+
 export default ProfileQuestions;

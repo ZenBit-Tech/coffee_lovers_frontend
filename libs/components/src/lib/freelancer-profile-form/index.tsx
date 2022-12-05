@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
   DefInput,
+  mockEducation,
+  mockWork,
   profileQ1,
   profileQ2,
   StyledSelect,
@@ -25,12 +27,16 @@ import * as St from './styles';
 
 interface freelancerFormProps {
   user?: User;
+  work?: mockWork[];
+  education?: mockEducation[];
   navigation?: string;
   submitText: string;
 }
 
 export const FreelancerForm: FC<freelancerFormProps> = ({
   user,
+  work,
+  education,
   navigation,
   submitText,
 }) => {
@@ -52,16 +58,18 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
   const onFinish: SubmitHandler<IProfileQuestions> = async values => {
     const [educationPayloadArr, userPayload, workPayloadArr] =
       onFinishLogic(values);
+
     try {
       await UpdateUserInfo(userPayload);
       await AddUserEduInfo(educationPayloadArr());
       await AddUserWorkhistory(workPayloadArr());
-      form.resetFields();
+      // form.resetFields();
       navigation && navigate(navigation);
     } catch (error) {
       alert(error);
     }
   };
+
   return (
     <St.StForm
       name={profileQ1.form}
@@ -71,6 +79,8 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
         [profileQ1.hR]: user?.hourly_rate,
         [profileQ1.descr]: user?.description,
         [profileQ1.pos]: user?.position,
+        [profileQ2.skills]: user?.skills.map(el => el.id),
+        [profileQ2.category]: user?.category.id,
         [profileQ1.avTime]: user?.available_time,
         [profileQ2.englishLevel]: user?.english_level,
         [profileQ2.otherExp]: user?.other_experience,
@@ -147,8 +157,8 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
           </Option>
         </StyledSelect>
       </Form.Item>
-      <FormEduList />
-      <FormWorkList />
+      <FormEduList education={education} />
+      <FormWorkList work={work} />
       <Form.Item
         label={t('description.profileQp2.skills_top')}
         name={profileQ2.skills}

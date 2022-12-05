@@ -1,11 +1,17 @@
+import moment from 'moment';
 import { profileQ1 } from '@freelance/components';
+import { mockEducation, mockWork } from '@freelance/components';
 import {
   AddEducation,
   AddWorkhistory,
   UpdateUser,
 } from 'src/redux/types/user.types';
 
-import { IProfileQuestions } from './model';
+import {
+  eduConvertedProps,
+  IProfileQuestions,
+  workConvertedProps,
+} from './model';
 
 export const onFinishLogic = (
   values: IProfileQuestions,
@@ -27,7 +33,7 @@ export const onFinishLogic = (
   const educationPayloadArr = () => {
     return values.education.map(el => {
       return {
-        education_descr: el.information_about_education,
+        education_descr: el.education_descr,
         education_from: el.education_from.format(profileQ1.formatYear),
         education_to: el.education_to.format(profileQ1.formatYear),
       };
@@ -36,12 +42,34 @@ export const onFinishLogic = (
   const workPayloadArr = () => {
     return values.work_history_wrapper.map(el => {
       return {
-        work_history_descr: el.work_history,
-        work_history_from: el.work_from.format(profileQ1.formatYear),
-        work_history_to: el.work_to.format(profileQ1.formatYear),
+        work_history_descr: el.work_history_descr,
+        work_history_from: el.work_history_from.format(profileQ1.formatYear),
+        work_history_to: el.work_history_to.format(profileQ1.formatYear),
       };
     });
   };
 
   return [educationPayloadArr, userPayload, workPayloadArr];
+};
+
+export const convertWorkTime = (work: mockWork[]): workConvertedProps[] => {
+  return work?.map(el => {
+    return {
+      id: el.id,
+      work_history_descr: el.work_history_descr,
+      work_history_from: moment(el.work_history_from),
+      work_history_to: moment(el.work_history_to),
+    };
+  });
+};
+
+export const convertEduTime = (work: mockEducation[]): eduConvertedProps[] => {
+  return work?.map(el => {
+    return {
+      id: el.id,
+      education_descr: el.education_descr,
+      education_from: moment(el.education_from),
+      education_to: moment(el.education_to),
+    };
+  });
 };
