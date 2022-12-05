@@ -2,7 +2,12 @@ import queryString from 'query-string';
 import { ApiRoutes, baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'redux/store';
-import { FindJobsResponse, GetJobParams } from 'redux/types/jobs.types';
+import {
+  FindJobsResponse,
+  GetJobParams,
+  IJobProposal,
+  IProposalResponse,
+} from 'redux/types/jobs.types';
 
 enum EndpointsRoutes {
   findJobs = '/',
@@ -31,7 +36,23 @@ export const jobsApi = createApi({
         params,
       }),
     }),
+    sendProposal: builder.mutation({
+      query: (body: IJobProposal) => ({
+        url: '/proposal',
+        method: 'POST',
+        body,
+      }),
+    }),
+    getProposals: builder.query<IProposalResponse, number>({
+      query: id => ({
+        url: `/${id}/proposals`,
+      }),
+    }),
   }),
 });
 
-export const { useFindJobsQuery } = jobsApi;
+export const {
+  useFindJobsQuery,
+  useSendProposalMutation,
+  useGetProposalsQuery,
+} = jobsApi;

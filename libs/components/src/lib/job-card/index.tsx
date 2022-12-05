@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
 import { t } from 'i18next';
+import { useNavigate } from 'react-router-dom';
+import { routes } from '@freelance/components';
 import { formatDate } from 'src/utils/dates';
 import { getSizedText } from 'src/utils/text';
 
@@ -13,6 +15,7 @@ import {
 } from './styles';
 
 interface JobCardProps {
+  id: number;
   title: string;
   description: string;
   owner: string;
@@ -20,16 +23,23 @@ interface JobCardProps {
   category: string;
   duration: string;
   rate: number | null;
+  english: string;
+  owner_rate: number | null;
+  time: number | null;
 }
 
 export const JobCard: FC<JobCardProps> = props => {
   const [descriptionVisibility, setDescriptionVisibility] =
     useState<boolean>(false);
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(routes.jobDetails, { state: props });
+  };
 
   return (
     <Wrapper>
       <StyledTitle>
-        <div>{props.title}</div>
+        <div onClick={handleClick}>{props.title}</div>
       </StyledTitle>
 
       <StyledDescription>

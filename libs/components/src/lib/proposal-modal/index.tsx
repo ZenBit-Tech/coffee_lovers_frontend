@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { StyledButton } from '@freelance/components';
 import { profileQ1 } from '@freelance/constants';
-import { hourRate, jobRate } from 'src/pages/JobDetailsPage/constants';
+import { useSendProposalMutation } from 'src/redux/services/jobsApi';
 
 import {
   RateWrapper,
@@ -20,16 +20,31 @@ interface IProposal {
 
 export const ProposalModal = ({
   openModal,
+  rate,
+  owner_rate,
+  id,
   onCancel,
   ...props
-}: { openModal: boolean; onCancel: () => void } & ModalProps) => {
+}: {
+  openModal: boolean;
+  rate: number;
+  owner_rate: number;
+  id: number;
+  onCancel: () => void;
+} & ModalProps) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const { handleSubmit } = useForm<IProposal>();
+  const [sendProposal] = useSendProposalMutation();
 
   const onFinish: SubmitHandler<IProposal> = async values => {
     try {
-      await alert(JSON.stringify(values));
+      const proposalRespone = {
+        job: id,
+        hourly_rate: values.hourly_rate,
+        cover_letter: values.description,
+      };
+      await sendProposal(proposalRespone);
       form.resetFields();
       onCancel();
     } catch (error) {
@@ -52,7 +67,7 @@ export const ProposalModal = ({
         onFinish={values => handleSubmit(onFinish(values as IProposal))}
       >
         <StyledText>
-          {t('job_details.Profile_rate')} {hourRate} $
+          {t('job_details.Profile_rate')} {owner_rate} $
         </StyledText>
 
         <RateWrapper
@@ -63,7 +78,7 @@ export const ProposalModal = ({
           ]}
         >
           <StyledNumInput
-            defaultValue={jobRate}
+            defaultValue={rate}
             prefix={t('description.profileQp1.hRPrefix')}
             addonAfter={t('description.profileQp1.hRSuffix')}
             min={profileQ1.hRMin}
