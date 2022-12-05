@@ -2,10 +2,11 @@ import queryString from 'query-string';
 import { ApiRoutes, baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'redux/store';
-import { FindJobsResponse, GetJobParams } from 'redux/types/jobs.types';
+import { FindJobsResponse, GetJobParams, Job } from 'redux/types/jobs.types';
 
 enum EndpointsRoutes {
   findJobs = '/',
+  findUserJobs = '/userjobs',
 }
 
 export const jobsApi = createApi({
@@ -31,7 +32,12 @@ export const jobsApi = createApi({
         params,
       }),
     }),
+    findUserJobs: builder.query<Job[], void>({
+      query: () => ({
+        url: EndpointsRoutes.findUserJobs,
+      }),
+    }),
   }),
 });
 
-export const { useFindJobsQuery } = jobsApi;
+export const { useFindJobsQuery, useFindUserJobsQuery } = jobsApi;

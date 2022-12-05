@@ -8,6 +8,7 @@ export interface ButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   radius?: string;
   width?: string;
+  htmlType?: 'button' | 'submit' | 'reset' | undefined;
 }
 
 export function Button({
@@ -18,9 +19,11 @@ export function Button({
   onClick,
   radius,
   width,
+  htmlType,
 }: ButtonProps) {
   return (
     <StyledButton
+      htmlType={htmlType}
       onClick={onClick}
       style={{
         backgroundColor: color,

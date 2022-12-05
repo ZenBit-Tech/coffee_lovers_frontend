@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -7,12 +8,17 @@ import {
   mockUserData,
   mockWorkHistoryData,
 } from '@freelance/components';
+import { InterviewModal } from '@freelance/components';
 
 import * as St from './styles';
 
 const FreelancerPageInfo = () => {
+  const [open, setOpen] = useState<boolean>(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const showModal = () => {
+    setOpen(true);
+  };
 
   return (
     <St.Wrapper>
@@ -121,11 +127,12 @@ const FreelancerPageInfo = () => {
           </Col>
         </Row>
       </St.FreelancerInfo>
+      <InterviewModal open={open} setOpen={setOpen} />
       <St.ButtonWrapper>
         <St.StyledButton onClick={() => navigate('/')}>
           {t('description.freelancerPageInfo.sendOffer')}
         </St.StyledButton>
-        <St.StyledButton onClick={() => navigate('/')}>
+        <St.StyledButton onClick={showModal}>
           {t('description.freelancerPageInfo.inviteInterview')}
         </St.StyledButton>
       </St.ButtonWrapper>

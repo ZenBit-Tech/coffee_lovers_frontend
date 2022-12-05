@@ -13,6 +13,7 @@ export * from './lib/filters';
 export * from './lib/google-login-button/index';
 export * from './lib/input/input';
 export * from './lib/input/styles';
+export * from './lib/interview-modal/interview-modal';
 export * from './lib/job-card';
 export * from './lib/JobPostFormFirstPage';
 export * from './lib/JobPostFormSecondPage';

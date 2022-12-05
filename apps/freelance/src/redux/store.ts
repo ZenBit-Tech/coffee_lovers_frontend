@@ -18,6 +18,7 @@ import { persistedPropertiesReducer } from './properties/properties-slice';
 import { authApi } from './services/authApi';
 import { freelancersApi } from './services/freelancers';
 import { jobsApi } from './services/jobsApi';
+import { proposalApi } from './services/proposalsApi';
 import { userApi } from './services/user';
 
 export const store = configureStore({
@@ -31,6 +32,7 @@ export const store = configureStore({
     properties: persistedPropertiesReducer,
     [propertiesApi.reducerPath]: propertiesApi.reducer,
     [jobsApi.reducerPath]: jobsApi.reducer,
+    [proposalApi.reducerPath]: proposalApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -45,6 +47,7 @@ export const store = configureStore({
       propertiesApi.middleware,
       jobsApi.middleware,
       freelancersApi.middleware,
+      proposalApi.middleware,
     ),
 });
 

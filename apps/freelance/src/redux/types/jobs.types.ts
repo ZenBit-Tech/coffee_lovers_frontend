@@ -32,3 +32,9 @@ export interface FindJobsResponse {
     totalCount: number;
   };
 }
+
+export interface Proposal {
+  rate: number;
+  description: string;
+  job: Job;
+}
