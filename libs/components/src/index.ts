@@ -19,6 +19,7 @@ export * from './lib/JobPostForm';
 export * from './lib/login-form/login-form';
 export * from './lib/logo';
 export * from './lib/navigation';
+export * from './lib/page-wrapper';
 export * from './lib/progress-bar/progress-bar';
 export * from './lib/proposal-card';
 export * from './lib/proposal-modal/index';

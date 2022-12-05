@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { PageWrapper } from '@freelance/components';
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled(PageWrapper)``;
 
 export const ListContainer = styled.div`
   & > div {
@@ -15,12 +16,4 @@ export const ListContainer = styled.div`
 export const StyledProjectName = styled.p`
   font-size: ${({ theme }) => theme.fontSize.extraLarge};
   margin-bottom: 10px;
-`;
-
-export const SpinContainer = styled.div`
-  width: 100%;
-  padding-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
