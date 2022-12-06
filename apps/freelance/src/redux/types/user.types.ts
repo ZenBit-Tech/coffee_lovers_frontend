@@ -27,6 +27,7 @@ export interface User {
   other_experience: string;
   english_level: string;
   category: Property;
+  role: Role;
   skills: Property[];
 }
 
@@ -55,14 +56,6 @@ export interface AddEducation {
 }
 
 export type Role = 'Freelancer' | 'JobOwner' | 'Visitor';
-
-export interface IUserInfo {
-  email: string;
-  first_name: string;
-  last_name: string;
-  profile_image: string | null;
-  role: Role;
-}
 
 export interface SetProfileImageResponse {
   file: string;
