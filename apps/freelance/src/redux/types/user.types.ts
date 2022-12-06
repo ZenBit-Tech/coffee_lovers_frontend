@@ -73,7 +73,7 @@ export interface FreelancerQuery {
   categories?: number[];
   hourly_rate_start?: number;
   hourly_rate_end?: number;
-  available_time?: number;
+  available_time?: string;
   english_level?: string;
   search?: string;
   page?: number;
