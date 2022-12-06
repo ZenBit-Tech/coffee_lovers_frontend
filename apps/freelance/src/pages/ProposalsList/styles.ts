@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { PageWrapper } from '@freelance/components';
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled(PageWrapper)``;
 
 export const ListContainer = styled.div`
   & > div {
