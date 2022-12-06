@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { Col, Form, Input, Modal, Row, Space } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@freelance/components';
 import TextArea from 'antd/lib/input/TextArea';
 import { useFindUserJobsQuery } from 'src/redux/services/jobsApi';
 import { Job } from 'src/redux/types/jobs.types';
-
-import Button from '../button/button';
 
 import { StyledSelect } from './styles';
 
