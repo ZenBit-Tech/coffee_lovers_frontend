@@ -14,7 +14,6 @@ import {
   inputNumberRegExp,
   skillsName,
   timeName,
-  timeOptions,
 } from './constants';
 import {
   ButtonsContainer,
@@ -46,6 +45,7 @@ export const Filters: FC<FiltersProps> = ({
     categories,
     skills,
     englishLevels,
+    availableTime,
     getOptionsForSelectWithId,
     getOptionsForSelectString,
   } = useProperties();
@@ -161,7 +161,7 @@ export const Filters: FC<FiltersProps> = ({
                   <Select
                     {...field}
                     defaultValue={t('filters.time_placeholder')}
-                    options={timeOptions}
+                    options={getOptionsForSelectString(availableTime)}
                     allowClear
                   />
                 )}

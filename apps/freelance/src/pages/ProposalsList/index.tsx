@@ -1,23 +1,21 @@
 import { ProposalCard } from '@freelance/components';
-import useProperties from '@hooks/useProperties';
 
-import { mockProjectName, mockProposals } from './constants';
 import { ListContainer, StyledProjectName, Wrapper } from './styles';
+import useProposalsList from './useProposalsList';
 
 const ProposalsList = () => {
-  const { skills } = useProperties();
+  const { data, isLoading, isSuccess } = useProposalsList();
 
   return (
-    <Wrapper>
-      <StyledProjectName>{mockProjectName}</StyledProjectName>
+    <Wrapper isLoading={isLoading} isSuccess={isSuccess}>
+      <StyledProjectName>{data?.job.title}</StyledProjectName>
       <ListContainer>
-        {mockProposals.map(proposal => (
+        {data?.proposals.map(proposal => (
           <ProposalCard
             key={proposal.id}
             user={proposal.user}
-            skills={skills}
             hourlyRate={proposal.hourly_rate}
-            availableTime={proposal.available_time}
+            availableTime={proposal.user?.available_time}
             coverLetter={proposal.cover_letter}
           />
         ))}

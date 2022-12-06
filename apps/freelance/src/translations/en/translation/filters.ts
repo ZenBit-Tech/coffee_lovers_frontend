@@ -7,7 +7,7 @@ export default {
     skills_placeholder: 'Start typing to search skills',
     hrly_rate: 'Hourly rate',
     time: 'Time available',
-    time_placeholder: 'Hrs per day',
+    time_placeholder: 'Select time',
     english_level: 'English level',
     english_level_placeholder: 'My level is',
     buttons: {
