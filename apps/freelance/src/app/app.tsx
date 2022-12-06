@@ -4,12 +4,13 @@ import { Container } from '@freelance/components';
 import { routes } from '@freelance/components';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
+import FreelancerProfile from '@pages/FreelancerEditProfile';
 import FreelancerPageInfo from '@pages/FreelancerPageInfo';
 import JobDetailsPage from '@pages/JobDetailsPage';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
-import { ProfileQuestions1, ProfileQuestions2 } from '@pages/ProfileQuestions';
+import ProfileQuestions from '@pages/ProfileQuestions';
 import ProposalsList from '@pages/ProposalsList';
 import TalentListPage from '@pages/TalentListPage/index';
 import WelcomePage from '@pages/WelcomePage';
@@ -72,12 +73,12 @@ export function App() {
           {/* Freelancer's routes */}
           <Route element={<PrivateRoute allowedRoles={'Freelancer'} />}>
             <Route
-              path={routes.profileQuestions1}
-              element={<ProfileQuestions1 />}
+              path={routes.profileQuestions}
+              element={<ProfileQuestions />}
             />
             <Route
-              path={routes.profileQuestions2}
-              element={<ProfileQuestions2 />}
+              path={routes.freelancerProfile}
+              element={<FreelancerProfile />}
             />
             <Route
               path={routes.freelancerInfo}

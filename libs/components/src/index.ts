@@ -10,6 +10,7 @@ export * from './lib/constants';
 export * from './lib/container/container';
 export * from './lib/example-button/example-button';
 export * from './lib/filters';
+export * from './lib/freelancer-profile-form';
 export * from './lib/google-login-button/index';
 export * from './lib/information-sticker';
 export * from './lib/input/input';

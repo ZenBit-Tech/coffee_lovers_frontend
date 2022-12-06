@@ -14,7 +14,7 @@
     "baseUrl": ".",
     "paths": {
       "src/*": ["../../apps/freelance/src/*"],
-      "@freelance/components": ["../../libs/components/src/index.ts"]
+      "@freelance/components*": ["../../libs/components/src/index.ts"]
     }
   },
   "files": [],

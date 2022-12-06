@@ -1,17 +1,24 @@
+import { FC } from 'react';
 import { Button, Form, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { PlusOutlined } from '@ant-design/icons';
 import { profileQ1 } from '@freelance/components';
+import { mockWork } from '@freelance/components';
 
+import { convertWorkTime } from './hooks';
 import * as St from './styles';
 
-const FormWorkList = () => {
+interface freelancerWorkProps {
+  work?: mockWork[];
+}
+
+const FormWorkList: FC<freelancerWorkProps> = ({ work }) => {
   const { t } = useTranslation();
 
   return (
     <Form.List
       name={profileQ1.workHistoryWrapper}
-      initialValue={profileQ1.workDefValue}
+      initialValue={work && convertWorkTime(work)}
     >
       {(fields, { add, remove }) => (
         <>
@@ -24,19 +31,17 @@ const FormWorkList = () => {
                 }}
               >
                 <Input.Group compact>
-                  <Form.Item
+                  <St.StWorkWrapper
                     {...restField}
                     name={[name, profileQ1.workHistory]}
                     wrapperCol={{
                       sm: { span: 26, offset: 0 },
                     }}
                   >
-                    <St.StWorkWrapper>
-                      <St.StTextAreaWork
-                        placeholder={t('description.profileQp1.infoWork')}
-                      />
-                    </St.StWorkWrapper>
-                  </Form.Item>
+                    <St.StTextAreaWork
+                      placeholder={t('description.profileQp1.infoWork')}
+                    />
+                  </St.StWorkWrapper>
                   <St.StFormItemWorkDateFrom
                     {...restField}
                     name={[name, profileQ1.workFrom]}
