@@ -1,3 +1,4 @@
+import { baseUrl } from '@freelance/constants';
 import { BaseQueryApi } from '@reduxjs/toolkit/dist/query';
 import { MaybePromise } from '@reduxjs/toolkit/dist/query/tsHelpers';
 import { RootState } from 'redux/store';
@@ -17,4 +18,10 @@ export const getHeaders = (): ((
 
     return headers;
   };
+};
+
+export const getFileUrl = (filePath: string | undefined): string => {
+  if (!filePath) return '';
+
+  return `${baseUrl}/${filePath}`;
 };

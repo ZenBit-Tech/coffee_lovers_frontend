@@ -22,15 +22,11 @@ export type FilterFormItems = {
   [categoriesName]: number[];
   [hrlyRateStartName]: number;
   [hrlyRateEndName]: number;
-  [timeName]: number;
+  [timeName]: string;
   [englishLevelName]: string;
 };
 
 export type Options = {
   label: string;
-  value: number;
-};
-
-export type TimeOptions = {
   value: number;
 };

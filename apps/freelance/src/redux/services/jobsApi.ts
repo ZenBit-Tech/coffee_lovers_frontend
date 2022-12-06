@@ -1,26 +1,25 @@
 import queryString from 'query-string';
 import { ApiRoutes, baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from 'redux/store';
-import { FindJobsResponse, GetJobParams, Job } from 'redux/types/jobs.types';
+import { getHeaders } from '@utils/api';
+import {
+  FindJobsResponse,
+  GetJobParams,
+  GetJobProposalsResponse,
+  Job,
+} from 'redux/types/jobs.types';
 
 enum EndpointsRoutes {
   findJobs = '/',
   findUserJobs = '/userjobs',
+  getJobProposals = '/proposals',
 }
 
 export const jobsApi = createApi({
   reducerPath: 'jobsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl + ApiRoutes.JOBS,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).user.access_token;
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
-      }
-
-      return headers;
-    },
+    prepareHeaders: getHeaders(),
     paramsSerializer: params => {
       return queryString.stringify(params, { arrayFormat: 'bracket' });
     },
@@ -37,7 +36,16 @@ export const jobsApi = createApi({
         url: EndpointsRoutes.findUserJobs,
       }),
     }),
+    getJobProposals: builder.query<GetJobProposalsResponse, string>({
+      query: id => ({
+        url: `/${id}` + EndpointsRoutes.getJobProposals,
+      }),
+    }),
   }),
 });
 
-export const { useFindJobsQuery, useFindUserJobsQuery } = jobsApi;
+export const {
+  useFindJobsQuery,
+  useFindUserJobsQuery,
+  useGetJobProposalsQuery,
+} = jobsApi;
