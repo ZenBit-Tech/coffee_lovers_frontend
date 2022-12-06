@@ -5,29 +5,37 @@ import {
   FreelancerForm,
   mockEducationData,
 } from '@freelance/components';
-import { mockUserData, mockWorkHistoryData } from '@freelance/components';
+import { mockWorkHistoryData } from '@freelance/components';
+import { useGetUserInfoQuery } from 'redux/services/user';
 
 import * as St from './styles';
 
 const FreelancerProfile = () => {
   const { t } = useTranslation();
+  const { data: user, isLoading } = useGetUserInfoQuery();
 
   return (
     <St.Wrapper>
-      <AppBar />
-      <St.LogoWrapper direction="vertical">
-        <AvatarUpload />
-        <p>
-          {mockUserData.first_name} {mockUserData.last_name}
-        </p>
-        <p>{mockUserData.email}</p>
-      </St.LogoWrapper>
-      <FreelancerForm
-        submitText={t('description.freelancerEditProfile.save')}
-        user={mockUserData}
-        work={mockWorkHistoryData}
-        education={mockEducationData}
-      />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <AppBar />
+          <St.LogoWrapper direction="vertical">
+            <AvatarUpload />
+            <p>
+              {user?.first_name} {user?.last_name}
+            </p>
+            <p>{user?.email}</p>
+          </St.LogoWrapper>
+          <FreelancerForm
+            submitText={t('description.freelancerEditProfile.save')}
+            user={user}
+            work={mockWorkHistoryData}
+            education={mockEducationData}
+          />
+        </>
+      )}
     </St.Wrapper>
   );
 };

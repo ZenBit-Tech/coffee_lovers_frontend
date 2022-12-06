@@ -2,8 +2,7 @@ import { FC } from 'react';
 import { Button, Form, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { PlusOutlined } from '@ant-design/icons';
-import { profileQ1 } from '@freelance/components';
-import { mockWork } from '@freelance/components';
+import { mockWork, profileQ1 } from '@freelance/components';
 
 import { convertWorkTime } from './hooks';
 import * as St from './styles';
@@ -18,7 +17,9 @@ const FormWorkList: FC<freelancerWorkProps> = ({ work }) => {
   return (
     <Form.List
       name={profileQ1.workHistoryWrapper}
-      initialValue={work && convertWorkTime(work)}
+      initialValue={
+        (work && convertWorkTime(work)) || profileQ1.workEduDefValue
+      }
     >
       {(fields, { add, remove }) => (
         <>

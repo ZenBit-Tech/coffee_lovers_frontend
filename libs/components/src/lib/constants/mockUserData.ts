@@ -29,6 +29,7 @@ export const mockUserData: User = {
     { id: 2, name: 'CSS' },
     { id: 4, name: 'Web development' },
   ],
+  role: 'Freelancer',
 };
 
 export const mockEducationData: mockEducation[] = [

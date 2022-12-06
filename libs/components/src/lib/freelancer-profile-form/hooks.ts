@@ -25,7 +25,7 @@ export const onFinishLogic = (
     description: values.description,
     hourly_rate: values.hourly_rate,
     position: values.position,
-    category_id: values.category_id,
+    category: values.category,
     english_level: values.english_level,
     other_experience: values.other_experience,
     skills: values.skills,
