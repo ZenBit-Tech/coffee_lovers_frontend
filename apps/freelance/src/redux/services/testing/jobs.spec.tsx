@@ -4,9 +4,8 @@ import { Provider } from 'react-redux';
 import { renderHook, waitFor } from '@testing-library/react';
 import { setUser } from 'redux/auth/auth-slice';
 import { authReducer } from 'redux/auth/auth-slice';
+import { jobsApi, useFindUserJobsQuery } from 'redux/services/jobsApi';
 import { setupApiStore } from 'redux/storeTest';
-
-import { jobsApi, useFindUserJobsQuery } from '../jobsApi';
 
 import { testToken } from './mock-data';
 

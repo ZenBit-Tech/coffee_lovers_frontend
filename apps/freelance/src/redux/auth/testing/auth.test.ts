@@ -1,7 +1,6 @@
+import { authReducer, logout, setRole, setUser } from 'redux/auth/auth-slice';
 import { jobsApi } from 'redux/services/jobsApi';
 import { setupApiStore } from 'redux/storeTest';
-
-import { authReducer, logout, setRole, setUser } from '../auth-slice';
 
 import { mockRole, testToken } from './mock-data';
 
