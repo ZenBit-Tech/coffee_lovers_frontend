@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Button, Form, InputNumber, Select } from 'antd';
+import { Button, Col, Form, InputNumber, Row, Select } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MinusOutlined } from '@ant-design/icons';
@@ -20,7 +20,6 @@ import {
   ButtonsContainer,
   Container,
   HorizontalContainer,
-  HourlyRateContainer,
   ItemContainer,
   StyledClose,
   StyledFilterTitle,
@@ -114,36 +113,42 @@ export const Filters: FC<FiltersProps> = ({
 
           <ItemContainer>
             <StyledFilterTitle>{t('filters.hrly_rate')}</StyledFilterTitle>
-            <HourlyRateContainer>
-              <Controller
-                name={hrlyRateStartName}
-                control={control}
-                render={({ field }) => (
-                  <InputNumber
-                    formatter={value =>
-                      `$ ${value}`.replace(inputNumberRegExp, ',')
-                    }
-                    min={inputNumberMin}
-                    {...field}
-                    max={getValues(hrlyRateEndName)}
-                  />
-                )}
-              />
-              <MinusOutlined />
-              <Controller
-                name={hrlyRateEndName}
-                control={control}
-                render={({ field }) => (
-                  <InputNumber
-                    formatter={value =>
-                      `$ ${value}`.replace(inputNumberRegExp, ',')
-                    }
-                    min={getValues(hrlyRateStartName) || inputNumberMin}
-                    {...field}
-                  />
-                )}
-              />
-            </HourlyRateContainer>
+            <Row justify="space-between">
+              <Col>
+                <Controller
+                  name={hrlyRateStartName}
+                  control={control}
+                  render={({ field }) => (
+                    <InputNumber
+                      formatter={value =>
+                        `$ ${value}`.replace(inputNumberRegExp, ',')
+                      }
+                      min={inputNumberMin}
+                      {...field}
+                      max={getValues(hrlyRateEndName)}
+                    />
+                  )}
+                />
+              </Col>
+              <Col>
+                <MinusOutlined />
+              </Col>
+              <Col>
+                <Controller
+                  name={hrlyRateEndName}
+                  control={control}
+                  render={({ field }) => (
+                    <InputNumber
+                      formatter={value =>
+                        `$ ${value}`.replace(inputNumberRegExp, ',')
+                      }
+                      min={getValues(hrlyRateStartName) || inputNumberMin}
+                      {...field}
+                    />
+                  )}
+                />
+              </Col>
+            </Row>
           </ItemContainer>
 
           <ItemContainer>
