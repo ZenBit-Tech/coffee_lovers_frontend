@@ -2,10 +2,19 @@ import { useEffect, useState } from 'react';
 import { useGetPostedJobsQuery } from 'redux/services/jobsApi';
 import { useGetUserInfoQuery } from 'redux/services/user';
 import { GetPostedJobsResponse } from 'redux/types/jobs.types';
+import { User } from 'redux/types/user.types';
 
 import { defaultAmountOfJobs } from './constants';
 
-const useJobOwnerDashboard = () => {
+interface UseJobOwnerDashboardReturn {
+  user: User | undefined;
+  jobList: GetPostedJobsResponse[] | undefined;
+  isShowAllJobs: boolean;
+  jobsListSizeHandler: () => void;
+  isLoading: boolean;
+}
+
+const useJobOwnerDashboard = (): UseJobOwnerDashboardReturn => {
   const [jobList, setJobList] = useState<GetPostedJobsResponse[]>();
   const [isShowAllJobs, setIsShowAllJobs] = useState<boolean>(false);
   const { data: user, isLoading: userLoading } = useGetUserInfoQuery();
