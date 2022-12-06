@@ -1,15 +1,25 @@
+import { FC } from 'react';
 import { Button, DatePicker, Form, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { PlusOutlined } from '@ant-design/icons';
 import { DefInput, profileQ1 } from '@freelance/components';
+import { mockEducation } from '@freelance/components';
 
+import { convertEduTime } from './hooks';
 import * as St from './styles';
 
-const FormEduList = () => {
+interface freelancerEduProps {
+  education?: mockEducation[];
+}
+
+const FormEduList: FC<freelancerEduProps> = ({ education }) => {
   const { t } = useTranslation();
 
   return (
-    <Form.List name={profileQ1.edu} initialValue={profileQ1.workDefValue}>
+    <Form.List
+      name={profileQ1.edu}
+      initialValue={education && convertEduTime(education)}
+    >
       {(fields, { add, remove }) => (
         <>
           {fields.map(({ key, name, ...restField }) => (
