@@ -27,7 +27,7 @@ import useProposalCard from './useProposalCard';
 interface ProposalCardProps {
   user: User | undefined;
   hourlyRate: number;
-  availableTime: string | undefined;
+  availableTime?: string;
   coverLetter: string;
 }
 
