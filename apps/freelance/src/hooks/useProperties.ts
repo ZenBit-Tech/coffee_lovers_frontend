@@ -35,9 +35,6 @@ const useProperties = (): {
   const skip = !(Date.now() - lastUpdate > categoriesRefreshTime);
   const { data, isSuccess } = useGetAllPropertiesQuery(undefined, { skip });
 
-  console.log(availableTime);
-  console.log(durationAmount);
-  console.log(englishLevels);
   if (isSuccess) {
     dispatch(setProperties({ ...data, lastUpdate: Date.now() }));
   }
