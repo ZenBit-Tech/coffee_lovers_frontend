@@ -31,6 +31,7 @@ describe('check job query', () => {
 
   const wrapper: React.FC<Props> = ({ children }) => {
     const { store } = setupApiStore(jobsApi, { user: authReducer });
+
     return <Provider store={store}>{children}</Provider>;
   };
   test('Check if we have succes data fetching', async () => {
