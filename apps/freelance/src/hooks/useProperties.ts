@@ -18,16 +18,26 @@ const useProperties = (): {
   categories: Property[];
   englishLevels: string[];
   skills: Property[];
+  durationAmount: string[];
+  availableTime: string[];
   getOptionsForSelectWithId: (property: Property[]) => SelectOptionWithId[];
   getOptionsForSelectString: (property: string[]) => SelectOptionString[];
 } => {
   const dispatch = useDispatch();
-  const { categories, englishLevels, skills, lastUpdate } = useAppSelector(
-    state => state.properties,
-  );
+  const {
+    categories,
+    englishLevels,
+    durationAmount,
+    availableTime,
+    skills,
+    lastUpdate,
+  } = useAppSelector(state => state.properties);
   const skip = !(Date.now() - lastUpdate > categoriesRefreshTime);
   const { data, isSuccess } = useGetAllPropertiesQuery(undefined, { skip });
 
+  console.log(availableTime);
+  console.log(durationAmount);
+  console.log(englishLevels);
   if (isSuccess) {
     dispatch(setProperties({ ...data, lastUpdate: Date.now() }));
   }
@@ -48,6 +58,8 @@ const useProperties = (): {
     categories,
     englishLevels,
     skills,
+    durationAmount,
+    availableTime,
     getOptionsForSelectWithId,
     getOptionsForSelectString,
   };
