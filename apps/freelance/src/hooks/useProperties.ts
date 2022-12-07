@@ -54,9 +54,9 @@ const useProperties = (): {
   return {
     categories,
     englishLevels,
+    availableTime,
     skills,
     durationAmount,
-    availableTime,
     getOptionsForSelectWithId,
     getOptionsForSelectString,
   };

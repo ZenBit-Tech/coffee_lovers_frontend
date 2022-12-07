@@ -79,9 +79,9 @@ const FreelancerPageInfo = () => {
           <Col span={18}>
             {mockEducationData.map(el => (
               <St.FlexWrapper key={el.id}>
-                <St.EduData>{el.education.education_descr}</St.EduData>
-                <St.EduTime>{el.education.education_from}</St.EduTime>
-                <St.WorkTime>{el.education.education_to}</St.WorkTime>
+                <St.EduData>{el.education_descr}</St.EduData>
+                <St.EduTime>{el.education_from}</St.EduTime>
+                <St.WorkTime>{el.education_to}</St.WorkTime>
               </St.FlexWrapper>
             ))}
           </Col>
@@ -93,9 +93,9 @@ const FreelancerPageInfo = () => {
           <Col span={18}>
             {mockWorkHistoryData.map(el => (
               <St.FlexWrapper key={el.id}>
-                <St.WorkData>{el.work_history.work_history_descr}</St.WorkData>
-                <St.WorkTime>{el.work_history.work_history_from}</St.WorkTime>
-                <St.WorkTime>{el.work_history.work_history_to}</St.WorkTime>
+                <St.WorkData>{el.work_history_descr}</St.WorkData>
+                <St.WorkTime>{el.work_history_from}</St.WorkTime>
+                <St.WorkTime>{el.work_history_to}</St.WorkTime>
               </St.FlexWrapper>
             ))}
           </Col>

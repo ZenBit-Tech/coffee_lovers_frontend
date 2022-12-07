@@ -16,6 +16,4 @@ export interface PropertiesResponse {
   categories: Property[];
   skills: Property[];
   englishLevels: string[];
-  durationAmount: string[];
-  availableTime: string[];
 }

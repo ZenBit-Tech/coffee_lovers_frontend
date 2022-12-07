@@ -7,8 +7,8 @@ const initialState: PropertiesState = {
   categories: [],
   skills: [],
   englishLevels: [],
-  durationAmount: [],
   availableTime: [],
+  durationAmount: [],
   lastUpdate: 0,
 };
 
@@ -20,8 +20,6 @@ const propertiesSlice = createSlice({
       state.categories = action.payload.categories;
       state.skills = action.payload.skills;
       state.englishLevels = action.payload.englishLevels;
-      state.durationAmount = action.payload.durationAmount;
-      state.availableTime = action.payload.availableTime;
       state.lastUpdate = Date.now();
     },
   },

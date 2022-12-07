@@ -1,66 +1,61 @@
-import { Button, DatePicker, Form, Input } from 'antd';
+import { FC } from 'react';
+import { Button, Form, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { PlusOutlined } from '@ant-design/icons';
-import { DefInput, profileQ1 } from '@freelance/components';
+import { profileQ1 } from '@freelance/components';
+import { mockWork } from '@freelance/components';
 
+import { convertWorkTime } from './hooks';
 import * as St from './styles';
 
-const FormEduList = () => {
+interface freelancerWorkProps {
+  work?: mockWork[];
+}
+
+const FormWorkList: FC<freelancerWorkProps> = ({ work }) => {
   const { t } = useTranslation();
 
   return (
-    <Form.List name={profileQ1.edu} initialValue={profileQ1.workDefValue}>
+    <Form.List
+      name={profileQ1.workHistoryWrapper}
+      initialValue={work && convertWorkTime(work)}
+    >
       {(fields, { add, remove }) => (
         <>
           {fields.map(({ key, name, ...restField }) => (
             <St.StFormList key={key}>
               <Form.Item
-                label={t('description.profileQp1.edu')}
+                label={t('description.profileQp1.workH')}
                 wrapperCol={{
                   sm: { span: 24, offset: 0 },
                 }}
               >
                 <Input.Group compact>
-                  <Form.Item
+                  <St.StWorkWrapper
                     {...restField}
-                    name={[name, profileQ1.eduInfo]}
-                    rules={[
-                      {
-                        required: true,
-                        message: `${t('description.profileQp1.mesEdu')}`,
-                      },
-                    ]}
+                    name={[name, profileQ1.workHistory]}
+                    wrapperCol={{
+                      sm: { span: 26, offset: 0 },
+                    }}
                   >
-                    <DefInput
-                      placeholder={t('description.profileQp1.infoEdu')}
+                    <St.StTextAreaWork
+                      placeholder={t('description.profileQp1.infoWork')}
                     />
-                  </Form.Item>
-                  <St.StFormItemDateFrom
+                  </St.StWorkWrapper>
+                  <St.StFormItemWorkDateFrom
                     {...restField}
-                    name={[name, profileQ1.eduForm]}
-                    rules={[
-                      {
-                        required: true,
-                        message: `${t('description.profileQp1.mesTimeFrom')}`,
-                      },
-                    ]}
+                    name={[name, profileQ1.workFrom]}
                   >
-                    <DatePicker
+                    <St.StDatePickerWork
                       placeholder={t('description.profileQp1.from')}
                       picker="year"
                     />
-                  </St.StFormItemDateFrom>
+                  </St.StFormItemWorkDateFrom>
                   <St.StFormItemDateTo
                     {...restField}
-                    name={[name, profileQ1.eduTo]}
-                    rules={[
-                      {
-                        required: true,
-                        message: `${t('description.profileQp1.mesTimeTo')}`,
-                      },
-                    ]}
+                    name={[name, profileQ1.workTo]}
                   >
-                    <DatePicker
+                    <St.StDatePickerWork
                       placeholder={t('description.profileQp1.to')}
                       picker="year"
                     />
@@ -83,4 +78,4 @@ const FormEduList = () => {
   );
 };
 
-export default FormEduList;
+export default FormWorkList;
