@@ -10,8 +10,8 @@ export interface Job {
   english_level?: string;
   owner: User;
   created_at: string;
-  category: Property;
-  skills: Property[];
+  category?: Property;
+  skills?: Property[];
 }
 
 export interface GetJobParams {
@@ -21,7 +21,7 @@ export interface GetJobParams {
   categories?: number[];
   hourly_rate_start?: number;
   hourly_rate_end?: number;
-  available_time?: number;
+  available_time?: string;
   english_level?: string;
   search?: string;
 }
@@ -31,4 +31,16 @@ export interface FindJobsResponse {
   meta: {
     totalCount: number;
   };
+}
+
+export interface Proposal {
+  id: number;
+  hourly_rate: number;
+  cover_letter: string;
+  user?: User;
+}
+
+export interface GetJobProposalsResponse {
+  job: Job;
+  proposals: Proposal[];
 }
