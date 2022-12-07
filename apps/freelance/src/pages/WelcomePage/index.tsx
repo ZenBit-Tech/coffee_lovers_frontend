@@ -6,8 +6,6 @@ import { CardWrapper } from '@freelance/components';
 import { CenterCard } from './styles';
 import { H2 } from './styles';
 
-import 'antd/dist/antd.css';
-
 const WelcomePage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
