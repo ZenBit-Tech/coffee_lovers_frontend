@@ -2,8 +2,11 @@ import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { AppBar, AvatarUpload } from '@freelance/components';
-import { mockEducationData, mockWorkHistoryData } from '@freelance/components';
-import { useGetUserInfoQuery } from 'redux/services/user';
+import {
+  useGetUserEducationInfoQuery,
+  useGetUserInfoQuery,
+  useGetUserWorkInfoQuery,
+} from 'redux/services/user';
 
 import * as St from './styles';
 
@@ -11,10 +14,13 @@ const FreelancerPageInfo = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { data: user, isLoading } = useGetUserInfoQuery();
+  const { data: user, isLoading: isLoadingUser } = useGetUserInfoQuery();
+  const { data: work, isLoading: isLoadingWork } = useGetUserWorkInfoQuery();
+  const { data: education, isLoading: isLoadingEdu } =
+    useGetUserEducationInfoQuery();
 
   return (
-    <St.Wrapper isLoading={isLoading}>
+    <St.Wrapper isLoading={isLoadingUser || isLoadingWork || isLoadingEdu}>
       <AppBar />
       <St.LogoWrapper direction="vertical">
         <AvatarUpload />
@@ -76,7 +82,7 @@ const FreelancerPageInfo = () => {
             <St.Label>{t('description.profileQp1.edu')}</St.Label>
           </Col>
           <Col span={18}>
-            {mockEducationData.map(el => (
+            {education?.map(el => (
               <St.FlexWrapper key={el.id}>
                 <St.EduData>{el.education_descr}</St.EduData>
                 <St.EduTime>{el.education_from}</St.EduTime>
@@ -90,7 +96,7 @@ const FreelancerPageInfo = () => {
             <St.Label>{t('description.profileQp1.workH')}</St.Label>
           </Col>
           <Col span={18}>
-            {mockWorkHistoryData.map(el => (
+            {work?.map(el => (
               <St.FlexWrapper key={el.id}>
                 <St.WorkData>{el.work_history_descr}</St.WorkData>
                 <St.WorkTime>{el.work_history_from}</St.WorkTime>

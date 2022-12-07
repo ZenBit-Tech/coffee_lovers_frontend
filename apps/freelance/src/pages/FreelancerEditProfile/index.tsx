@@ -1,21 +1,22 @@
 import { useTranslation } from 'react-i18next';
+import { AppBar, AvatarUpload, FreelancerForm } from '@freelance/components';
 import {
-  AppBar,
-  AvatarUpload,
-  FreelancerForm,
-  mockEducationData,
-} from '@freelance/components';
-import { mockWorkHistoryData } from '@freelance/components';
-import { useGetUserInfoQuery } from 'redux/services/user';
+  useGetUserEducationInfoQuery,
+  useGetUserInfoQuery,
+  useGetUserWorkInfoQuery,
+} from 'redux/services/user';
 
 import * as St from './styles';
 
 const FreelancerProfile = () => {
   const { t } = useTranslation();
-  const { data: user, isLoading } = useGetUserInfoQuery();
+  const { data: user, isLoading: isLoadingUser } = useGetUserInfoQuery();
+  const { data: work, isLoading: isLoadingWork } = useGetUserWorkInfoQuery();
+  const { data: education, isLoading: isLoadingEdu } =
+    useGetUserEducationInfoQuery();
 
   return (
-    <St.Wrapper isLoading={isLoading}>
+    <St.Wrapper isLoading={isLoadingUser || isLoadingWork || isLoadingEdu}>
       <AppBar />
       <St.LogoWrapper direction="vertical">
         <AvatarUpload />
@@ -27,8 +28,8 @@ const FreelancerProfile = () => {
       <FreelancerForm
         submitText={t('description.freelancerEditProfile.save')}
         user={user}
-        work={mockWorkHistoryData}
-        education={mockEducationData}
+        work={work}
+        education={education}
       />
     </St.Wrapper>
   );

@@ -2,13 +2,14 @@ import { FC } from 'react';
 import { Button, Form, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { PlusOutlined } from '@ant-design/icons';
-import { mockWork, profileQ1 } from '@freelance/components';
+import { profileQ1 } from '@freelance/components';
+import { GetWorkhistory } from 'src/redux/types/user.types';
 
 import { convertWorkTime } from './hooks';
 import * as St from './styles';
 
 interface freelancerWorkProps {
-  work?: mockWork[];
+  work?: GetWorkhistory[];
 }
 
 const FormWorkList: FC<freelancerWorkProps> = ({ work }) => {
