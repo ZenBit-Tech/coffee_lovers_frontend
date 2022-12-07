@@ -33,6 +33,7 @@ describe('check job query', () => {
 
     return <Provider store={store}>{children}</Provider>;
   };
+
   test('Check if we have succes data fetching', async () => {
     try {
       fetchMock.mockResponse(JSON.stringify([]));

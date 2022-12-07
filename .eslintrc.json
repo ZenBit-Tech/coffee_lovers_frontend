@@ -4,23 +4,20 @@
     "browser": true,
     "es2021": true
   },
-  "plugins": ["@nrwl/nx", "react", "simple-import-sort"],
+  "plugins": ["@nrwl/nx", "react", "simple-import-sort", "jest-formatting"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
+    "jest-formatting/padding-around-describe-blocks": 2,
+    "jest-formatting/padding-around-test-blocks": 2,
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": "*", "next": "return" },
-      {
-        "blankLine": "always",
-        "prev": "*",
-        "next": "block"
-      },
       {
         "blankLine": "always",
         "prev": "import",

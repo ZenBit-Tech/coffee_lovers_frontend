@@ -42,7 +42,7 @@ export function InterviewModal(props: {
     rate: number;
     description: string;
   }) => {
-    alert(payload);
+    console.log(payload);
   };
 
   return (

@@ -14,6 +14,7 @@ describe('Auth actions', () => {
     expect(stateBeforeAction.user.access_token).toBe(null);
     expect(stateAfterAction.user.access_token).toBe(testToken);
   });
+
   test('Test if user has ni token after logout', () => {
     const { store } = setupApiStore(jobsApi, { user: authReducer });
     const stateBeforeAction = store.getState();
