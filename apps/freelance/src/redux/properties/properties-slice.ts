@@ -20,6 +20,8 @@ const propertiesSlice = createSlice({
       state.categories = action.payload.categories;
       state.skills = action.payload.skills;
       state.englishLevels = action.payload.englishLevels;
+      state.availableTime = action.payload.availableTime;
+      state.durationAmount = action.payload.durationAmount;
       state.lastUpdate = Date.now();
     },
   },
