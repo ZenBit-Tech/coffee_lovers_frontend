@@ -15,27 +15,21 @@ const FreelancerProfile = () => {
   const { data: user, isLoading } = useGetUserInfoQuery();
 
   return (
-    <St.Wrapper>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <AppBar />
-          <St.LogoWrapper direction="vertical">
-            <AvatarUpload />
-            <p>
-              {user?.first_name} {user?.last_name}
-            </p>
-            <p>{user?.email}</p>
-          </St.LogoWrapper>
-          <FreelancerForm
-            submitText={t('description.freelancerEditProfile.save')}
-            user={user}
-            work={mockWorkHistoryData}
-            education={mockEducationData}
-          />
-        </>
-      )}
+    <St.Wrapper isLoading={isLoading}>
+      <AppBar />
+      <St.LogoWrapper direction="vertical">
+        <AvatarUpload />
+        <p>
+          {user?.first_name} {user?.last_name}
+        </p>
+        <p>{user?.email}</p>
+      </St.LogoWrapper>
+      <FreelancerForm
+        submitText={t('description.freelancerEditProfile.save')}
+        user={user}
+        work={mockWorkHistoryData}
+        education={mockEducationData}
+      />
     </St.Wrapper>
   );
 };
