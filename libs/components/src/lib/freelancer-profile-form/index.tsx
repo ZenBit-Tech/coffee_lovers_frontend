@@ -63,7 +63,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
       await UpdateUserInfo(userPayload);
       await AddUserEduInfo(educationPayloadArr());
       await AddUserWorkhistory(workPayloadArr());
-      // form.resetFields();
+      form.resetFields();
       navigation && navigate(navigation);
     } catch (error) {
       alert(error);
