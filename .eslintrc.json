@@ -16,7 +16,11 @@
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": "*", "next": "return" },
-      { "blankLine": "always", "prev": "*", "next": ["test", "describe"] },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "block"
+      },
       {
         "blankLine": "always",
         "prev": "import",

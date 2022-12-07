@@ -5,7 +5,7 @@ import { setupApiStore } from 'redux/storeTest';
 import { mockRole, testToken } from './mock-data';
 
 describe('Auth actions', () => {
-  test('Test login operation', () => {
+  test('Test if user has token after login', () => {
     const { store } = setupApiStore(jobsApi, { user: authReducer });
     const stateBeforeAction = store.getState();
     store.dispatch(setUser({ access_token: testToken }));
@@ -14,8 +14,7 @@ describe('Auth actions', () => {
     expect(stateBeforeAction.user.access_token).toBe(null);
     expect(stateAfterAction.user.access_token).toBe(testToken);
   });
-
-  test('Test logout operation', () => {
+  test('Test if user has ni token after logout', () => {
     const { store } = setupApiStore(jobsApi, { user: authReducer });
     const stateBeforeAction = store.getState();
     store.dispatch(logout());
@@ -25,7 +24,7 @@ describe('Auth actions', () => {
     expect(stateAfterAction.user.access_token).toBe(null);
   });
 
-  test('Test set role operation', () => {
+  test('Test the role change', () => {
     const { store } = setupApiStore(jobsApi, { user: authReducer });
     store.dispatch(setRole({ role: mockRole }));
     const state = store.getState();
