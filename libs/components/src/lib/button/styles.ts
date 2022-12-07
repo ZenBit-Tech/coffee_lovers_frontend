@@ -2,7 +2,7 @@ import { Button } from 'antd';
 import styled from 'styled-components';
 
 export const StyledButton = styled(Button)`
-  width: ${({ theme }) => theme.sizes.button.width};
+  min-width: ${({ theme }) => theme.sizes.button.width};
   height: ${({ theme }) => theme.sizes.button.height};
 
   font-weight: ${({ theme }) => theme.weight.medium};

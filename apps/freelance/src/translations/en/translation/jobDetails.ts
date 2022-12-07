@@ -10,5 +10,8 @@ export default {
     skills: 'Required skills:',
     send_proposal: 'Send proposal',
     owners_name: "Job owner's name",
+    Profile_rate: 'Your profile rate is',
+    setup_rate: 'Setup rate',
+    cover_letter: 'Cover letter',
   },
 };

@@ -43,9 +43,9 @@ export interface UpdateUser {
 }
 
 export interface AddWorkhistory {
-  work_history_descr: string;
-  work_history_from: string;
-  work_history_to: string;
+  work_history_descr?: string;
+  work_history_from?: string;
+  work_history_to?: string;
 }
 
 export interface AddEducation {
