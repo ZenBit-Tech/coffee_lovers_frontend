@@ -7,10 +7,10 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
 import {
-  IUserInfo,
   PasswordResetPayload,
   Role,
   SetProfileImageResponse,
+  User,
   UserError,
 } from 'redux/types/user.types';
 
@@ -57,7 +57,7 @@ export const userApi = createApi({
         };
       },
     }),
-    getUserInfo: builder.query<IUserInfo, void>({
+    getUserInfo: builder.query<User, void>({
       query: () => ({
         url: `/`,
         method: 'GET',
