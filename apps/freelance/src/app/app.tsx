@@ -1,6 +1,7 @@
 import { lazy } from 'react';
+import { useSelector } from 'react-redux';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import { Container } from '@freelance/components';
+import { AppBar, Container, roles } from '@freelance/components';
 import { routes } from '@freelance/components';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
@@ -13,6 +14,7 @@ import { ProfileQuestions1, ProfileQuestions2 } from '@pages/ProfileQuestions';
 import ProposalsList from '@pages/ProposalsList';
 import TalentListPage from '@pages/TalentListPage/index';
 import WelcomePage from '@pages/WelcomePage';
+import { selectRole } from 'redux/auth/auth-slice';
 import PrivateRoute from 'src/Routes/PrivateRoute';
 import PublicRoute from 'src/Routes/PublicRoute';
 
@@ -44,8 +46,11 @@ const JobPostPage = lazy(
 );
 
 export function App() {
+  const role = useSelector(selectRole);
+
   return (
     <Container>
+      {role !== roles.visitor && <AppBar />}
       <Routes>
         <Route path="/" element={<Outlet />}>
           <Route path={routes.welcome} element={<WelcomePage />} />
