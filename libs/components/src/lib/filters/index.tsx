@@ -190,7 +190,7 @@ export const Filters: FC<FiltersProps> = ({
             <SecondaryButton onClick={clearHandler}>
               {t('filters.buttons.clear')}
             </SecondaryButton>
-            <PrimaryButton htmlType="submit" type="primary">
+            <PrimaryButton htmlType="submit">
               {t('filters.buttons.apply')}
             </PrimaryButton>
           </ButtonsContainer>
