@@ -27,8 +27,8 @@ export interface User {
   other_experience: string;
   english_level: string;
   category: Property;
-  skills: Property[];
   role: Role;
+  skills: Property[];
 }
 
 export interface UpdateUser {

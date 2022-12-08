@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Avatar } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { useTranslation } from 'react-i18next';
@@ -8,9 +9,13 @@ import { StyledUpload, StyledUploadLine } from './styles';
 import useProfileImage from './useProfileImage';
 import { beforeUpload } from './utils';
 
-export const AvatarUpload = () => {
+interface AvatarUploadProps {
+  src?: string;
+}
+
+export const AvatarUpload: FC<AvatarUploadProps> = ({ src }) => {
   const { t } = useTranslation();
-  const { imageUrl, uploadImage } = useProfileImage();
+  const { imageUrl, uploadImage } = useProfileImage(src);
 
   return (
     <ImgCrop

@@ -23,13 +23,13 @@ export const mockUserData: User = {
     id: 1,
     name: 'Front-end',
   },
+  role: 'Freelancer',
   position: 'Software engeneer',
   skills: [
     { id: 1, name: 'HTML' },
     { id: 2, name: 'CSS' },
     { id: 4, name: 'Web development' },
   ],
-  role: 'Freelancer',
 };
 
 export const mockEducationData: mockEducation[] = [
