@@ -1,6 +1,5 @@
-import { Pagination } from 'antd';
 import styled from 'styled-components';
-import { PageWrapper } from '@freelance/components';
+import { PageWrapper, Pagination } from '@freelance/components';
 
 export const Wrapper = styled(PageWrapper)`
   display: flex;

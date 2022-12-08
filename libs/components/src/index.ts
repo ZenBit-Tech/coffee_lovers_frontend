@@ -26,6 +26,8 @@ export * from './lib/proposal-modal/index';
 export * from './lib/signup-form/signup-form';
 export * from './lib/small-card/small-card';
 export * from './lib/some-element/some-element';
+export * from './lib/UI/input-search';
 export * from './lib/UI/page-wrapper';
+export * from './lib/UI/pagination';
 export * from './lib/UI/primary-button';
 export * from './lib/UI/secondary-button';

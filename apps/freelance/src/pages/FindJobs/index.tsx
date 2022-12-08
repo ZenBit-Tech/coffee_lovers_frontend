@@ -1,6 +1,10 @@
-import { Button, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { Filters, JobCard } from '@freelance/components';
+import {
+  Filters,
+  InputSearch,
+  JobCard,
+  PrimaryButton,
+} from '@freelance/components';
 import { useFindJobsQuery } from 'redux/services/jobsApi';
 
 import { fetchLimit, filterRight, filterTop } from './constants';
@@ -41,16 +45,13 @@ const FindJobs = () => {
           <div>{data?.meta.totalCount || 0}</div>
         </TitleContainer>
         <PageBarRightSideContainer>
-          <Input.Search
+          <InputSearch
             placeholder={t('findJobs.searchPlaceholder')}
             onSearch={onSearch}
           />
-          <Button
-            type="primary"
-            onClick={() => setFiltersVisibility(prev => !prev)}
-          >
+          <PrimaryButton onClick={() => setFiltersVisibility(prev => !prev)}>
             {t('findJobs.filters')}
-          </Button>
+          </PrimaryButton>
           <Filters
             visibility={filtersVisibility}
             closeHandler={() => setFiltersVisibility(false)}
