@@ -1,10 +1,11 @@
-import { Button, Input, List } from 'antd';
+import { Button, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Filters, JobCard } from '@freelance/components';
 import { useFindJobsQuery } from 'redux/services/jobsApi';
 
 import { fetchLimit, filterRight, filterTop } from './constants';
 import {
+  ListContainer,
   PageBar,
   PageBarRightSideContainer,
   StyledPagination,
@@ -33,7 +34,7 @@ const FindJobs = () => {
   });
 
   return (
-    <Wrapper>
+    <Wrapper isLoading={isLoading}>
       <PageBar>
         <TitleContainer>
           <div>{t('findJobs.title')}</div>
@@ -60,26 +61,22 @@ const FindJobs = () => {
         </PageBarRightSideContainer>
       </PageBar>
 
-      <List
-        dataSource={data?.jobs}
-        renderItem={item => (
-          <List.Item>
-            <JobCard
-              key={item.id}
-              title={item.title || ''}
-              description={item.description || t('findJobs.no_description')}
-              category={item.category?.name || t('findJobs.no_category')}
-              date={new Date(item.created_at)}
-              duration={t('findJobs.no_duration')}
-              owner={`${item.owner?.first_name || ''} ${
-                item.owner?.last_name || ''
-              }`}
-              rate={item.hourly_rate || null}
-            />
-          </List.Item>
-        )}
-        loading={isLoading}
-      />
+      <ListContainer>
+        {data?.jobs.map(item => (
+          <JobCard
+            key={item.id}
+            title={item.title || ''}
+            description={item.description || t('findJobs.no_description')}
+            category={item.category?.name || t('findJobs.no_category')}
+            date={new Date(item.created_at)}
+            duration={t('findJobs.no_duration')}
+            owner={`${item.owner?.first_name || ''} ${
+              item.owner?.last_name || ''
+            }`}
+            rate={item.hourly_rate || null}
+          />
+        ))}
+      </ListContainer>
       {!isLoading && (
         <StyledPagination
           total={data?.meta.totalCount}

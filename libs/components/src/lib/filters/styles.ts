@@ -1,6 +1,6 @@
-import { Form } from 'antd';
+import { Form, InputNumber } from 'antd';
 import styled from 'styled-components';
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined, MinusOutlined } from '@ant-design/icons';
 
 import { itemFontSize } from './constants';
 
@@ -24,6 +24,7 @@ export const Wrapper = styled.div<WrapperProps>`
   border-radius: 3px;
   width: 300px;
   height: 415px;
+  padding-top: 8px;
   background-color: ${({ theme }) => theme.colors.white};
   z-index: ${({ theme }) => theme.order.modal};
 `;
@@ -98,4 +99,12 @@ export const ButtonsContainer = styled.div`
 
 export const StyledFormItem = styled(Form.Item)`
   margin-bottom: 0px;
+`;
+
+export const StyledInputNumber = styled(InputNumber)`
+  width: 100%;
+`;
+
+export const StyledMinusOutlined = styled(MinusOutlined)`
+  margin: 0 20px;
 `;

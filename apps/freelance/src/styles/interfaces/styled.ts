@@ -51,4 +51,9 @@ export interface ITheme {
     header: number;
     modal: number;
   };
+
+  card: {
+    borderColor: string;
+    borderRadius: string;
+  };
 }
