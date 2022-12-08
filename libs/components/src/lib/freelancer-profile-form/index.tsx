@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
   DefInput,
-  mockEducation,
-  mockWork,
   profileQ1,
   profileQ2,
   StyledSelect,
@@ -17,7 +15,7 @@ import {
   useAddUserWorkhistoryInfoMutation,
   useUpdateUserInfoMutation,
 } from 'src/redux/profileQuestions/profileQuestions1Api';
-import { User } from 'src/redux/types/user.types';
+import { GetEducation, GetWorkhistory, User } from 'src/redux/types/user.types';
 
 import FormEduList from './FormEduList';
 import FormWorkList from './FormWorkList';
@@ -27,10 +25,11 @@ import * as St from './styles';
 
 interface freelancerFormProps {
   user?: User;
-  work?: mockWork[];
-  education?: mockEducation[];
+  work?: GetWorkhistory[];
+  education?: GetEducation[];
   navigation?: string;
   submitText: string;
+  isLoadingWork?: boolean;
 }
 
 export const FreelancerForm: FC<freelancerFormProps> = ({
@@ -63,7 +62,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
       await UpdateUserInfo(userPayload);
       await AddUserEduInfo(educationPayloadArr());
       await AddUserWorkhistory(workPayloadArr());
-      // form.resetFields();
+      form.resetFields();
       navigation && navigate(navigation);
     } catch (error) {
       alert(error);

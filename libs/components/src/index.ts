@@ -7,6 +7,7 @@ export * from './lib/button/styles';
 export * from './lib/conditions-card/conditions-card';
 export { CardWrapper } from './lib/conditions-card/styles';
 export * from './lib/constants';
+export * from './lib/constants/mockUserData';
 export * from './lib/container/container';
 export * from './lib/example-button/example-button';
 export * from './lib/filters';
