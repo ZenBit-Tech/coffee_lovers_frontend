@@ -9,8 +9,8 @@ interface useProfileImageReturn {
   uploadImage: (options: CustomRequestOptions) => void;
 }
 
-const useProfileImage = (): useProfileImageReturn => {
-  const [imageUrl, setImageUrl] = useState<string>('');
+const useProfileImage = (src?: string): useProfileImageReturn => {
+  const [imageUrl, setImageUrl] = useState<string>(src || '');
   const [setProfileImage, { data }] = useSetProfileImageMutation();
 
   useEffect(() => {

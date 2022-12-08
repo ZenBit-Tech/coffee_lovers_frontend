@@ -10,8 +10,8 @@ export const routes = {
   // Protected Routes
   role: '/role',
   //Freelancer Routes
-  profileQuestions1: '/profile-questions-1',
-  profileQuestions2: '/profile-questions-2',
+  profileQuestions: '/profile-questions',
+  freelancerProfile: '/:id/my-profile',
   findJobs: '/findjobs',
   jobDetails: '/jobdetails',
   proposalsList: '/job/:id/proposals',

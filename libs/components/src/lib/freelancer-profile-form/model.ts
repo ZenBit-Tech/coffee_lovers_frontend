@@ -8,19 +8,27 @@ export interface IProfileQuestions {
   position: string;
   education: educationProps[];
   work_history_wrapper: workProps[];
-  category_id: number;
+  category: number;
   english_level: string;
   other_experience: string;
   skills: number[];
 }
 
 interface educationProps {
-  information_about_education: string;
+  education_descr: string;
   education_from: Moment;
   education_to: Moment;
 }
 interface workProps {
-  work_history?: string;
-  work_from?: Moment;
-  work_to?: Moment;
+  work_history_descr?: string;
+  work_history_from?: Moment;
+  work_history_to?: Moment;
+}
+
+export interface workConvertedProps extends workProps {
+  id?: number;
+}
+
+export interface eduConvertedProps extends educationProps {
+  id?: number;
 }

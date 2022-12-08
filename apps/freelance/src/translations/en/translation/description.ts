@@ -33,6 +33,10 @@ export default {
       mesPos: 'Please, input position!',
       mesAvTime: 'Please, input time!',
       mesEdu: 'Education field is required!',
+      mesTimeFrom: 'Please, input time from!',
+      mesTimeTo: 'Please, input time to!',
+      mesWork: 'Work history field is required!',
+      finish: 'Finish',
     },
     profileQp2: {
       pr_bar_completion_per: '50% completed',
@@ -52,6 +56,9 @@ export default {
     freelancerPageInfo: {
       sendOffer: 'Send offer',
       inviteInterview: 'Invite to interview',
+    },
+    freelancerEditProfile: {
+      save: 'Save',
     },
     router: {
       toPage2: 'Click here for page 2.',

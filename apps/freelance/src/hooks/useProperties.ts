@@ -17,14 +17,14 @@ interface SelectOptionString {
 const useProperties = (): {
   categories: Property[];
   englishLevels: string[];
+  availableTime: string[];
   skills: Property[];
   getOptionsForSelectWithId: (property: Property[]) => SelectOptionWithId[];
   getOptionsForSelectString: (property: string[]) => SelectOptionString[];
 } => {
   const dispatch = useDispatch();
-  const { categories, englishLevels, skills, lastUpdate } = useAppSelector(
-    state => state.properties,
-  );
+  const { categories, englishLevels, skills, availableTime, lastUpdate } =
+    useAppSelector(state => state.properties);
   const skip = !(Date.now() - lastUpdate > categoriesRefreshTime);
   const { data, isSuccess } = useGetAllPropertiesQuery(undefined, { skip });
 
@@ -47,6 +47,7 @@ const useProperties = (): {
   return {
     categories,
     englishLevels,
+    availableTime,
     skills,
     getOptionsForSelectWithId,
     getOptionsForSelectString,
