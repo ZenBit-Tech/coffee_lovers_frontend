@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { t } from 'i18next';
-import { useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
 import { routes } from '@freelance/components';
 import { formatDate } from 'src/utils/dates';
 import { getSizedText } from 'src/utils/text';
@@ -23,9 +23,6 @@ interface JobCardProps {
   category: string;
   duration: string;
   rate: number | null;
-  english: string;
-  owner_rate: number | null;
-  time: number | null;
 }
 
 export const JobCard: FC<JobCardProps> = props => {
@@ -33,7 +30,9 @@ export const JobCard: FC<JobCardProps> = props => {
     useState<boolean>(false);
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(routes.jobDetails, { state: props });
+    const id = JSON.stringify(props.id);
+    const path = generatePath(routes.jobDetails, { id });
+    navigate(path);
   };
 
   return (

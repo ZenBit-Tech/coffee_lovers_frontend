@@ -21,14 +21,14 @@ interface IProposal {
 export const ProposalModal = ({
   openModal,
   rate,
-  owner_rate,
+  freelancer_rate,
   id,
   onCancel,
   ...props
 }: {
   openModal: boolean;
-  rate: number;
-  owner_rate: number;
+  rate: number | undefined;
+  freelancer_rate: number | undefined;
   id: number;
   onCancel: () => void;
 } & ModalProps) => {
@@ -39,12 +39,12 @@ export const ProposalModal = ({
 
   const onFinish: SubmitHandler<IProposal> = async values => {
     try {
-      const proposalRespone = {
+      const proposalResponse = {
         job: id,
         hourly_rate: values.hourly_rate,
         cover_letter: values.description,
       };
-      await sendProposal(proposalRespone);
+      await sendProposal(proposalResponse);
       form.resetFields();
       onCancel();
     } catch (error) {
@@ -67,7 +67,7 @@ export const ProposalModal = ({
         onFinish={values => handleSubmit(onFinish(values as IProposal))}
       >
         <StyledText>
-          {t('job_details.Profile_rate')} {owner_rate} $
+          {t('job_details.Profile_rate')} {freelancer_rate} $
         </StyledText>
 
         <RateWrapper
