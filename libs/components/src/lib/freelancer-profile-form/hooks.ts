@@ -1,9 +1,10 @@
 import moment from 'moment';
 import { profileQ1 } from '@freelance/components';
-import { mockEducation, mockWork } from '@freelance/components';
 import {
   AddEducation,
   AddWorkhistory,
+  GetEducation,
+  GetWorkhistory,
   UpdateUser,
 } from 'src/redux/types/user.types';
 
@@ -25,7 +26,7 @@ export const onFinishLogic = (
     description: values.description,
     hourly_rate: values.hourly_rate,
     position: values.position,
-    category_id: values.category_id,
+    category: values.category,
     english_level: values.english_level,
     other_experience: values.other_experience,
     skills: values.skills,
@@ -57,7 +58,9 @@ export const onFinishLogic = (
   return [educationPayloadArr, userPayload, workPayloadArr];
 };
 
-export const convertWorkTime = (work: mockWork[]): workConvertedProps[] => {
+export const convertWorkTime = (
+  work: GetWorkhistory[],
+): workConvertedProps[] => {
   return work?.map(el => {
     return {
       id: el.id,
@@ -69,7 +72,7 @@ export const convertWorkTime = (work: mockWork[]): workConvertedProps[] => {
 };
 
 export const convertEduTime = (
-  education: mockEducation[],
+  education: GetEducation[],
 ): eduConvertedProps[] => {
   return education?.map(el => {
     return {

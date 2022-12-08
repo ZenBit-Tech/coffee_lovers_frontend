@@ -1,32 +1,35 @@
 import { useTranslation } from 'react-i18next';
+import { AppBar, AvatarUpload, FreelancerForm } from '@freelance/components';
 import {
-  AppBar,
-  AvatarUpload,
-  FreelancerForm,
-  mockEducationData,
-} from '@freelance/components';
-import { mockUserData, mockWorkHistoryData } from '@freelance/components';
+  useGetUserEducationInfoQuery,
+  useGetUserInfoQuery,
+  useGetUserWorkInfoQuery,
+} from 'redux/services/user';
 
 import * as St from './styles';
 
 const FreelancerProfile = () => {
   const { t } = useTranslation();
+  const { data: user, isLoading: isLoadingUser } = useGetUserInfoQuery();
+  const { data: work, isLoading: isLoadingWork } = useGetUserWorkInfoQuery();
+  const { data: education, isLoading: isLoadingEdu } =
+    useGetUserEducationInfoQuery();
 
   return (
-    <St.Wrapper>
+    <St.Wrapper isLoading={isLoadingUser || isLoadingWork || isLoadingEdu}>
       <AppBar />
       <St.LogoWrapper direction="vertical">
         <AvatarUpload />
         <p>
-          {mockUserData.first_name} {mockUserData.last_name}
+          {user?.first_name} {user?.last_name}
         </p>
-        <p>{mockUserData.email}</p>
+        <p>{user?.email}</p>
       </St.LogoWrapper>
       <FreelancerForm
         submitText={t('description.freelancerEditProfile.save')}
-        user={mockUserData}
-        work={mockWorkHistoryData}
-        education={mockEducationData}
+        user={user}
+        work={work}
+        education={education}
       />
     </St.Wrapper>
   );
