@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { t } from 'i18next';
 import { generatePath, useNavigate } from 'react-router-dom';
-import { routes } from '@freelance/components';
+import { InformationSticker, routes } from '@freelance/components';
 import { formatDate } from 'src/utils/dates';
 import { getSizedText } from 'src/utils/text';
 
@@ -62,11 +62,13 @@ export const JobCard: FC<JobCardProps> = props => {
       )}
 
       <PropertiesContainer>
-        <div>{props.owner}</div>
-        <div>{formatDate(props.date)}</div>
-        <div>{props.category}</div>
-        <div>{props.duration}</div>
-        <div>{t('jobCard.hrly_rate', { rate: props.rate })}</div>
+        <InformationSticker>{props.owner}</InformationSticker>
+        <InformationSticker>{formatDate(props.date)}</InformationSticker>
+        <InformationSticker>{props.category}</InformationSticker>
+        <InformationSticker>{props.duration}</InformationSticker>
+        <InformationSticker>
+          {t('jobCard.hrly_rate', { rate: props.rate })}
+        </InformationSticker>
       </PropertiesContainer>
     </Wrapper>
   );
