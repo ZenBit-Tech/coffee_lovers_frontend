@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Col, Form, Input, Row, Space } from 'antd';
+import { Col, Input, Row, Space } from 'antd';
 import { Namespace } from 'i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -11,19 +11,15 @@ import { Job } from 'src/redux/types/jobs.types';
 
 import { StyledModal } from './styles';
 import { StyledSelect } from './styles';
+import { Props } from './types';
 
-export function InterviewModal(props: {
-  open: boolean;
-  setOpen: (op: boolean) => void;
-  freelancerId: number;
-}) {
+export function InterviewModal(props: Props) {
   const { setOpen, open } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
-  const [jobId, setJobId] = useState<number | null>(null);
+
   const { t } = useTranslation<Namespace<string>>();
   const { data: invitation } = useGetInvitationDetailsQuery({
-    id: jobId,
     frId: props.freelancerId,
   });
   const { data } = useFindUserJobsQuery();
@@ -45,8 +41,8 @@ export function InterviewModal(props: {
   const { control, handleSubmit, reset, register } = useForm({
     defaultValues: {
       select: null,
-      rate: null,
-      description: null,
+      rate: '',
+      description: '',
     },
   });
 
@@ -56,11 +52,7 @@ export function InterviewModal(props: {
     description: string | null;
   }) => {
     console.log(payload);
-    setJobId(payload.select);
-    reset({ select: null });
-    reset({
-      rate: null,
-    });
+    reset({ select: null, rate: '', description: '' });
   };
 
   return (
@@ -124,7 +116,7 @@ export function InterviewModal(props: {
             />
 
             <Controller
-              {...register('rate', { required: true, valueAsNumber: true })}
+              {...register('rate', { required: true })}
               name="rate"
               control={control}
               render={({ field }) => (
@@ -133,22 +125,11 @@ export function InterviewModal(props: {
                     <p>{t('modalInvite.rate')}</p>
                   </Col>
                   <Col span={5}>
-                    <Form.Item
-                      rules={[
-                        {
-                          type: 'number',
-                          required: true,
-                          message: `$required`,
-                        },
-                      ]}
-                      hasFeedback
+                    <Input
+                      type="number"
+                      placeholder={t('modalInvite.placeholder')}
                       {...field}
-                    >
-                      <Input
-                        type="number"
-                        placeholder={t('modalInvite.placeholder')}
-                      />
-                    </Form.Item>
+                    />
                   </Col>
                 </Row>
               )}
@@ -160,19 +141,7 @@ export function InterviewModal(props: {
               render={({ field }) => (
                 <Row>
                   <Col span={24}>
-                    <Form.Item
-                      rules={[
-                        {
-                          required: true,
-                          message: `$required`,
-                          type: 'string',
-                        },
-                      ]}
-                      hasFeedback
-                      {...field}
-                    >
-                      <TextArea />
-                    </Form.Item>
+                    <TextArea {...field} />
                   </Col>
                 </Row>
               )}

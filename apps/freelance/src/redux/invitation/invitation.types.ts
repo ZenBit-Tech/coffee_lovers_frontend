@@ -8,6 +8,5 @@ export interface Error {
 }
 
 export interface InviteParams {
-  id: number | null | undefined;
   frId: number | null;
 }
