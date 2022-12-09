@@ -32,8 +32,10 @@ const useProperties = (): {
     skills,
     lastUpdate,
   } = useAppSelector(state => state.properties);
-  const skip = !(Date.now() - lastUpdate > categoriesRefreshTime);
-  const { data, isSuccess } = useGetAllPropertiesQuery(undefined, { skip });
+
+  const { data, isSuccess } = useGetAllPropertiesQuery(undefined, {
+    skip: !(Date.now() - lastUpdate > categoriesRefreshTime),
+  });
 
   if (isSuccess) {
     dispatch(setProperties({ ...data, lastUpdate: Date.now() }));
