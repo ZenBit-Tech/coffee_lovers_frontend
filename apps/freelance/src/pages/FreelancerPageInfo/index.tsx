@@ -127,7 +127,11 @@ const FreelancerPageInfo = () => {
           </Col>
         </Row>
       </St.FreelancerInfo>
-      <InterviewModal open={open} setOpen={setOpen} />
+      <InterviewModal
+        freelancerId={mockUserData.id}
+        open={open}
+        setOpen={setOpen}
+      />
       <St.ButtonWrapper>
         <St.StyledButton onClick={() => navigate('/')}>
           {t('description.freelancerPageInfo.sendOffer')}

@@ -14,6 +14,7 @@ describe('InterviewModal', () => {
     unmountComponentAtNode(container);
     container.remove();
   });
+
   it('should render successfully', () => {
     const { baseElement } = render(
       <InterviewModal
@@ -21,6 +22,7 @@ describe('InterviewModal', () => {
         setOpen={function (op: boolean): void {
           throw new Error('Function not implemented.');
         }}
+        freelancerId={0}
       />,
     );
     expect(baseElement).toBeTruthy();

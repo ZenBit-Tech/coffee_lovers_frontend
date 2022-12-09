@@ -33,7 +33,7 @@ export const jobsApi = createApi({
     }),
     findUserJobs: builder.query<Job[], void>({
       query: () => ({
-        url: EndpointsRoutes.findUserJobs,
+        url: `${EndpointsRoutes.findUserJobs}`,
       }),
     }),
     getJobProposals: builder.query<GetJobProposalsResponse, string>({

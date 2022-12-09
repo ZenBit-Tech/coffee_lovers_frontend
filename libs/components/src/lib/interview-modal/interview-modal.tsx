@@ -1,22 +1,34 @@
 import { useState } from 'react';
-import { Col, Form, Input, Modal, Row, Space } from 'antd';
+import { Col, Form, Input, Row, Space } from 'antd';
+import { Namespace } from 'i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@freelance/components';
 import TextArea from 'antd/lib/input/TextArea';
+import { useGetInvitationDetailsQuery } from 'src/redux/invitation/invitation';
 import { useFindUserJobsQuery } from 'src/redux/services/jobsApi';
 import { Job } from 'src/redux/types/jobs.types';
 
+import { StyledModal } from './styles';
 import { StyledSelect } from './styles';
 
 export function InterviewModal(props: {
   open: boolean;
   setOpen: (op: boolean) => void;
+  freelancerId: number;
 }) {
-  const [confirmLoading, setConfirmLoading] = useState(false);
+  const { setOpen, open } = props;
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [jobId, setJobId] = useState<number | null>(null);
+  const { t } = useTranslation<Namespace<string>>();
+  const { data: invitation } = useGetInvitationDetailsQuery({
+    id: jobId,
+    frId: props.freelancerId,
+  });
   const { data } = useFindUserJobsQuery();
-  const { open, setOpen } = props;
-  const { t } = useTranslation();
+  const conversations = invitation?.data;
+  const freelancer = invitation?.freelancer;
 
   const handleOk = () => {
     setConfirmLoading(true);
@@ -30,116 +42,168 @@ export function InterviewModal(props: {
     setOpen(false);
   };
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset, register } = useForm({
     defaultValues: {
       select: null,
-      rate: 0,
-      description: '',
+      rate: null,
+      description: null,
     },
   });
+
   const onSubmit = async (payload: {
-    select: number | null | undefined;
-    rate: number;
-    description: string;
+    select: number | null;
+    rate: number | null | string;
+    description: string | null;
   }) => {
     console.log(payload);
+    setJobId(payload.select);
+    reset({ select: null });
+    reset({
+      rate: null,
+    });
   };
 
   return (
-    <Modal
-      title="Title"
+    <StyledModal
+      title={page === 1 ? t('modalInvite.jobList') : t('modalInvite.invite')}
       open={open}
       onOk={handleOk}
       confirmLoading={confirmLoading}
       onCancel={handleCancel}
       footer={null}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-          <Controller
-            name="select"
-            control={control}
-            render={({ field }) => (
-              <Row justify="start">
-                <Col span={8}>
-                  <p>{t('modalInvite.choose')}</p>
-                </Col>
-                <Col span={5}>
-                  <StyledSelect
-                    {...field}
-                    options={data?.map((el: Job) => ({
-                      ...el,
-                      value: el.id,
-                      label: el.title,
-                    }))}
-                  />
-                </Col>
-              </Row>
-            )}
-          />
-
-          <Controller
-            name="rate"
-            control={control}
-            render={({ field }) => (
-              <Row justify="start">
-                <Col span={8}>
-                  <p>{t('modalInvite.rate')}</p>
-                </Col>
-                <Col span={5}>
-                  <Form.Item
-                    rules={[
-                      {
-                        required: true,
-                        message: `$required`,
-                        type: 'number',
-                      },
-                    ]}
-                    hasFeedback
-                    {...field}
-                  >
-                    <Input
-                      type="number"
-                      placeholder={t('modalInvite.placeholder')}
+      {conversations?.length > 0 && page === 1 ? (
+        <>
+          {t('modalInvite.notification', {
+            ending: conversations?.length > 1 && 's',
+            firstName: freelancer?.first_name,
+            lastName: freelancer?.last_name,
+          })}
+          <ul>
+            {conversations?.map((el: { id: number; job: Job }) => (
+              <li>
+                <a href={`${process.env['NX_API_URL']}/conversations/${el.id}`}>
+                  {t('modalInvite.jobTitle', { job: el.job.title })}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <br />
+          <Button
+            onClick={() => {
+              setPage(2);
+            }}
+          >
+            {t('modalInvite.newChat')}
+          </Button>
+        </>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+            <Controller
+              {...register('select', { required: true })}
+              name="select"
+              control={control}
+              render={({ field }) => (
+                <Row justify="start">
+                  <Col span={8}>
+                    <p>{t('modalInvite.choose')}</p>
+                  </Col>
+                  <Col span={5}>
+                    <StyledSelect
+                      {...field}
+                      options={data?.map((el: Job) => ({
+                        ...el,
+                        value: el.id,
+                        label: el.title,
+                      }))}
                     />
-                  </Form.Item>
+                  </Col>
+                </Row>
+              )}
+            />
+
+            <Controller
+              {...register('rate', { required: true, valueAsNumber: true })}
+              name="rate"
+              control={control}
+              render={({ field }) => (
+                <Row justify="start">
+                  <Col span={8}>
+                    <p>{t('modalInvite.rate')}</p>
+                  </Col>
+                  <Col span={5}>
+                    <Form.Item
+                      rules={[
+                        {
+                          type: 'number',
+                          required: true,
+                          message: `$required`,
+                        },
+                      ]}
+                      hasFeedback
+                      {...field}
+                    >
+                      <Input
+                        type="number"
+                        placeholder={t('modalInvite.placeholder')}
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+              )}
+            />
+            <Controller
+              {...register('description', { required: true, min: 15 })}
+              name="description"
+              control={control}
+              render={({ field }) => (
+                <Row>
+                  <Col span={24}>
+                    <Form.Item
+                      rules={[
+                        {
+                          required: true,
+                          message: `$required`,
+                          type: 'string',
+                        },
+                      ]}
+                      hasFeedback
+                      {...field}
+                    >
+                      <TextArea />
+                    </Form.Item>
+                  </Col>
+                </Row>
+              )}
+            />
+            <Row justify="end">
+              <Space
+                direction="horizontal"
+                size="middle"
+                style={{ display: 'flex' }}
+              >
+                <Col span={6}>
+                  <Button height="40px" onClick={() => setPage(1)}>
+                    {t('modalInvite.back')}
+                  </Button>
                 </Col>
-              </Row>
-            )}
-          />
-          <Controller
-            name="description"
-            control={control}
-            render={({ field }) => (
-              <Row>
-                <Col span={24}>
-                  <Form.Item
-                    rules={[
-                      {
-                        required: true,
-                        message: `$required`,
-                        type: 'string',
-                      },
-                    ]}
-                    hasFeedback
-                    {...field}
-                  >
-                    <TextArea />
-                  </Form.Item>
+                <Col span={6}>
+                  <Button htmlType="submit" height="40px">
+                    {t('modalInvite.submit')}
+                  </Button>
                 </Col>
-              </Row>
-            )}
-          />
-          <Row justify="end">
-            <Col span={6}>
-              <Button htmlType="submit" height="40px" onClick={handleOk}>
-                {t('modalInvite.submit')}
-              </Button>
-            </Col>
-          </Row>
-        </Space>
-      </form>
-    </Modal>
+                <Col span={6}>
+                  <Button height="40px" onClick={handleOk}>
+                    {t('modalInvite.close')}
+                  </Button>
+                </Col>
+              </Space>
+            </Row>
+          </Space>
+        </form>
+      )}
+    </StyledModal>
   );
 }
 

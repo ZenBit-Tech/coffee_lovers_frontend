@@ -8,7 +8,7 @@ export interface mockEducation extends AddEducation {
 }
 
 export const mockUserData: User = {
-  id: 1,
+  id: 5,
   email: 'test@test.com',
   first_name: 'John',
   last_name: 'Doe',
