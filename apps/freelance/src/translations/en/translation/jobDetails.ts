@@ -13,5 +13,6 @@ export default {
     Profile_rate: 'Your profile rate is',
     setup_rate: 'Setup rate',
     cover_letter: 'Cover letter',
+    error_msg: 'You have already submitted a proposal for this job',
   },
 };

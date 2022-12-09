@@ -1,6 +1,8 @@
-import { Space } from 'antd';
+import { Space, Typography } from 'antd';
 import styled from 'styled-components';
 import { baseTheme } from 'src/styles/theme';
+
+const { Text } = Typography;
 
 export const Wrapper = styled.div`
   margin-top: 40px;
@@ -28,7 +30,7 @@ export const LabelText = styled.p`
   font-size: ${baseTheme.fontSize.large};
 `;
 
-export const Text = styled.p`
+export const StyledText = styled.p`
   font-size: ${baseTheme.fontSize.medium};
 `;
 
@@ -62,4 +64,14 @@ export const LogoWrapper = styled.div`
   margin-right: auto;
   margin-left: auto;
   align-items: center;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center; ;
+`;
+
+export const ErrorText = styled(Text)`
+  margin-left: 20px;
 `;

@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { t } from 'i18next';
-import { InformationSticker } from '@freelance/components';
+import { generatePath, useNavigate } from 'react-router-dom';
+import { InformationSticker, routes } from '@freelance/components';
 import { formatDate } from 'src/utils/dates';
 import { getSizedText } from 'src/utils/text';
 
@@ -14,6 +15,7 @@ import {
 } from './styles';
 
 interface JobCardProps {
+  id: number;
   title: string;
   description: string;
   owner: string;
@@ -26,11 +28,17 @@ interface JobCardProps {
 export const JobCard: FC<JobCardProps> = props => {
   const [descriptionVisibility, setDescriptionVisibility] =
     useState<boolean>(false);
+  const navigate = useNavigate();
+  const handleClick = () => {
+    const id = JSON.stringify(props.id);
+    const path = generatePath(routes.jobDetails, { id });
+    navigate(path);
+  };
 
   return (
     <Wrapper>
       <StyledTitle>
-        <div>{props.title}</div>
+        <div onClick={handleClick}>{props.title}</div>
       </StyledTitle>
 
       <StyledDescription>

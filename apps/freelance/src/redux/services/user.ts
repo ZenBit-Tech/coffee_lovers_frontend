@@ -8,6 +8,7 @@ import {
 import { getHeaders } from '@utils/api';
 import {
   GetEducation,
+  GetUserProposals,
   GetWorkhistory,
   PasswordResetPayload,
   Role,
@@ -77,6 +78,11 @@ export const userApi = createApi({
         };
       },
     }),
+    getUserProposals: builder.query<GetUserProposals, void>({
+      query: () => ({
+        url: `/proposals`,
+      }),
+    }),
   }),
 });
 
@@ -86,6 +92,8 @@ export const {
   useSetProfileImageMutation,
   useAddUserRoleMutation,
   useGetUserInfoQuery,
+  useLazyGetUserInfoQuery,
+  useGetUserProposalsQuery,
   useGetUserWorkInfoQuery,
   useGetUserEducationInfoQuery,
 } = userApi;

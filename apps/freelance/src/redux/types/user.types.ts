@@ -68,3 +68,20 @@ export type Role = 'Freelancer' | 'JobOwner' | 'Visitor';
 export interface SetProfileImageResponse {
   file: string;
 }
+
+export interface GetUserProposals {
+  proposals: {
+    id: number;
+    hourly_rate: number;
+    cover_letter: string;
+    job: {
+      id: number;
+      title: string;
+      description: string;
+      hourly_rate: number;
+      available_time: string;
+      english_level: string;
+      created_at: string;
+    };
+  }[];
+}

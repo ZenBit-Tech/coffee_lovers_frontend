@@ -5,9 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { StyledInput, StyledPasswordInput } from '@freelance/components';
-import { routes } from '@freelance/components';
+import { roles, routes } from '@freelance/components';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
+import { setRole } from 'src/redux/auth/auth-slice';
 import { setUser } from 'src/redux/auth/auth-slice';
+import { useLazyGetUserInfoQuery } from 'src/redux/services/user';
 
 type FormValues = {
   email: string;
@@ -19,8 +21,10 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { handleSubmit, control } = useForm<FormValues>();
-  const [loginUser, { data: loginData, isSuccess, isError }] =
+  const [loginUser, { data: loginData, isSuccess: isLoginSuccess, isError }] =
     useLoginUserMutation();
+  const [getUserInfo, { data: userData, isSuccess: isUserSuccess }] =
+    useLazyGetUserInfoQuery();
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     try {
@@ -28,6 +32,7 @@ export const LoginForm = () => {
         const email = data.email;
         const password = data.password;
         await loginUser({ email, password });
+        await getUserInfo();
       }
     } catch (error) {
       alert(JSON.stringify(error));
@@ -35,13 +40,20 @@ export const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isLoginSuccess && isUserSuccess) {
       dispatch(setUser({ access_token: loginData.access_token }));
+      userData && dispatch(setRole({ role: userData.role }));
+
+      navigate(
+        userData?.role === roles.freelancer
+          ? routes.freelancerProfile
+          : routes.jobOwnerDashboard,
+      );
     }
     if (isError) {
       alert('Something went wrong...');
     }
-  }, [isSuccess, isError]);
+  });
 
   return (
     <Form
