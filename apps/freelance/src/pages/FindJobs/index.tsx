@@ -66,6 +66,7 @@ const FindJobs = () => {
           <List.Item>
             <JobCard
               key={item.id}
+              id={item.id}
               title={item.title || ''}
               description={item.description || t('findJobs.no_description')}
               category={item.category?.name || t('findJobs.no_category')}
