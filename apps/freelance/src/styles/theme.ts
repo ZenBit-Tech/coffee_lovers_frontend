@@ -2,7 +2,7 @@ import { ITheme } from './interfaces/styled';
 
 export const baseTheme: ITheme = {
   colors: {
-    primary: '#7986cb',
+    primary: '#2e38b3',
     secondary: '#2b2b2b',
     success: '#4caf50',
     danger: '#f44336 ',
@@ -16,10 +16,6 @@ export const baseTheme: ITheme = {
       green: '#439c46',
       greenHover: '#5cbf60',
     },
-
-    border: {
-      lightGrey: '#f0f0f0',
-    },
   },
 
   media: {
@@ -27,6 +23,10 @@ export const baseTheme: ITheme = {
     large: '1280px',
     medium: '768px',
     small: '320px',
+  },
+
+  font: {
+    primary: "'Poppins', sans-serif",
   },
 
   fontSize: {
@@ -54,5 +54,10 @@ export const baseTheme: ITheme = {
   order: {
     header: 50,
     modal: 100,
+  },
+
+  card: {
+    borderColor: '#d6d6d6',
+    borderRadius: '5px',
   },
 };

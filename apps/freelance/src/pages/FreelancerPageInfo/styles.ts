@@ -1,7 +1,8 @@
 import { Button, Space } from 'antd';
 import styled from 'styled-components';
+import { PageWrapper } from '@freelance/components';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(PageWrapper)`
   padding-top: 50px;
   padding-bottom: 50px;
 `;

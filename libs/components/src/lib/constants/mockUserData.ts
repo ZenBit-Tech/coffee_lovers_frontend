@@ -23,6 +23,7 @@ export const mockUserData: User = {
     id: 1,
     name: 'Front-end',
   },
+  role: 'Freelancer',
   position: 'Software engeneer',
   skills: [
     { id: 1, name: 'HTML' },

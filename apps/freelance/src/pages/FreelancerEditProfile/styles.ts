@@ -1,7 +1,8 @@
 import { Space } from 'antd';
 import styled from 'styled-components';
+import { PageWrapper } from '@freelance/components';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(PageWrapper)`
   padding: 50px 50px 5px 50px;
 `;
 

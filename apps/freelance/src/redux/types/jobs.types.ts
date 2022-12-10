@@ -45,3 +45,25 @@ export interface GetJobProposalsResponse {
   job: Job;
   proposals: Proposal[];
 }
+
+export interface IJobProposal {
+  job: number;
+  hourly_rate: number;
+  cover_letter: string;
+}
+
+export interface GetJobResponse {
+  job: Job;
+}
+
+export interface GetPostedJobsResponse {
+  id: number;
+  title: string;
+  description: string;
+  hourly_rate: number;
+  available_time: string;
+  english_level: string;
+  created_at: string;
+  category: Property;
+  proposalsCount: number;
+}

@@ -20,7 +20,7 @@ export const profileQ1 = {
   workHistory: 'work_history_descr',
   workFrom: 'work_history_from',
   workTo: 'work_history_to',
-  workDefValue: [''],
+  workEduDefValue: [''],
   hRMin: 0,
   formatYear: 'YYYY',
   formItemLayout: {
@@ -45,7 +45,7 @@ export const profileQ2 = {
   prBarProfileQ2Per: 50,
   form: 'profile_questions_1',
   skills: 'skills',
-  category: 'category_id',
+  category: 'category',
   englishLevel: 'english_level',
   otherExp: 'other_experience',
   formItemLayout: {

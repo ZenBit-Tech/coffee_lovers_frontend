@@ -1,7 +1,7 @@
-import { Pagination } from 'antd';
 import styled from 'styled-components';
+import { PageWrapper, Pagination } from '@freelance/components';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(PageWrapper)`
   display: flex;
   flex-direction: column;
   padding-top: 10px;
@@ -16,6 +16,14 @@ export const PageBar = styled.div`
   position: sticky;
   top: 0;
   z-index: 10;
+`;
+
+export const ListContainer = styled.div`
+  margin-top: 10px;
+
+  & > div {
+    margin-bottom: 15px;
+  }
 `;
 
 export const PageBarRightSideContainer = styled.div`
@@ -43,8 +51,9 @@ export const TitleContainer = styled.div`
 `;
 
 export const StyledPagination = styled(Pagination)`
-  align-self: center;
   position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 5px;
   background-color: ${({ theme }) => theme.colors.white};
 `;

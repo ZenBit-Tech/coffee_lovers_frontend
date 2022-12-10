@@ -13,7 +13,7 @@ export const routes = {
   profileQuestions: '/profile-questions',
   freelancerProfile: '/:id/my-profile',
   findJobs: '/findjobs',
-  jobDetails: '/jobdetails',
+  jobDetails: '/job/:id/details',
   proposalsList: '/job/:id/proposals',
   //Job Owner Routes
   jobOwnerDashboard: '/jobownerdashboard',

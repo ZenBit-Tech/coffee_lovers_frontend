@@ -7,10 +7,13 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
 import {
-  IUserInfo,
+  GetEducation,
+  GetUserProposals,
+  GetWorkhistory,
   PasswordResetPayload,
   Role,
   SetProfileImageResponse,
+  User,
   UserError,
 } from 'redux/types/user.types';
 
@@ -27,6 +30,24 @@ export const userApi = createApi({
     prepareHeaders: getHeaders(),
   }) as BaseQueryFn<string | FetchArgs, unknown, UserError>,
   endpoints: builder => ({
+    getUserInfo: builder.query<User, void>({
+      query: () => ({
+        url: `/`,
+        method: 'GET',
+      }),
+    }),
+    getUserWorkInfo: builder.query<GetWorkhistory[], void>({
+      query: () => ({
+        url: `/workhistory-info`,
+        method: 'GET',
+      }),
+    }),
+    getUserEducationInfo: builder.query<GetEducation[], void>({
+      query: () => ({
+        url: `/education-info`,
+        method: 'GET',
+      }),
+    }),
     passwordResetRequest: builder.mutation({
       query: (email: string) => ({
         url: EndpointsRoutes.passwordResetRequest,
@@ -57,10 +78,9 @@ export const userApi = createApi({
         };
       },
     }),
-    getUserInfo: builder.query<IUserInfo, void>({
+    getUserProposals: builder.query<GetUserProposals, void>({
       query: () => ({
-        url: `/`,
-        method: 'GET',
+        url: `/proposals`,
       }),
     }),
   }),
@@ -72,4 +92,8 @@ export const {
   useSetProfileImageMutation,
   useAddUserRoleMutation,
   useGetUserInfoQuery,
+  useLazyGetUserInfoQuery,
+  useGetUserProposalsQuery,
+  useGetUserWorkInfoQuery,
+  useGetUserEducationInfoQuery,
 } = userApi;

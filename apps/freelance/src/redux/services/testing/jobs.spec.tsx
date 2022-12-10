@@ -11,7 +11,7 @@ import { testToken, userJobs } from './mock-data';
 
 fetchMock.enableMocks();
 
-describe('check job query', () => {
+describe('check userjob query', () => {
   const OLD_ENV = process.env;
 
   beforeEach((): void => {

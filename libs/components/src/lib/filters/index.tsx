@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { Button, Form, InputNumber, Select } from 'antd';
+import { Form, Select } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { MinusOutlined } from '@ant-design/icons';
+import { PrimaryButton, SecondaryButton } from '@freelance/components';
 import useProperties from 'src/hooks/useProperties';
 
 import {
@@ -24,6 +24,8 @@ import {
   StyledClose,
   StyledFilterTitle,
   StyledFormItem,
+  StyledInputNumber,
+  StyledMinusOutlined,
   StyledTitle,
   Wrapper,
 } from './styles';
@@ -119,7 +121,7 @@ export const Filters: FC<FiltersProps> = ({
                 name={hrlyRateStartName}
                 control={control}
                 render={({ field }) => (
-                  <InputNumber
+                  <StyledInputNumber
                     formatter={value =>
                       `$ ${value}`.replace(inputNumberRegExp, ',')
                     }
@@ -129,12 +131,12 @@ export const Filters: FC<FiltersProps> = ({
                   />
                 )}
               />
-              <MinusOutlined />
+              <StyledMinusOutlined />
               <Controller
                 name={hrlyRateEndName}
                 control={control}
                 render={({ field }) => (
-                  <InputNumber
+                  <StyledInputNumber
                     formatter={value =>
                       `$ ${value}`.replace(inputNumberRegExp, ',')
                     }
@@ -185,10 +187,12 @@ export const Filters: FC<FiltersProps> = ({
           </ItemContainer>
 
           <ButtonsContainer>
-            <Button onClick={clearHandler}>{t('filters.buttons.clear')}</Button>
-            <Button htmlType="submit" type="primary">
+            <SecondaryButton onClick={clearHandler}>
+              {t('filters.buttons.clear')}
+            </SecondaryButton>
+            <PrimaryButton htmlType="submit">
               {t('filters.buttons.apply')}
-            </Button>
+            </PrimaryButton>
           </ButtonsContainer>
         </Container>
       </Form>
