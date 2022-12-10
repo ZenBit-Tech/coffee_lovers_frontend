@@ -1,8 +1,9 @@
+import { roles } from '@freelance/constants';
 import { authReducer, logout, setRole, setUser } from 'redux/auth/auth-slice';
 import { jobsApi } from 'redux/services/jobsApi';
 import { setupApiStore } from 'redux/storeTest';
 
-import { mockRole, testToken } from './mock-data';
+import { testToken } from './mock-data';
 
 describe('Auth actions', () => {
   test('Check does user have token after login', () => {
@@ -27,9 +28,9 @@ describe('Auth actions', () => {
 
   test('Check that role has been changed', () => {
     const { store } = setupApiStore(jobsApi, { user: authReducer });
-    store.dispatch(setRole({ role: mockRole }));
+    store.dispatch(setRole({ role: roles.freelancer }));
     const state = store.getState();
 
-    expect(state.user.role).toBe(mockRole);
+    expect(state.user.role).toBe(roles.freelancer);
   });
 });
