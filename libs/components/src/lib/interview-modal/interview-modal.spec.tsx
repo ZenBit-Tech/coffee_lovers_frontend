@@ -6,6 +6,7 @@ import InterviewModal from './interview-modal';
 describe('InterviewModal', () => {
   const container: Element | DocumentFragment | null =
     document.createElement('div');
+
   beforeEach(() => {
     document.body.appendChild(container);
   });
@@ -15,11 +16,11 @@ describe('InterviewModal', () => {
     container.remove();
   });
 
-  it('should render successfully', () => {
+  it('check does modal render successfully if it is opened', () => {
     const { baseElement } = render(
       <InterviewModal
         open={true}
-        setOpen={function (op: boolean): void {
+        setOpen={function (): void {
           throw new Error('Function not implemented.');
         }}
         freelancerId={0}

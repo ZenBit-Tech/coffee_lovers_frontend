@@ -51,7 +51,7 @@ export function InterviewModal(props: Props) {
     rate: number | null | string;
     description: string | null;
   }) => {
-    console.log(payload);
+    alert(payload);
     reset({ select: null, rate: '', description: '' });
   };
 

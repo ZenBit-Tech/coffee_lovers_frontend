@@ -7,7 +7,7 @@ import { authReducer } from 'redux/auth/auth-slice';
 import { jobsApi, useFindUserJobsQuery } from 'redux/services/jobsApi';
 import { setupApiStore } from 'redux/storeTest';
 
-import { testToken } from './mock-data';
+import { testToken, userJobs } from './mock-data';
 
 fetchMock.enableMocks();
 
@@ -34,9 +34,9 @@ describe('check job query', () => {
     return <Provider store={store}>{children}</Provider>;
   };
 
-  test('Check if we have succes data fetching', async () => {
+  test('Check if after data loading, we have data about user jobs from userFindUserQuery() hook ', async () => {
     try {
-      fetchMock.mockResponse(JSON.stringify([]));
+      fetchMock.mockResponse(JSON.stringify(userJobs));
       const { store } = setupApiStore(jobsApi, { user: authReducer });
       store.dispatch(setUser({ access_token: testToken ? testToken : '' }));
       expect(store.getState().user.access_token).toBe(testToken);
@@ -47,15 +47,14 @@ describe('check job query', () => {
       expect(initialResponse.data).toBeUndefined();
       expect(initialResponse.isLoading).toBe(true);
 
-      const resp = await waitFor(() => useFindUserJobsQuery());
-      expect(resp.isSuccess).toBe(true);
-      expect(resp.data).toBeDefined();
+      await waitFor(() => expect(initialResponse.data).toBeDefined());
+      expect(initialResponse.isLoading).toBeFalsy();
     } catch (err) {
       return err;
     }
   });
 
-  test('Check the work of error handler', async () => {
+  test('Check does user have error handler for Internal Server Error after data loaded in case of something went wrong', async () => {
     try {
       const { store } = setupApiStore(jobsApi, { auth: authReducer });
       const state = store.getState();
@@ -69,8 +68,8 @@ describe('check job query', () => {
       expect(initialResponse.data).toBeUndefined();
       expect(initialResponse.isLoading).toBe(true);
 
-      const succes = await waitFor(() => useFindUserJobsQuery());
-      expect(succes.isSuccess).toBe(true);
+      await waitFor(() => expect(initialResponse.data).toBeDefined());
+      expect(initialResponse.isError).toBe(true);
     } catch (err) {
       return err;
     }
