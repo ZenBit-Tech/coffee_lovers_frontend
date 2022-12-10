@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -7,12 +8,14 @@ import {
   mockUserData,
   mockWorkHistoryData,
 } from '@freelance/components';
+import { SendOfferModal } from '@freelance/components';
 
 import * as St from './styles';
 
 const FreelancerPageInfo = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [offerOpen, setOfferOpen] = useState<boolean>(false);
 
   return (
     <St.Wrapper>
@@ -129,6 +132,11 @@ const FreelancerPageInfo = () => {
           {t('description.freelancerPageInfo.inviteInterview')}
         </St.StyledButton>
       </St.ButtonWrapper>
+      <SendOfferModal
+        open={offerOpen}
+        setOpen={setOfferOpen}
+        freelancerId={mockUserData.id}
+      />
     </St.Wrapper>
   );
 };

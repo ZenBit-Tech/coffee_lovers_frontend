@@ -6,6 +6,7 @@ import {
   FindJobsResponse,
   GetJobParams,
   GetJobProposalsResponse,
+  Job,
 } from 'redux/types/jobs.types';
 
 enum EndpointsRoutes {
@@ -34,7 +35,16 @@ export const jobsApi = createApi({
         url: `/${id}` + EndpointsRoutes.getJobProposals,
       }),
     }),
+    findUserJobs: builder.query<Job[], void>({
+      query: () => ({
+        url: `/userjobs`,
+      }),
+    }),
   }),
 });
 
-export const { useFindJobsQuery, useGetJobProposalsQuery } = jobsApi;
+export const {
+  useFindJobsQuery,
+  useGetJobProposalsQuery,
+  useFindUserJobsQuery,
+} = jobsApi;
