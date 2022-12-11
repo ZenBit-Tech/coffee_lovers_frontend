@@ -6,9 +6,9 @@ export default {
     loginPage_email: 'Email',
     loginPage_password: 'Password',
     'loginPage_with-google': 'Log In with Google',
-    email_error: 'Please enter a valid email adress',
+    email_error: 'Please enter a valid email address',
     password_error: 'Please enter a valid password',
-    name_error: 'Invalid characters. Only letters are alowed.',
+    name_error: 'Invalid characters. Only letters are allowed.',
     signUp: 'Create my account',
     forgot_password: 'Forgot password?',
     have_account: 'I already have an account',
@@ -20,5 +20,10 @@ export default {
     terms: 'Terms & Conditions',
     match_error: 'Your passwords do not match.',
     agreement_error: 'Please accept Terms&Conditions',
+  },
+  conditions: {
+    title: 'Terms & Conditions',
+    accept_button: 'Accept',
+    text: "A Terms and Conditions agreement acts as a legal contract between you (the company) A Terms and Conditions agreement acts as a legal contract between you (the company A Terms and Conditions agreement acts as a legal contract between you (the company and the user. It's where you maintain your rights to exclude users from your app in the event that they abuse your website/app, set out the rules for using your service and note other important details and disclaimers. \nYour Terms and Conditions agreement will be uniquely yours. While some clauses are standard and commonly seen in pretty much every Terms and Conditions agreement, it's up to you to set the rules and guidelines that the user must agree to.A Terms and Conditions agreement acts as a legal contract between you (the company) and the user. It's where you maintain your rights to exclude users from your app in the event that they abuse your website/app, set out the rules for using your service and note other important details and disclaimers. \nYour Terms and Conditions agreement will be uniquely yours. While some clauses are standard and commonly seen in pretty much every Terms and Conditions agreement, it's up to you to set the rules and guidelines that the user must agree to.",
   },
 };
