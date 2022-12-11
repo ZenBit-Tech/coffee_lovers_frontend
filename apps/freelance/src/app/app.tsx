@@ -71,12 +71,12 @@ export function App() {
           </Route>
 
           {/* Protected routes */}
-          <Route element={<PrivateRoute allowedRoles={'Visitor'} />}>
+          <Route element={<PrivateRoute allowedRoles={roles.visitor} />}>
             <Route path={routes.role} element={<ChooseRole />} />
           </Route>
 
           {/* Freelancer's routes */}
-          <Route element={<PrivateRoute allowedRoles={'Freelancer'} />}>
+          <Route element={<PrivateRoute allowedRoles={roles.freelancer} />}>
             <Route
               path={routes.profileQuestions}
               element={<ProfileQuestions />}
@@ -95,7 +95,7 @@ export function App() {
           </Route>
 
           {/* Job Owner's routes */}
-          <Route element={<PrivateRoute allowedRoles={'JobOwner'} />}>
+          <Route element={<PrivateRoute allowedRoles={roles.jobOwner} />}>
             <Route path={routes.ownerProfile} element={<OwnerProfilePage />} />
             <Route path={routes.jobPost} element={<JobPostPage />} />
             <Route
