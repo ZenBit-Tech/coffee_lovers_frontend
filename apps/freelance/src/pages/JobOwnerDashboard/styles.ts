@@ -1,8 +1,9 @@
 import { Button } from 'antd';
 import styled from 'styled-components';
+import { PageWrapper } from '@freelance/components';
 import { baseTheme } from 'src/styles/theme';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(PageWrapper)`
   padding: 1rem;
   max-width: ${baseTheme.sizes.container.width}px;
   margin: 0 auto;

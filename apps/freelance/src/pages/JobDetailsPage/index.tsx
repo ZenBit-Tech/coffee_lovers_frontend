@@ -1,11 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Avatar, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
-import { AppBar, ProposalModal, StyledButton } from '@freelance/components';
-import { projectDetails, skills } from '@pages/JobDetailsPage/constants';
+import { ProposalModal, StyledButton } from '@freelance/components';
+import { PageWrapper } from '@freelance/components';
+import { skills } from '@pages/JobDetailsPage/constants';
+import { useGetJobQuery } from 'redux/services/jobsApi';
+import { useGetUserProposalsQuery } from 'redux/services/user';
+import { useGetUserInfoQuery } from 'redux/services/user';
+import { formatDate } from 'src/utils/dates';
 
 import {
+  ButtonWrapper,
+  ErrorText,
   JobDescrText,
   JobDetailsWrapper,
   JobOptionsText,
@@ -13,15 +21,30 @@ import {
   LabelText,
   LogoWrapper,
   SkillsWrapper,
-  Text,
+  StyledText,
   Wrapper,
 } from './styles';
 
 type Open = boolean;
 
 export default function JobDetailsPage() {
+  const params = useParams();
+  const id = Number(params['id']);
+
   const { t } = useTranslation();
   const [openModal, setOpenModal] = useState<Open>(false);
+  const [isActive, setIsActive] = useState<Open>(false);
+  const { data: userData } = useGetUserInfoQuery();
+  const { data: jobData, isLoading: isJobLoading } = useGetJobQuery(id);
+  const { data: userProposals, isLoading: isProposalsLoading } =
+    useGetUserProposalsQuery();
+
+  useEffect(() => {
+    const proposals =
+      userProposals &&
+      Object.values(userProposals.proposals).map(item => item?.job.id);
+    setIsActive(proposals?.find(item => item === id) ? true : false);
+  });
 
   const showModal = () => {
     setOpenModal(true);
@@ -32,43 +55,44 @@ export default function JobDetailsPage() {
   };
 
   return (
-    <>
-      <AppBar />
+    <PageWrapper isLoading={isJobLoading || isProposalsLoading}>
       <Wrapper>
         <Space direction="vertical" size="middle">
-          <h2>{projectDetails.name}</h2>
+          <h2>{jobData?.job.title}</h2>
           <JobDetailsWrapper>
             <Space>
               <JobOptionsText>
                 <LabelText>{t('job_details.date')}:</LabelText>
-                <Text>{projectDetails.date}</Text>
+                <StyledText>
+                  {jobData && formatDate(new Date(jobData.job.created_at))}
+                </StyledText>
               </JobOptionsText>
               <JobOptionsText>
                 <LabelText>{t('job_details.category')}:</LabelText>
-                <Text>{projectDetails.category}</Text>
+                <StyledText>{jobData?.job.category?.name}</StyledText>
               </JobOptionsText>
               <JobOptionsText>
                 <LabelText>{t('job_details.duration')}:</LabelText>
-                <Text>{projectDetails.duration}</Text>
+                <StyledText>{t('findJobs.no_duration')}</StyledText>
               </JobOptionsText>
               <JobOptionsText>
                 <LabelText> {t('job_details.rate')}:</LabelText>
-                <Text>{projectDetails.rate}</Text>
+                <StyledText>{jobData?.job.hourly_rate}</StyledText>
               </JobOptionsText>
               <JobOptionsText>
                 <LabelText>{t('job_details.time')}:</LabelText>
-                <Text>{projectDetails.availableTime}</Text>
+                <StyledText>{jobData?.job.available_time} hours</StyledText>
               </JobOptionsText>
               <JobOptionsText>
                 <LabelText>
                   {t('description.profileQp2.english_level')}:
                 </LabelText>
-                <Text>{projectDetails.englishLevel}</Text>
+                <StyledText>{jobData?.job.english_level}</StyledText>
               </JobOptionsText>
             </Space>
           </JobDetailsWrapper>
           <JobDescrText>
-            <Text>{projectDetails.discription}</Text>
+            <StyledText>{jobData?.job.description}</StyledText>
           </JobDescrText>
 
           <LabelText>{t('job_details.skills')}</LabelText>
@@ -78,18 +102,31 @@ export default function JobDetailsPage() {
             ))}
           </SkillsWrapper>
 
-          <StyledButton onClick={showModal}>
-            {t('job_details.send_proposal')}
-          </StyledButton>
+          <ButtonWrapper>
+            <StyledButton disabled={isActive} onClick={showModal}>
+              {t('job_details.send_proposal')}
+            </StyledButton>
+            {isActive && (
+              <ErrorText type="danger">{t('job_details.error_msg')}</ErrorText>
+            )}
+          </ButtonWrapper>
         </Space>
 
         <LogoWrapper>
           <Avatar size={64} icon={<UserOutlined />} />
-          <LabelText>{projectDetails.jobOwnerName}</LabelText>
+          <LabelText>
+            {jobData?.job.owner.first_name} {jobData?.job.owner.last_name}
+          </LabelText>
         </LogoWrapper>
       </Wrapper>
 
-      <ProposalModal openModal={openModal} onCancel={onCancel} />
-    </>
+      <ProposalModal
+        openModal={openModal}
+        rate={jobData?.job.hourly_rate}
+        onCancel={onCancel}
+        freelancer_rate={userData?.hourly_rate}
+        id={id}
+      />
+    </PageWrapper>
   );
 }

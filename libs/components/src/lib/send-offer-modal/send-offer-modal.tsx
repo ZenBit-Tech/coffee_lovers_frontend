@@ -35,18 +35,18 @@ export function SendOfferModal(props: Props) {
   const { control, handleSubmit, reset, register } = useForm({
     defaultValues: {
       select: null,
-      rate: '',
+      rate: props.rate,
       description: '',
     },
   });
 
   const onSubmit = async (payload: {
     select: number | null;
-    rate: number | null | string;
+    rate?: number | null;
     description: string | null;
   }) => {
     alert(payload);
-    reset({ select: null, rate: '', description: '' });
+    reset({ select: null, rate: props.rate, description: '' });
   };
 
   return (

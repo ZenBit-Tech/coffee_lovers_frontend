@@ -14,10 +14,6 @@ export interface ITheme {
       green: string;
       greenHover: string;
     };
-
-    border: {
-      lightGrey: string;
-    };
   };
 
   media: {
@@ -25,6 +21,10 @@ export interface ITheme {
     large: string;
     medium: string;
     small: string;
+  };
+
+  font: {
+    primary: string;
   };
 
   fontSize: {
@@ -50,5 +50,10 @@ export interface ITheme {
   order: {
     header: number;
     modal: number;
+  };
+
+  card: {
+    borderColor: string;
+    borderRadius: string;
   };
 }

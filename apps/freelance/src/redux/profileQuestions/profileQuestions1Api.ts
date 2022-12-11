@@ -30,8 +30,8 @@ export const profileQuestions1Api = createApi({
   endpoints: builder => ({
     updateUserInfo: builder.mutation({
       query: (payload: UpdateUser) => ({
-        url: `/user-info`,
-        method: 'POST',
+        url: `/`,
+        method: 'PUT',
         body: payload,
       }),
       invalidatesTags: ['ProfileQuestions1'],

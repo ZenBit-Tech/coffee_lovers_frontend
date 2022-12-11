@@ -6,12 +6,17 @@ import {
   FindJobsResponse,
   GetJobParams,
   GetJobProposalsResponse,
+  GetJobResponse,
+  GetPostedJobsResponse,
+  IJobProposal,
   Job,
 } from 'redux/types/jobs.types';
 
 enum EndpointsRoutes {
   findJobs = '/',
   getJobProposals = '/proposals',
+  getJob = '/job',
+  getPostedJobs = '/posted',
 }
 
 export const jobsApi = createApi({
@@ -30,6 +35,13 @@ export const jobsApi = createApi({
         params,
       }),
     }),
+    sendProposal: builder.mutation({
+      query: (body: IJobProposal) => ({
+        url: '/proposal',
+        method: 'POST',
+        body,
+      }),
+    }),
     getJobProposals: builder.query<GetJobProposalsResponse, string>({
       query: id => ({
         url: `/${id}` + EndpointsRoutes.getJobProposals,
@@ -40,11 +52,22 @@ export const jobsApi = createApi({
         url: `/userjobs`,
       }),
     }),
+    getJob: builder.query<GetJobResponse, number>({
+      query: id => ({
+        url: `/${id}` + EndpointsRoutes.getJob,
+      }),
+    }),
+    getPostedJobs: builder.query<GetPostedJobsResponse[], void>({
+      query: () => EndpointsRoutes.getPostedJobs,
+    }),
   }),
 });
 
 export const {
   useFindJobsQuery,
+  useSendProposalMutation,
+  useGetJobQuery,
   useGetJobProposalsQuery,
+  useGetPostedJobsQuery,
   useFindUserJobsQuery,
 } = jobsApi;

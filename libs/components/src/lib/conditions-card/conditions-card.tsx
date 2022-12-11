@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { CardWrapper, NewButton, NewCard } from './styles';
 
-import 'antd/dist/antd.css';
-
 export function ConditionsCard(): ReactElement {
   const navigate = useNavigate();
   const { t } = useTranslation();
