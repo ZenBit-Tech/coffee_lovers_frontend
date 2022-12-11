@@ -11,7 +11,7 @@ import { Job } from 'src/redux/types/jobs.types';
 
 import { StyledModal } from './styles';
 import { StyledSelect } from './styles';
-import { Props } from './types';
+import { Conversation, Props } from './types';
 
 export function InterviewModal(props: Props) {
   const { setOpen, open } = props;
@@ -46,7 +46,7 @@ export function InterviewModal(props: Props) {
     },
   });
 
-  const onSubmit = async (payload: {
+  const onSubmit = (payload: {
     select: number | null;
     rate: number | null | string;
     description: string | null;
@@ -72,7 +72,7 @@ export function InterviewModal(props: Props) {
             lastName: freelancer?.last_name,
           })}
           <ul>
-            {conversations?.map((el: { id: number; job: Job }) => (
+            {conversations?.map((el: Conversation) => (
               <li>
                 <a href={`${process.env['NX_API_URL']}/conversations/${el.id}`}>
                   {t('modalInvite.jobTitle', { job: el.job.title })}
