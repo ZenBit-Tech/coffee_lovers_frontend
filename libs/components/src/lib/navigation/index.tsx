@@ -17,6 +17,14 @@ export function Navigation() {
     navigate('/login');
   };
 
+  const handleProfileBtn = () => {
+    navigate(
+      role === roles.freelancer
+        ? routes.freelancerProfile
+        : routes.ownerProfile,
+    );
+  };
+
   return (
     <Nav>
       {role === roles.freelancer ? (
@@ -37,7 +45,9 @@ export function Navigation() {
         </>
       )}
       <StyledButton>{t('app_bar.nav.chat')}</StyledButton>
-      <StyledButton>{t('app_bar.nav.my_profile')}</StyledButton>
+      <StyledButton onClick={handleProfileBtn}>
+        {t('app_bar.nav.my_profile')}
+      </StyledButton>
       <StyledButton onClick={Logout}>{t('app_bar.nav.log_out')}</StyledButton>
     </Nav>
   );

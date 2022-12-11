@@ -5,6 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { StyledInput, StyledPasswordInput } from '@freelance/components';
+import {
+  authAgreement,
+  authConfirmPassword,
+  authEmail,
+  authFirstName,
+  authLastName,
+  authPassword,
+} from '@freelance/components';
 import { routes } from '@freelance/constants';
 import { passwordValidationRegExp } from 'src/pages/PasswordReset/constants';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
@@ -64,7 +72,7 @@ export function SignUpForm() {
       onFinish={handleSubmit(onSubmit)}
     >
       <Controller
-        name="email"
+        name={authEmail}
         control={control}
         render={({ field }) => (
           <Form.Item
@@ -86,7 +94,7 @@ export function SignUpForm() {
 
       <Form.Item>
         <Controller
-          name="firstName"
+          name={authFirstName}
           control={control}
           render={({ field }) => (
             <FormItem
@@ -107,7 +115,7 @@ export function SignUpForm() {
         />
 
         <Controller
-          name="lastName"
+          name={authLastName}
           control={control}
           render={({ field }) => (
             <FormItem
@@ -130,7 +138,7 @@ export function SignUpForm() {
 
       <Form.Item>
         <Controller
-          name="password"
+          name={authPassword}
           control={control}
           render={({ field }) => (
             <FormItem
@@ -155,7 +163,7 @@ export function SignUpForm() {
         />
 
         <Controller
-          name="confirmPassword"
+          name={authConfirmPassword}
           control={control}
           render={({ field }) => (
             <FormItem
@@ -188,7 +196,7 @@ export function SignUpForm() {
       </Form.Item>
 
       <Form.Item
-        name="agreement"
+        name={authAgreement}
         valuePropName="checked"
         rules={[
           {

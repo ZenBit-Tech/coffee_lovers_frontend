@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { StyledInput, StyledPasswordInput } from '@freelance/components';
 import { routes } from '@freelance/components';
+import { authEmail, authPassword } from '@freelance/components';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
@@ -53,7 +54,7 @@ export const LoginForm = () => {
     >
       <FormWrap>
         <Controller
-          name="email"
+          name={authEmail}
           control={control}
           render={({ field }) => (
             <Form.Item
@@ -74,7 +75,7 @@ export const LoginForm = () => {
         />
 
         <Controller
-          name="password"
+          name={authPassword}
           control={control}
           render={({ field }) => (
             <Form.Item
