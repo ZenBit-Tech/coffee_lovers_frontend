@@ -9,6 +9,7 @@ import { useGetInvitationDetailsQuery } from 'src/redux/invitation/invitation';
 import { useFindUserJobsQuery } from 'src/redux/services/jobsApi';
 import { Job } from 'src/redux/types/jobs.types';
 
+import { ChatListPage, SendInterviewPage } from './constants';
 import { StyledModal } from './styles';
 import { StyledSelect } from './styles';
 import { Conversation, Props } from './types';
@@ -16,7 +17,7 @@ import { Conversation, Props } from './types';
 export function InterviewModal(props: Props) {
   const { setOpen, open } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState(ChatListPage);
 
   const { t } = useTranslation<Namespace<string>>();
   const { data: invitation } = useGetInvitationDetailsQuery({
@@ -57,14 +58,18 @@ export function InterviewModal(props: Props) {
 
   return (
     <StyledModal
-      title={page === 1 ? t('modalInvite.jobList') : t('modalInvite.invite')}
+      title={
+        page === ChatListPage
+          ? t('modalInvite.jobList')
+          : t('modalInvite.invite')
+      }
       open={open}
       onOk={handleOk}
       confirmLoading={confirmLoading}
       onCancel={handleCancel}
       footer={null}
     >
-      {conversations?.length > 0 && page === 1 ? (
+      {conversations?.length > 0 && page === ChatListPage ? (
         <>
           {t('modalInvite.notification', {
             ending: conversations?.length > 1 && 's',
@@ -83,7 +88,7 @@ export function InterviewModal(props: Props) {
           <br />
           <Button
             onClick={() => {
-              setPage(2);
+              setPage(SendInterviewPage);
             }}
           >
             {t('modalInvite.newChat')}
@@ -153,7 +158,7 @@ export function InterviewModal(props: Props) {
                 style={{ display: 'flex' }}
               >
                 <Col span={6}>
-                  <Button height="40px" onClick={() => setPage(1)}>
+                  <Button height="40px" onClick={() => setPage(ChatListPage)}>
                     {t('modalInvite.back')}
                   </Button>
                 </Col>
