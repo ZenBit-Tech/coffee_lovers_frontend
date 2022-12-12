@@ -49,8 +49,6 @@ export function JobPostForm() {
   const [postJob] = usePostJobsMutation();
 
   const onSubmit: SubmitHandler<InputsValues> = async data => {
-    console.log(data);
-
     try {
       await postJob(data);
       navigate(routes.talents);
