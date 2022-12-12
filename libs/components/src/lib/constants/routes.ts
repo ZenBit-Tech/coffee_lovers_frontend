@@ -18,6 +18,7 @@ export const routes = {
   //Job Owner Routes
   jobOwnerDashboard: '/jobownerdashboard',
   jobPost: '/owner-profile/job-post',
+  jobUpdate: '/owner-profile/job-update',
   ownerProfile: '/owner-profile',
   talents: '/talents',
   freelancerInfo: '/freelancer-info',

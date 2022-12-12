@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Form, Space, Typography } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +15,7 @@ import {
 } from '@freelance/components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useProperties from 'src/hooks/useProperties';
-import { usePostJobMutation } from 'src/redux/job-post/job-post';
+import { useUpdateJobMutation } from 'src/redux/job-post/job-post';
 
 import {
   ButtonWrapper,
@@ -24,7 +25,7 @@ import {
 } from './styles';
 
 const { Title, Text } = Typography;
-export function JobPostForm() {
+export function JobUpdateForm() {
   const {
     availableTime,
     englishLevels,
@@ -37,6 +38,8 @@ export function JobPostForm() {
     getOptionsForSelectString,
   } = useProperties();
 
+  const [job, setJob] = useState({});
+
   const { t } = useTranslation();
   const {
     control,
@@ -46,11 +49,22 @@ export function JobPostForm() {
     resolver: yupResolver(schema),
   });
   const navigate = useNavigate();
-  const [postJob] = usePostJobMutation();
+  const [updateJob] = useUpdateJobMutation();
+
+  useEffect(() => {
+    const awd = async () => {
+      const data = await updateJob(36);
+      console.log(data);
+      setJob(data);
+    };
+    awd();
+  }, [updateJob]);
+
+  console.log(job);
 
   const onSubmit: SubmitHandler<InputsValues> = async data => {
     try {
-      await postJob(data);
+      // await postJob(data);
       navigate(routes.talents);
     } catch (error) {
       alert(JSON.stringify(error));

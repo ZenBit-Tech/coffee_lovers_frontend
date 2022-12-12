@@ -43,6 +43,10 @@ const SignupPage = lazy(
 const JobPostPage = lazy(
   () => import(/* webpackChunkName: "JobPostPage" */ '../pages/JobPostPage'),
 );
+const JobUpdatePage = lazy(
+  () =>
+    import(/* webpackChunkName: "JobUpdatePage" */ '../pages/JobUpdatePage'),
+);
 
 export function App() {
   return (
@@ -93,6 +97,8 @@ export function App() {
           <Route element={<PrivateRoute allowedRoles={'JobOwner'} />}>
             <Route path={routes.ownerProfile} element={<OwnerProfilePage />} />
             <Route path={routes.jobPost} element={<JobPostPage />} />
+            <Route path={routes.jobUpdate} element={<JobUpdatePage />} />
+
             <Route
               path={routes.jobOwnerDashboard}
               element={<JobOwnerDashboard />}

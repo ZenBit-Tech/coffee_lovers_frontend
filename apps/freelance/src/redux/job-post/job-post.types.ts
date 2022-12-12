@@ -1,3 +1,5 @@
+import { Job } from 'redux/types/jobs.types';
+
 export interface Error {
   data: {
     message: string;
@@ -17,4 +19,8 @@ export interface JobPost {
   duration: number;
   duration_amount: string;
   available_time: string;
+}
+
+export interface GetJobResponse {
+  job: Job;
 }
