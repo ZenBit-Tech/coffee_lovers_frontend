@@ -47,9 +47,9 @@ export const jobsApi = createApi({
         url: `/${id}` + EndpointsRoutes.getJobProposals,
       }),
     }),
-    findUserJobs: builder.query<Job[], void>({
+    findUserJobsWithoutOffer: builder.query<Job[], void>({
       query: () => ({
-        url: `/userjobs`,
+        url: `/withoutoffer`,
       }),
     }),
     getJob: builder.query<GetJobResponse, number>({
@@ -69,5 +69,5 @@ export const {
   useGetJobQuery,
   useGetJobProposalsQuery,
   useGetPostedJobsQuery,
-  useFindUserJobsQuery,
+  useFindUserJobsWithoutOfferQuery,
 } = jobsApi;

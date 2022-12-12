@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Col, Input, Row, Space } from 'antd';
+import { Col, DatePicker, Form, Input, Row, Space } from 'antd';
+import dayjs from 'dayjs';
 import { Namespace } from 'i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@freelance/components';
 import TextArea from 'antd/lib/input/TextArea';
-import { useFindUserJobsQuery } from 'src/redux/services/jobsApi';
+import { useFindUserJobsWithoutOfferQuery } from 'src/redux/services/jobsApi';
 import { Job } from 'src/redux/types/jobs.types';
 
 import { StyledModal } from './styles';
@@ -15,10 +16,9 @@ import { Props } from './types';
 export function SendOfferModal(props: Props) {
   const { setOpen, open } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1);
-
   const { t } = useTranslation<Namespace<string>>();
-  const { data } = useFindUserJobsQuery();
+  const { data } = useFindUserJobsWithoutOfferQuery();
+  const currentDate = new Date().toJSON().slice(0, 10);
 
   const handleOk = () => {
     setConfirmLoading(true);
@@ -36,14 +36,16 @@ export function SendOfferModal(props: Props) {
     defaultValues: {
       select: null,
       rate: props.rate,
+      start: currentDate,
       description: '',
     },
   });
 
   const onSubmit = async (payload: {
-    select: number | null;
+    select?: number | null;
     rate?: number | null;
-    description: string | null;
+    start?: string | Date;
+    description?: string | null;
   }) => {
     alert(payload);
     reset({ select: null, rate: props.rate, description: '' });
@@ -51,7 +53,7 @@ export function SendOfferModal(props: Props) {
 
   return (
     <StyledModal
-      title={page === 1 ? t('modalInvite.jobList') : t('modalInvite.invite')}
+      title={t('modalInvite.offerTotle')}
       open={open}
       onOk={handleOk}
       confirmLoading={confirmLoading}
@@ -69,7 +71,7 @@ export function SendOfferModal(props: Props) {
                 <Col span={8}>
                   <p>{t('modalInvite.choose')}</p>
                 </Col>
-                <Col span={5}>
+                <Col span={6}>
                   <StyledSelect
                     {...field}
                     options={data?.map((el: Job) => ({
@@ -90,14 +92,35 @@ export function SendOfferModal(props: Props) {
             render={({ field }) => (
               <Row justify="start">
                 <Col span={8}>
-                  <p>{t('modalInvite.rate')}</p>
+                  <p>{t('modalInvite.time')}</p>
                 </Col>
-                <Col span={5}>
+                <Col span={6}>
                   <Input
                     type="number"
                     placeholder={t('modalInvite.placeholder')}
                     {...field}
                   />
+                </Col>
+              </Row>
+            )}
+          />
+          <Controller
+            {...register('start', { required: true })}
+            name="start"
+            control={control}
+            render={({ field }) => (
+              <Row justify="start">
+                <Col span={8}>
+                  <p>{t('modalInvite.choose')}</p>
+                </Col>
+                <Col span={6}>
+                  <Form.Item {...field}>
+                    <DatePicker
+                      defaultValue={dayjs(currentDate, 'YYYY-MM-DD')}
+                      placeholder={t('modalInvite.start')}
+                      picker="date"
+                    />
+                  </Form.Item>
                 </Col>
               </Row>
             )}
@@ -120,11 +143,6 @@ export function SendOfferModal(props: Props) {
               size="middle"
               style={{ display: 'flex' }}
             >
-              <Col span={6}>
-                <Button height="40px" onClick={() => setPage(1)}>
-                  {t('modalInvite.back')}
-                </Button>
-              </Col>
               <Col span={6}>
                 <Button htmlType="submit" height="40px">
                   {t('modalInvite.submit')}
