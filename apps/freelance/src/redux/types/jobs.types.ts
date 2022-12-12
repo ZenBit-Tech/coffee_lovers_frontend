@@ -45,6 +45,16 @@ export interface GetJobProposalsResponse {
   proposals: Proposal[];
 }
 
+export interface IJobProposal {
+  job: number;
+  hourly_rate: number;
+  cover_letter: string;
+}
+
+export interface GetJobResponse {
+  job: Job;
+}
+
 export interface GetPostedJobsResponse {
   id: number;
   title: string;

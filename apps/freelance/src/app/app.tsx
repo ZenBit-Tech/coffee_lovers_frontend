@@ -1,6 +1,7 @@
 import { lazy } from 'react';
+import { useSelector } from 'react-redux';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import { Container } from '@freelance/components';
+import { AppBar, Container, roles } from '@freelance/components';
 import { routes } from '@freelance/components';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
@@ -14,6 +15,7 @@ import ProfileQuestions from '@pages/ProfileQuestions';
 import ProposalsList from '@pages/ProposalsList';
 import TalentListPage from '@pages/TalentListPage/index';
 import WelcomePage from '@pages/WelcomePage';
+import { selectRole } from 'redux/auth/auth-slice';
 import PrivateRoute from 'src/Routes/PrivateRoute';
 import PublicRoute from 'src/Routes/PublicRoute';
 
@@ -45,8 +47,11 @@ const JobPostPage = lazy(
 );
 
 export function App() {
+  const role = useSelector(selectRole);
+
   return (
     <Container>
+      {role !== roles.visitor && <AppBar />}
       <Routes>
         <Route path="/" element={<Outlet />}>
           <Route path={routes.welcome} element={<WelcomePage />} />
@@ -66,12 +71,12 @@ export function App() {
           </Route>
 
           {/* Protected routes */}
-          <Route element={<PrivateRoute allowedRoles={'Visitor'} />}>
+          <Route element={<PrivateRoute allowedRoles={roles.visitor} />}>
             <Route path={routes.role} element={<ChooseRole />} />
           </Route>
 
           {/* Freelancer's routes */}
-          <Route element={<PrivateRoute allowedRoles={'Freelancer'} />}>
+          <Route element={<PrivateRoute allowedRoles={roles.freelancer} />}>
             <Route
               path={routes.profileQuestions}
               element={<ProfileQuestions />}
@@ -90,7 +95,7 @@ export function App() {
           </Route>
 
           {/* Job Owner's routes */}
-          <Route element={<PrivateRoute allowedRoles={'JobOwner'} />}>
+          <Route element={<PrivateRoute allowedRoles={roles.jobOwner} />}>
             <Route path={routes.ownerProfile} element={<OwnerProfilePage />} />
             <Route path={routes.jobPost} element={<JobPostPage />} />
             <Route

@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { AppBar, AvatarUpload } from '@freelance/components';
 import {
-  mockEducationData,
-  mockUserData,
-  mockWorkHistoryData,
-} from '@freelance/components';
+  useGetUserEducationInfoQuery,
+  useGetUserInfoQuery,
+  useGetUserWorkInfoQuery,
+} from 'redux/services/user';
 
 import * as St from './styles';
 
@@ -14,13 +14,18 @@ const FreelancerPageInfo = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const { data: user, isLoading: isLoadingUser } = useGetUserInfoQuery();
+  const { data: work, isLoading: isLoadingWork } = useGetUserWorkInfoQuery();
+  const { data: education, isLoading: isLoadingEdu } =
+    useGetUserEducationInfoQuery();
+
   return (
-    <St.Wrapper>
+    <St.Wrapper isLoading={isLoadingUser || isLoadingWork || isLoadingEdu}>
       <AppBar />
       <St.LogoWrapper direction="vertical">
         <AvatarUpload />
         <p>
-          {mockUserData.first_name} {mockUserData.last_name}
+          {user?.first_name} {user?.last_name}
         </p>
       </St.LogoWrapper>
       <St.FreelancerInfo>
@@ -29,7 +34,7 @@ const FreelancerPageInfo = () => {
             <St.Label>{t('description.profileQp2.category')}</St.Label>
           </Col>
           <Col span={18}>
-            <St.StCol>{mockUserData.category.name}</St.StCol>
+            <St.StCol>{user?.category.name}</St.StCol>
           </Col>
         </Row>
         <Row>
@@ -38,7 +43,7 @@ const FreelancerPageInfo = () => {
           </Col>
           <Col span={18}>
             <St.StCol>
-              <St.Hr>{mockUserData.hourly_rate} $</St.Hr>
+              <St.Hr>{user?.hourly_rate} $</St.Hr>
             </St.StCol>
           </Col>
         </Row>
@@ -48,7 +53,7 @@ const FreelancerPageInfo = () => {
           </Col>
           <Col span={18}>
             <St.StCol>
-              <St.BigBox>{mockUserData.description}</St.BigBox>
+              <St.BigBox>{user?.description}</St.BigBox>
             </St.StCol>
           </Col>
         </Row>
@@ -58,7 +63,7 @@ const FreelancerPageInfo = () => {
           </Col>
           <Col span={18}>
             <St.StCol>
-              <St.MediuBox>{mockUserData.position}</St.MediuBox>
+              <St.MediuBox>{user?.position}</St.MediuBox>
             </St.StCol>
           </Col>
         </Row>
@@ -68,7 +73,7 @@ const FreelancerPageInfo = () => {
           </Col>
           <Col span={18}>
             <St.StCol>
-              <St.MediuBox>{mockUserData.available_time}</St.MediuBox>
+              <St.MediuBox>{user?.available_time}</St.MediuBox>
             </St.StCol>
           </Col>
         </Row>
@@ -77,7 +82,7 @@ const FreelancerPageInfo = () => {
             <St.Label>{t('description.profileQp1.edu')}</St.Label>
           </Col>
           <Col span={18}>
-            {mockEducationData.map(el => (
+            {education?.map(el => (
               <St.FlexWrapper key={el.id}>
                 <St.EduData>{el.education_descr}</St.EduData>
                 <St.EduTime>{el.education_from}</St.EduTime>
@@ -91,7 +96,7 @@ const FreelancerPageInfo = () => {
             <St.Label>{t('description.profileQp1.workH')}</St.Label>
           </Col>
           <Col span={18}>
-            {mockWorkHistoryData.map(el => (
+            {work?.map(el => (
               <St.FlexWrapper key={el.id}>
                 <St.WorkData>{el.work_history_descr}</St.WorkData>
                 <St.WorkTime>{el.work_history_from}</St.WorkTime>
@@ -106,7 +111,7 @@ const FreelancerPageInfo = () => {
           </Col>
           <Col span={18}>
             <St.FlexWrapper>
-              {mockUserData.skills.map(el => (
+              {user?.skills.map(el => (
                 <St.Skill key={el.id}>{el.name}</St.Skill>
               ))}
             </St.FlexWrapper>
@@ -117,7 +122,7 @@ const FreelancerPageInfo = () => {
             <St.Label>{t('description.profileQp2.english_level')}</St.Label>
           </Col>
           <Col span={18}>
-            <St.StCol>{mockUserData.english_level}</St.StCol>
+            <St.StCol>{user?.english_level}</St.StCol>
           </Col>
         </Row>
       </St.FreelancerInfo>

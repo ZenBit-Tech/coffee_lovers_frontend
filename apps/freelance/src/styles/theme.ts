@@ -55,4 +55,9 @@ export const baseTheme: ITheme = {
     header: 50,
     modal: 100,
   },
+
+  card: {
+    borderColor: '#d6d6d6',
+    borderRadius: '5px',
+  },
 };

@@ -20,6 +20,12 @@ export const getHeaders = (): ((
   };
 };
 
+export const getWebsocketHeaders = (
+  token: string,
+): { authorization: string } => ({
+  authorization: `Bearer ${token}`,
+});
+
 export const getFileUrl = (filePath: string | undefined): string => {
   if (!filePath) return '';
 
