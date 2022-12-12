@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { AppBar, Container, roles } from '@freelance/components';
 import { routes } from '@freelance/components';
+import ChatPage from '@pages/ChatPage';
 import ChooseRole from '@pages/ChooseRolePage';
 import FindJobs from '@pages/FindJobs';
 import FreelancerProfile from '@pages/FreelancerEditProfile';
@@ -73,6 +74,12 @@ export function App() {
           {/* Protected routes */}
           <Route element={<PrivateRoute allowedRoles={roles.visitor} />}>
             <Route path={routes.role} element={<ChooseRole />} />
+          </Route>
+
+          <Route
+            element={<PrivateRoute allowedRoles={'Freelancer' || 'JobOwner'} />}
+          >
+            <Route path={routes.chat} element={<ChatPage />} />
           </Route>
 
           {/* Freelancer's routes */}

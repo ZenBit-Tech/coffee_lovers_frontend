@@ -44,7 +44,9 @@ export function Navigation() {
           </StyledButton>
         </>
       )}
-      <StyledButton>{t('app_bar.nav.chat')}</StyledButton>
+      <StyledButton onClick={() => navigate(routes.chat)}>
+        {t('app_bar.nav.chat')}
+      </StyledButton>
       <StyledButton onClick={handleProfileBtn}>
         {t('app_bar.nav.my_profile')}
       </StyledButton>

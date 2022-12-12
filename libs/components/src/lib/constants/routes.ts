@@ -9,6 +9,7 @@ export const routes = {
   conditions: '/login/conditions',
   // Protected Routes
   role: '/role',
+  chat: '/chat',
   //Freelancer Routes
   profileQuestions: '/profile-questions',
   freelancerProfile: '/my-profile',
