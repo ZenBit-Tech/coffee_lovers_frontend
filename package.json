@@ -5,8 +5,8 @@
   "scripts": {
     "pre-commit": "lint-staged",
     "start": "nx serve",
-    "build": "nx build --skip-nx-cache",
-    "sync": "aws s3 sync s3://coffee-lovers-frontend ./dist/apps/freelance",
+    "build": "nx build",
+    "sync": "aws s3 sync ./dist/apps/freelance s3://coffee-lovers-frontend",
     "test": "nx test",
     "lint": "eslint . --fix",
     "prepare": "husky install"
