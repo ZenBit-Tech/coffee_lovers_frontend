@@ -5,11 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { StyledInput, StyledPasswordInput } from '@freelance/components';
-import { roles, routes } from '@freelance/components';
+import { routes } from '@freelance/components';
+import { authEmail, authPassword } from '@freelance/components';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
-import { setRole } from 'src/redux/auth/auth-slice';
 import { setUser } from 'src/redux/auth/auth-slice';
-import { useLazyGetUserInfoQuery } from 'src/redux/services/user';
+
+import { FormWrap } from './styles';
 
 type FormValues = {
   email: string;
@@ -23,8 +24,6 @@ export const LoginForm = () => {
   const { handleSubmit, control } = useForm<FormValues>();
   const [loginUser, { data: loginData, isSuccess: isLoginSuccess, isError }] =
     useLoginUserMutation();
-  const [getUserInfo, { data: userData, isSuccess: isUserSuccess }] =
-    useLazyGetUserInfoQuery();
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     try {
@@ -32,7 +31,6 @@ export const LoginForm = () => {
         const email = data.email;
         const password = data.password;
         await loginUser({ email, password });
-        await getUserInfo();
       }
     } catch (error) {
       alert(JSON.stringify(error));
@@ -40,15 +38,8 @@ export const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (isLoginSuccess && isUserSuccess) {
+    if (isLoginSuccess) {
       dispatch(setUser({ access_token: loginData.access_token }));
-      userData && dispatch(setRole({ role: userData.role }));
-
-      navigate(
-        userData?.role === roles.freelancer
-          ? routes.freelancerProfile
-          : routes.jobOwnerDashboard,
-      );
     }
     if (isError) {
       alert('Something went wrong...');
@@ -58,56 +49,58 @@ export const LoginForm = () => {
   return (
     <Form
       name="basic"
-      wrapperCol={{ span: 12 }}
+      wrapperCol={{ span: 22 }}
       onFinish={handleSubmit(onSubmit)}
     >
-      <Controller
-        name="email"
-        control={control}
-        render={({ field }) => (
-          <Form.Item
-            rules={[
-              { required: true, message: `${t('loginPage.email_error')}` },
-            ]}
-            hasFeedback
-            {...field}
-          >
-            <StyledInput
-              size="large"
-              type="email"
-              id="email-field"
-              placeholder={t('loginPage.loginPage_email')}
-            />
-          </Form.Item>
-        )}
-      />
+      <FormWrap>
+        <Controller
+          name={authEmail}
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              rules={[
+                { required: true, message: `${t('loginPage.email_error')}` },
+              ]}
+              hasFeedback
+              {...field}
+            >
+              <StyledInput
+                size="large"
+                type="email"
+                id="email-field"
+                placeholder={t('loginPage.loginPage_email')}
+              />
+            </Form.Item>
+          )}
+        />
 
-      <Controller
-        name="password"
-        control={control}
-        render={({ field }) => (
-          <Form.Item
-            rules={[
-              { required: true, message: `${t('loginPage.password_error')}` },
-            ]}
-            hasFeedback
-            {...field}
-          >
-            <StyledPasswordInput
-              type="password"
-              size="large"
-              id="password-field"
-              placeholder={t('loginPage.loginPage_password')}
-            />
-          </Form.Item>
-        )}
-      />
+        <Controller
+          name={authPassword}
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              rules={[
+                { required: true, message: `${t('loginPage.password_error')}` },
+              ]}
+              hasFeedback
+              {...field}
+            >
+              <StyledPasswordInput
+                type="password"
+                size="large"
+                id="password-field"
+                placeholder={t('loginPage.loginPage_password')}
+              />
+            </Form.Item>
+          )}
+        />
 
-      <Form.Item>
-        <Button size="large" type="primary" block htmlType="submit">
-          {t('loginPage.loginPage_name')}
-        </Button>
-      </Form.Item>
+        <Form.Item>
+          <Button size="large" type="primary" block htmlType="submit">
+            {t('loginPage.loginPage_name')}
+          </Button>
+        </Form.Item>
+      </FormWrap>
 
       <Form.Item>
         <Button

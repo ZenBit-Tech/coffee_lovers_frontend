@@ -6,6 +6,7 @@
     "pre-commit": "lint-staged",
     "start": "nx serve",
     "build": "nx build",
+    "sync": "aws s3 sync ./dist/apps/freelance s3://coffee-lovers-frontend",
     "test": "nx test",
     "lint": "eslint . --fix",
     "prepare": "husky install"
@@ -38,6 +39,7 @@
     "react-router-dom": "^6.4.3",
     "redux-persist": "^6.0.0",
     "regenerator-runtime": "0.13.7",
+    "socket.io-client": "^4.5.4",
     "styled-components": "5.3.5",
     "tslib": "^2.3.0",
     "yup": "^0.32.11"
