@@ -6,6 +6,7 @@
     "pre-commit": "lint-staged",
     "start": "nx serve",
     "build": "nx build",
+    "sync": "aws s3 sync ./dist/apps/freelance s3://coffee-lovers-frontend",
     "test": "nx test",
     "lint": "eslint . --fix",
     "prepare": "husky install"
