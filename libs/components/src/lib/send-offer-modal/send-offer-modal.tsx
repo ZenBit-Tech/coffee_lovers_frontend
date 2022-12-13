@@ -9,16 +9,17 @@ import TextArea from 'antd/lib/input/TextArea';
 import { useFindUserJobsWithoutOfferQuery } from 'src/redux/services/jobsApi';
 import { Job } from 'src/redux/types/jobs.types';
 
-import { StyledModal } from './styles';
-import { StyledSelect } from './styles';
+import { dateType, descrLength, todayDate } from './constants';
+import { StyledModal, StyledSelect } from './styles';
 import { Props } from './types';
 
 export function SendOfferModal(props: Props) {
-  const { setOpen, open } = props;
+  const { setOpen, open, freelancerId, rate } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const { t } = useTranslation<Namespace<string>>();
-  const { data } = useFindUserJobsWithoutOfferQuery();
-  const currentDate = new Date().toJSON().slice(0, 10);
+  const { data } = useFindUserJobsWithoutOfferQuery({
+    id: freelancerId,
+  });
 
   const handleOk = () => {
     setConfirmLoading(true);
@@ -35,20 +36,20 @@ export function SendOfferModal(props: Props) {
   const { control, handleSubmit, reset, register } = useForm({
     defaultValues: {
       select: null,
-      rate: props.rate,
-      start: currentDate,
+      rate: '',
+      start: '',
       description: '',
     },
   });
 
   const onSubmit = async (payload: {
     select?: number | null;
-    rate?: number | null;
-    start?: string | Date;
+    rate?: number | null | string;
+    start?: string;
     description?: string | null;
   }) => {
     alert(payload);
-    reset({ select: null, rate: props.rate, description: '' });
+    reset({ select: null, rate: '', description: '' });
   };
 
   return (
@@ -72,14 +73,15 @@ export function SendOfferModal(props: Props) {
                   <p>{t('modalInvite.choose')}</p>
                 </Col>
                 <Col span={6}>
-                  <StyledSelect
-                    {...field}
-                    options={data?.map((el: Job) => ({
-                      ...el,
-                      value: el.id,
-                      label: el.title,
-                    }))}
-                  />
+                  <Form.Item {...field}>
+                    <StyledSelect
+                      options={data?.map((el: Job) => ({
+                        ...el,
+                        value: el.id,
+                        label: el.title,
+                      }))}
+                    />
+                  </Form.Item>
                 </Col>
               </Row>
             )}
@@ -92,18 +94,22 @@ export function SendOfferModal(props: Props) {
             render={({ field }) => (
               <Row justify="start">
                 <Col span={8}>
-                  <p>{t('modalInvite.time')}</p>
+                  <p>{t('modalInvite.rate')}</p>
                 </Col>
                 <Col span={6}>
-                  <Input
-                    type="number"
-                    placeholder={t('modalInvite.placeholder')}
-                    {...field}
-                  />
+                  <Form.Item {...field}>
+                    <Input
+                      defaultValue={rate}
+                      type="number"
+                      placeholder={t('modalInvite.placeholder')}
+                      {...field}
+                    />
+                  </Form.Item>
                 </Col>
               </Row>
             )}
           />
+
           <Controller
             {...register('start', { required: true })}
             name="start"
@@ -111,13 +117,12 @@ export function SendOfferModal(props: Props) {
             render={({ field }) => (
               <Row justify="start">
                 <Col span={8}>
-                  <p>{t('modalInvite.choose')}</p>
+                  <p>{t('modalInvite.time')}</p>
                 </Col>
                 <Col span={6}>
                   <Form.Item {...field}>
                     <DatePicker
-                      defaultValue={dayjs(currentDate, 'YYYY-MM-DD')}
-                      placeholder={t('modalInvite.start')}
+                      defaultValue={dayjs(todayDate, dateType)}
                       picker="date"
                     />
                   </Form.Item>
@@ -126,13 +131,15 @@ export function SendOfferModal(props: Props) {
             )}
           />
           <Controller
-            {...register('description', { required: true, min: 15 })}
+            {...register('description', { required: true, min: descrLength })}
             name="description"
             control={control}
             render={({ field }) => (
               <Row>
                 <Col span={24}>
-                  <TextArea {...field} />
+                  <Form.Item {...field}>
+                    <TextArea />
+                  </Form.Item>
                 </Col>
               </Row>
             )}

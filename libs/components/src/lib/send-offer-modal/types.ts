@@ -4,3 +4,7 @@ export interface Props {
   freelancerId?: number;
   rate?: number;
 }
+
+export interface FreelancerId {
+  id: number;
+}
