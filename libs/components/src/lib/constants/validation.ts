@@ -1,5 +1,7 @@
 import { validation } from '.';
 import * as yup from 'yup';
+// import { Property } from 'src/redux/types/properties.types';
+import { User } from 'src/redux/types/user.types';
 
 export type InputsValues = {
   title: string;
@@ -12,6 +14,12 @@ export type InputsValues = {
   duration_amount: string;
   available_time: string;
 };
+
+export interface GetJobResponse extends InputsValues {
+  id: number;
+  owner: User;
+  created_at: string;
+}
 
 const { atLeastThree, mustBeNumber, required } = validation;
 

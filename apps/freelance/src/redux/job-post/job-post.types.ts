@@ -1,4 +1,4 @@
-import { Job } from 'redux/types/jobs.types';
+import { GetJobResponse as GetJobResponsea } from '@freelance/components';
 
 export interface Error {
   data: {
@@ -22,5 +22,5 @@ export interface JobPost {
 }
 
 export interface GetJobResponse {
-  job: Job;
+  job: GetJobResponsea;
 }
