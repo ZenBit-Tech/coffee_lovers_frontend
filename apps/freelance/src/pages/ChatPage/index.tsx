@@ -46,7 +46,6 @@ const ChatPage = () => {
   const { data: dataMessages } = useGetMessagesQuery({ token, conversation });
   const [form] = Form.useForm<InputType>();
   const [sendMessage] = useSendMessageMutation();
-  console.log(dataMessages);
 
   const handleSend = (values: InputType) => {
     const message: MessageType = {
@@ -54,7 +53,6 @@ const ChatPage = () => {
       conversation: conversation,
       message: values.message,
     };
-    console.log(values.message);
     message.token && sendMessage(message);
   };
 
