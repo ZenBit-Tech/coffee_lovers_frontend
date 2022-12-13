@@ -9,7 +9,13 @@ import { useGetInvitationDetailsQuery } from 'src/redux/invitation/invitation';
 import { useFindUserJobsQuery } from 'src/redux/services/jobsApi';
 import { Job } from 'src/redux/types/jobs.types';
 
-import { ChatListPage, SendInterviewPage } from './constants';
+import {
+  ChatListPage,
+  empty,
+  Endpoints,
+  many,
+  SendInterviewPage,
+} from './constants';
 import { StyledModal } from './styles';
 import { StyledSelect } from './styles';
 import { Conversation, Props } from './types';
@@ -23,16 +29,14 @@ export function InterviewModal(props: Props) {
   const { data: invitation } = useGetInvitationDetailsQuery({
     frId: props.freelancerId,
   });
-  const { data } = useFindUserJobsQuery();
+  const { data } = useFindUserJobsQuery(props.freelancerId);
   const conversations = invitation?.data;
   const freelancer = invitation?.freelancer;
 
   const handleOk = () => {
     setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
+    setOpen(false);
+    setConfirmLoading(false);
   };
 
   const handleCancel = () => {
@@ -69,17 +73,19 @@ export function InterviewModal(props: Props) {
       onCancel={handleCancel}
       footer={null}
     >
-      {conversations?.length > 0 && page === ChatListPage ? (
+      {conversations?.length > empty && page === ChatListPage ? (
         <>
           {t('modalInvite.notification', {
-            ending: conversations?.length > 1 && 's',
+            ending: conversations?.length > many && 's',
             firstName: freelancer?.first_name,
             lastName: freelancer?.last_name,
           })}
           <ul>
             {conversations?.map((el: Conversation) => (
               <li>
-                <a href={`${process.env['NX_API_URL']}/conversations/${el.id}`}>
+                <a
+                  href={`${process.env['NX_API_URL']}/${Endpoints.conversations}/${el.id}`}
+                >
                   {t('modalInvite.jobTitle', { job: el.job.title })}
                 </a>
               </li>

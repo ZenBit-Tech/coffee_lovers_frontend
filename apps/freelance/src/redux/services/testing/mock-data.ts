@@ -10,3 +10,4 @@ export const userJobs = [
     created_at: null,
   },
 ];
+export const freelancerId = 5;

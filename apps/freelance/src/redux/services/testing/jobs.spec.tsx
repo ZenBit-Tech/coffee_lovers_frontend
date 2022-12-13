@@ -7,21 +7,14 @@ import { authReducer } from 'redux/auth/auth-slice';
 import { jobsApi, useFindUserJobsQuery } from 'redux/services/jobsApi';
 import { setupApiStore } from 'redux/storeTest';
 
-import { testToken, userJobs } from './mock-data';
+import { freelancerId, testToken, userJobs } from './mock-data';
 
 fetchMock.enableMocks();
 
 describe('check userjob query', () => {
-  const OLD_ENV = process.env;
-
   beforeEach((): void => {
-    process.env = Object.assign(process.env, { ...OLD_ENV });
     jest.resetModules();
     fetchMock.resetMocks();
-  });
-
-  afterAll(() => {
-    process.env = { ...OLD_ENV };
   });
 
   interface Props {
@@ -40,7 +33,7 @@ describe('check userjob query', () => {
       const { store } = setupApiStore(jobsApi, { user: authReducer });
       store.dispatch(setUser({ access_token: testToken ? testToken : '' }));
       expect(store.getState().user.access_token).toBe(testToken);
-      const { result } = renderHook(() => useFindUserJobsQuery(), {
+      const { result } = renderHook(() => useFindUserJobsQuery(freelancerId), {
         wrapper,
       });
       const initialResponse = result.current;
@@ -61,7 +54,7 @@ describe('check userjob query', () => {
       store.dispatch(setUser({ access_token: testToken ? testToken : '' }));
       expect(state.auth.access_token).toBeDefined();
       fetchMock.mockReject(new Error('Internal Server Error'));
-      const { result } = renderHook(() => useFindUserJobsQuery(), {
+      const { result } = renderHook(() => useFindUserJobsQuery(freelancerId), {
         wrapper,
       });
       const initialResponse = result.current;

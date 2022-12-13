@@ -8,7 +8,7 @@ export interface ButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   radius?: string;
   width?: string;
-  htmlType?: 'button' | 'submit' | 'reset' | undefined;
+  htmlType?: 'button' | 'submit' | 'reset';
 }
 
 export function Button({
