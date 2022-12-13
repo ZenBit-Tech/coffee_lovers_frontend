@@ -5,7 +5,11 @@ import { selectAuthToken, setRole } from 'redux/auth/auth-slice';
 import { useGetUserInfoQuery } from 'redux/services/user';
 import { Role } from 'redux/types/user.types';
 
-export default function PrivateRoute({ allowedRoles }: { allowedRoles: Role }) {
+export default function PrivateRoute({
+  allowedRoles,
+}: {
+  allowedRoles: Role[];
+}) {
   const dispatch = useDispatch();
   const location = useLocation();
   const { data } = useGetUserInfoQuery();

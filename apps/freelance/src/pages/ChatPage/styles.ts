@@ -1,8 +1,13 @@
-import { Col } from 'antd';
+import { Col, Form } from 'antd';
 import styled from 'styled-components';
+import { PrimaryButton } from '@freelance/components';
 
-export const Wrapper = styled.div`
-  margin-top: 50px;
+import { colors } from './constants';
+
+export const MessagesWrapper = styled.div`
+  height: 65vh;
+  overflow: auto;
+  padding: 10px;
 `;
 
 export const UserWrapper = styled.div`
@@ -26,6 +31,7 @@ export const StyledRightSide = styled(Col)`
   box-shadow: 2px 2px 2px var(--grey);
   border-radius: 10px;
   width: 300px;
+  height: 80vh;
 `;
 
 export const BottomWrapper = styled.div`
@@ -36,4 +42,45 @@ export const BottomWrapper = styled.div`
   width: 95%;
   position: absolute;
   bottom: 10px;
+`;
+
+export const StyledFormItem = styled(Form.Item)`
+  width: 85%;
+`;
+
+export const StyledButton = styled(PrimaryButton)`
+  height: 45px;
+  width: 100px;
+`;
+
+export const FirstUserText = styled.p`
+  box-shadow: 2px 2px 2px var(--grey);
+  border-radius: 10px;
+  background-color: ${colors.lightGrey};
+  padding: 10px;
+`;
+
+export const FirstUserContainer = styled.div`
+  text-align: left;
+  width: 75%;
+  margin-bottom: 10px;
+`;
+
+export const SecondUserText = styled.p`
+  background-color: ${colors.lightBlue};
+  padding: 10px;
+  box-shadow: 2px 2px 2px var(--grey);
+  border-radius: 10px;
+`;
+
+export const SecondUserContainer = styled.div`
+  margin: 0 0 10px auto;
+  text-align: right;
+  width: 75%;
+`;
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 `;

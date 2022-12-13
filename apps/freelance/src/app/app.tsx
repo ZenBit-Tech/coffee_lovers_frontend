@@ -58,6 +58,7 @@ export function App() {
           <Route path={routes.welcome} element={<WelcomePage />} />
           <Route path={routes.googleAuth} element={<SignInGoogle />} />
           <Route path={routes.conditions} element={<ConditionsPage />} />
+          <Route path={routes.role} element={<ChooseRole />} />
 
           {/* Public routes */}
           <Route element={<PublicRoute />}>
@@ -72,18 +73,17 @@ export function App() {
           </Route>
 
           {/* Protected routes */}
-          <Route element={<PrivateRoute allowedRoles={roles.visitor} />}>
-            <Route path={routes.role} element={<ChooseRole />} />
-          </Route>
 
           <Route
-            element={<PrivateRoute allowedRoles={'Freelancer' || 'JobOwner'} />}
+            element={
+              <PrivateRoute allowedRoles={[roles.freelancer, roles.jobOwner]} />
+            }
           >
             <Route path={routes.chat} element={<ChatPage />} />
           </Route>
 
           {/* Freelancer's routes */}
-          <Route element={<PrivateRoute allowedRoles={roles.freelancer} />}>
+          <Route element={<PrivateRoute allowedRoles={[roles.freelancer]} />}>
             <Route
               path={routes.profileQuestions}
               element={<ProfileQuestions />}
@@ -102,7 +102,7 @@ export function App() {
           </Route>
 
           {/* Job Owner's routes */}
-          <Route element={<PrivateRoute allowedRoles={roles.jobOwner} />}>
+          <Route element={<PrivateRoute allowedRoles={[roles.jobOwner]} />}>
             <Route path={routes.ownerProfile} element={<OwnerProfilePage />} />
             <Route path={routes.jobPost} element={<JobPostPage />} />
             <Route
