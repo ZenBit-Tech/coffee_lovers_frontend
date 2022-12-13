@@ -1,4 +1,3 @@
-import queryString from 'query-string';
 import { ApiRoutes, baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
@@ -10,14 +9,11 @@ enum EndpointsRoutes {
   requset = '/request',
 }
 
-export const jobsApi = createApi({
-  reducerPath: 'jobsApi',
+export const inviteApi = createApi({
+  reducerPath: 'inviteApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl + ApiRoutes.JOBS,
+    baseUrl: baseUrl + ApiRoutes.INVITE,
     prepareHeaders: getHeaders(),
-    paramsSerializer: params => {
-      return queryString.stringify(params, { arrayFormat: 'bracket' });
-    },
   }),
   endpoints: builder => ({
     postRequest: builder.mutation({
@@ -30,4 +26,4 @@ export const jobsApi = createApi({
   }),
 });
 
-export const { usePostRequestMutation } = jobsApi;
+export const { usePostRequestMutation } = inviteApi;

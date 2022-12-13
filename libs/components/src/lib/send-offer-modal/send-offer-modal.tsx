@@ -23,10 +23,8 @@ export function SendOfferModal(props: Props) {
 
   const handleOk = () => {
     setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
+    setOpen(false);
+    setConfirmLoading(false);
   };
 
   const handleCancel = () => {
