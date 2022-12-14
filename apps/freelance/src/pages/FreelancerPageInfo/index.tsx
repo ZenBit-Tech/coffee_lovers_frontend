@@ -3,7 +3,6 @@ import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { AppBar, AvatarUpload } from '@freelance/components';
 import { InterviewModal } from '@freelance/components';
-import { mockUserData } from '@freelance/components';
 import { SendOfferModal } from '@freelance/components';
 import {
   useGetUserEducationInfoQuery,
@@ -133,11 +132,6 @@ const FreelancerPageInfo = () => {
           </Col>
         </Row>
       </St.FreelancerInfo>
-      <InterviewModal
-        freelancerId={mockUserData.id}
-        open={open}
-        setOpen={setOpen}
-      />
       <St.ButtonWrapper>
         <St.StyledButton onClick={() => setOfferOpen(true)}>
           {t('description.freelancerPageInfo.sendOffer')}
@@ -146,6 +140,12 @@ const FreelancerPageInfo = () => {
           {t('description.freelancerPageInfo.inviteInterview')}
         </St.StyledButton>
       </St.ButtonWrapper>
+      <InterviewModal
+        freelancerId={user?.id}
+        open={open}
+        setOpen={setOpen}
+        rate={user?.hourly_rate}
+      />
       <SendOfferModal
         open={offerOpen}
         setOpen={setOfferOpen}

@@ -3,7 +3,8 @@ import { Job } from 'src/redux/types/jobs.types';
 export interface Props {
   open: boolean;
   setOpen: (op: boolean) => void;
-  freelancerId: number;
+  freelancerId?: number;
+  rate?: number;
 }
 
 export interface Conversation {

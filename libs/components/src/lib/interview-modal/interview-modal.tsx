@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Col, Input, Row, Space } from 'antd';
+import { Col, Input, Row } from 'antd';
 import { Namespace } from 'i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -16,20 +16,19 @@ import {
   many,
   SendInterviewPage,
 } from './constants';
-import { StyledModal } from './styles';
-import { StyledSelect } from './styles';
+import { StyledModal, StyledSelect, StyledSpace } from './styles';
 import { Conversation, Props } from './types';
 
 export function InterviewModal(props: Props) {
-  const { setOpen, open } = props;
+  const { setOpen, open, freelancerId, rate } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [page, setPage] = useState(ChatListPage);
 
   const { t } = useTranslation<Namespace<string>>();
   const { data: invitation } = useGetInvitationDetailsQuery({
-    frId: props.freelancerId,
+    frId: freelancerId,
   });
-  const { data } = useFindUserJobsQuery(props.freelancerId);
+  const { data } = useFindUserJobsQuery(freelancerId);
   const conversations = invitation?.data;
   const freelancer = invitation?.freelancer;
 
@@ -46,18 +45,18 @@ export function InterviewModal(props: Props) {
   const { control, handleSubmit, reset, register } = useForm({
     defaultValues: {
       select: null,
-      rate: '',
+      rate: rate,
       description: '',
     },
   });
 
   const onSubmit = (payload: {
     select: number | null;
-    rate: number | null | string;
+    rate?: number | null;
     description: string | null;
   }) => {
     alert(payload);
-    reset({ select: null, rate: '', description: '' });
+    reset({ select: null, rate: rate, description: '' });
   };
 
   return (
@@ -102,7 +101,7 @@ export function InterviewModal(props: Props) {
         </>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+          <StyledSpace direction="vertical" size="middle">
             <Controller
               {...register('select', { required: true })}
               name="select"
@@ -158,29 +157,21 @@ export function InterviewModal(props: Props) {
               )}
             />
             <Row justify="end">
-              <Space
-                direction="horizontal"
-                size="middle"
-                style={{ display: 'flex' }}
-              >
+              <StyledSpace direction="horizontal" size="middle">
                 <Col span={6}>
-                  <Button height="40px" onClick={() => setPage(ChatListPage)}>
+                  <Button onClick={() => setPage(ChatListPage)}>
                     {t('modalInvite.back')}
                   </Button>
                 </Col>
                 <Col span={6}>
-                  <Button htmlType="submit" height="40px">
-                    {t('modalInvite.submit')}
-                  </Button>
+                  <Button htmlType="submit">{t('modalInvite.submit')}</Button>
                 </Col>
                 <Col span={6}>
-                  <Button height="40px" onClick={handleOk}>
-                    {t('modalInvite.close')}
-                  </Button>
+                  <Button onClick={handleOk}>{t('modalInvite.close')}</Button>
                 </Col>
-              </Space>
+              </StyledSpace>
             </Row>
-          </Space>
+          </StyledSpace>
         </form>
       )}
     </StyledModal>
