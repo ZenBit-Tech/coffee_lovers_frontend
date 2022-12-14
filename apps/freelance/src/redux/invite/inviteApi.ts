@@ -5,8 +5,7 @@ import { getHeaders } from '@utils/api';
 import { PostRequest } from './types';
 
 enum EndpointsRoutes {
-  invite = '/',
-  requset = '/request',
+  offer = '/offer',
 }
 
 export const inviteApi = createApi({
@@ -18,7 +17,14 @@ export const inviteApi = createApi({
   endpoints: builder => ({
     postRequest: builder.mutation({
       query: (payload: PostRequest) => ({
-        url: `${EndpointsRoutes.requset}/${payload.freelancer}`,
+        url: `/${payload.freelancer}`,
+        method: 'POST',
+        body: payload.data,
+      }),
+    }),
+    postOffer: builder.mutation({
+      query: (payload: PostRequest) => ({
+        url: `${EndpointsRoutes.offer}/${payload.freelancer}/${payload.jobId}`,
         method: 'POST',
         body: payload.data,
       }),
@@ -26,4 +32,4 @@ export const inviteApi = createApi({
   }),
 });
 
-export const { usePostRequestMutation } = inviteApi;
+export const { usePostRequestMutation, usePostOfferMutation } = inviteApi;

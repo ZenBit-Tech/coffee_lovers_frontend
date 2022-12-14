@@ -1,14 +1,15 @@
 export interface PostRequest {
   data: {
-    type: Request;
-    hourly_rate: number;
-    job_id: number;
-    cover_letter: string;
+    type?: Request;
+    hourly_rate?: number;
+    start?: Date | string;
+    cover_letter?: string | null;
   };
-  freelancer: number;
+  freelancer?: number;
+  jobId?: number | null;
 }
 
-enum Request {
-  'Proposal',
-  'Interview',
+export enum Request {
+  proposal = 'Proposal',
+  interview = 'Interview',
 }
