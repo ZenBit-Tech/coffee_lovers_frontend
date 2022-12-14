@@ -1,11 +1,15 @@
-import { LoginForm } from '@freelance/components';
+import { Space } from 'antd';
+import { GoogleLoginButton, LoginForm } from '@freelance/components';
 
 import { Wrapper } from './styles';
 
 export default function LoginPage() {
   return (
     <Wrapper>
-      <LoginForm />
+      <Space align="start">
+        <LoginForm />
+        <GoogleLoginButton />
+      </Space>
     </Wrapper>
   );
 }

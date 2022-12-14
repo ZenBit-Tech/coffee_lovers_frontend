@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { AppBar, AvatarUpload, FreelancerForm } from '@freelance/components';
+import { AvatarUpload, FreelancerForm } from '@freelance/components';
 import {
   useGetUserEducationInfoQuery,
   useGetUserInfoQuery,
@@ -17,7 +17,6 @@ const FreelancerProfile = () => {
 
   return (
     <St.Wrapper isLoading={isLoadingUser || isLoadingWork || isLoadingEdu}>
-      <AppBar />
       <St.LogoWrapper direction="vertical">
         <AvatarUpload />
         <p>

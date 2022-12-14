@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import { AppBar, AvatarUpload } from '@freelance/components';
 import { InterviewModal } from '@freelance/components';
 import { mockUserData } from '@freelance/components';
+import { SendOfferModal } from '@freelance/components';
 import {
   useGetUserEducationInfoQuery,
   useGetUserInfoQuery,
@@ -16,15 +16,15 @@ import * as St from './styles';
 const FreelancerPageInfo = () => {
   const [open, setOpen] = useState<boolean>(false);
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const showModal = () => {
-    setOpen(true);
-  };
+  const [offerOpen, setOfferOpen] = useState<boolean>(false);
 
   const { data: user, isLoading: isLoadingUser } = useGetUserInfoQuery();
   const { data: work, isLoading: isLoadingWork } = useGetUserWorkInfoQuery();
   const { data: education, isLoading: isLoadingEdu } =
     useGetUserEducationInfoQuery();
+  const showModal = () => {
+    setOpen(true);
+  };
 
   return (
     <St.Wrapper isLoading={isLoadingUser || isLoadingWork || isLoadingEdu}>
@@ -139,13 +139,19 @@ const FreelancerPageInfo = () => {
         setOpen={setOpen}
       />
       <St.ButtonWrapper>
-        <St.StyledButton onClick={() => navigate('/')}>
+        <St.StyledButton onClick={() => setOfferOpen(true)}>
           {t('description.freelancerPageInfo.sendOffer')}
         </St.StyledButton>
         <St.StyledButton onClick={showModal}>
           {t('description.freelancerPageInfo.inviteInterview')}
         </St.StyledButton>
       </St.ButtonWrapper>
+      <SendOfferModal
+        open={offerOpen}
+        setOpen={setOfferOpen}
+        freelancerId={user?.id}
+        rate={user?.hourly_rate}
+      />
     </St.Wrapper>
   );
 };

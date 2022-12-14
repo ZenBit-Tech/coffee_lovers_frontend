@@ -11,7 +11,7 @@ export const routes = {
   role: '/role',
   //Freelancer Routes
   profileQuestions: '/profile-questions',
-  freelancerProfile: '/:id/my-profile',
+  freelancerProfile: '/my-profile',
   findJobs: '/findjobs',
   jobDetails: '/job/:id/details',
   proposalsList: '/job/:id/proposals',

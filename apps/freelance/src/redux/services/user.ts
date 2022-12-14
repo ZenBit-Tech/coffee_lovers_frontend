@@ -72,8 +72,8 @@ export const userApi = createApi({
     addUserRole: builder.mutation({
       query: (body: { role: Role }) => {
         return {
-          url: '/user-info',
-          method: 'POST',
+          url: '/',
+          method: 'PUT',
           body,
         };
       },

@@ -14,5 +14,7 @@ export default {
       'You already have chat{{ending}} with freelancer {{firstName}} {{lastName}} about',
     close: 'Close',
     back: 'Back',
+    offerTotle: 'Send offer',
+    time: 'Choose start time',
   },
 };
