@@ -1,8 +1,9 @@
 import { ReactElement, useState } from 'react';
 import { Avatar, Col, Input, List, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { generatePath, useNavigate } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
-import { SmallCard } from '@freelance/components';
+import { routes, SmallCard } from '@freelance/components';
 import { useGetFreelancerQuery } from 'redux/services/freelancers';
 
 import { User } from './model';
@@ -23,10 +24,17 @@ const TalentListPage = (): ReactElement => {
   const { t } = useTranslation();
   const { data } = useGetFreelancerQuery(page);
   const { Search } = Input;
+  const navigate = useNavigate();
 
   async function handleSearch(value: string) {
     setSearch(value);
   }
+
+  const navFunc = (props: number) => {
+    const id = JSON.stringify(props);
+    const path = generatePath(routes.freelancerInfo, { id });
+    navigate(path);
+  };
 
   return (
     <>
@@ -59,7 +67,7 @@ const TalentListPage = (): ReactElement => {
                     size={130}
                     icon={<UserOutlined />}
                   />
-                  <StyledName>
+                  <StyledName onClick={() => navFunc(item.id)}>
                     {t('talent.name', { name: item.email })}
                   </StyledName>
                 </StyledCardHeader>
@@ -76,7 +84,7 @@ const TalentListPage = (): ReactElement => {
                 />
                 <SmallCard
                   text={t('talent.available_time', {
-                    available_time: item.available_time + ' h',
+                    available_time: item.available_time,
                   })}
                 />
                 <SmallCard
