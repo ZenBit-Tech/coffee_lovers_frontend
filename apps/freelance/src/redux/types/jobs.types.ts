@@ -8,6 +8,7 @@ export interface Job {
   hourly_rate?: number;
   available_time?: number;
   english_level?: string;
+  durationAmount?: string[];
   owner: User;
   created_at: string;
   category?: Property;
