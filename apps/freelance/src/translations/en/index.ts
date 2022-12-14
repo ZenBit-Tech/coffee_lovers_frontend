@@ -10,6 +10,7 @@ import jobDetails from './translation/jobDetails';
 import jobOwnerDashboard from './translation/jobOwnerDashboard';
 import jobPostPage from './translation/jobPostPage';
 import loginPage from './translation/loginPage';
+import modals from './translation/modals';
 import proposalsList from './translation/proposalsList';
 import resetPassword from './translation/resetPassword';
 import talent from './translation/talent';
@@ -38,6 +39,7 @@ export default {
     ...jobDetails,
     ...proposalsList,
     ...textVisibility,
+    ...modals,
     ...chat,
   },
 };
