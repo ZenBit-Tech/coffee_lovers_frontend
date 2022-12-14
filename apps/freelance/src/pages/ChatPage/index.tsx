@@ -57,7 +57,7 @@ const ChatPage = () => {
                     {formatDate(new Date(item.created_at))}{' '}
                     {formatTime(new Date(item.created_at))}
                   </p>
-                  <FirstUserText> {item.message}</FirstUserText>
+                  <FirstUserText>{item.message}</FirstUserText>
                 </FirstUserContainer>
               ) : (
                 <SecondUserContainer>

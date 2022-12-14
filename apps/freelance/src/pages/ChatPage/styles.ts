@@ -8,6 +8,16 @@ export const MessagesWrapper = styled.div`
   height: 65vh;
   overflow: auto;
   padding: 10px;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--blue);
+    border-radius: 50px;
+    box-shadow: 2px 2px 2px var(--grey);
+  }
 `;
 
 export const UserWrapper = styled.div`
@@ -26,19 +36,19 @@ export const StyledLeftSide = styled(Col)`
   width: 300px;
 `;
 
-export const StyledRightSide = styled(Col)`
-  padding: 20px 10px 20px 10px;
-  box-shadow: 2px 2px 2px var(--grey);
-  border-radius: 10px;
-  width: 300px;
+export const StyledRightSide = styled(StyledLeftSide)`
   height: 80vh;
+  background-color: var(--white-color);
 `;
 
-export const BottomWrapper = styled.div`
+export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
   gap: 15px;
+  justify-content: center;
+`;
+
+export const BottomWrapper = styled(HeaderContainer)`
   width: 95%;
   position: absolute;
   bottom: 10px;
@@ -54,33 +64,23 @@ export const StyledButton = styled(PrimaryButton)`
 `;
 
 export const FirstUserText = styled.p`
+  background-color: ${colors.lightGrey};
   box-shadow: 2px 2px 2px var(--grey);
   border-radius: 10px;
-  background-color: ${colors.lightGrey};
   padding: 10px;
+`;
+
+export const SecondUserText = styled(FirstUserText)`
+  background-color: ${colors.lightBlue};
 `;
 
 export const FirstUserContainer = styled.div`
   text-align: left;
   width: 75%;
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
 `;
 
-export const SecondUserText = styled.p`
-  background-color: ${colors.lightBlue};
-  padding: 10px;
-  box-shadow: 2px 2px 2px var(--grey);
-  border-radius: 10px;
-`;
-
-export const SecondUserContainer = styled.div`
+export const SecondUserContainer = styled(FirstUserContainer)`
   margin: 0 0 10px auto;
   text-align: right;
-  width: 75%;
-`;
-
-export const HeaderContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
 `;
