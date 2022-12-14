@@ -21,7 +21,7 @@ export default {
 
     duration: 'Duration*',
     duration_amount_placeholder: 'Amount',
-    duration_placeholder: 'Month/Week',
+    duration_placeholder: 'Period',
 
     available_time: 'Available time',
     available_time_placeholder: 'Hrs per day',
