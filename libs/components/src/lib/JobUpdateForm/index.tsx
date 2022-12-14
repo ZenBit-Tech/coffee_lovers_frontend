@@ -54,7 +54,6 @@ export const JobUpdateForm = () => {
   useEffect(() => {
     const awd = () => {
       setJob(data?.job);
-      console.log('job', job);
     };
     awd();
   }, [data, job]);
@@ -63,7 +62,6 @@ export const JobUpdateForm = () => {
     try {
       const JobUpdateData = { id: temporallyMagicNumber, ...data };
       await updateJob(JobUpdateData);
-      console.log(data);
       navigate(routes.talents);
     } catch (error) {
       alert(JSON.stringify(error));
