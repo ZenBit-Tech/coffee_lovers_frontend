@@ -67,3 +67,7 @@ export interface GetPostedJobsResponse {
   category: Property;
   proposalsCount: number;
 }
+
+export interface FrelancerPayload {
+  id?: number;
+}
