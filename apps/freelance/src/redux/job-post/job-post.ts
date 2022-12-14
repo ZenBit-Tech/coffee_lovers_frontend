@@ -1,12 +1,18 @@
 import queryString from 'query-string';
-import { ApiRoutes, baseUrl } from '@freelance/constants';
+import { JobUpdateValues } from '@freelance/components';
+import { baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
 
 import { GetJobResponse, JobPost } from './job-post.types';
 
 enum EndpointsRoutes {
-  Job = 'job',
+  JOB = '/job',
+  UPDATE = '/update',
+}
+
+enum ApiRoutes {
+  JOBS = '/jobs',
 }
 
 export const jobPostApi = createApi({
@@ -27,12 +33,20 @@ export const jobPostApi = createApi({
         body,
       }),
     }),
-    getJob: builder.query<GetJobResponse, string>({
+    getJob: builder.query<GetJobResponse, number>({
       query: id => ({
-        url: `${ApiRoutes.JOBS}/${id}/${EndpointsRoutes.Job}`,
+        url: `${ApiRoutes.JOBS}/${id}${EndpointsRoutes.JOB}`,
+      }),
+    }),
+    updateJob: builder.mutation({
+      query: (body: JobUpdateValues) => ({
+        url: ApiRoutes.JOBS + EndpointsRoutes.UPDATE,
+        method: 'POST',
+        body,
       }),
     }),
   }),
 });
 
-export const { usePostJobMutation, useGetJobQuery } = jobPostApi;
+export const { usePostJobMutation, useGetJobQuery, useUpdateJobMutation } =
+  jobPostApi;

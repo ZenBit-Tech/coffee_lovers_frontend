@@ -18,3 +18,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export const PropertiesWrapper = styled.div`
+  margin-bottom: 15px;
+`;

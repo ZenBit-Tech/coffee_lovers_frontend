@@ -15,10 +15,23 @@ export type InputsValues = {
   available_time: string;
 };
 
-export interface GetJobResponse extends InputsValues {
+export interface GetJobResponse {
   id: number;
   owner: User;
   created_at: string;
+
+  title: string;
+  description: string;
+  hourly_rate: number;
+  category: {
+    id: number;
+    name: string;
+  };
+  skills: number[];
+  english_level: string;
+  duration: number;
+  duration_amount: string;
+  available_time: string;
 }
 
 const { atLeastThree, mustBeNumber, required } = validation;
@@ -33,4 +46,16 @@ export const schema: yup.SchemaOf<InputsValues> = yup.object({
   duration: yup.number().typeError(mustBeNumber).positive().required(required),
   duration_amount: yup.string().required(required),
   available_time: yup.string().required(required),
+});
+
+export type JobUpdateValues = {
+  title: string;
+  description: string;
+  hourly_rate: number;
+};
+
+export const jobUpdateSchema: yup.SchemaOf<JobUpdateValues> = yup.object({
+  title: yup.string().required(required),
+  description: yup.string().required(required),
+  hourly_rate: yup.number().required(required),
 });

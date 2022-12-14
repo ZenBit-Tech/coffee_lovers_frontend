@@ -28,5 +28,7 @@ export default {
 
     post_a_job: 'Post a job',
     select_to_search: 'Select to search',
+
+    update_title: 'Job update form',
   },
 };
