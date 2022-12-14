@@ -4,7 +4,9 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
+  description,
   GetJobResponse,
+  hourly_rate,
   jobUpdateSchema,
   JobUpdateValues,
   routes,
@@ -12,6 +14,7 @@ import {
   StyledInput,
   StyledInputNumber,
   StyledTextArea,
+  title,
 } from '@freelance/components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
@@ -79,7 +82,7 @@ export const JobUpdateForm = () => {
               </TitleWrapper>
             </Form.Item>
             <Controller
-              name="title"
+              name={title}
               control={jobUpdateControl}
               defaultValue={job?.title}
               render={({ field }) => (
@@ -98,7 +101,7 @@ export const JobUpdateForm = () => {
               )}
             />
             <Controller
-              name="description"
+              name={description}
               control={jobUpdateControl}
               defaultValue={job?.description}
               render={({ field }) => (
@@ -122,7 +125,7 @@ export const JobUpdateForm = () => {
               )}
             />
             <Controller
-              name="hourly_rate"
+              name={hourly_rate}
               control={jobUpdateControl}
               defaultValue={job?.hourly_rate}
               render={({ field }) => (

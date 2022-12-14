@@ -58,3 +58,18 @@ export const jobUpdateSchema: yup.SchemaOf<JobUpdateValues> = yup.object({
   description: yup.string().required(required),
   hourly_rate: yup.number().required(required),
 });
+
+export type JobControllersNames = {
+  title: string;
+  description: string;
+  hourly_rate: string;
+};
+
+export const controllersNames: JobControllersNames = {
+  title: 'title',
+  description: 'description',
+  hourly_rate: 'hourly_rate',
+};
+export const title = 'title';
+export const description = 'description';
+export const hourly_rate = 'hourly_rate';
