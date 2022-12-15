@@ -59,10 +59,7 @@ const TalentListPage = (): ReactElement => {
               placeholder={t('findJobs.searchPlaceholder')}
               onSearch={onSearch}
             />
-            <Button
-              height="35px"
-              onClick={() => setFiltersVisibility(prev => !prev)}
-            >
+            <Button onClick={() => setFiltersVisibility(prev => !prev)}>
               {t('findJobs.filters')}
             </Button>
             <Filters
