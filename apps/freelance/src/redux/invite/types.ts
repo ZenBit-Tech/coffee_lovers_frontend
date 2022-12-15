@@ -1,6 +1,6 @@
 export interface PostRequest {
   data: {
-    type?: Request;
+    status?: Request;
     hourly_rate?: number;
     start?: Date | string;
     cover_letter?: string | null;
@@ -10,6 +10,7 @@ export interface PostRequest {
 }
 
 export enum Request {
-  proposal = 'Proposal',
-  interview = 'Interview',
+  pending = 'Pending',
+  accepted = 'Accepted',
+  declined = 'Declined',
 }

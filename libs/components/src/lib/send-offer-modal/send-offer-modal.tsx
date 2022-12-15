@@ -41,7 +41,7 @@ export function SendOfferModal(props: Props) {
     },
   });
 
-  const onSubmit = async (payload: {
+  const onSubmit = (payload: {
     select?: number | null;
     rate?: number;
     start?: string | Date;
@@ -55,7 +55,7 @@ export function SendOfferModal(props: Props) {
         hourly_rate: rate,
         cover_letter: description,
         start,
-        type: Request.proposal,
+        status: Request.pending,
       },
     });
     reset({ select: null, rate: rate, description: '' });
@@ -107,7 +107,7 @@ export function SendOfferModal(props: Props) {
                 <Col span={6}>
                   <Input
                     onChange={e => {
-                      onChange(parseInt(e.target.value, 10));
+                      onChange(parseInt(e.target.value));
                     }}
                     defaultValue={rate}
                     type="number"
