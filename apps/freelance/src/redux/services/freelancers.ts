@@ -4,7 +4,7 @@ import { RootState } from 'redux/store';
 import { FreelancerQuery } from 'redux/types/user.types';
 
 enum EndpointsRoutes {
-  freelancer = 'freelancer',
+  freelancer = '/freelancer',
   user = 'user',
 }
 
@@ -28,7 +28,7 @@ export const freelancersApi = createApi({
   endpoints: builder => ({
     getFreelancer: builder.query({
       query: (params: FreelancerQuery) => ({
-        url: '/freelancer',
+        url: EndpointsRoutes.freelancer,
         params,
       }),
     }),
