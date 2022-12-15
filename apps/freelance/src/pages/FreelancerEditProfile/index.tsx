@@ -1,7 +1,7 @@
 import { Avatar } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
-import { baseUrl } from '@freelance/components';
+import { baseUrl, profileQ1 } from '@freelance/components';
 import { AvatarUpload, FreelancerForm } from '@freelance/components';
 import {
   useGetUserEducationInfoQuery,
@@ -24,7 +24,7 @@ const FreelancerProfile = () => {
         {user?.profile_image ? (
           <Avatar
             src={`${baseUrl}/${user?.profile_image}`}
-            size={130}
+            size={profileQ1.avatarBigSize}
             icon={<UserOutlined />}
           />
         ) : (

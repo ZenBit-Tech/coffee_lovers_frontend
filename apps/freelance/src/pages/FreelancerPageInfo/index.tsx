@@ -3,7 +3,7 @@ import { Avatar, Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
-import { baseUrl, SendOfferModal } from '@freelance/components';
+import { baseUrl, profileQ1, SendOfferModal } from '@freelance/components';
 import { useGetFreelancerByIdQuery } from 'redux/services/freelancers';
 
 import * as St from './styles';
@@ -22,7 +22,7 @@ const FreelancerPageInfo = () => {
       <St.LogoWrapper direction="vertical">
         <Avatar
           src={`${baseUrl}/${userDataById?.profile_image}`}
-          size={130}
+          size={profileQ1.avatarBigSize}
           icon={<UserOutlined />}
         />
         <p>

@@ -31,6 +31,7 @@ export const profileQ1 = {
       sm: { span: 4 },
     },
   },
+  avatarBigSize: 130,
 };
 
 export const prBarProfileQ2Per = 50;
