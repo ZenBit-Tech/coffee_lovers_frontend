@@ -1,13 +1,17 @@
 import queryString from 'query-string';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'redux/store';
+import { FreelancerQuery } from 'redux/types/user.types';
 
-import { FreelancerQuery } from '../types/user.types';
+enum EndpointsRoutes {
+  freelancer = 'freelancer',
+  user = 'user',
+}
 
 export const freelancersApi = createApi({
   reducerPath: 'freelancersReducer',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env['NX_API_URL']}/user/freelancer`,
+    baseUrl: `${process.env['NX_API_URL']}/${EndpointsRoutes.user}`,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).user.access_token as string;
 
@@ -24,7 +28,7 @@ export const freelancersApi = createApi({
   endpoints: builder => ({
     getFreelancer: builder.query({
       query: (params: FreelancerQuery) => ({
-        url: '/',
+        url: '/freelancer',
         params,
       }),
     }),

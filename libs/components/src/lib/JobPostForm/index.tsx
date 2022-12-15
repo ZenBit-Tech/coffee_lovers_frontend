@@ -1,9 +1,10 @@
 import { Form, Space, Typography } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import {
-  durationOptions,
   InputsValues,
+  routes,
   schema,
   StyledButton,
   StyledInput,
@@ -13,6 +14,7 @@ import {
 } from '@freelance/components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useProperties from 'src/hooks/useProperties';
+import { usePostJobsMutation } from 'src/redux/job-post/job-post';
 
 import {
   ButtonWrapper,
@@ -24,9 +26,12 @@ import {
 const { Title, Text } = Typography;
 export function JobPostForm() {
   const {
+    availableTime,
+    englishLevels,
+    durationAmount,
+
     categories,
     skills,
-    englishLevels,
 
     getOptionsForSelectWithId,
     getOptionsForSelectString,
@@ -40,14 +45,21 @@ export function JobPostForm() {
   } = useForm<InputsValues>({
     resolver: yupResolver(schema),
   });
+  const navigate = useNavigate();
+  const [postJob] = usePostJobsMutation();
 
-  const onSubmitFirstPage: SubmitHandler<InputsValues> = async data => {
-    console.log(data);
+  const onSubmit: SubmitHandler<InputsValues> = async data => {
+    try {
+      await postJob(data);
+      navigate(routes.talents);
+    } catch (error) {
+      alert(JSON.stringify(error));
+    }
   };
 
   return (
     <FormWrapper>
-      <Form onFinish={handleSubmit(onSubmitFirstPage)}>
+      <Form onFinish={handleSubmit(onSubmit)}>
         <Form.Item>
           <TitleWrapper>
             <Title level={2}>{t('job_post_page.form_title')}</Title>
@@ -182,7 +194,7 @@ export function JobPostForm() {
         />
         <Space>
           <Controller
-            name="duration_amount"
+            name="duration"
             control={control}
             render={({ field }) => (
               <Form.Item label={t('job_post_page.duration')}>
@@ -200,16 +212,16 @@ export function JobPostForm() {
             )}
           />
           <Controller
-            name="duration"
+            name="duration_amount"
             control={control}
             render={({ field }) => (
               <Form.Item>
                 <StyledSelect
                   {...field}
-                  style={{ width: '145%' }}
+                  style={{ width: '220%' }}
                   size="large"
                   defaultValue={t('job_post_page.duration_placeholder')}
-                  options={durationOptions}
+                  options={getOptionsForSelectString(durationAmount)}
                 />
                 {errors.duration && (
                   <StyledErrorMessage>
@@ -233,7 +245,7 @@ export function JobPostForm() {
                 placeholder={t('job_post_page.available_time_placeholder')}
                 allowClear
                 style={{ width: '100%' }}
-                options={getOptionsForSelectWithId(categories)}
+                options={getOptionsForSelectString(availableTime)}
               />
               {errors.available_time && (
                 <StyledErrorMessage>

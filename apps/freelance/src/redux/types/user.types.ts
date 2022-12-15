@@ -27,6 +27,7 @@ export interface User {
   other_experience: string;
   english_level: string;
   category: Property;
+  role: Role;
   skills: Property[];
 }
 
@@ -35,7 +36,7 @@ export interface UpdateUser {
   description?: string;
   hourly_rate?: number;
   position?: string;
-  category_id?: number;
+  category?: number;
   english_level?: string;
   other_experience?: string;
   skills?: number[];
@@ -48,24 +49,41 @@ export interface AddWorkhistory {
   work_history_to?: string;
 }
 
+export interface GetWorkhistory extends AddWorkhistory {
+  id?: number;
+}
+
 export interface AddEducation {
   education_descr: string;
   education_from: string;
   education_to: string;
 }
 
-export type Role = 'Freelancer' | 'JobOwner' | 'Visitor';
-
-export interface IUserInfo {
-  email: string;
-  first_name: string;
-  last_name: string;
-  profile_image: string | null;
-  role: Role;
+export interface GetEducation extends AddEducation {
+  id?: number;
 }
+
+export type Role = 'Freelancer' | 'JobOwner' | 'Visitor';
 
 export interface SetProfileImageResponse {
   file: string;
+}
+
+export interface GetUserProposals {
+  proposals: {
+    id: number;
+    hourly_rate: number;
+    cover_letter: string;
+    job: {
+      id: number;
+      title: string;
+      description: string;
+      hourly_rate: number;
+      available_time: string;
+      english_level: string;
+      created_at: string;
+    };
+  }[];
 }
 
 export interface FreelancerQuery {
