@@ -7,9 +7,10 @@ import {
   roles,
   StyledInput,
 } from '@freelance/components';
+import { baseTheme } from 'src/styles/theme';
 import { formatDate, formatTime } from 'src/utils/dates';
 
-import { colors, message } from './constants';
+import { colors, defaultAvatarSize, message } from './constants';
 import {
   BottomWrapper,
   FirstUserContainer,
@@ -57,10 +58,12 @@ const ChatPage = () => {
             <li key={item.id} onClick={() => handleClick(item.id)}>
               <UserWrapper
                 color={
-                  item.id === conversation ? colors.white : colors.transparent
+                  item.id === conversation
+                    ? baseTheme.colors.white
+                    : colors.transparent
                 }
               >
-                <Avatar size={40} icon={<UserOutlined />} />
+                <Avatar size={defaultAvatarSize} icon={<UserOutlined />} />
                 <div>
                   {user?.role === roles.jobOwner && <p>{item.job.title}</p>}
                   <p>
@@ -83,7 +86,7 @@ const ChatPage = () => {
           {user?.role === roles.jobOwner && (
             <Avatar
               src={`${baseUrl}/${profileImg}`}
-              size={40}
+              size={defaultAvatarSize}
               icon={<UserOutlined />}
             />
           )}

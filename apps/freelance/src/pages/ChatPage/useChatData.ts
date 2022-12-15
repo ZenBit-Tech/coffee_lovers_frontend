@@ -23,13 +23,13 @@ type InputType = {
 type IConversation = number;
 
 interface useChatDataReturns {
-  user: User | undefined;
-  chatMessages: MessageResponse[] | undefined;
+  user?: User;
+  chatMessages?: MessageResponse[];
   form: FormInstance<InputType>;
   conversation: number;
   ownerName: string;
   projectName: string;
-  conversations: ConversationResponse[] | undefined;
+  conversations?: ConversationResponse[];
   profileImg: string;
   handleSend: (values: InputType) => void;
   handleClick: (id: number) => number;

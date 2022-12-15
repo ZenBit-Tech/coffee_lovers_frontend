@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { PrimaryButton, SecondaryButton } from '@freelance/components';
 import { baseTheme } from 'src/styles/theme';
 
-import { colors } from './constants';
-
 export const MessagesWrapper = styled.div`
   height: 65vh;
   overflow: auto;
@@ -34,7 +32,7 @@ export const UserWrapper = styled.div.attrs(props => ({
   cursor: pointer;
   :hover {
     box-shadow: 2px 2px 2px var(--grey);
-    background-color: #fff;
+    background-color: ${baseTheme.colors.white};
   }
 `;
 
@@ -76,14 +74,14 @@ export const StyledButton = styled(PrimaryButton)`
 `;
 
 export const FirstUserText = styled.p`
-  background-color: ${colors.lightGrey};
+  background-color: var(--lightGrey);
   box-shadow: 2px 2px 2px var(--grey);
   border-radius: 10px;
   padding: 10px;
 `;
 
 export const SecondUserText = styled(FirstUserText)`
-  background-color: ${colors.lightBlue};
+  background-color: var(--lightBlue);
 `;
 
 export const FirstUserContainer = styled.div`
