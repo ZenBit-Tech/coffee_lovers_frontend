@@ -30,7 +30,7 @@ export const freelancersApi = createApi({
     }),
     getFreelancerById: builder.query<FreelancerDataById, number>({
       query: (key: number) => ({
-        url: `/${key}`,
+        url: `${EndpointsRoutes.freelancer}/${key}`,
         method: 'GET',
       }),
     }),
