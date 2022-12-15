@@ -3,7 +3,7 @@ import { Avatar, Col, Input, List, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
-import { routes, SmallCard } from '@freelance/components';
+import { baseUrl, routes, SmallCard } from '@freelance/components';
 import { useGetFreelancerQuery } from 'redux/services/freelancers';
 
 import { User } from './model';
@@ -63,7 +63,7 @@ const TalentListPage = (): ReactElement => {
               title={
                 <StyledCardHeader>
                   <Avatar
-                    src={item.profile_image}
+                    src={`${baseUrl}/${item.profile_image}`}
                     size={130}
                     icon={<UserOutlined />}
                   />

@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Col, Row } from 'antd';
+import { Avatar, Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
-import { AvatarUpload, SendOfferModal } from '@freelance/components';
+import { UserOutlined } from '@ant-design/icons';
+import { baseUrl, SendOfferModal } from '@freelance/components';
 import { useGetFreelancerByIdQuery } from 'redux/services/freelancers';
 
 import * as St from './styles';
@@ -19,7 +20,11 @@ const FreelancerPageInfo = () => {
   return (
     <St.Wrapper isLoading={isLoading}>
       <St.LogoWrapper direction="vertical">
-        <AvatarUpload />
+        <Avatar
+          src={`${baseUrl}/${userDataById?.profile_image}`}
+          size={130}
+          icon={<UserOutlined />}
+        />
         <p>
           {userDataById?.first_name} {userDataById?.last_name}
         </p>
