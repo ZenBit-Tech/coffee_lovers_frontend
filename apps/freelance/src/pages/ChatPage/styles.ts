@@ -1,13 +1,14 @@
 import { Col, Form } from 'antd';
 import styled from 'styled-components';
-import { PrimaryButton } from '@freelance/components';
+import { PrimaryButton, SecondaryButton } from '@freelance/components';
+import { baseTheme } from 'src/styles/theme';
 
 import { colors } from './constants';
 
 export const MessagesWrapper = styled.div`
   height: 65vh;
   overflow: auto;
-  padding: 10px;
+  padding-right: 10px;
 
   ::-webkit-scrollbar {
     width: 10px;
@@ -16,16 +17,25 @@ export const MessagesWrapper = styled.div`
   ::-webkit-scrollbar-thumb {
     background-color: var(--blue);
     border-radius: 50px;
-    box-shadow: 2px 2px 2px var(--grey);
   }
 `;
 
-export const UserWrapper = styled.div`
+export const UserWrapper = styled.div.attrs(props => ({
+  color: props.color,
+}))`
+  background-color: ${props => props.color};
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
   margin-top: 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  :hover {
+    box-shadow: 2px 2px 2px var(--grey);
+    background-color: #fff;
+  }
 `;
 
 export const StyledLeftSide = styled(Col)`
@@ -37,6 +47,7 @@ export const StyledLeftSide = styled(Col)`
 `;
 
 export const StyledRightSide = styled(StyledLeftSide)`
+  padding: 10px;
   height: 80vh;
   background-color: var(--white-color);
 `;
@@ -50,6 +61,7 @@ export const HeaderContainer = styled.div`
 
 export const BottomWrapper = styled(HeaderContainer)`
   width: 95%;
+  margin-left: 10px;
   position: absolute;
   bottom: 10px;
 `;
@@ -83,4 +95,28 @@ export const FirstUserContainer = styled.div`
 export const SecondUserContainer = styled(FirstUserContainer)`
   margin: 0 0 10px auto;
   text-align: right;
+`;
+
+export const FreelancerNameStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const UnreadStyled = styled.div`
+  border: 1px solid black;
+  position: absolute;
+  right: 30px;
+  top: 5px;
+  border-radius: 50%;
+  width: 20px;
+  text-align: center;
+  padding: 3px;
+  font-size: 8px;
+  background-color: #fff;
+`;
+
+export const SendOfferBtn = styled(SecondaryButton)`
+  background-color: ${baseTheme.colors.button.green};
+  margin-left: auto;
+  margin-right: 20px;
 `;

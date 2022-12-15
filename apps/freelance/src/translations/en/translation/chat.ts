@@ -4,5 +4,6 @@ export default {
     user: 'User Name',
     message: 'Message',
     send: 'send',
+    sendOffer: 'Send offer',
   },
 };

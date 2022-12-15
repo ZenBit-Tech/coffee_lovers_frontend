@@ -5,11 +5,11 @@ import { AppBar, Container, roles } from '@freelance/components';
 import { routes } from '@freelance/components';
 import ChatPage from '@pages/ChatPage';
 import ChooseRole from '@pages/ChooseRolePage';
-import FindJobs from '@pages/FindJobs';
 import FreelancerProfile from '@pages/FreelancerEditProfile';
 import FreelancerPageInfo from '@pages/FreelancerPageInfo';
 import JobDetailsPage from '@pages/JobDetailsPage';
 import JobOwnerDashboard from '@pages/JobOwnerDashboard';
+import JobsPage from '@pages/JobsPage';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
 import ProfileQuestions from '@pages/ProfileQuestions';
@@ -17,38 +17,28 @@ import ProposalsList from '@pages/ProposalsList';
 import TalentListPage from '@pages/TalentListPage/index';
 import WelcomePage from '@pages/WelcomePage';
 import { selectRole } from 'redux/auth/auth-slice';
+import { Role } from 'redux/types/user.types';
 import PrivateRoute from 'src/Routes/PrivateRoute';
 import PublicRoute from 'src/Routes/PublicRoute';
 
 const ExampleRootPage = lazy(
   () =>
-    import(
-      /* webpackChunkName: "ExampleRootPage" */ '../pages/ExampleRootPage'
-    ),
+    import(/* webpackChunkName: "ExampleRootPage" */ '@pages/ExampleRootPage'),
 );
-
-const OwnerProfilePage = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "OwnerProfilePage" */ '../pages/OwnerProfilePage'
-    ),
-);
-const SignInGoogle = lazy(() => import('../pages/SignInGoogle'));
-const ConditionsPage = lazy(() => import('../pages/ConditionsPage'));
-
+const SignInGoogle = lazy(() => import('@pages/SignInGoogle'));
+const ConditionsPage = lazy(() => import('@pages/ConditionsPage'));
 const LoginPage = lazy(
-  () => import(/* webpackChunkName: "ExampleRootPage" */ '../pages/LoginPage'),
+  () => import(/* webpackChunkName: "ExampleRootPage" */ '@pages/LoginPage'),
 );
 const SignupPage = lazy(
-  () => import(/* webpackChunkName: "ExampleRootPage" */ '../pages/SignupPage'),
+  () => import(/* webpackChunkName: "ExampleRootPage" */ '@pages/SignupPage'),
 );
-
 const JobPostPage = lazy(
-  () => import(/* webpackChunkName: "JobPostPage" */ '../pages/JobPostPage'),
+  () => import(/* webpackChunkName: "JobPostPage" */ '@pages/JobPostPage'),
 );
 
 export function App() {
-  const role = useSelector(selectRole);
+  const role: Role = useSelector(selectRole);
 
   return (
     <Container>
@@ -73,13 +63,13 @@ export function App() {
           </Route>
 
           {/* Protected routes */}
-
           <Route
             element={
               <PrivateRoute allowedRoles={[roles.freelancer, roles.jobOwner]} />
             }
           >
             <Route path={routes.chat} element={<ChatPage />} />
+            <Route path={routes.jobs} element={<JobsPage />} />
           </Route>
 
           {/* Freelancer's routes */}
@@ -96,14 +86,12 @@ export function App() {
               path={routes.freelancerInfo}
               element={<FreelancerPageInfo />}
             />
-            <Route path={routes.findJobs} element={<FindJobs />} />
             <Route path={routes.jobDetails} element={<JobDetailsPage />} />
             <Route path={routes.proposalsList} element={<ProposalsList />} />
           </Route>
 
           {/* Job Owner's routes */}
           <Route element={<PrivateRoute allowedRoles={[roles.jobOwner]} />}>
-            <Route path={routes.ownerProfile} element={<OwnerProfilePage />} />
             <Route path={routes.jobPost} element={<JobPostPage />} />
             <Route
               path={routes.jobOwnerDashboard}
