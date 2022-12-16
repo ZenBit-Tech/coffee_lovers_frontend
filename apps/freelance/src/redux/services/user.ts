@@ -20,6 +20,7 @@ import {
 enum EndpointsRoutes {
   passwordResetRequest = '/passwordresetrequest',
   passwordReset = '/passwordreset',
+  passwordResetCheckAvailability = '/passwordreset/',
   setProfileImage = '/setprofileimage',
 }
 
@@ -62,6 +63,12 @@ export const userApi = createApi({
         body: payload,
       }),
     }),
+    passwordResetCheckAvailability: builder.query<boolean, string>({
+      query: (key: string) => ({
+        url: EndpointsRoutes.passwordResetCheckAvailability + key,
+        method: 'GET',
+      }),
+    }),
     setProfileImage: builder.mutation<SetProfileImageResponse, FormData>({
       query: (formData: FormData) => ({
         url: EndpointsRoutes.setProfileImage,
@@ -89,6 +96,7 @@ export const userApi = createApi({
 export const {
   usePasswordResetRequestMutation,
   usePasswordResetMutation,
+  usePasswordResetCheckAvailabilityQuery,
   useSetProfileImageMutation,
   useAddUserRoleMutation,
   useGetUserInfoQuery,
