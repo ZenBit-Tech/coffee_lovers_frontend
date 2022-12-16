@@ -20,5 +20,5 @@ export const routes = {
   jobOwnerDashboard: '/jobownerdashboard',
   jobPost: '/owner-profile/job-post',
   talents: '/talents',
-  freelancerInfo: '/freelancer-info',
+  freelancerInfo: '/:id/freelancer-info',
 };

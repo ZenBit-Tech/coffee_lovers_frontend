@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'redux/store';
+import { FreelancerDataById } from 'redux/types/freelancers.types';
 
 import { takeItems } from './constants';
 
@@ -27,7 +28,14 @@ export const freelancersApi = createApi({
       query: (page: number) =>
         `${EndpointsRoutes.freelancer}/?page=${page}&take=${takeItems}`,
     }),
+    getFreelancerById: builder.query<FreelancerDataById, number>({
+      query: (key: number) => ({
+        url: `${EndpointsRoutes.freelancer}/${key}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useGetFreelancerQuery } = freelancersApi;
+export const { useGetFreelancerQuery, useGetFreelancerByIdQuery } =
+  freelancersApi;

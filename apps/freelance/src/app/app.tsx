@@ -82,16 +82,16 @@ export function App() {
               path={routes.freelancerProfile}
               element={<FreelancerProfile />}
             />
-            <Route
-              path={routes.freelancerInfo}
-              element={<FreelancerPageInfo />}
-            />
             <Route path={routes.jobDetails} element={<JobDetailsPage />} />
             <Route path={routes.proposalsList} element={<ProposalsList />} />
           </Route>
 
           {/* Job Owner's routes */}
           <Route element={<PrivateRoute allowedRoles={[roles.jobOwner]} />}>
+            <Route
+              path={routes.freelancerInfo}
+              element={<FreelancerPageInfo />}
+            />
             <Route path={routes.jobPost} element={<JobPostPage />} />
             <Route
               path={routes.jobOwnerDashboard}
