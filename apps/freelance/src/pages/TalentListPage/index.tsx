@@ -1,8 +1,16 @@
 import { ReactElement } from 'react';
 import { Avatar, Input, List } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { generatePath, useNavigate } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
-import { Button, Filters, SmallCard } from '@freelance/components';
+import {
+  baseUrl,
+  Button,
+  Filters,
+  profileQ1,
+  routes,
+  SmallCard,
+} from '@freelance/components';
 import { AppBar } from '@freelance/components';
 import { filterRight, filterTop } from '@pages/FindJobs/constants';
 import {
@@ -41,9 +49,17 @@ const TalentListPage = (): ReactElement => {
     page,
     search,
     take,
+
     ...filterPayload,
   };
+  const navigate = useNavigate();
   const { data, isLoading } = useGetFreelancerQuery(req);
+
+  const navFunc = (props: number) => {
+    const id = JSON.stringify(props);
+    const path = generatePath(routes.freelancerInfo, { id });
+    navigate(path);
+  };
 
   return (
     <>
@@ -79,11 +95,11 @@ const TalentListPage = (): ReactElement => {
                 title={
                   <StyledCardHeader>
                     <Avatar
-                      src={item.profile_image}
-                      size={130}
+                      src={`${baseUrl}/${item.profile_image}`}
+                      size={profileQ1.avatarBigSize}
                       icon={<UserOutlined />}
                     />
-                    <StyledName>
+                    <StyledName onClick={() => navFunc(item.id)}>
                       {t('talent.name', {
                         name: item.first_name + ' ' + item.last_name,
                       })}
@@ -103,7 +119,7 @@ const TalentListPage = (): ReactElement => {
                   />
                   <SmallCard
                     text={t('talent.available_time', {
-                      available_time: item.available_time + ' h',
+                      available_time: item.available_time,
                     })}
                   />
                   <SmallCard

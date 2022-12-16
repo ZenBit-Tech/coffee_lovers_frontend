@@ -7,6 +7,7 @@ export default {
     loginPage_password: 'Password',
     'loginPage_with-google': 'Log In with Google',
     email_error: 'Please enter a valid email address',
+    email_error_req: 'Email is required',
     password_error: 'Please enter a valid password',
     name_error: 'Invalid characters. Only letters are allowed.',
     signUp: 'Create my account',
@@ -20,6 +21,8 @@ export default {
     terms: 'Terms & Conditions',
     match_error: 'Your passwords do not match.',
     agreement_error: 'Please accept Terms&Conditions',
+    notificationMessage: 'Error',
+    notificationDescr: 'Wrong email or password',
   },
   conditions: {
     title: 'Terms & Conditions',

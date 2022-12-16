@@ -1,29 +1,25 @@
-import { useState } from 'react';
 import { Button, Form } from 'antd';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { StyledInput } from '@freelance/components';
 import { getErrorMessage } from '@pages/PasswordReset/errors';
-import { usePasswordResetRequestMutation } from 'redux/services/user';
 
 import { emailName } from './constants';
 import { StyledEmail, StyledError, StyledInfo, Wrapper } from './styles';
-
-type Inputs = {
-  email: string;
-};
+import usePasswordResetRequest from './userPasswordResetRequest';
 
 const PasswordResetRequest = () => {
   const { t } = useTranslation();
-  const { handleSubmit, control } = useForm<Inputs>();
-  const [email, setEmail] = useState<string>('');
-  const [passwordResetRequest, { isLoading, isSuccess, isError, error }] =
-    usePasswordResetRequestMutation();
-
-  const onSubmit: SubmitHandler<Inputs> = data => {
-    setEmail(data.email);
-    passwordResetRequest(data.email);
-  };
+  const {
+    handleSubmit,
+    onSubmit,
+    control,
+    email,
+    isLoading,
+    isError,
+    error,
+    isSuccess,
+  } = usePasswordResetRequest();
 
   return (
     <Wrapper>
