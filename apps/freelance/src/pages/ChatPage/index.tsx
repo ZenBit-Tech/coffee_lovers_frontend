@@ -63,7 +63,11 @@ const ChatPage = () => {
                     : colors.transparent
                 }
               >
-                <Avatar size={defaultAvatarSize} icon={<UserOutlined />} />
+                <Avatar
+                  src={`${baseUrl}/${item.user.profile_image}`}
+                  size={defaultAvatarSize}
+                  icon={<UserOutlined />}
+                />
                 <div>
                   {user?.role === roles.jobOwner && <p>{item.job.title}</p>}
                   <p>
