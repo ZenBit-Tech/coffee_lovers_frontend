@@ -85,10 +85,6 @@ export function App() {
               path={routes.freelancerProfile}
               element={<FreelancerProfile />}
             />
-            <Route
-              path={routes.freelancerInfo}
-              element={<FreelancerPageInfo />}
-            />
             <Route path={routes.findJobs} element={<FindJobs />} />
             <Route path={routes.jobDetails} element={<JobDetailsPage />} />
             <Route path={routes.proposalsList} element={<ProposalsList />} />
@@ -103,6 +99,10 @@ export function App() {
               element={<JobOwnerDashboard />}
             />
             <Route path={routes.talents} element={<TalentListPage />} />
+            <Route
+              path={routes.freelancerInfo}
+              element={<FreelancerPageInfo />}
+            />
           </Route>
         </Route>
       </Routes>
