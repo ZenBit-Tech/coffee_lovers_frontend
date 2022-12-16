@@ -23,6 +23,7 @@ export function InterviewModal(props: Props) {
   const { setOpen, open, freelancerId, rate } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [page, setPage] = useState(ChatListPage);
+  console.log(freelancerId);
 
   const { t } = useTranslation<Namespace<string>>();
   const { data: invitation } = useGetInvitationDetailsQuery({

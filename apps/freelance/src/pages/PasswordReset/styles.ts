@@ -21,3 +21,7 @@ export const StyledError = styled.span`
   font-size: ${errorFontSize};
   margin-left: 10px;
 `;
+
+export const StyledInfo = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.large};
+`;

@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
 
 export const StUserAvatarWrapper = styled.div`
   position: absolute;
-  top: 0;
+  top: 100px;
   right: 30%;
   padding: inherit;
   @media (max-width: 769px) {

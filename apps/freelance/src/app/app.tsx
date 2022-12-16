@@ -103,6 +103,10 @@ export function App() {
               element={<JobOwnerDashboard />}
             />
             <Route path={routes.talents} element={<TalentListPage />} />
+            <Route
+              path={routes.freelancerInfo}
+              element={<FreelancerPageInfo />}
+            />
           </Route>
         </Route>
       </Routes>
