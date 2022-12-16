@@ -1,3 +1,4 @@
+import { Job } from './jobs.types';
 import { User } from './user.types';
 
 export interface CreateMessagePayload {
@@ -21,4 +22,21 @@ export interface MessageResponse {
   conversation: number;
   message: string;
   created_at: string;
+}
+
+export interface ConversationResponse {
+  id: number;
+  job: Job;
+  user: User;
+  last_message: {
+    id: number;
+    message: string;
+    created_at: string;
+    is_read: boolean;
+  };
+  new_messages: number;
+}
+
+export interface GetConversationParams {
+  search?: string;
 }

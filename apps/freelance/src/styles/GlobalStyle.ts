@@ -7,6 +7,8 @@ export const GlobalStyle = createGlobalStyle`
   --black-color: #000;
   --blue: #3944BC;
   --grey: #c5c5c5;
+  --lightGrey: #d6d6d6;
+  --lightBlue: #98d7e1;
 
   --animation-cubic-bezier: 250ms cubic-bezier(0.8, 0.4, 0.3, 0.9);
 }
