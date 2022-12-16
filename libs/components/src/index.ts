@@ -16,6 +16,7 @@ export * from './lib/google-login-button/index';
 export * from './lib/information-sticker';
 export * from './lib/input/input';
 export * from './lib/input/styles';
+export * from './lib/interview-modal/interview-modal';
 export * from './lib/job-card';
 export * from './lib/JobPostForm';
 export * from './lib/login-form/login-form';

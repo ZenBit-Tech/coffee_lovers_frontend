@@ -1,21 +1,29 @@
 import { useState } from 'react';
 import { Avatar, Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
-import { baseUrl, profileQ1, SendOfferModal } from '@freelance/components';
+import {
+  baseUrl,
+  InterviewModal,
+  profileQ1,
+  SendOfferModal,
+} from '@freelance/components';
 import { useGetFreelancerByIdQuery } from 'redux/services/freelancers';
 
 import * as St from './styles';
 
 const FreelancerPageInfo = () => {
+  const [open, setOpen] = useState<boolean>(false);
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const params = useParams();
   const id = Number(params['id']);
   const [offerOpen, setOfferOpen] = useState<boolean>(false);
 
   const { data: userDataById, isLoading } = useGetFreelancerByIdQuery(id);
+  const showModal = () => {
+    setOpen(true);
+  };
 
   return (
     <St.Wrapper isLoading={isLoading}>
@@ -133,10 +141,16 @@ const FreelancerPageInfo = () => {
         <St.StyledButton onClick={() => setOfferOpen(true)}>
           {t('description.freelancerPageInfo.sendOffer')}
         </St.StyledButton>
-        <St.StyledButton onClick={() => navigate('/')}>
+        <St.StyledButton onClick={showModal}>
           {t('description.freelancerPageInfo.inviteInterview')}
         </St.StyledButton>
       </St.ButtonWrapper>
+      <InterviewModal
+        freelancerId={userDataById?.id}
+        open={open}
+        setOpen={setOpen}
+        rate={userDataById?.hourly_rate}
+      />
       <SendOfferModal
         open={offerOpen}
         setOpen={setOfferOpen}

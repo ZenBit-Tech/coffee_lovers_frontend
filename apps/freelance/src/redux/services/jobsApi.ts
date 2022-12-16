@@ -15,6 +15,7 @@ import {
 
 enum EndpointsRoutes {
   findJobs = '/',
+  findUserJobs = '/userjobs',
   getJobProposals = '/proposals',
   getJob = '/job',
   getPostedJobs = '/posted',
@@ -35,6 +36,11 @@ export const jobsApi = createApi({
       query: params => ({
         url: EndpointsRoutes.findJobs,
         params,
+      }),
+    }),
+    findUserJobs: builder.query<Job[], number | undefined>({
+      query: freelancer => ({
+        url: EndpointsRoutes.findUserJobs + '/' + freelancer,
       }),
     }),
     sendProposal: builder.mutation({
@@ -67,6 +73,7 @@ export const jobsApi = createApi({
 
 export const {
   useFindJobsQuery,
+  useFindUserJobsQuery,
   useSendProposalMutation,
   useGetJobQuery,
   useGetJobProposalsQuery,
