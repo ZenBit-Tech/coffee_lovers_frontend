@@ -1,10 +1,11 @@
+import queryString from 'query-string';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'redux/store';
-
-import { takeItems } from './constants';
+import { FreelancerDataById } from 'redux/types/freelancers.types';
+import { FreelancerQuery } from 'redux/types/user.types';
 
 enum EndpointsRoutes {
-  freelancer = 'freelancer',
+  freelancer = '/freelancer',
   user = 'user',
 }
 
@@ -21,13 +22,25 @@ export const freelancersApi = createApi({
 
       return headers;
     },
+    paramsSerializer: params => {
+      return queryString.stringify(params, { arrayFormat: 'bracket' });
+    },
   }),
   endpoints: builder => ({
     getFreelancer: builder.query({
-      query: (page: number) =>
-        `${EndpointsRoutes.freelancer}/?page=${page}&take=${takeItems}`,
+      query: (params: FreelancerQuery) => ({
+        url: EndpointsRoutes.freelancer,
+        params,
+      }),
+    }),
+    getFreelancerById: builder.query<FreelancerDataById, number>({
+      query: (key: number) => ({
+        url: `${EndpointsRoutes.freelancer}/${key}`,
+        method: 'GET',
+      }),
     }),
   }),
 });
 
-export const { useGetFreelancerQuery } = freelancersApi;
+export const { useGetFreelancerQuery, useGetFreelancerByIdQuery } =
+  freelancersApi;

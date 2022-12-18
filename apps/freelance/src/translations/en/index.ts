@@ -1,4 +1,5 @@
 import appBar from './translation/appBar';
+import chat from './translation/chat';
 import chooseRole from './translation/chooseRole';
 import description from './translation/description';
 import filters from './translation/filters';
@@ -39,5 +40,6 @@ export default {
     ...proposalsList,
     ...textVisibility,
     ...modals,
+    ...chat,
   },
 };

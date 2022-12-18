@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import { Button, Form } from 'antd';
+import { Button, Form, notification } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { StyledInput, StyledPasswordInput } from '@freelance/components';
 import { routes } from '@freelance/components';
-import { authEmail, authPassword } from '@freelance/components';
+import { authEmail, authError, authPassword } from '@freelance/components';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
@@ -17,6 +17,8 @@ type FormValues = {
   password: string;
 };
 
+type NotificationType = 'error';
+
 export const LoginForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -24,6 +26,14 @@ export const LoginForm = () => {
   const { handleSubmit, control } = useForm<FormValues>();
   const [loginUser, { data: loginData, isSuccess: isLoginSuccess, isError }] =
     useLoginUserMutation();
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotificationWithIcon = (type: NotificationType) => {
+    api[type]({
+      message: `${t('loginPage.notificationMessage')}`,
+      description: `${t('loginPage.notificationDescr')}`,
+    });
+  };
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     try {
@@ -33,16 +43,17 @@ export const LoginForm = () => {
         await loginUser({ email, password });
       }
     } catch (error) {
-      alert(JSON.stringify(error));
+      openNotificationWithIcon(authError);
     }
   };
 
   useEffect(() => {
     if (isLoginSuccess) {
       dispatch(setUser({ access_token: loginData.access_token }));
+      navigate(routes.jobs);
     }
     if (isError) {
-      alert('Something went wrong...');
+      openNotificationWithIcon(authError);
     }
   });
 
@@ -52,6 +63,7 @@ export const LoginForm = () => {
       wrapperCol={{ span: 22 }}
       onFinish={handleSubmit(onSubmit)}
     >
+      {contextHolder}
       <FormWrap>
         <Controller
           name={authEmail}
@@ -59,7 +71,14 @@ export const LoginForm = () => {
           render={({ field }) => (
             <Form.Item
               rules={[
-                { required: true, message: `${t('loginPage.email_error')}` },
+                {
+                  type: 'email',
+                  message: `${t('loginPage.email_error')}`,
+                },
+                {
+                  required: true,
+                  message: `${t('loginPage.email_error_req')}`,
+                },
               ]}
               hasFeedback
               {...field}

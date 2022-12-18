@@ -1,9 +1,9 @@
 import { Form, Modal, ModalProps } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { StyledButton } from '@freelance/components';
-import { profileQ1 } from '@freelance/constants';
+import { profileQ1, StyledButton } from '@freelance/components';
 import { useSendProposalMutation } from 'src/redux/services/jobsApi';
+import { baseTheme } from 'src/styles/theme';
 
 import {
   RateWrapper,
@@ -102,7 +102,7 @@ export const ProposalModal = ({
           />
         </Form.Item>
 
-        <StyledButton htmlType="submit" type="primary">
+        <StyledButton theme={baseTheme} htmlType="submit" type="primary">
           {t('job_details.send_proposal')}
         </StyledButton>
       </StyledForm>

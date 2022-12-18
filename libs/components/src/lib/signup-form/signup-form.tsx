@@ -22,8 +22,8 @@ import { FormItem } from './styles';
 
 type FormValues = {
   email: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   password: string;
   confirmPassword: string;
   agreement: boolean;
@@ -41,13 +41,13 @@ export function SignUpForm() {
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     try {
-      const firstName = data.firstName;
-      const lastName = data.lastName;
+      const first_name = data.first_name;
+      const last_name = data.last_name;
       const email = data.email;
       const password = data.password;
 
-      if (firstName && lastName && password && email) {
-        await registerUser({ email, firstName, lastName, password });
+      if (first_name && last_name && password && email) {
+        await registerUser({ email, first_name, last_name, password });
       }
     } catch (error) {
       alert(JSON.stringify(error));

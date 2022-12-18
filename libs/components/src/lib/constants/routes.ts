@@ -9,16 +9,16 @@ export const routes = {
   conditions: '/login/conditions',
   // Protected Routes
   role: '/role',
+  chat: '/chat',
+  jobs: '/jobs',
   //Freelancer Routes
   profileQuestions: '/profile-questions',
   freelancerProfile: '/my-profile',
-  findJobs: '/findjobs',
   jobDetails: '/job/:id/details',
   proposalsList: '/job/:id/proposals',
   //Job Owner Routes
   jobOwnerDashboard: '/jobownerdashboard',
   jobPost: '/owner-profile/job-post',
-  ownerProfile: '/owner-profile',
   talents: '/talents',
-  freelancerInfo: '/freelancer-info',
+  freelancerInfo: '/:id/freelancer-info',
 };

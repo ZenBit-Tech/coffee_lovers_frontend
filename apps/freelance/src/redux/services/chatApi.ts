@@ -3,7 +3,9 @@ import { ApiRoutes, baseUrl, websocketUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getHeaders, getWebsocketHeaders } from '@utils/api';
 import {
+  ConversationResponse,
   CreateMessagePayload,
+  GetConversationParams,
   GetMessagesPayload,
   MessageResponse,
   SendMessagePayload,
@@ -78,7 +80,19 @@ export const chatApi = createApi({
         });
       },
     }),
+    getConversation: build.query<ConversationResponse[], GetConversationParams>(
+      {
+        query: params => ({
+          url: `/`,
+          params,
+        }),
+      },
+    ),
   }),
 });
 
-export const { useGetMessagesQuery, useSendMessageMutation } = chatApi;
+export const {
+  useGetMessagesQuery,
+  useGetConversationQuery,
+  useSendMessageMutation,
+} = chatApi;
