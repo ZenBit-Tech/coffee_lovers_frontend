@@ -6,7 +6,7 @@ export const StyledSmallCard = styled(Button)`
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-left: 20px;
-  width: 120px;
+  width: auto;
   &:disabled,
   &:disabled:hover {
     background-color: white;

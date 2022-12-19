@@ -1,3 +1,6 @@
+import { SizeType } from 'antd/lib/config-provider/SizeContext';
+
 export interface SmallCardProps {
-  text: string;
+  width?: SizeType;
+  text?: string;
 }
