@@ -8,7 +8,6 @@ import ChooseRole from '@pages/ChooseRolePage';
 import FreelancerProfile from '@pages/FreelancerEditProfile';
 import FreelancerPageInfo from '@pages/FreelancerPageInfo';
 import JobDetailsPage from '@pages/JobDetailsPage';
-import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import JobsPage from '@pages/JobsPage';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
@@ -83,7 +82,6 @@ export function App() {
               element={<FreelancerProfile />}
             />
             <Route path={routes.jobDetails} element={<JobDetailsPage />} />
-            <Route path={routes.proposalsList} element={<ProposalsList />} />
           </Route>
 
           {/* Job Owner's routes */}
@@ -93,11 +91,8 @@ export function App() {
               element={<FreelancerPageInfo />}
             />
             <Route path={routes.jobPost} element={<JobPostPage />} />
-            <Route
-              path={routes.jobOwnerDashboard}
-              element={<JobOwnerDashboard />}
-            />
             <Route path={routes.talents} element={<TalentListPage />} />
+            <Route path={routes.proposalsList} element={<ProposalsList />} />
           </Route>
         </Route>
       </Routes>

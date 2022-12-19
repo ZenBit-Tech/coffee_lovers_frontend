@@ -25,13 +25,15 @@ import {
 import useProposalCard from './useProposalCard';
 
 interface ProposalCardProps {
-  user: User | undefined;
+  onClick?: () => void;
+  user?: User;
   hourlyRate: number;
   availableTime?: string;
   coverLetter: string;
 }
 
 export const ProposalCard: FC<ProposalCardProps> = ({
+  onClick,
   user,
   hourlyRate,
   availableTime,
@@ -42,7 +44,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
     useProposalCard();
 
   return (
-    <Wrapper>
+    <Wrapper onClick={onClick}>
       <StyledTop>
         <StyledTopLeftSide>
           <Avatar
