@@ -25,7 +25,7 @@ export const StCol = styled.div`
 
 export const Label = styled.p`
   font-weight: ${({ theme }) => theme.weight?.bold};
-  font-weight: ${({ theme }) => theme.fontSize?.large};
+  font-size: ${({ theme }) => theme.fontSize?.large};
 `;
 
 export const Hr = styled.p`
@@ -100,7 +100,7 @@ export const StyledButton = styled(Button)`
   height: ${({ theme }) => theme.sizes?.button?.height};
   min-width: ${({ theme }) => theme.sizes?.button?.width};
   font-weight: ${({ theme }) => theme.weight?.bold};
-  font-weight: ${({ theme }) => theme.fontSize?.large};
+  font-size: ${({ theme }) => theme.fontSize?.large};
   outline: 0;
   border: none;
   border-radius: 8px;
@@ -127,5 +127,5 @@ export const LogoWrapper = styled(Space)`
   align-items: center;
   margin-top: 5px;
   font-weight: ${({ theme }) => theme.weight?.bold};
-  font-weight: ${({ theme }) => theme.fontSize?.large};
+  font-size: ${({ theme }) => theme.fontSize?.large};
 `;
