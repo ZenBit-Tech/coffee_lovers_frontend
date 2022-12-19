@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
 import { Avatar, Form, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
 import {
   baseUrl,
   InputSearch,
+  OfferFromChatModal,
   roles,
   StyledInput,
 } from '@freelance/components';
@@ -29,22 +31,38 @@ import {
 } from './styles';
 import useChatData from './useChatData';
 
+type Open = boolean;
+
 const ChatPage = () => {
   const { t } = useTranslation();
+  const [openModal, setOpenModal] = useState<Open>(false);
+
+  const showModal = () => {
+    setOpenModal(true);
+  };
+
+  const onCancel = () => {
+    setOpenModal(false);
+  };
 
   const {
     user,
     chatMessages,
     form,
-    ownerName,
-    projectName,
     conversation,
     conversations,
-    profileImg,
+    currentConversationInfo,
     handleSend,
     handleClick,
     onSearch,
   } = useChatData();
+
+  useEffect(() => {
+    const el = document.getElementById('messages');
+    if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
+  }, [chatMessages]);
 
   return (
     <Row>
@@ -87,22 +105,30 @@ const ChatPage = () => {
       </StyledLeftSide>
       <StyledRightSide span={18}>
         <HeaderContainer>
-          {user?.role === roles.jobOwner && (
-            <Avatar
-              src={`${baseUrl}/${profileImg}`}
-              size={defaultAvatarSize}
-              icon={<UserOutlined />}
-            />
-          )}
-          <>
-            <h2>{ownerName} </h2>
-            <h2>{projectName}</h2>
-          </>
-          {user?.role === roles.jobOwner && (
-            <SendOfferBtn>{t('chat.sendOffer')}</SendOfferBtn>
+          {conversation !== 0 ? (
+            <>
+              {user?.role === roles.jobOwner && (
+                <Avatar
+                  src={`${baseUrl}/${currentConversationInfo.profileImg}`}
+                  size={defaultAvatarSize}
+                  icon={<UserOutlined />}
+                />
+              )}
+              <h2>
+                {currentConversationInfo.ownerName}{' '}
+                {currentConversationInfo.jobTitle}
+              </h2>
+              {user?.role === roles.jobOwner && (
+                <SendOfferBtn onClick={showModal}>
+                  {t('chat.sendOffer')}
+                </SendOfferBtn>
+              )}
+            </>
+          ) : (
+            <h2>{t('chat.chooseChat')}</h2>
           )}
         </HeaderContainer>
-        <MessagesWrapper>
+        <MessagesWrapper id="messages">
           <ul>
             {chatMessages &&
               chatMessages.map(item =>
@@ -134,19 +160,26 @@ const ChatPage = () => {
         </MessagesWrapper>
 
         <Form form={form} layout="inline" onFinish={handleSend}>
-          <BottomWrapper>
-            <StyledFormItem name={message} rules={[{ required: true }]}>
-              <StyledInput placeholder={t('chat.message')} />
-            </StyledFormItem>
+          {!!conversation && (
+            <BottomWrapper>
+              <StyledFormItem name={message} rules={[{ required: true }]}>
+                <StyledInput placeholder={t('chat.message')} />
+              </StyledFormItem>
 
-            <Form.Item>
-              <StyledButton type="primary" htmlType="submit">
-                {t('chat.send')}
-              </StyledButton>
-            </Form.Item>
-          </BottomWrapper>
+              <Form.Item>
+                <StyledButton type="primary" htmlType="submit">
+                  {t('chat.send')}
+                </StyledButton>
+              </Form.Item>
+            </BottomWrapper>
+          )}
         </Form>
       </StyledRightSide>
+      <OfferFromChatModal
+        openModal={openModal}
+        onCancel={onCancel}
+        currentConversationInfo={currentConversationInfo}
+      />
     </Row>
   );
 };
