@@ -32,14 +32,6 @@ export const StyledDescription = styled.div`
   }
 `;
 
-export const DescriptionVisibility = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
-  margin-right: 10px;
-  align-self: flex-end;
-  cursor: pointer;
-  font-size: ${({ theme }) => theme.fontSize.medium};
-`;
-
 export const PropertiesContainer = styled.div`
   display: flex;
   margin: 10px 15px;

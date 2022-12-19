@@ -1,16 +1,17 @@
 import { FC } from 'react';
-import { Avatar, Button } from 'antd';
+import { Button } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { UserOutlined } from '@ant-design/icons';
-import { InformationSticker } from '@freelance/components';
+import {
+  Avatar,
+  ExpandableText,
+  InformationSticker,
+} from '@freelance/components';
 import { User } from 'src/redux/types/user.types';
 import { getFileUrl } from 'src/utils/api';
-import { getSizedText } from 'src/utils/text';
 
-import { avatarSize, coverLetterMaxLength } from './constants';
+import { avatarSize } from './constants';
 import {
   CoverLetterText,
-  CoverLetterVisibility,
   FreelancerDetailsContainer,
   FreelancerInfoContainer,
   HourlyRateContainer,
@@ -22,7 +23,6 @@ import {
   StyledTopRightSide,
   Wrapper,
 } from './styles';
-import useProposalCard from './useProposalCard';
 
 interface ProposalCardProps {
   onClick?: () => void;
@@ -40,18 +40,12 @@ export const ProposalCard: FC<ProposalCardProps> = ({
   coverLetter,
 }) => {
   const { t } = useTranslation();
-  const { coverLetterVisibility, coverLetterVisibilityHandler } =
-    useProposalCard();
 
   return (
     <Wrapper onClick={onClick}>
       <StyledTop>
         <StyledTopLeftSide>
-          <Avatar
-            icon={<UserOutlined />}
-            size={avatarSize}
-            src={getFileUrl(user?.profile_image)}
-          />
+          <Avatar size={avatarSize} src={getFileUrl(user?.profile_image)} />
           <FreelancerInfoContainer>
             <StyledFreelancerName>
               {`${user?.first_name} ${user?.last_name}`}
@@ -85,20 +79,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
       <StyledBottom>
         {coverLetter && (
           <CoverLetterText>
-            <div>
-              {coverLetterVisibility
-                ? coverLetter
-                : getSizedText(coverLetter, coverLetterMaxLength)}
-            </div>
-            {coverLetter.length > coverLetterMaxLength && (
-              <CoverLetterVisibility onClick={coverLetterVisibilityHandler}>
-                {t(
-                  coverLetterVisibility
-                    ? 'textVisibility.hide'
-                    : 'textVisibility.show',
-                )}
-              </CoverLetterVisibility>
-            )}
+            <ExpandableText>{coverLetter}</ExpandableText>
           </CoverLetterText>
         )}
       </StyledBottom>

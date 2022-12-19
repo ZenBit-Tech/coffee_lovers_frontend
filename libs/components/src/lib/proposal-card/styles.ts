@@ -68,13 +68,4 @@ export const CoverLetterText = styled.div`
   border: 1px ${({ theme }) => theme.colors.grey} solid;
   padding: 5px 10px;
   border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const CoverLetterVisibility = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
-  margin-right: 10px;
-  align-self: flex-end;
-  cursor: pointer;
 `;
