@@ -18,9 +18,10 @@ export default {
     modal: {
       confirm: 'Confirm',
       cancel: 'Cancel',
-      acceptOfferTitle: 'Accept offer?',
-      declineOfferTitle: 'Decline offer?',
-      deleteInterviewTitle: 'Delete interview invitation?',
+      acceptOfferTitle: 'Are you sure you want to accept this offer?',
+      declineOfferTitle: 'Are you sure you want to decline this offer?',
+      deleteInterviewTitle:
+        'Are you sure you want to delete this interview invitation?',
     },
   },
 };

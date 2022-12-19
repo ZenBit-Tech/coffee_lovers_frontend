@@ -20,7 +20,6 @@ const useOfferInterviewCard = (): UseOfferInterviewCardReturn => {
       content: jobTitle,
       okText: t('offers.modal.confirm'),
       cancelText: t('offers.modal.cancel'),
-      closable: true,
       onOk() {
         return;
       },
@@ -34,7 +33,6 @@ const useOfferInterviewCard = (): UseOfferInterviewCardReturn => {
       content: jobTitle,
       okText: t('offers.modal.confirm'),
       cancelText: t('offers.modal.cancel'),
-      closable: true,
       onOk() {
         return;
       },
@@ -48,7 +46,6 @@ const useOfferInterviewCard = (): UseOfferInterviewCardReturn => {
       content: jobTitle,
       okText: t('offers.modal.confirm'),
       cancelText: t('offers.modal.cancel'),
-      closable: true,
       onOk() {
         return;
       },
