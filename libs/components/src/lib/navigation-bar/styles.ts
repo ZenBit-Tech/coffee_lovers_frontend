@@ -20,9 +20,17 @@ export const UserContainer = styled.div`
   margin-left: 15px;
 `;
 
+export const UsernameContainer = styled.div`
+  margin-left: 10px;
+`;
+
 export const UserName = styled.div`
   font-size: ${({ theme }) => theme.fontSize.medium};
-  margin-left: 10px;
+`;
+
+export const UserRole = styled.div`
+  font-size: ${({ theme }) => theme.fontSize.small};
+  color: ${({ theme }) => theme.colors.grey};
 `;
 
 export const BarItemsContainer = styled.div`

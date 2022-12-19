@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +15,7 @@ interface BarLink {
 interface UseNavigationBarReturn {
   user?: User;
   links: BarLink[];
+  t: TFunction;
 }
 
 const useNavigationBar = (): UseNavigationBarReturn => {
@@ -55,6 +57,7 @@ const useNavigationBar = (): UseNavigationBarReturn => {
       { text: t('app_bar.nav.chat'), action: () => navigate(routes.chat) },
       { text: t('app_bar.nav.log_out'), action: Logout },
     ],
+    t,
   };
 };
 

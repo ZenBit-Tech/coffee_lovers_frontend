@@ -12,5 +12,10 @@ export default {
       jobs: 'Jobs',
       contracts: 'My Contracts',
     },
+    roles: {
+      freelancer: 'Freelancer',
+      jobOwner: 'Job owner',
+      visitor: 'Visitor',
+    },
   },
 };
