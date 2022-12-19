@@ -16,6 +16,7 @@ export const routes = {
   freelancerProfile: '/my-profile',
   jobDetails: '/job/:id/details',
   proposalsList: '/job/:id/proposals',
+  offers: '/offers',
   //Job Owner Routes
   jobOwnerDashboard: '/jobownerdashboard',
   jobPost: '/owner-profile/job-post',

@@ -41,6 +41,7 @@ export interface ITheme {
     header: { minHeight: string };
     container: { width: string };
     button: { width: string; height: string };
+    navigationBar: { height: string };
   };
 
   durations: {

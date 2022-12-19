@@ -11,6 +11,7 @@ import jobOwnerDashboard from './translation/jobOwnerDashboard';
 import jobPostPage from './translation/jobPostPage';
 import loginPage from './translation/loginPage';
 import modals from './translation/modals';
+import offers from './translation/offers';
 import proposalsList from './translation/proposalsList';
 import resetPassword from './translation/resetPassword';
 import talent from './translation/talent';
@@ -41,5 +42,6 @@ export default {
     ...textVisibility,
     ...modals,
     ...chat,
+    ...offers,
   },
 };

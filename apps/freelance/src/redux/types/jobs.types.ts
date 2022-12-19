@@ -6,7 +6,7 @@ export interface Job {
   title?: string;
   description?: string;
   hourly_rate?: number;
-  available_time?: number;
+  available_time?: string;
   english_level?: string;
   durationAmount?: string[];
   owner: User;
