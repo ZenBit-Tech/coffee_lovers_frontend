@@ -14,7 +14,7 @@ export const Container = styled.div`
 
 export const UserContainer = styled.div`
   height: 100%;
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
   display: flex;
   align-items: center;
   margin-left: 15px;
@@ -40,7 +40,7 @@ export const BarItemsContainer = styled.div`
 `;
 
 export const BarItem = styled.button`
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSize.medium};
   background: transparent;
   padding: 0 25px;
@@ -53,7 +53,7 @@ export const BarItem = styled.button`
     top: 5px;
     right: -1px;
     width: 1px;
-    background-color: white;
+    background-color: ${({ theme }) => theme.colors.white};
     height: 40px;
     position: absolute;
   }
@@ -65,7 +65,7 @@ export const BarItem = styled.button`
   }
 
   &:hover {
-    background-color: white;
+    background-color: ${({ theme }) => theme.colors.white};
     color: ${({ theme }) => theme.colors.primary};
 
     &::after {
