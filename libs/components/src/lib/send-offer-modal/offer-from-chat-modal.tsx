@@ -1,9 +1,11 @@
-import { DatePicker, Form, InputNumber, Modal, ModalProps } from 'antd';
+import { DatePicker, Form, Modal, ModalProps } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { StyledButton } from '@freelance/components';
 import { profileQ1 } from '@freelance/constants';
 import { ICurrentConversationInfo } from 'src/redux/types/chat.types';
+
+import { StyledDescr, StyledNumberInput, StyledTitle } from './styles';
 
 interface ISendOffer {
   rate: number;
@@ -57,7 +59,7 @@ export const OfferFromChatModal = ({
         requiredMark="optional"
         onFinish={values => handleSubmit(onFinish(values as ISendOffer))}
       >
-        <h2>{currentConversationInfo.jobTitle}</h2>
+        <StyledTitle>{currentConversationInfo.jobTitle}</StyledTitle>
 
         <Form.Item
           label={t('job_details.setup_rate')}
@@ -76,7 +78,7 @@ export const OfferFromChatModal = ({
             { required: true, message: `${t('description.profileQp1.mesHR')}` },
           ]}
         >
-          <InputNumber
+          <StyledNumberInput
             defaultValue={currentConversationInfo.jobRate}
             prefix={t('description.profileQp1.hRPrefix')}
             addonAfter={t('description.profileQp1.hRSuffix')}
@@ -84,7 +86,7 @@ export const OfferFromChatModal = ({
           />
         </Form.Item>
 
-        <p>{currentConversationInfo.jobDescription}</p>
+        <StyledDescr>{currentConversationInfo.jobDescription}</StyledDescr>
 
         <StyledButton htmlType="submit" type="primary">
           {t('chat.sendOffer')}
