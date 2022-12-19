@@ -11,7 +11,6 @@ import {
   routes,
   SmallCard,
 } from '@freelance/components';
-import { AppBar } from '@freelance/components';
 import { filterRight, filterTop } from '@pages/FindJobs/constants';
 import {
   PageBar,
@@ -63,7 +62,6 @@ const TalentListPage = (): ReactElement => {
 
   return (
     <>
-      <AppBar />
       <Container>
         <PageBar>
           <TitleContainer>
