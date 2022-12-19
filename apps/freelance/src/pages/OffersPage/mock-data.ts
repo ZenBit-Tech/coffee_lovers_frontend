@@ -1,6 +1,5 @@
 import { Job } from 'redux/types/jobs.types';
 import { Interview, Offer, OfferStatus } from 'redux/types/offers.types';
-import { AvailableTime, EnglishLevel } from 'redux/types/properties.types';
 import { User } from 'redux/types/user.types';
 
 export const offers: Offer[] = [
@@ -19,8 +18,8 @@ export const offers: Offer[] = [
         { id: 2, name: 'React' },
         { id: 3, name: 'Nest.js' },
       ],
-      available_time: AvailableTime.FULL_TIME,
-      english_level: EnglishLevel.INTERMEDIATE,
+      available_time: 'Full-time',
+      english_level: 'Intermediate',
     } as Job,
     job_owner: {
       id: 1,
@@ -48,8 +47,8 @@ export const offers: Offer[] = [
         { id: 2, name: 'React' },
         { id: 3, name: 'Nest.js' },
       ],
-      available_time: AvailableTime.PART_TIME,
-      english_level: EnglishLevel.UPPER_INTERMEDIATE,
+      available_time: 'Part-time',
+      english_level: 'Upper-Intermediate',
     } as Job,
     job_owner: {
       id: 2,
@@ -75,8 +74,8 @@ export const offers: Offer[] = [
         { id: 2, name: 'Android' },
         { id: 3, name: 'iOS' },
       ],
-      available_time: AvailableTime.PART_TIME,
-      english_level: EnglishLevel.UPPER_INTERMEDIATE,
+      available_time: 'Part-time',
+      english_level: 'Upper-Intermediate',
     } as Job,
     job_owner: {
       id: 2,
@@ -106,8 +105,8 @@ export const interviews: Interview[] = [
         { id: 2, name: 'React' },
         { id: 3, name: 'Nest.js' },
       ],
-      available_time: AvailableTime.FULL_TIME,
-      english_level: EnglishLevel.INTERMEDIATE,
+      available_time: 'Full-time',
+      english_level: 'Intermediate',
     } as Job,
     hourly_rate: 25,
     job_owner: {

@@ -1,4 +1,4 @@
-import { AvailableTime, EnglishLevel, Property } from './properties.types';
+import { Property } from './properties.types';
 import { User } from './user.types';
 
 export interface Job {
@@ -6,8 +6,8 @@ export interface Job {
   title?: string;
   description?: string;
   hourly_rate?: number;
-  available_time?: AvailableTime;
-  english_level?: EnglishLevel;
+  available_time?: string;
+  english_level?: string;
   durationAmount?: string[];
   owner: User;
   created_at: string;

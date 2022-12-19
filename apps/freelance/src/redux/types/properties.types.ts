@@ -19,15 +19,3 @@ export interface PropertiesResponse {
   durationAmount: string[];
   availableTime: string[];
 }
-
-export enum EnglishLevel {
-  NO_ENGLISH = 'No English',
-  PRE_INTERMEDIATE = 'Pre-Intermediate',
-  INTERMEDIATE = 'Intermediate',
-  UPPER_INTERMEDIATE = 'Upper-Intermediate',
-}
-
-export enum AvailableTime {
-  FULL_TIME = 'Full-Time',
-  PART_TIME = 'Part-Time',
-}
