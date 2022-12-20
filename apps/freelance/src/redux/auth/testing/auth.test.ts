@@ -11,7 +11,6 @@ describe('Auth actions', () => {
     const stateBeforeAction = store.getState();
     store.dispatch(setUser({ access_token: testToken }));
     const stateAfterAction = store.getState();
-    console.log(stateBeforeAction.user.access_token);
 
     expect(stateBeforeAction.user.access_token).toBe('');
     expect(stateAfterAction.user.access_token).toBe(testToken);
