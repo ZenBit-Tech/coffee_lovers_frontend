@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { routes } from '@freelance/components';
 
@@ -62,7 +62,7 @@ const useOfferInterviewCard = (): UseOfferInterviewCardReturn => {
     confirmDeclineOffer,
     confirmDeleteInterview,
     jobClickHandler: (id?: number) =>
-      navigate(routes.jobDetails.replace(':id', String(id))),
+      navigate(generatePath(routes.jobDetails, { id })),
   };
 };
 

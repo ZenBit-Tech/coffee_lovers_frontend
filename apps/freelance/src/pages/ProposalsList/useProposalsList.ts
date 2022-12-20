@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import { routes } from '@freelance/constants';
 import { useGetJobProposalsQuery } from 'redux/services/jobsApi';
 import { GetJobProposalsResponse } from 'redux/types/jobs.types';
@@ -24,7 +24,7 @@ const useProposalsList = (): UseProposalsListResponse => {
     isSuccess,
     isLoading,
     clickHandler: (id: number) =>
-      navigate(routes.freelancerInfo.replace(':id', String(id))),
+      navigate(generatePath(routes.freelancerInfo, { id })),
   };
 };
 

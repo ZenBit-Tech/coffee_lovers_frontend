@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { t } from 'i18next';
-import { useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
 import {
   ExpandableText,
   InformationSticker,
@@ -76,9 +76,7 @@ export const PostedJobCard: FC<PostedJobProps> = ({
             <StyledAction>{t('postedJobs.btn.edit')}</StyledAction>
           )}
           <StyledAction
-            onClick={() =>
-              navigate(routes.proposalsList.replace(':id', String(id)))
-            }
+            onClick={() => navigate(generatePath(routes.proposalsList, { id }))}
           >
             {t('postedJobs.btn.proposals', {
               amount: proposals || defaultAmount,
