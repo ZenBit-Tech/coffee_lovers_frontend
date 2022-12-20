@@ -4,10 +4,11 @@ import { Namespace } from 'i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@freelance/components';
-import TextArea from 'antd/lib/input/TextArea';
 import { useGetInvitationDetailsQuery } from 'src/redux/invitation/invitation';
+import { usePostRequestMutation } from 'src/redux/invite/inviteApi';
+import { Invite } from 'src/redux/invite/types';
 import { useFindUserJobsQuery } from 'src/redux/services/jobsApi';
-import { Job } from 'src/redux/types/jobs.types';
+import { AvailableJobs } from 'src/redux/types/availableJobs.types.';
 
 import {
   ChatListPage,
@@ -20,17 +21,24 @@ import { StyledModal, StyledSelect, StyledSpace } from './styles';
 import { Conversation, Props } from './types';
 
 export function InterviewModal(props: Props) {
-  const { setOpen, open, freelancerId, rate } = props;
+  const { setOpen, open, description, hourly_rate, id } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [page, setPage] = useState(ChatListPage);
 
   const { t } = useTranslation<Namespace<string>>();
   const { data: invitation } = useGetInvitationDetailsQuery({
-    frId: freelancerId,
+    frId: id,
   });
-  const { data } = useFindUserJobsQuery(freelancerId);
+  const [postRequest] = usePostRequestMutation();
+  const { data } = useFindUserJobsQuery(id);
   const conversations = invitation?.data;
   const freelancer = invitation?.freelancer;
+  const availableJobs = data?.filter(
+    el =>
+      el.offersCount === 0 &&
+      el.conversationsCount === 0 &&
+      el.requestsCount === 0,
+  );
 
   const handleOk = () => {
     setConfirmLoading(true);
@@ -45,18 +53,21 @@ export function InterviewModal(props: Props) {
   const { control, handleSubmit, reset, register } = useForm({
     defaultValues: {
       select: null,
-      rate: rate,
-      description: '',
+      rate: hourly_rate,
     },
   });
 
-  const onSubmit = (payload: {
-    select: number | null;
-    rate?: number | null;
-    description: string | null;
-  }) => {
-    alert(payload);
-    reset({ select: null, rate: rate, description: '' });
+  const onSubmit = (payload: { select: number | null; rate?: number }) => {
+    postRequest({
+      freelancer: id,
+      jobId: payload.select,
+      data: {
+        hourly_rate: payload.rate,
+        type: Invite.INTERVIEW,
+        cover_letter: description,
+      },
+    });
+    reset({ select: null, rate: hourly_rate });
   };
 
   return (
@@ -114,7 +125,7 @@ export function InterviewModal(props: Props) {
                   <Col span={5}>
                     <StyledSelect
                       {...field}
-                      options={data?.map((el: Job) => ({
+                      options={availableJobs?.map((el: AvailableJobs) => ({
                         ...el,
                         value: el.id,
                         label: el.title,
@@ -144,18 +155,11 @@ export function InterviewModal(props: Props) {
                 </Row>
               )}
             />
-            <Controller
-              {...register('description', { required: true, min: 15 })}
-              name="description"
-              control={control}
-              render={({ field }) => (
-                <Row>
-                  <Col span={24}>
-                    <TextArea {...field} />
-                  </Col>
-                </Row>
-              )}
-            />
+
+            <Row>
+              <Col span={24}>{description}</Col>
+            </Row>
+
             <Row justify="end">
               <StyledSpace direction="horizontal" size="middle">
                 <Col span={6}>

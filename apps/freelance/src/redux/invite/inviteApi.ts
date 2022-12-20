@@ -2,7 +2,7 @@ import { ApiRoutes, baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
 
-import { PostRequest } from './types';
+import { PostOffer, PostRequest } from './types';
 
 enum EndpointsRoutes {
   offer = '/offer',
@@ -14,16 +14,17 @@ export const inviteApi = createApi({
     baseUrl: baseUrl + ApiRoutes.INVITE,
     prepareHeaders: getHeaders(),
   }),
+
   endpoints: builder => ({
     postRequest: builder.mutation({
       query: (payload: PostRequest) => ({
-        url: `/${payload.freelancer}`,
+        url: `/${payload.freelancer}/${payload.jobId}`,
         method: 'POST',
         body: payload.data,
       }),
     }),
     postOffer: builder.mutation({
-      query: (payload: PostRequest) => ({
+      query: (payload: PostOffer) => ({
         url: `${EndpointsRoutes.offer}/${payload.freelancer}/${payload.jobId}`,
         method: 'POST',
         body: payload.data,

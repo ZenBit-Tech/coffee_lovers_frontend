@@ -1,8 +1,9 @@
 export interface Props {
+  hourly_rate?: number;
+  id?: number;
+  description?: string;
   open: boolean;
   setOpen: (op: boolean) => void;
-  freelancerId?: number;
-  rate?: number;
 }
 
 export interface FreelancerId {

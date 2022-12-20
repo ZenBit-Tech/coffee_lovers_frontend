@@ -91,7 +91,7 @@ const FreelancerPageInfo = () => {
             <St.Label>{t('description.profileQp1.edu')}</St.Label>
           </Col>
           <Col span={18}>
-            {userDataById?.educations.map(el => (
+            {userDataById?.educations?.map(el => (
               <St.FlexWrapper key={el.id}>
                 <St.EduData>{el.education_descr}</St.EduData>
                 <St.EduTime>{el.education_from}</St.EduTime>
@@ -145,17 +145,11 @@ const FreelancerPageInfo = () => {
           {t('description.freelancerPageInfo.inviteInterview')}
         </St.StyledButton>
       </St.ButtonWrapper>
-      <InterviewModal
-        freelancerId={userDataById?.id}
-        open={open}
-        setOpen={setOpen}
-        rate={userDataById?.hourly_rate}
-      />
+      <InterviewModal open={open} setOpen={setOpen} {...userDataById} />
       <SendOfferModal
         open={offerOpen}
         setOpen={setOfferOpen}
-        freelancerId={userDataById?.id}
-        rate={userDataById?.hourly_rate}
+        {...userDataById}
       />
     </St.Wrapper>
   );

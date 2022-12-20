@@ -1,27 +1,28 @@
 import { useState } from 'react';
 import { Col, DatePicker, Input, Row, Space } from 'antd';
+import dayjs from 'dayjs';
 import { Namespace } from 'i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@freelance/components';
-import TextArea from 'antd/lib/input/TextArea';
+import { Button, dateType, todayDate } from '@freelance/components';
 import { usePostOfferMutation } from 'src/redux/invite/inviteApi';
 import { Request } from 'src/redux/invite/types';
 import { useFindUserJobsWithoutOfferQuery } from 'src/redux/services/jobsApi';
-import { Job } from 'src/redux/types/jobs.types';
+import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
 
-import { descrLength } from './constants';
 import { StyledModal, StyledSelect } from './styles';
 import { Props } from './types';
 
 export function SendOfferModal(props: Props) {
-  const { setOpen, open, freelancerId, rate } = props;
+  const { setOpen, open, hourly_rate, id, description } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const { t } = useTranslation<Namespace<string>>();
   const { data } = useFindUserJobsWithoutOfferQuery({
-    id: freelancerId,
+    id,
   });
   const [postOffer] = usePostOfferMutation();
+  const withoutOffer = data?.filter(el => el.offersCount === 0);
+
   const handleOk = () => {
     setConfirmLoading(true);
     setOpen(false);
@@ -35,9 +36,8 @@ export function SendOfferModal(props: Props) {
   const { control, handleSubmit, reset, register } = useForm({
     defaultValues: {
       select: null,
-      rate: rate,
+      rate: hourly_rate,
       start: '',
-      description: '',
     },
   });
 
@@ -45,20 +45,19 @@ export function SendOfferModal(props: Props) {
     select?: number | null;
     rate?: number;
     start?: string | Date;
-    description?: string | null;
   }) => {
-    const { select, rate, start, description } = payload;
+    const { select, rate, start } = payload;
     postOffer({
-      freelancer: freelancerId,
+      freelancer: id,
       jobId: select,
       data: {
         hourly_rate: rate,
-        cover_letter: description,
         start,
         status: Request.pending,
+        cover_letter: description,
       },
     });
-    reset({ select: null, rate: rate, description: '' });
+    reset({ select: null, rate: rate });
   };
 
   return (
@@ -84,7 +83,7 @@ export function SendOfferModal(props: Props) {
                 <Col span={6}>
                   <StyledSelect
                     {...field}
-                    options={data?.map((el: Job) => ({
+                    options={withoutOffer?.map((el: OffersJobs) => ({
                       ...el,
                       value: el.id,
                       label: el.title,
@@ -99,7 +98,7 @@ export function SendOfferModal(props: Props) {
             {...register('rate', { required: true })}
             name="rate"
             control={control}
-            render={({ field: { onChange, name, value } }) => (
+            render={({ field: { onChange } }) => (
               <Row justify="start">
                 <Col span={8}>
                   <p>{t('modalInvite.rate')}</p>
@@ -109,7 +108,7 @@ export function SendOfferModal(props: Props) {
                     onChange={e => {
                       onChange(parseInt(e.target.value));
                     }}
-                    defaultValue={rate}
+                    defaultValue={hourly_rate}
                     type="number"
                     placeholder={t('modalInvite.placeholder')}
                   />
@@ -121,35 +120,28 @@ export function SendOfferModal(props: Props) {
           <Controller
             control={control}
             name="start"
-            render={({ field: { onChange, name, value } }) => (
+            render={({ field: { onChange } }) => (
               <Row justify="start">
                 <Col span={8}>
                   <p>{t('modalInvite.time')}</p>
                 </Col>
                 <Col span={6}>
                   <DatePicker
+                    defaultValue={dayjs(todayDate, dateType)}
                     onChange={date => {
                       onChange(date?.isValid ? date : '');
                     }}
-                    format={'MM/DD/YYYY'}
+                    format={dateType}
                   />
                 </Col>
               </Row>
             )}
           />
 
-          <Controller
-            {...register('description', { required: true, min: descrLength })}
-            name="description"
-            control={control}
-            render={({ field }) => (
-              <Row>
-                <Col span={24}>
-                  <TextArea {...field} />
-                </Col>
-              </Row>
-            )}
-          />
+          <Row>
+            <Col span={24}>{description}</Col>
+          </Row>
+
           <Row justify="end">
             <Space
               direction="horizontal"
