@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Avatar, Form, Row } from 'antd';
+import { Avatar, Badge, Form, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
 import {
@@ -26,7 +26,8 @@ import {
   StyledFormItem,
   StyledLeftSide,
   StyledRightSide,
-  UnreadStyled,
+  UserDateStyled,
+  UserDivStyled,
   UserWrapper,
 } from './styles';
 import useChatData from './useChatData';
@@ -81,23 +82,22 @@ const ChatPage = () => {
                     : colors.transparent
                 }
               >
-                <Avatar
-                  src={`${baseUrl}/${item.user.profile_image}`}
-                  size={defaultAvatarSize}
-                  icon={<UserOutlined />}
-                />
-                <div>
+                <Badge
+                  color={baseTheme.colors.primary}
+                  count={item.new_messages}
+                >
+                  <Avatar
+                    src={`${baseUrl}/${item.user.profile_image}`}
+                    size={defaultAvatarSize}
+                    icon={<UserOutlined />}
+                  />
+                </Badge>
+                <UserDivStyled>
                   {user?.role === roles.jobOwner && <p>{item.job.title}</p>}
                   <p>
                     {item.user.first_name} {item.user.last_name}
                   </p>
-                </div>
-
-                {item.new_messages > 0 && (
-                  <UnreadStyled>
-                    <p>{item.new_messages} </p>
-                  </UnreadStyled>
-                )}
+                </UserDivStyled>
               </UserWrapper>
             </li>
           ))}
@@ -146,11 +146,11 @@ const ChatPage = () => {
                 ) : (
                   <li key={item.created_at}>
                     <SecondUserContainer>
-                      <p>
+                      <UserDateStyled>
                         {item.from.first_name} {item.from.last_name}{' '}
                         {formatDate(new Date(item.created_at))}{' '}
                         {formatTime(new Date(item.created_at))}
-                      </p>
+                      </UserDateStyled>
                       <SecondUserText> {item.message}</SecondUserText>
                     </SecondUserContainer>
                   </li>

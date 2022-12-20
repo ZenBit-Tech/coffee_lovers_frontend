@@ -1,6 +1,6 @@
 import { Col, Form } from 'antd';
 import styled from 'styled-components';
-import { PrimaryButton, SecondaryButton } from '@freelance/components';
+import { PrimaryButton } from '@freelance/components';
 import { baseTheme } from 'src/styles/theme';
 
 export const MessagesWrapper = styled.div`
@@ -77,7 +77,8 @@ export const FirstUserText = styled.p`
   background-color: var(--lightGrey);
   box-shadow: 2px 2px 2px var(--grey);
   border-radius: 10px;
-  padding: 10px;
+  padding: 5px 10px;
+  word-wrap: break-word;
 `;
 
 export const SecondUserText = styled(FirstUserText)`
@@ -85,13 +86,19 @@ export const SecondUserText = styled(FirstUserText)`
 `;
 
 export const FirstUserContainer = styled.div`
+  display: inline-block;
+  position: relative;
   text-align: left;
-  width: 75%;
+  max-width: 75%;
   margin: 0 0 10px 0;
 `;
 
 export const SecondUserContainer = styled(FirstUserContainer)`
-  margin: 0 0 10px auto;
+  left: 100%;
+  transform: translateX(-100%);
+`;
+
+export const UserDateStyled = styled.p`
   text-align: right;
 `;
 
@@ -100,21 +107,12 @@ export const FreelancerNameStyled = styled.div`
   flex-direction: column;
 `;
 
-export const UnreadStyled = styled.div`
-  border: 1px solid black;
-  position: absolute;
-  right: 30px;
-  top: 5px;
-  border-radius: 50%;
-  width: 20px;
-  text-align: center;
-  padding: 3px;
-  font-size: 8px;
-  background-color: #fff;
+export const UserDivStyled = styled.div`
+  margin-left: 20px; ;
 `;
 
-export const SendOfferBtn = styled(SecondaryButton)`
-  background-color: ${baseTheme.colors.button.green};
+export const SendOfferBtn = styled(PrimaryButton)`
+  /* background-color: ${baseTheme.colors.button.green}; */
   margin-left: auto;
   margin-right: 20px;
 `;
