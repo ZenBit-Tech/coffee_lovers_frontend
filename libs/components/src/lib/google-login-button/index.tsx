@@ -17,7 +17,11 @@ export function GoogleLoginButton() {
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser({ access_token: data }));
-      navigate(`${routes.role}`);
+      if (data.role) {
+        navigate(`${routes.jobs}`);
+      } else {
+        navigate(`${routes.role}`);
+      }
     }
     if (isError) {
       alert(error);
