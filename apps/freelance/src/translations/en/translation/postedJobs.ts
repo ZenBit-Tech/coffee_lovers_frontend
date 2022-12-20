@@ -9,6 +9,8 @@ export default {
     },
     sortOptions: {
       status: 'Sort by status',
+      title: 'Sort by title',
+      proposals: 'Sort by proposals count',
     },
     status: {
       pending: 'Pending',

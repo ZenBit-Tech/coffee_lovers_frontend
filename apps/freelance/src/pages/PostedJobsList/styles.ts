@@ -22,7 +22,7 @@ export const PostJobButton = styled(PrimaryButton)`
 `;
 
 export const StyledSelect = styled(Select)`
-  width: 140px;
+  width: 210px;
 `;
 
 export const JobListContainer = styled.div`
