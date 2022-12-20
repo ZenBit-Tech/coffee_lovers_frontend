@@ -41,6 +41,13 @@ export interface ITheme {
     header: { minHeight: string };
     container: { width: string };
     button: { width: string; height: string };
+    navigationBar: { height: string };
+  };
+
+  avatars: {
+    smallAvatar: number;
+    avarageAvatar: number;
+    bigAvatar: number;
   };
 
   durations: {

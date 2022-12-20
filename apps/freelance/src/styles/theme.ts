@@ -43,6 +43,13 @@ export const baseTheme: ITheme = {
     container: { width: '1200px' },
     header: { minHeight: '80px' },
     button: { width: '120px', height: '50px' },
+    navigationBar: { height: '60px' },
+  },
+
+  avatars: {
+    smallAvatar: 40,
+    avarageAvatar: 50,
+    bigAvatar: 80,
   },
 
   // in ms

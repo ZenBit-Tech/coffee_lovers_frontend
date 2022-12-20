@@ -26,7 +26,9 @@ export function Navigation() {
       {role === roles.freelancer ? (
         <>
           <StyledButton>{t('app_bar.nav.contracts')}</StyledButton>
-          <StyledButton>{t('app_bar.nav.offers')}</StyledButton>
+          <StyledButton onClick={() => navigate(routes.offers)}>
+            {t('app_bar.nav.offers')}
+          </StyledButton>
           <StyledButton onClick={() => navigate(routes.freelancerProfile)}>
             {t('app_bar.nav.my_profile')}
           </StyledButton>

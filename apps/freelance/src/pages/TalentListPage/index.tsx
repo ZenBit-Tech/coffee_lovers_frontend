@@ -6,10 +6,10 @@ import { UserOutlined } from '@ant-design/icons';
 import {
   baseUrl,
   Button,
+  ExpandableText,
   Filters,
-  profileQ1,
+  InformationSticker,
   routes,
-  SmallCard,
 } from '@freelance/components';
 import { filterRight, filterTop } from '@pages/FindJobs/constants';
 import {
@@ -21,14 +21,9 @@ import { useGetFreelancerQuery } from 'redux/services/freelancers';
 import { baseTheme } from 'src/styles/theme';
 
 import { User } from './model';
+import { PropertiesContainer, TextExContainer } from './styles';
 import { StyledPagination } from './styles';
-import {
-  Container,
-  SmallCardContainer,
-  StyledCard,
-  StyledCardHeader,
-  StyledName,
-} from './styles';
+import { Container, StyledCard, StyledCardHeader, StyledName } from './styles';
 import useFindFreelancers from './useFindFreelancers';
 
 const TalentListPage = (): ReactElement => {
@@ -90,43 +85,42 @@ const TalentListPage = (): ReactElement => {
           <List
             dataSource={data ? data[0] : []}
             renderItem={(item: User) => (
-              <StyledCard
-                title={
-                  <StyledCardHeader>
-                    <Avatar
-                      src={`${baseUrl}/${item.profile_image}`}
-                      size={profileQ1.avatarBigSize}
-                      icon={<UserOutlined />}
-                    />
-                    <StyledName onClick={() => navFunc(item.id)}>
-                      {t('talent.name', {
-                        name: item.first_name + ' ' + item.last_name,
-                      })}
-                    </StyledName>
-                  </StyledCardHeader>
-                }
-              >
-                <SmallCardContainer>
-                  <SmallCard
-                    width="large"
-                    text={t('talent.position', { position: item.position })}
+              <StyledCard theme={baseTheme}>
+                <StyledCardHeader>
+                  <Avatar
+                    src={`${baseUrl}/${item.profile_image}`}
+                    size={baseTheme.avatars.avarageAvatar}
+                    icon={<UserOutlined />}
                   />
-                  <SmallCard
-                    text={t('talent.category', {
+                  <StyledName onClick={() => navFunc(item.id)}>
+                    {t('talent.name', {
+                      name: item.first_name + ' ' + item.last_name,
+                    })}
+                  </StyledName>
+                  <TextExContainer>
+                    <ExpandableText>{item.description}</ExpandableText>
+                  </TextExContainer>
+                </StyledCardHeader>
+                <PropertiesContainer>
+                  <InformationSticker>
+                    {t('talent.position', { position: item.position })}
+                  </InformationSticker>
+                  <InformationSticker>
+                    {t('talent.category', {
                       category: item.category ? item.category.name : '',
                     })}
-                  />
-                  <SmallCard
-                    text={t('talent.available_time', {
+                  </InformationSticker>
+                  <InformationSticker>
+                    {t('talent.available_time', {
                       available_time: item.available_time,
                     })}
-                  />
-                  <SmallCard
-                    text={t('talent.hourly_rate', {
+                  </InformationSticker>
+                  <InformationSticker>
+                    {t('talent.hourly_rate', {
                       hourly_rate: item.hourly_rate + ' $',
                     })}
-                  />
-                </SmallCardContainer>
+                  </InformationSticker>
+                </PropertiesContainer>
               </StyledCard>
             )}
           />
