@@ -2,17 +2,18 @@ import { FC } from 'react';
 import { t } from 'i18next';
 import { useNavigate } from 'react-router-dom';
 import {
+  ExpandableText,
   InformationSticker,
-  PrimaryButton,
   routes,
 } from '@freelance/components';
 import { JobStatus } from 'src/redux/types/jobs.types';
 
 import { defaultAmount } from './constants';
 import {
-  AmountButton,
   ButtonsContainer,
   Description,
+  StatusContainer,
+  StyledAction,
   StyledTitle,
   TitleContainer,
   TitleDescriptionContainer,
@@ -42,44 +43,54 @@ export const PostedJobCard: FC<PostedJobProps> = ({
     <Wrapper>
       <TitleDescriptionContainer>
         <TitleContainer>
-          {status === JobStatus.PENDING && (
-            <InformationSticker>
-              {t('postedJobs.status.pending')}
-            </InformationSticker>
-          )}
+          <StatusContainer>
+            {status === JobStatus.PENDING && (
+              <InformationSticker>
+                {t('postedJobs.status.pending')}
+              </InformationSticker>
+            )}
 
-          {status === JobStatus.IN_PROGRESS && (
-            <InformationSticker>
-              {t('postedJobs.status.inProgress')}
-            </InformationSticker>
-          )}
+            {status === JobStatus.IN_PROGRESS && (
+              <InformationSticker success>
+                {t('postedJobs.status.inProgress')}
+              </InformationSticker>
+            )}
 
-          {status === JobStatus.FINISHED && (
-            <InformationSticker>
-              {t('postedJobs.status.finished')}
-            </InformationSticker>
-          )}
+            {status === JobStatus.FINISHED && (
+              <InformationSticker primary>
+                {t('postedJobs.status.finished')}
+              </InformationSticker>
+            )}
+          </StatusContainer>
           <StyledTitle>{title || ''}</StyledTitle>
         </TitleContainer>
 
-        <Description>{description}</Description>
+        <Description>
+          <ExpandableText>{description}</ExpandableText>
+        </Description>
       </TitleDescriptionContainer>
 
-      <ButtonsContainer>
-        <PrimaryButton>{t('postedJobs.btn.edit')}</PrimaryButton>
-        <AmountButton
-          onClick={() =>
-            navigate(routes.proposalsList.replace(':id', String(id)))
-          }
-        >
-          {t('postedJobs.btn.proposals', {
-            amount: proposals || defaultAmount,
-          })}
-        </AmountButton>
-        <AmountButton>
-          {t('postedJobs.btn.hired', { amount: hired || defaultAmount })}
-        </AmountButton>
-      </ButtonsContainer>
+      {status !== JobStatus.FINISHED && (
+        <ButtonsContainer>
+          {status !== JobStatus.IN_PROGRESS && (
+            <StyledAction>{t('postedJobs.btn.edit')}</StyledAction>
+          )}
+          <StyledAction
+            onClick={() =>
+              navigate(routes.proposalsList.replace(':id', String(id)))
+            }
+          >
+            {t('postedJobs.btn.proposals', {
+              amount: proposals || defaultAmount,
+            })}
+          </StyledAction>
+          {status !== JobStatus.PENDING && (
+            <StyledAction>
+              {t('postedJobs.btn.hired', { amount: hired || defaultAmount })}
+            </StyledAction>
+          )}
+        </ButtonsContainer>
+      )}
     </Wrapper>
   );
 };

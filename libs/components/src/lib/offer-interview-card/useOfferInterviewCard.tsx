@@ -1,17 +1,22 @@
 import { Modal } from 'antd';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+
+import { routes } from '../constants';
 
 interface UseOfferInterviewCardReturn {
   t: TFunction;
   confirmAcceptOffer: (jobTitle: string) => void;
   confirmDeclineOffer: (jobTitle: string) => void;
   confirmDeleteInterview: (jobTitle: string) => void;
+  jobClickHandler: (id?: number) => void;
 }
 
 const useOfferInterviewCard = (): UseOfferInterviewCardReturn => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const confirmAcceptOffer = (jobTitle: string): void => {
     Modal.confirm({
@@ -57,6 +62,8 @@ const useOfferInterviewCard = (): UseOfferInterviewCardReturn => {
     confirmAcceptOffer,
     confirmDeclineOffer,
     confirmDeleteInterview,
+    jobClickHandler: (id?: number) =>
+      navigate(routes.jobDetails.replace(':id', String(id))),
   };
 };
 

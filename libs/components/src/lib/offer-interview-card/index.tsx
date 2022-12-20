@@ -36,8 +36,13 @@ export const OfferInterviewCard: FC<OfferCardProps> = ({
   offer,
   interview,
 }) => {
-  const { t, confirmAcceptOffer, confirmDeclineOffer, confirmDeleteInterview } =
-    useOfferInterviewCard();
+  const {
+    t,
+    confirmAcceptOffer,
+    confirmDeclineOffer,
+    confirmDeleteInterview,
+    jobClickHandler,
+  } = useOfferInterviewCard();
 
   return (
     <Wrapper>
@@ -53,7 +58,11 @@ export const OfferInterviewCard: FC<OfferCardProps> = ({
           <JobDetailsContainer>
             <JobDetailsTop>
               <JobDetailsTopLeftSide>
-                <StyledJobTitle>
+                <StyledJobTitle
+                  onClick={() =>
+                    jobClickHandler(offer?.job.id || interview?.job.id)
+                  }
+                >
                   {offer?.job.title || interview?.job.title}
                 </StyledJobTitle>
                 <StyledJobOwnerName>

@@ -42,12 +42,12 @@ export const ProposalCard: FC<ProposalCardProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Wrapper onClick={onClick}>
+    <Wrapper>
       <StyledTop>
         <StyledTopLeftSide>
           <Avatar size={avatarSize} src={getFileUrl(user?.profile_image)} />
           <FreelancerInfoContainer>
-            <StyledFreelancerName>
+            <StyledFreelancerName onClick={onClick}>
               {`${user?.first_name} ${user?.last_name}`}
             </StyledFreelancerName>
             <FreelancerDetailsContainer>

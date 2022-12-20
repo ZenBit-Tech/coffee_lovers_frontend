@@ -12,7 +12,8 @@ import {
 import usePostedJobs from './usePostedJobs';
 
 const PostedJobsList = () => {
-  const { t, postJobHandler, postedJobs, isJobsLoading } = usePostedJobs();
+  const { t, postJobHandler, postedJobs, isJobsLoading, sort, changeSort } =
+    usePostedJobs();
 
   return (
     <Wrapper isLoading={isJobsLoading}>
@@ -24,7 +25,8 @@ const PostedJobsList = () => {
       </PageHeader>
       <StyledSelect
         options={getSortOptions(t)}
-        defaultValue={SortOptions.STATUS}
+        defaultValue={sort}
+        onChange={value => changeSort(value as SortOptions)}
       />
       <JobListContainer>
         {postedJobs?.map(job => (

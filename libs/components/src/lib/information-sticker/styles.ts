@@ -9,8 +9,10 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
   font-size: ${({ theme }) => theme.fontSize.normal};
   border: 1px ${({ theme }) => theme.colors.grey} solid;
-  padding: 2px 10px;
+  padding: 4px 10px;
   border-radius: 10px;
+  line-height: normal;
+  text-align: center;
 
   color: ${props => (props.success ? ({ theme }) => theme.colors.success : '')};
   border-color: ${props =>

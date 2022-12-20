@@ -16,3 +16,5 @@ export const getSortOptions = (t: TFunction) => {
     { value: SortOptions.STATUS, label: t('postedJobs.sortOptions.status') },
   ];
 };
+
+export const defaultSortOptionValue = SortOptions.STATUS;
