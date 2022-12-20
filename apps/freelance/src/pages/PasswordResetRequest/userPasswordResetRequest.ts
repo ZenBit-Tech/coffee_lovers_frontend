@@ -20,7 +20,7 @@ interface UsePasswordResetRequestResponse {
   email: string;
   isLoading: boolean;
   isError: boolean;
-  error: UserError | SerializedError | undefined;
+  error?: UserError | SerializedError;
   isSuccess: boolean;
 }
 
