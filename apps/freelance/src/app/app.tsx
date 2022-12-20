@@ -5,6 +5,7 @@ import { Container, NavigationBar, roles } from '@freelance/components';
 import { routes } from '@freelance/components';
 import ChatPage from '@pages/ChatPage';
 import ChooseRole from '@pages/ChooseRolePage';
+import ContractsList from '@pages/ContractsPage';
 import FreelancerProfile from '@pages/FreelancerEditProfile';
 import FreelancerPageInfo from '@pages/FreelancerPageInfo';
 import JobDetailsPage from '@pages/JobDetailsPage';
@@ -87,6 +88,7 @@ export function App() {
                 path={routes.profileQuestions}
                 element={<ProfileQuestions />}
               />
+              <Route path={routes.contracts} element={<ContractsList />} />
               <Route
                 path={routes.freelancerProfile}
                 element={<FreelancerProfile />}
