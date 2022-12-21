@@ -73,7 +73,11 @@ export const PostedJobCard: FC<PostedJobProps> = ({
       {status !== JobStatus.FINISHED && (
         <ButtonsContainer>
           {status !== JobStatus.IN_PROGRESS && (
-            <StyledAction>{t('postedJobs.btn.edit')}</StyledAction>
+            <StyledAction
+              onClick={() => navigate(generatePath(routes.jobUpdate, { id }))}
+            >
+              {t('postedJobs.btn.edit')}
+            </StyledAction>
           )}
           <StyledAction
             onClick={() => navigate(generatePath(routes.proposalsList, { id }))}

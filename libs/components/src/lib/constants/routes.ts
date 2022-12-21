@@ -19,7 +19,7 @@ export const routes = {
   offers: '/offers',
   //Job Owner Routes
   jobPost: '/owner-profile/job-post',
-  jobUpdate: '/owner-profile/job-update',
+  jobUpdate: '/owner-profile/job-update/:id',
   talents: '/talents',
   freelancerInfo: '/:id/freelancer-info',
 };

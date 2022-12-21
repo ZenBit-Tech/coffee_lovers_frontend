@@ -105,7 +105,10 @@ export function App() {
                 element={<FreelancerPageInfo />}
               />
               <Route path={routes.jobPost} element={<JobPostPage />} />
-              <Route path={routes.jobUpdate} element={<JobUpdatePage />} />
+              <Route
+                path={`${routes.jobUpdate}/*`}
+                element={<JobUpdatePage />}
+              />
               <Route path={routes.talents} element={<TalentListPage />} />
               <Route path={routes.proposalsList} element={<ProposalsList />} />
             </Route>
