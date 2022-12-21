@@ -46,10 +46,11 @@ export const JobUpdateForm = () => {
 
   const navigate = useNavigate();
 
-  const temporallyMagicNumber = 48;
+  //temporally const with magic number
+  const jobNumber = 2;
 
   const [updateJob] = useUpdateJobMutation();
-  const { data, isLoading } = useGetJobQuery(temporallyMagicNumber);
+  const { data, isLoading } = useGetJobQuery(jobNumber);
 
   useEffect(() => {
     const awd = () => {
@@ -60,7 +61,8 @@ export const JobUpdateForm = () => {
 
   const jobUpdateOnSubmit: SubmitHandler<JobUpdateValues> = async data => {
     try {
-      const JobUpdateData = { id: temporallyMagicNumber, ...data };
+      //temporally const with magic number
+      const JobUpdateData = { id: jobNumber, ...data };
       await updateJob(JobUpdateData);
       navigate(routes.talents);
     } catch (error) {
