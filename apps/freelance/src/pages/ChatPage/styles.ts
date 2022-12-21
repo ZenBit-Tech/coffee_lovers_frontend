@@ -1,10 +1,10 @@
 import { Col, Form } from 'antd';
 import styled from 'styled-components';
-import { PrimaryButton } from '@freelance/components';
+import { InputSearch, PrimaryButton } from '@freelance/components';
 import { baseTheme } from 'src/styles/theme';
 
 export const MessagesWrapper = styled.div`
-  height: 65vh;
+  height: 64vh;
   overflow: auto;
   padding-right: 10px;
 
@@ -22,13 +22,13 @@ export const UserWrapper = styled.div.attrs(props => ({
   color: props.color,
 }))`
   background-color: ${props => props.color};
-  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
   margin-top: 20px;
-  border-radius: 30px;
+  width: 100%;
+  padding: 10px 20px;
   cursor: pointer;
   :hover {
     box-shadow: 2px 2px 2px var(--grey);
@@ -36,8 +36,12 @@ export const UserWrapper = styled.div.attrs(props => ({
   }
 `;
 
+export const InputSearchStyled = styled(InputSearch)`
+  padding: 0 20px;
+`;
+
 export const StyledLeftSide = styled(Col)`
-  padding: 20px;
+  padding-top: 20px;
   background-color: var(--grey);
   box-shadow: 2px 2px 2px var(--grey);
   border-radius: 5px;
@@ -45,9 +49,10 @@ export const StyledLeftSide = styled(Col)`
 `;
 
 export const StyledRightSide = styled(StyledLeftSide)`
-  padding: 10px;
+  padding: 0 10px;
   height: 80vh;
   background-color: var(--white-color);
+  padding-top: 0;
 `;
 
 export const HeaderContainer = styled.div`
@@ -55,13 +60,15 @@ export const HeaderContainer = styled.div`
   flex-direction: row;
   gap: 15px;
   justify-content: center;
+  align-items: center;
+  padding: 10px;
+  line-height: 2.7em;
 `;
 
 export const BottomWrapper = styled(HeaderContainer)`
   width: 95%;
-  margin-left: 10px;
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
 `;
 
 export const StyledFormItem = styled(Form.Item)`
@@ -112,7 +119,6 @@ export const UserDivStyled = styled.div`
 `;
 
 export const SendOfferBtn = styled(PrimaryButton)`
-  /* background-color: ${baseTheme.colors.button.green}; */
   margin-left: auto;
-  margin-right: 20px;
+  margin-right: 10px;
 `;

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
 import {
   baseUrl,
-  InputSearch,
   OfferFromChatModal,
   roles,
   StyledInput,
@@ -18,6 +17,7 @@ import {
   FirstUserContainer,
   FirstUserText,
   HeaderContainer,
+  InputSearchStyled,
   MessagesWrapper,
   SecondUserContainer,
   SecondUserText,
@@ -68,7 +68,7 @@ const ChatPage = () => {
   return (
     <Row>
       <StyledLeftSide span={6}>
-        <InputSearch
+        <InputSearchStyled
           placeholder={t('findJobs.searchPlaceholder')}
           onSearch={onSearch}
         />
