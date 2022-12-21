@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Avatar, Input, List } from 'antd';
+import { Avatar, Input, List, Rate } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
@@ -54,6 +54,11 @@ const TalentListPage = (): ReactElement => {
   const navigate = useNavigate();
   const { data, isLoading } = useGetFreelancerQuery(req);
 
+  const onChangeFavorite = (item: User, value: number) => {
+    console.log(value);
+    console.log(item.id);
+  };
+
   const navFunc = (props: number) => {
     const id = JSON.stringify(props);
     const path = generatePath(routes.freelancerInfo, { id });
@@ -90,6 +95,7 @@ const TalentListPage = (): ReactElement => {
             dataSource={data ? data[0] : []}
             renderItem={(item: User) => (
               <StyledCard
+                key={item.id}
                 title={
                   <StyledCardHeader>
                     <Avatar
@@ -102,6 +108,11 @@ const TalentListPage = (): ReactElement => {
                         name: item.first_name + ' ' + item.last_name,
                       })}
                     </StyledName>
+                    <Rate
+                      style={{ marginLeft: 'auto', border: 'none' }}
+                      onChange={value => onChangeFavorite(item, value)}
+                      count={1}
+                    />
                   </StyledCardHeader>
                 }
               >
