@@ -10,10 +10,17 @@ export interface Job {
   english_level?: string;
   durationAmount?: string[];
   owner: User;
+  status: JobStatus;
   created_at: string;
   category?: Property;
   skills?: Property[];
   conversations: object[];
+}
+
+export enum JobStatus {
+  PENDING = 'Pending',
+  IN_PROGRESS = 'InProgress',
+  FINISHED = 'Finished',
 }
 
 export interface GetJobParams {
@@ -64,6 +71,7 @@ export interface GetPostedJobsResponse {
   hourly_rate: number;
   available_time: string;
   english_level: string;
+  status: JobStatus;
   created_at: string;
   category: Property;
   proposalsCount: number;

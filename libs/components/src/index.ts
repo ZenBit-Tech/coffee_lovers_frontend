@@ -25,6 +25,7 @@ export * from './lib/logo';
 export * from './lib/navigation';
 export * from './lib/navigation-bar';
 export * from './lib/offer-interview-card';
+export * from './lib/posted-job-card';
 export * from './lib/progress-bar/progress-bar';
 export * from './lib/proposal-card';
 export * from './lib/proposal-modal/index';
