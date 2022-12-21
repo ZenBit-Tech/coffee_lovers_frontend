@@ -8,7 +8,7 @@ export interface Job {
   hourly_rate?: number;
   available_time?: string;
   english_level?: string;
-  durationAmount?: string[];
+  duration_amount?: string[];
   owner: User;
   status: JobStatus;
   created_at: string;

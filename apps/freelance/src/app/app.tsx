@@ -38,6 +38,10 @@ const SignupPage = lazy(
 const JobPostPage = lazy(
   () => import(/* webpackChunkName: "JobPostPage" */ '@pages/JobPostPage'),
 );
+const JobUpdatePage = lazy(
+  () =>
+    import(/* webpackChunkName: "JobUpdatePage" */ '../pages/JobUpdatePage'),
+);
 
 export function App() {
   const role: Role = useSelector(selectRole);
@@ -101,6 +105,7 @@ export function App() {
                 element={<FreelancerPageInfo />}
               />
               <Route path={routes.jobPost} element={<JobPostPage />} />
+              <Route path={routes.jobUpdate} element={<JobUpdatePage />} />
               <Route path={routes.talents} element={<TalentListPage />} />
               <Route path={routes.proposalsList} element={<ProposalsList />} />
             </Route>
