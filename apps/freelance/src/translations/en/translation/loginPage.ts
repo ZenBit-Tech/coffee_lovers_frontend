@@ -24,7 +24,7 @@ export default {
     notificationMessage: 'Error',
     notificationDescr: 'Wrong email or password',
     notificationExistsDescr:
-      'Email is already registered. Please, go to log in page.',
+      'Email is already registered. Please, go to Login Page.',
   },
   conditions: {
     title: 'Terms & Conditions',
