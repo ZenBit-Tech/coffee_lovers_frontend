@@ -78,7 +78,8 @@ export function App() {
                 <PrivateRoute
                   allowedRoles={[roles.freelancer, roles.jobOwner]}
                 />
-              }>
+              }
+            >
               <Route path={routes.chat} element={<ChatPage />} />
               <Route path={routes.jobs} element={<JobsPage />} />
             </Route>
