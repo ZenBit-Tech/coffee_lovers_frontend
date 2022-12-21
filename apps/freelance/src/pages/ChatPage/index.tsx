@@ -72,36 +72,38 @@ const ChatPage = () => {
           placeholder={t('findJobs.searchPlaceholder')}
           onSearch={onSearch}
         />
-        <ul>
-          {conversations?.map(item => (
-            <li key={item.id} onClick={() => handleClick(item.id)}>
-              <UserWrapper
-                color={
-                  item.id === conversation
-                    ? baseTheme.colors.white
-                    : colors.transparent
-                }
-              >
-                <Badge
-                  color={baseTheme.colors.primary}
-                  count={item.new_messages}
+        {conversations && conversations.length > 0 && (
+          <ul>
+            {conversations?.map(item => (
+              <li key={item.id} onClick={() => handleClick(item.id)}>
+                <UserWrapper
+                  color={
+                    item.id === conversation
+                      ? baseTheme.colors.white
+                      : colors.transparent
+                  }
                 >
-                  <Avatar
-                    src={`${baseUrl}/${item.user.profile_image}`}
-                    size={defaultAvatarSize}
-                    icon={<UserOutlined />}
-                  />
-                </Badge>
-                <UserDivStyled>
-                  {user?.role === roles.jobOwner && <p>{item.job.title}</p>}
-                  <p>
-                    {item.user.first_name} {item.user.last_name}
-                  </p>
-                </UserDivStyled>
-              </UserWrapper>
-            </li>
-          ))}
-        </ul>
+                  <Badge
+                    color={baseTheme.colors.primary}
+                    count={item.new_messages}
+                  >
+                    <Avatar
+                      src={`${baseUrl}/${item.user.profile_image}`}
+                      size={defaultAvatarSize}
+                      icon={<UserOutlined />}
+                    />
+                  </Badge>
+                  <UserDivStyled>
+                    {user?.role === roles.jobOwner && <p>{item.job.title}</p>}
+                    <p>
+                      {item.user.first_name} {item.user.last_name}
+                    </p>
+                  </UserDivStyled>
+                </UserWrapper>
+              </li>
+            ))}
+          </ul>
+        )}
       </StyledLeftSide>
       <StyledRightSide span={18}>
         <HeaderContainer>
