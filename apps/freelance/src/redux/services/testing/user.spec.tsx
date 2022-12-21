@@ -32,7 +32,7 @@ describe('check userApi use tocken of current user and query correct user data',
     expect(store.getState().user.access_token).not.toBe(noToken);
   });
 
-  test('Check that we have user workhistory data from useGetUserWorkInfoQuery() hook ', async () => {
+  test('Check that we have user workhistory data from rtk query', async () => {
     try {
       fetchMock.mockResponseOnce(JSON.stringify(userApiWorkHistory));
       const { result } = renderHook(() => useGetUserWorkInfoQuery(), {
