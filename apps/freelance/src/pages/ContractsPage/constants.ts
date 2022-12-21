@@ -7,3 +7,8 @@ export const dateFormat = (dateString: Date) => {
     new Date(dateString).getFullYear()
   );
 };
+
+export const contractTypes = ['Active', 'Closed'];
+
+export const active = 0;
+export const closed = 1;

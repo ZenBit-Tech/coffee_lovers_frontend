@@ -1,6 +1,7 @@
 import appBar from './translation/appBar';
 import chat from './translation/chat';
 import chooseRole from './translation/chooseRole';
+import contracts from './translation/contracts';
 import description from './translation/description';
 import filters from './translation/filters';
 import findJobs from './translation/findJobs';
@@ -22,6 +23,7 @@ import welcome from './translation/welcome';
 
 export default {
   translation: {
+    ...contracts,
     ...loginPage,
     ...filters,
     ...description,

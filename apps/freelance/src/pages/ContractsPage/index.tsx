@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Col, Row } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import {
   FixedContractsBar,
@@ -14,11 +15,12 @@ import {
 } from 'redux/contracts/contracts';
 import { ContractsResponse } from 'redux/contracts/types';
 
-import { dateFormat } from './constants';
+import { active, contractTypes, dateFormat } from './constants';
 import { DateText } from './styles';
 
 const ContractsList = () => {
-  const [activePage, setActivePage] = useState<number>(0);
+  const { t } = useTranslation();
+  const [activePage, setActivePage] = useState<number>(active);
   const role = useSelector(selectRole);
   const { data: closedContracts } = useGetClosedContractsQuery();
   const { data: activeContracts } = useGetActiveConractsQuery();
@@ -28,9 +30,9 @@ const ContractsList = () => {
       <FixedContractsBar
         active={activePage}
         setActivePage={setActivePage}
-        pages={['Active', 'Closed']}
+        pages={contractTypes}
       />
-      {activePage === 0
+      {activePage === active
         ? activeContracts?.map((el: ContractsResponse) => (
             <StyledCardReusable>
               <Row gutter={16} justify="center" align="middle">
@@ -49,7 +51,7 @@ const ContractsList = () => {
                   </div>
                 </Col>
                 <Col className="gutter-row" span={4}>
-                  <div>Start date</div>
+                  <div>{t('contracts.start')}</div>
                   <DateText>{dateFormat(el.offer.start)}</DateText>
                 </Col>
               </Row>
@@ -73,11 +75,11 @@ const ContractsList = () => {
                   </div>
                 </Col>
                 <Col className="gutter-row" span={4}>
-                  <div>Start date</div>
+                  <div>{t('contracts.start')}</div>
                   <DateText>{dateFormat(el.offer.start)}</DateText>
                 </Col>
                 <Col className="gutter-row" span={4}>
-                  <div>End date:</div>
+                  <div>{t('contracts.end')}</div>
                   <DateText>{dateFormat(el.end)}</DateText>
                 </Col>
               </Row>
