@@ -85,3 +85,15 @@ export interface GetUserProposals {
     };
   }[];
 }
+
+export interface FreelancerQuery {
+  skills?: number[];
+  categories?: number[];
+  hourly_rate_start?: number;
+  hourly_rate_end?: number;
+  available_time?: string;
+  english_level?: string;
+  search?: string;
+  page?: number;
+  take?: number;
+}

@@ -8,6 +8,7 @@ export const baseTheme: ITheme = {
     danger: '#f44336 ',
     lightGrey: '#d6d6d6',
     grey: '#bfbfbf',
+    lightBlue: '#6989e2',
     white: '#fff',
 
     button: {
@@ -43,6 +44,7 @@ export const baseTheme: ITheme = {
     container: { width: '1200px' },
     header: { minHeight: '80px' },
     button: { width: '120px', height: '50px' },
+    navigationBar: { height: '60px' },
   },
 
   // in ms

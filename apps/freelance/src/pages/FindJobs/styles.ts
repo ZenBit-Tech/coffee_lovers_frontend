@@ -6,6 +6,7 @@ export const Wrapper = styled(PageWrapper)`
   flex-direction: column;
   padding-top: 10px;
   padding-bottom: 40px;
+  position: relative;
 `;
 
 export const PageBar = styled.div`
@@ -14,7 +15,7 @@ export const PageBar = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.white};
   position: sticky;
-  top: 0;
+  top: ${({ theme }) => theme.sizes.navigationBar.height};
   z-index: 10;
 `;
 
