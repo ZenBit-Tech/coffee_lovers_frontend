@@ -1,7 +1,10 @@
 import { FilterFormItems } from '@freelance/components';
+import { GetFreelancerParams } from '@pages/TalentListPage/model';
 import { GetJobParams } from 'redux/types/jobs.types';
 
-export const getFilterParams = (filter: FilterFormItems): GetJobParams => {
+export const getFilterParams = (
+  filter: FilterFormItems,
+): GetFreelancerParams => {
   const params: GetJobParams = {};
 
   if (filter.timeAvailable) params.available_time = filter.timeAvailable;

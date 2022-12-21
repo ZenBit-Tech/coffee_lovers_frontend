@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  border: 1px ${({ theme }) => theme.colors.lightGrey} solid;
-  border-radius: 5px;
+  border: 1px ${({ theme }) => theme.card.borderColor} solid;
+  border-radius: ${({ theme }) => theme.card.borderRadius};
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -32,55 +32,11 @@ export const StyledDescription = styled.div`
   }
 `;
 
-export const DescriptionVisibility = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
-  margin-right: 10px;
-  align-self: flex-end;
-  cursor: pointer;
-`;
-
 export const PropertiesContainer = styled.div`
   display: flex;
-  margin-top: 10px;
-  border-top: 1px ${({ theme }) => theme.colors.lightGrey} solid;
-  padding: 5px 0;
+  margin: 10px 15px;
 
   & > div {
-    text-align: center;
-    position: relative;
-  }
-
-  & > div::after {
-    content: '';
-    background: ${({ theme }) => theme.colors.lightGrey};
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    height: 100%;
-    width: 1px;
-  }
-
-  & > div:last-child::after {
-    display: none;
-  }
-
-  & > div:nth-child(1) {
-    width: 30%;
-  }
-
-  & > div:nth-child(2) {
-    width: 15%;
-  }
-
-  & > div:nth-child(3) {
-    width: 30%;
-  }
-
-  & > div:nth-child(4) {
-    width: 15%;
-  }
-
-  & > div:nth-child(5) {
-    width: 10%;
+    margin-right: 15px;
   }
 `;

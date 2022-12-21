@@ -9,17 +9,17 @@ export const routes = {
   conditions: '/login/conditions',
   // Protected Routes
   role: '/role',
+  chat: '/chat',
+  jobs: '/jobs',
   //Freelancer Routes
   profileQuestions: '/profile-questions',
-  freelancerProfile: '/:id/my-profile',
-  findJobs: '/findjobs',
-  jobDetails: '/jobdetails',
+  freelancerProfile: '/my-profile',
+  jobDetails: '/job/:id/details',
   proposalsList: '/job/:id/proposals',
+  offers: '/offers',
   //Job Owner Routes
-  jobOwnerDashboard: '/jobownerdashboard',
   jobPost: '/owner-profile/job-post',
   jobUpdate: '/owner-profile/job-update',
-  ownerProfile: '/owner-profile',
   talents: '/talents',
-  freelancerInfo: '/freelancer-info',
+  freelancerInfo: '/:id/freelancer-info',
 };

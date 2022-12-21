@@ -8,3 +8,13 @@ export const formatDate = (date: Date): string => {
 
   return [day, month, year].join('.');
 };
+
+export const formatTime = (date: Date): string => {
+  let hours = '' + date.getHours();
+  let min = '' + date.getMinutes();
+
+  if (hours.length < 2) hours = '0' + hours;
+  if (min.length < 2) min = '0' + min;
+
+  return [hours, min].join(':');
+};

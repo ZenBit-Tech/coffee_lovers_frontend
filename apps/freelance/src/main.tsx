@@ -1,5 +1,6 @@
 import { StrictMode, Suspense } from 'react';
 import * as ReactDOM from 'react-dom/client';
+import { ConfigProvider } from 'antd';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
@@ -10,10 +11,9 @@ import './translations';
 
 import App from './app/app';
 import { persistor, store } from './redux/store';
+import antdTheme from './styles/antd';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { baseTheme } from './styles/theme';
-
-import 'antd/dist/antd.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -26,10 +26,12 @@ root.render(
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <ThemeProvider theme={baseTheme}>
-              <BrowserRouter>
-                <GlobalStyle />
-                <App />
-              </BrowserRouter>
+              <ConfigProvider theme={antdTheme}>
+                <BrowserRouter>
+                  <GlobalStyle />
+                  <App />
+                </BrowserRouter>
+              </ConfigProvider>
             </ThemeProvider>
           </PersistGate>
         </Provider>

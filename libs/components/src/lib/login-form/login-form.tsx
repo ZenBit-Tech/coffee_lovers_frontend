@@ -1,26 +1,39 @@
 import { useEffect } from 'react';
-import { Button, Form } from 'antd';
+import { Button, Form, notification } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { StyledInput, StyledPasswordInput } from '@freelance/components';
 import { routes } from '@freelance/components';
+import { authEmail, authError, authPassword } from '@freelance/components';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
+
+import { FormWrap } from './styles';
 
 type FormValues = {
   email: string;
   password: string;
 };
 
+type NotificationType = 'error';
+
 export const LoginForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { handleSubmit, control } = useForm<FormValues>();
-  const [loginUser, { data: loginData, isSuccess, isError }] =
+  const [loginUser, { data: loginData, isSuccess: isLoginSuccess, isError }] =
     useLoginUserMutation();
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotificationWithIcon = (type: NotificationType) => {
+    api[type]({
+      message: `${t('loginPage.notificationMessage')}`,
+      description: `${t('loginPage.notificationDescr')}`,
+    });
+  };
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     try {
@@ -30,72 +43,83 @@ export const LoginForm = () => {
         await loginUser({ email, password });
       }
     } catch (error) {
-      alert(JSON.stringify(error));
+      openNotificationWithIcon(authError);
     }
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isLoginSuccess) {
       dispatch(setUser({ access_token: loginData.access_token }));
+      navigate(routes.jobs);
     }
     if (isError) {
-      alert('Something went wrong...');
+      openNotificationWithIcon(authError);
     }
-  }, [isSuccess, isError]);
+  });
 
   return (
     <Form
       name="basic"
-      wrapperCol={{ span: 12 }}
+      wrapperCol={{ span: 22 }}
       onFinish={handleSubmit(onSubmit)}
     >
-      <Controller
-        name="email"
-        control={control}
-        render={({ field }) => (
-          <Form.Item
-            rules={[
-              { required: true, message: `${t('loginPage.email_error')}` },
-            ]}
-            hasFeedback
-            {...field}
-          >
-            <StyledInput
-              size="large"
-              type="email"
-              id="email-field"
-              placeholder={t('loginPage.loginPage_email')}
-            />
-          </Form.Item>
-        )}
-      />
+      {contextHolder}
+      <FormWrap>
+        <Controller
+          name={authEmail}
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              rules={[
+                {
+                  type: 'email',
+                  message: `${t('loginPage.email_error')}`,
+                },
+                {
+                  required: true,
+                  message: `${t('loginPage.email_error_req')}`,
+                },
+              ]}
+              hasFeedback
+              {...field}
+            >
+              <StyledInput
+                size="large"
+                type="email"
+                id="email-field"
+                placeholder={t('loginPage.loginPage_email')}
+              />
+            </Form.Item>
+          )}
+        />
 
-      <Controller
-        name="password"
-        control={control}
-        render={({ field }) => (
-          <Form.Item
-            rules={[
-              { required: true, message: `${t('loginPage.password_error')}` },
-            ]}
-            hasFeedback
-            {...field}
-          >
-            <StyledPasswordInput
-              type="password"
-              size="large"
-              id="password-field"
-              placeholder={t('loginPage.loginPage_password')}
-            />
-          </Form.Item>
-        )}
-      />
+        <Controller
+          name={authPassword}
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              rules={[
+                { required: true, message: `${t('loginPage.password_error')}` },
+              ]}
+              hasFeedback
+              {...field}
+            >
+              <StyledPasswordInput
+                type="password"
+                size="large"
+                id="password-field"
+                placeholder={t('loginPage.loginPage_password')}
+              />
+            </Form.Item>
+          )}
+        />
 
-      <Form.Item>
-        <Button size="large" type="primary" block htmlType="submit">
-          {t('loginPage.loginPage_name')}
-        </Button>
-      </Form.Item>
+        <Form.Item>
+          <Button size="large" type="primary" block htmlType="submit">
+            {t('loginPage.loginPage_name')}
+          </Button>
+        </Form.Item>
+      </FormWrap>
 
       <Form.Item>
         <Button

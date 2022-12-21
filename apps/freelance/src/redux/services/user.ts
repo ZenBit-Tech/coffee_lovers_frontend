@@ -7,16 +7,20 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
 import {
-  IUserInfo,
+  GetEducation,
+  GetUserProposals,
+  GetWorkhistory,
   PasswordResetPayload,
   Role,
   SetProfileImageResponse,
+  User,
   UserError,
 } from 'redux/types/user.types';
 
 enum EndpointsRoutes {
   passwordResetRequest = '/passwordresetrequest',
   passwordReset = '/passwordreset',
+  passwordResetCheckAvailability = '/passwordreset/',
   setProfileImage = '/setprofileimage',
 }
 
@@ -27,6 +31,24 @@ export const userApi = createApi({
     prepareHeaders: getHeaders(),
   }) as BaseQueryFn<string | FetchArgs, unknown, UserError>,
   endpoints: builder => ({
+    getUserInfo: builder.query<User, void>({
+      query: () => ({
+        url: `/`,
+        method: 'GET',
+      }),
+    }),
+    getUserWorkInfo: builder.query<GetWorkhistory[], void>({
+      query: () => ({
+        url: `/workhistory-info`,
+        method: 'GET',
+      }),
+    }),
+    getUserEducationInfo: builder.query<GetEducation[], void>({
+      query: () => ({
+        url: `/education-info`,
+        method: 'GET',
+      }),
+    }),
     passwordResetRequest: builder.mutation({
       query: (email: string) => ({
         url: EndpointsRoutes.passwordResetRequest,
@@ -41,6 +63,12 @@ export const userApi = createApi({
         body: payload,
       }),
     }),
+    passwordResetCheckAvailability: builder.query<boolean, string>({
+      query: (key: string) => ({
+        url: EndpointsRoutes.passwordResetCheckAvailability + key,
+        method: 'GET',
+      }),
+    }),
     setProfileImage: builder.mutation<SetProfileImageResponse, FormData>({
       query: (formData: FormData) => ({
         url: EndpointsRoutes.setProfileImage,
@@ -51,16 +79,15 @@ export const userApi = createApi({
     addUserRole: builder.mutation({
       query: (body: { role: Role }) => {
         return {
-          url: '/user-info',
-          method: 'POST',
+          url: '/',
+          method: 'PUT',
           body,
         };
       },
     }),
-    getUserInfo: builder.query<IUserInfo, void>({
+    getUserProposals: builder.query<GetUserProposals, void>({
       query: () => ({
-        url: `/`,
-        method: 'GET',
+        url: `/proposals`,
       }),
     }),
   }),
@@ -69,7 +96,12 @@ export const userApi = createApi({
 export const {
   usePasswordResetRequestMutation,
   usePasswordResetMutation,
+  usePasswordResetCheckAvailabilityQuery,
   useSetProfileImageMutation,
   useAddUserRoleMutation,
   useGetUserInfoQuery,
+  useLazyGetUserInfoQuery,
+  useGetUserProposalsQuery,
+  useGetUserWorkInfoQuery,
+  useGetUserEducationInfoQuery,
 } = userApi;

@@ -7,12 +7,14 @@ interface PageWrapperProps {
   children: ReactNode;
   isLoading?: boolean;
   isSuccess?: boolean;
+  className?: string;
 }
 
 export const PageWrapper: FC<PageWrapperProps> = ({
   children,
   isLoading,
   isSuccess,
+  className,
 }) => {
   if (isLoading) {
     return (
@@ -22,5 +24,7 @@ export const PageWrapper: FC<PageWrapperProps> = ({
     );
   }
 
-  return <Wrapper>{isSuccess !== false && children}</Wrapper>;
+  return (
+    <Wrapper className={className}>{isSuccess !== false && children}</Wrapper>
+  );
 };

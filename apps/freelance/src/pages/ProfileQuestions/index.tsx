@@ -27,7 +27,7 @@ const ProfileQuestions = () => {
       </St.StUserAvatarWrapper>
       <FreelancerForm
         submitText={t('description.profileQp1.finish')}
-        navigation={routes.findJobs}
+        navigation={routes.jobs}
       />
     </St.Wrapper>
   );

@@ -4,11 +4,6 @@ export const Wrapper = styled.div`
   border: 1px ${({ theme }) => theme.colors.grey} solid;
   padding: 10px 15px;
   border-radius: 5px;
-
-  &:hover {
-    cursor: pointer;
-    border-color: ${({ theme }) => theme.colors.primary};
-  }
 `;
 
 export const StyledTop = styled.div`
@@ -50,6 +45,11 @@ export const FreelancerInfoContainer = styled.div`
 
 export const StyledFreelancerName = styled.span`
   font-size: ${({ theme }) => theme.fontSize.large};
+
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 export const FreelancerDetailsContainer = styled.div`
@@ -68,13 +68,4 @@ export const CoverLetterText = styled.div`
   border: 1px ${({ theme }) => theme.colors.grey} solid;
   padding: 5px 10px;
   border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const CoverLetterVisibility = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
-  margin-right: 10px;
-  align-self: flex-end;
-  cursor: pointer;
 `;

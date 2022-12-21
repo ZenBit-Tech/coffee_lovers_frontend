@@ -6,6 +6,7 @@ export interface ITheme {
     danger: string;
     lightGrey: string;
     grey: string;
+    lightBlue: string;
     white: string;
 
     button: {
@@ -14,10 +15,6 @@ export interface ITheme {
       green: string;
       greenHover: string;
     };
-
-    border: {
-      lightGrey: string;
-    };
   };
 
   media: {
@@ -25,6 +22,10 @@ export interface ITheme {
     large: string;
     medium: string;
     small: string;
+  };
+
+  font: {
+    primary: string;
   };
 
   fontSize: {
@@ -41,6 +42,7 @@ export interface ITheme {
     header: { minHeight: string };
     container: { width: string };
     button: { width: string; height: string };
+    navigationBar: { height: string };
   };
 
   durations: {
@@ -50,5 +52,10 @@ export interface ITheme {
   order: {
     header: number;
     modal: number;
+  };
+
+  card: {
+    borderColor: string;
+    borderRadius: string;
   };
 }

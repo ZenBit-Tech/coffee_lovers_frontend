@@ -6,13 +6,21 @@ export interface Job {
   title?: string;
   description?: string;
   hourly_rate?: number;
-  available_time?: number;
+  available_time?: string;
   english_level?: string;
   duration_amount?: string[];
   owner: User;
+  status: JobStatus;
   created_at: string;
   category?: Property;
   skills?: Property[];
+  conversations: object[];
+}
+
+export enum JobStatus {
+  PENDING = 'Pending',
+  IN_PROGRESS = 'InProgress',
+  FINISHED = 'Finished',
 }
 
 export interface GetJobParams {
@@ -44,4 +52,31 @@ export interface Proposal {
 export interface GetJobProposalsResponse {
   job: Job;
   proposals: Proposal[];
+}
+
+export interface IJobProposal {
+  job: number;
+  hourly_rate: number;
+  cover_letter: string;
+}
+
+export interface GetJobResponse {
+  job: Job;
+}
+
+export interface GetPostedJobsResponse {
+  id: number;
+  title: string;
+  description: string;
+  hourly_rate: number;
+  available_time: string;
+  english_level: string;
+  status: JobStatus;
+  created_at: string;
+  category: Property;
+  proposalsCount: number;
+}
+
+export interface FrelancerPayload {
+  id?: number;
 }

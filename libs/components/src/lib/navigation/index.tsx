@@ -19,23 +19,32 @@ export function Navigation() {
 
   return (
     <Nav>
+      <StyledButton onClick={() => navigate(routes.jobs)}>
+        {t('app_bar.nav.jobs')}
+      </StyledButton>
       {role === roles.freelancer ? (
         <>
-          <StyledButton onClick={() => navigate(`${routes.findJobs}`)}>
-            {t('app_bar.nav.jobs')}
-          </StyledButton>
           <StyledButton>{t('app_bar.nav.contracts')}</StyledButton>
-          <StyledButton>{t('app_bar.nav.offers')}</StyledButton>
+          <StyledButton onClick={() => navigate(routes.offers)}>
+            {t('app_bar.nav.offers')}
+          </StyledButton>
+          <StyledButton onClick={() => navigate(routes.freelancerProfile)}>
+            {t('app_bar.nav.my_profile')}
+          </StyledButton>
         </>
       ) : (
         <>
           <StyledButton>{t('app_bar.nav.projects')}</StyledButton>
           <StyledButton>{t('app_bar.nav.proposals')}</StyledButton>
-          <StyledButton>{t('app_bar.nav.talents')}</StyledButton>
+          <StyledButton onClick={() => navigate(routes.talents)}>
+            {t('app_bar.nav.talents')}
+          </StyledButton>
         </>
       )}
-      <StyledButton>{t('app_bar.nav.chat')}</StyledButton>
-      <StyledButton>{t('app_bar.nav.my_profile')}</StyledButton>
+      <StyledButton onClick={() => navigate(routes.chat)}>
+        {t('app_bar.nav.chat')}
+      </StyledButton>
+
       <StyledButton onClick={Logout}>{t('app_bar.nav.log_out')}</StyledButton>
     </Nav>
   );

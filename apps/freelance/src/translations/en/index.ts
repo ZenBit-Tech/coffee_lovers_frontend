@@ -1,4 +1,5 @@
 import appBar from './translation/appBar';
+import chat from './translation/chat';
 import chooseRole from './translation/chooseRole';
 import description from './translation/description';
 import filters from './translation/filters';
@@ -9,6 +10,9 @@ import jobDetails from './translation/jobDetails';
 import jobOwnerDashboard from './translation/jobOwnerDashboard';
 import jobPostPage from './translation/jobPostPage';
 import loginPage from './translation/loginPage';
+import modals from './translation/modals';
+import offers from './translation/offers';
+import postedJobs from './translation/postedJobs';
 import proposalsList from './translation/proposalsList';
 import resetPassword from './translation/resetPassword';
 import talent from './translation/talent';
@@ -37,5 +41,9 @@ export default {
     ...jobDetails,
     ...proposalsList,
     ...textVisibility,
+    ...modals,
+    ...chat,
+    ...postedJobs,
+    ...offers,
   },
 };

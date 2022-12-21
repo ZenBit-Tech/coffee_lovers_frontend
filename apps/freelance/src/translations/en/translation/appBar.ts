@@ -1,6 +1,6 @@
 export default {
   app_bar: {
-    logo: 'Styled Logo',
+    logo: 'Coffee Lovers',
     nav: {
       projects: 'Projects',
       proposals: 'Proposals',
@@ -11,6 +11,11 @@ export default {
       offers: 'Offers',
       jobs: 'Jobs',
       contracts: 'My Contracts',
+    },
+    roles: {
+      freelancer: 'Freelancer',
+      jobOwner: 'Job owner',
+      visitor: 'Visitor',
     },
   },
 };
