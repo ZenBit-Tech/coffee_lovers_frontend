@@ -78,6 +78,7 @@ export function App() {
                 />
               }
             >
+              <Route path={routes.contracts} element={<ContractsList />} />
               <Route path={routes.chat} element={<ChatPage />} />
               <Route path={routes.jobs} element={<JobsPage />} />
             </Route>
@@ -88,7 +89,6 @@ export function App() {
                 path={routes.profileQuestions}
                 element={<ProfileQuestions />}
               />
-              <Route path={routes.contracts} element={<ContractsList />} />
               <Route
                 path={routes.freelancerProfile}
                 element={<FreelancerProfile />}
