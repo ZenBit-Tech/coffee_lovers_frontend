@@ -27,6 +27,7 @@ const ContractsList = () => {
 
   return (
     <PageWrapper>
+      <h3>My contracts</h3>
       <FixedContractsBar
         active={activePage}
         setActivePage={setActivePage}
