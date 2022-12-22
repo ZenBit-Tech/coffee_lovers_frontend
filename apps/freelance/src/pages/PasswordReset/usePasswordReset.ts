@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { message } from 'antd';
+import { t } from 'i18next';
 import {
   Control,
   SubmitHandler,
@@ -44,6 +46,7 @@ const usePasswordReset = (): UsePasswordResetResponse => {
 
   useEffect(() => {
     if (isSuccess) {
+      message.success(t('resetPassword.successResetMessage'));
       navigate(routes.login);
     }
   }, [isSuccess]);
