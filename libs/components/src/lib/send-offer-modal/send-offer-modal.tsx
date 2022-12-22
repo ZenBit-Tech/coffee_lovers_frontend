@@ -1,10 +1,16 @@
-import { useState } from 'react';
-import { Col, DatePicker, Input, Row, Space } from 'antd';
-import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
+import { Col, DatePicker, Input, notification, Row, Space } from 'antd';
+import dayjs, { type Dayjs } from 'dayjs';
 import { Namespace } from 'i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Button, dateType, todayDate } from '@freelance/components';
+import {
+  Button,
+  dateType,
+  ValidationErrorMessage,
+} from '@freelance/components';
+import { NotificationType } from '@freelance/components';
+import { ErrorMessage } from '@hookform/error-message';
 import { usePostOfferMutation } from 'src/redux/invite/inviteApi';
 import { Request } from 'src/redux/invite/types';
 import { useFindUserJobsWithoutOfferQuery } from 'src/redux/services/jobsApi';
@@ -16,12 +22,23 @@ import { Props } from './types';
 export function SendOfferModal(props: Props) {
   const { setOpen, open, hourly_rate, id, description } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const [api, contextHolder] = notification.useNotification();
   const { t } = useTranslation<Namespace<string>>();
   const { data } = useFindUserJobsWithoutOfferQuery({
     id,
   });
-  const [postOffer] = usePostOfferMutation();
-  const withoutOffer = data?.filter(el => el.offersCount === 0);
+  const [postOffer, { isError, error, isSuccess }] = usePostOfferMutation();
+
+  const openNotificationWithIcon = (
+    type: NotificationType,
+    message: string,
+    description: string,
+  ) => {
+    api[type]({
+      message,
+      description,
+    });
+  };
 
   const handleOk = () => {
     setConfirmLoading(true);
@@ -33,32 +50,63 @@ export function SendOfferModal(props: Props) {
     setOpen(false);
   };
 
-  const { control, handleSubmit, reset, register } = useForm({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    register,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       select: null,
       rate: hourly_rate,
-      start: '',
+      start: dayjs('2015/01/01', 'YYYY/MM/DD'),
     },
   });
 
-  const onSubmit = (payload: {
+  const onSubmit = async (payload: {
     select?: number | null;
     rate?: number;
-    start?: string | Date;
+    start?: string | Date | Dayjs | number | null;
   }) => {
-    const { select, rate, start } = payload;
-    postOffer({
-      freelancer: id,
-      jobId: select,
-      data: {
-        hourly_rate: rate,
-        start,
-        status: Request.pending,
-        cover_letter: description,
-      },
-    });
-    reset({ select: null, rate: rate });
+    try {
+      const { select, rate, start } = payload;
+      await postOffer({
+        freelancer: id,
+        jobId: select,
+        data: {
+          hourly_rate: rate,
+          start,
+          status: Request.pending,
+          cover_letter: description,
+        },
+      });
+    } catch (err) {
+      openNotificationWithIcon(
+        NotificationType.error,
+        t('loginPage.notificationMessage'),
+        t('modalInvite.offerError'),
+      );
+    }
   };
+
+  useEffect(() => {
+    if (isError) {
+      openNotificationWithIcon(
+        NotificationType.error,
+        t('loginPage.notificationMessage'),
+        t('modalInvite.offerError'),
+      );
+    }
+    if (isSuccess) {
+      openNotificationWithIcon(
+        NotificationType.success,
+        t('modalInvite.requestSuccessHeader'),
+        t('modalInvite.offerSuccess'),
+      );
+      reset({ select: null, rate: hourly_rate });
+    }
+  }, [error, isError, isSuccess]);
 
   return (
     <StyledModal
@@ -69,6 +117,7 @@ export function SendOfferModal(props: Props) {
       onCancel={handleCancel}
       footer={null}
     >
+      {contextHolder}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
           <Controller
@@ -83,7 +132,7 @@ export function SendOfferModal(props: Props) {
                 <Col span={6}>
                   <StyledSelect
                     {...field}
-                    options={withoutOffer?.map((el: OffersJobs) => ({
+                    options={data?.map((el: OffersJobs) => ({
                       ...el,
                       value: el.id,
                       label: el.title,
@@ -95,22 +144,26 @@ export function SendOfferModal(props: Props) {
           />
 
           <Controller
-            {...register('rate', { required: true })}
+            {...register('rate', { required: 'required' })}
             name="rate"
             control={control}
-            render={({ field: { onChange } }) => (
+            render={({ field }) => (
               <Row justify="start">
                 <Col span={8}>
                   <p>{t('modalInvite.rate')}</p>
                 </Col>
-                <Col span={6}>
+                <Col span={5}>
                   <Input
-                    onChange={e => {
-                      onChange(parseInt(e.target.value));
-                    }}
-                    defaultValue={hourly_rate}
                     type="number"
                     placeholder={t('modalInvite.placeholder')}
+                    {...field}
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="rate"
+                    render={({ message }) => (
+                      <ValidationErrorMessage>{message}</ValidationErrorMessage>
+                    )}
                   />
                 </Col>
               </Row>
@@ -118,8 +171,9 @@ export function SendOfferModal(props: Props) {
           />
 
           <Controller
-            control={control}
+            {...register('start', { required: 'required' })}
             name="start"
+            control={control}
             render={({ field: { onChange } }) => (
               <Row justify="start">
                 <Col span={8}>
@@ -127,11 +181,18 @@ export function SendOfferModal(props: Props) {
                 </Col>
                 <Col span={6}>
                   <DatePicker
-                    defaultValue={dayjs(todayDate, dateType)}
                     onChange={date => {
-                      onChange(date?.isValid ? date : '');
+                      onChange(date?.isValid ? date : null);
                     }}
+                    defaultValue={dayjs('2022/12/22', 'YYYY/MM/DD')}
                     format={dateType}
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="start"
+                    render={({ message }) => (
+                      <ValidationErrorMessage>{message}</ValidationErrorMessage>
+                    )}
                   />
                 </Col>
               </Row>

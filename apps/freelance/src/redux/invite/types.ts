@@ -1,3 +1,5 @@
+import { type Dayjs } from 'dayjs';
+
 export enum Request {
   pending = 'Pending',
   accepted = 'Accepted',
@@ -22,7 +24,7 @@ export interface PostOffer {
   data: {
     status?: Request;
     hourly_rate?: number;
-    start?: Date | string;
+    start?: Date | string | Dayjs | number | null;
     cover_letter?: string | null;
   };
   freelancer?: number;

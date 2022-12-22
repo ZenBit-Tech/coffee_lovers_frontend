@@ -34,6 +34,7 @@ export * from './lib/small-card/small-card';
 export * from './lib/some-element/some-element';
 export * from './lib/UI/danger-button';
 export * from './lib/UI/expandable-text';
+export * from './lib/UI/fields-validation/styles';
 export * from './lib/UI/input-search';
 export * from './lib/UI/page-wrapper';
 export * from './lib/UI/pagination';
