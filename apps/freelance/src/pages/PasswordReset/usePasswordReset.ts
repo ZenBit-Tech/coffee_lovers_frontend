@@ -5,7 +5,8 @@ import {
   useForm,
   UseFormHandleSubmit,
 } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { routes } from '@freelance/constants';
 import { SerializedError } from '@reduxjs/toolkit';
 import {
   usePasswordResetCheckAvailabilityQuery,
@@ -35,10 +36,17 @@ const usePasswordReset = (): UsePasswordResetResponse => {
   const { data: linkValid } = usePasswordResetCheckAvailabilityQuery(key || '');
   const [passwordReset, { isLoading, isSuccess, isError, error }] =
     usePasswordResetMutation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLinkValid(linkValid);
   }, [linkValid]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(routes.login);
+    }
+  }, [isSuccess]);
 
   const onSubmit: SubmitHandler<Inputs> = data => {
     passwordReset({ password: data.password, key: key || '' });
