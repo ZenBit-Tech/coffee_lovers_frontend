@@ -1,4 +1,6 @@
+import { Job } from 'redux/types/jobs.types';
 import { Offer, OfferStatus } from 'redux/types/offers.types';
+import { User } from 'redux/types/user.types';
 
 export interface Error {
   data: {
@@ -25,45 +27,8 @@ export interface ContractsResponse {
     status: OfferStatus;
     start: Date;
     created_at: string;
-    job: {
-      id: number;
-      title: string;
-      description: string;
-      hourly_rate: number;
-      available_time: string;
-      english_level: string;
-      duration: number;
-      duration_amount: DurationAmount;
-      status: string;
-      created_at: string;
-    };
-    freelancer: {
-      id: number;
-      email: string;
-      first_name: string;
-      last_name: string;
-      profile_image: string;
-      available_time: Date | null;
-      description: string;
-      hourly_rate: number;
-      position: string;
-      other_experience: string;
-      english_level: string;
-      role: string;
-    };
-    job_owner: {
-      id: number;
-      email: string;
-      first_name: string;
-      last_name: string;
-      profile_image: string | null;
-      available_time: string;
-      description: string;
-      hourly_rate: number;
-      position: string;
-      other_experience: null | string;
-      english_level: string;
-      role: string;
-    };
+    job: Job;
+    freelancer: User;
+    job_owner: User;
   };
 }
