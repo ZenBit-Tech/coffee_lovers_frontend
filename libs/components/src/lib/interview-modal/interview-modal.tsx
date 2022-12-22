@@ -20,20 +20,16 @@ export function InterviewModal(props: Props) {
   const { setOpen, open, description, hourly_rate, id } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [page, setPage] = useState(ChatListPage);
+  const [api, contextHolder] = notification.useNotification();
 
   const { t } = useTranslation<Namespace<string>>();
-
-  const [api, contextHolder] = notification.useNotification();
   const { data: invitation } = useGetInvitationDetailsQuery({
     frId: id,
   });
   const [postRequest, { isError, error, isSuccess }] = usePostRequestMutation();
-
   const { data } = useFindUserJobsWithoutOfferQuery({
     id,
   });
-  const conversations = invitation?.data;
-  const freelancer = invitation?.freelancer;
   const {
     handleCancel,
     handleOk,
@@ -51,6 +47,9 @@ export function InterviewModal(props: Props) {
     isError,
     error,
   });
+
+  const conversations = invitation?.data;
+  const freelancer = invitation?.freelancer;
 
   const onSubmit = async (payload: {
     select: number | null;

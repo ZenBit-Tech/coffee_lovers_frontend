@@ -49,7 +49,7 @@ export interface sendInviteHookReturnDto {
   }>;
   errors: Partial<
     FieldErrorsImpl<{
-      select: never;
+      select: number;
       rate: number;
     }>
   >;

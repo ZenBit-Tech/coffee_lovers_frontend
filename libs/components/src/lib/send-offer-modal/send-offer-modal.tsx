@@ -25,12 +25,12 @@ export function SendOfferModal(props: Props) {
   const { setOpen, open, hourly_rate, id, description } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [api, contextHolder] = notification.useNotification();
+
   const { t } = useTranslation<Namespace<string>>();
   const { data } = useFindUserJobsWithoutOfferQuery({
     id,
   });
   const [postOffer, { isError, error, isSuccess }] = usePostOfferMutation();
-
   const {
     handleCancel,
     handleOk,

@@ -55,7 +55,7 @@ export interface sendOfferHookReturnDto {
   }>;
   errors: Partial<
     FieldErrorsImpl<{
-      select: never;
+      select: number;
       rate: number;
       start: object;
     }>
