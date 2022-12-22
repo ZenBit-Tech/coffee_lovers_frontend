@@ -14,7 +14,7 @@ import {
 } from '@freelance/components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useProperties from 'src/hooks/useProperties';
-import { usePostJobsMutation } from 'src/redux/job-post/job-post';
+import { usePostJobMutation } from 'src/redux/job-post/job-post';
 import { baseTheme } from 'src/styles/theme';
 
 import {
@@ -47,7 +47,7 @@ export function JobPostForm() {
     resolver: yupResolver(schema),
   });
   const navigate = useNavigate();
-  const [postJob] = usePostJobsMutation();
+  const [postJob] = usePostJobMutation();
 
   const onSubmit: SubmitHandler<InputsValues> = async data => {
     try {

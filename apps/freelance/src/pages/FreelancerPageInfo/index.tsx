@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 import {
   baseUrl,
+  Button,
+  freelancerPageInfo,
   InterviewModal,
   profileQ1,
   SendOfferModal,
@@ -33,7 +35,7 @@ const FreelancerPageInfo = () => {
           size={profileQ1.avatarBigSize}
           icon={<UserOutlined />}
         />
-        <p>
+        <p data-testid={freelancerPageInfo.nameSurname}>
           {userDataById?.first_name} {userDataById?.last_name}
         </p>
       </St.LogoWrapper>
@@ -43,7 +45,9 @@ const FreelancerPageInfo = () => {
             <St.Label>{t('description.profileQp2.category')}</St.Label>
           </Col>
           <Col span={18}>
-            <St.StCol>{userDataById?.category.name}</St.StCol>
+            <St.StCol data-testid={freelancerPageInfo.categoryName}>
+              {userDataById?.category?.name}
+            </St.StCol>
           </Col>
         </Row>
         <Row>
@@ -52,7 +56,9 @@ const FreelancerPageInfo = () => {
           </Col>
           <Col span={18}>
             <St.StCol>
-              <St.Hr>{userDataById?.hourly_rate} $</St.Hr>
+              <St.Hr data-testid={freelancerPageInfo.hr}>
+                {userDataById?.hourly_rate} $
+              </St.Hr>
             </St.StCol>
           </Col>
         </Row>
@@ -62,7 +68,9 @@ const FreelancerPageInfo = () => {
           </Col>
           <Col span={18}>
             <St.StCol>
-              <St.BigBox>{userDataById?.description}</St.BigBox>
+              <St.BigBox data-testid={freelancerPageInfo.desc}>
+                {userDataById?.description}
+              </St.BigBox>
             </St.StCol>
           </Col>
         </Row>
@@ -72,7 +80,9 @@ const FreelancerPageInfo = () => {
           </Col>
           <Col span={18}>
             <St.StCol>
-              <St.MediuBox>{userDataById?.position}</St.MediuBox>
+              <St.MediuBox data-testid={freelancerPageInfo.pos}>
+                {userDataById?.position}
+              </St.MediuBox>
             </St.StCol>
           </Col>
         </Row>
@@ -82,7 +92,9 @@ const FreelancerPageInfo = () => {
           </Col>
           <Col span={18}>
             <St.StCol>
-              <St.MediuBox>{userDataById?.available_time}</St.MediuBox>
+              <St.MediuBox data-testid={freelancerPageInfo.avtime}>
+                {userDataById?.available_time}
+              </St.MediuBox>
             </St.StCol>
           </Col>
         </Row>
@@ -92,7 +104,7 @@ const FreelancerPageInfo = () => {
           </Col>
           <Col span={18}>
             {userDataById?.educations?.map(el => (
-              <St.FlexWrapper key={el.id}>
+              <St.FlexWrapper data-testid={freelancerPageInfo.edu} key={el.id}>
                 <St.EduData>{el.education_descr}</St.EduData>
                 <St.EduTime>{el.education_from}</St.EduTime>
                 <St.WorkTime>{el.education_to}</St.WorkTime>
@@ -107,7 +119,10 @@ const FreelancerPageInfo = () => {
             </Col>
             <Col span={18}>
               {userDataById?.workHistory?.map(el => (
-                <St.FlexWrapper key={el.id}>
+                <St.FlexWrapper
+                  data-testid={freelancerPageInfo.work}
+                  key={el.id}
+                >
                   <St.WorkData>{el.work_history_descr}</St.WorkData>
                   <St.WorkTime>{el.work_history_from}</St.WorkTime>
                   <St.WorkTime>{el.work_history_to}</St.WorkTime>
@@ -123,7 +138,9 @@ const FreelancerPageInfo = () => {
           <Col span={18}>
             <St.FlexWrapper>
               {userDataById?.skills.map(el => (
-                <St.Skill key={el.id}>{el.name}</St.Skill>
+                <St.Skill data-testid={freelancerPageInfo.skills} key={el.id}>
+                  {el.name}
+                </St.Skill>
               ))}
             </St.FlexWrapper>
           </Col>
@@ -133,17 +150,19 @@ const FreelancerPageInfo = () => {
             <St.Label>{t('description.profileQp2.english_level')}</St.Label>
           </Col>
           <Col span={18}>
-            <St.StCol>{userDataById?.english_level}</St.StCol>
+            <St.StCol data-testid={freelancerPageInfo.englevel}>
+              {userDataById?.english_level}
+            </St.StCol>
           </Col>
         </Row>
       </St.FreelancerInfo>
       <St.ButtonWrapper>
-        <St.StyledButton onClick={() => setOfferOpen(true)}>
+        <Button onClick={() => setOfferOpen(true)}>
           {t('description.freelancerPageInfo.sendOffer')}
-        </St.StyledButton>
-        <St.StyledButton onClick={showModal}>
+        </Button>
+        <Button onClick={showModal}>
           {t('description.freelancerPageInfo.inviteInterview')}
-        </St.StyledButton>
+        </Button>
       </St.ButtonWrapper>
       <InterviewModal open={open} setOpen={setOpen} {...userDataById} />
       <SendOfferModal

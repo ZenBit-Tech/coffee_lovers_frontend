@@ -5,11 +5,6 @@ export const Wrapper = styled.div`
   padding: 10px 15px;
   border-radius: 5px;
   display: flex;
-
-  &:hover {
-    cursor: pointer;
-    border-color: ${({ theme }) => theme.colors.primary};
-  }
 `;
 
 export const LeftSide = styled.div`
@@ -81,6 +76,11 @@ export const JobDetailsBottom = styled.div`
 
 export const StyledJobTitle = styled.div`
   font-size: ${({ theme }) => theme.fontSize.large};
+
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 export const StyledJobOwnerName = styled.div`
