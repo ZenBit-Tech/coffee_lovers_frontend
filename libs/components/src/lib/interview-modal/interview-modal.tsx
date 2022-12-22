@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Col, Input, notification, Row } from 'antd';
 import { Namespace } from 'i18next';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button, ValidationErrorMessage } from '@freelance/components';
 import { NotificationType } from '@freelance/components';
@@ -12,6 +12,7 @@ import { Invite } from 'src/redux/invite/types';
 import { useFindUserJobsWithoutOfferQuery } from 'src/redux/services/jobsApi';
 
 import { ChatListPage, empty, many, SendInterviewPage } from './constants';
+import useInterviewModalHook from './interview-hook';
 import { StyledModal, StyledSelect, StyledSpace } from './styles';
 import { Conversation, Props } from './types';
 
@@ -33,39 +34,22 @@ export function InterviewModal(props: Props) {
   });
   const conversations = invitation?.data;
   const freelancer = invitation?.freelancer;
-
-  const openNotificationWithIcon = (
-    type: NotificationType,
-    message: string,
-    description: string,
-  ) => {
-    api[type]({
-      message,
-      description,
-    });
-  };
-
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setOpen(false);
-    setConfirmLoading(false);
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
-  };
-
   const {
-    control,
+    handleCancel,
+    handleOk,
     handleSubmit,
-    reset,
+    control,
     register,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      select: null,
-      rate: hourly_rate,
-    },
+    errors,
+    openNotificationWithIcon,
+  } = useInterviewModalHook({
+    api,
+    setConfirmLoading,
+    setOpen,
+    hourly_rate,
+    isSuccess,
+    isError,
+    error,
   });
 
   const onSubmit = async (payload: {
@@ -90,24 +74,6 @@ export function InterviewModal(props: Props) {
       );
     }
   };
-
-  useEffect(() => {
-    if (isError) {
-      openNotificationWithIcon(
-        NotificationType.error,
-        t('loginPage.notificationMessage'),
-        t('modalInvite.requestError'),
-      );
-    }
-    if (isSuccess) {
-      openNotificationWithIcon(
-        NotificationType.success,
-        t('modalInvite.requestSuccessHeader'),
-        t('modalInvite.requestSuccess'),
-      );
-      reset({ select: null, rate: hourly_rate });
-    }
-  }, [error, isError, isSuccess]);
 
   return (
     <StyledModal

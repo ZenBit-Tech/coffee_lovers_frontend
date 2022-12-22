@@ -24,7 +24,7 @@ export interface PostOffer {
   data: {
     status?: Request;
     hourly_rate?: number;
-    start?: Date | string | Dayjs | number | null;
+    start?: Dayjs | null;
     cover_letter?: string | null;
   };
   freelancer?: number;

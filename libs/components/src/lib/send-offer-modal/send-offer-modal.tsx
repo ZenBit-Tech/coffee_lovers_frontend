@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Col, DatePicker, Input, notification, Row, Space } from 'antd';
 import dayjs, { type Dayjs } from 'dayjs';
 import { Namespace } from 'i18next';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
   Button,
   dateType,
+  todayDate,
   ValidationErrorMessage,
 } from '@freelance/components';
 import { NotificationType } from '@freelance/components';
@@ -18,6 +19,7 @@ import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
 
 import { StyledModal, StyledSelect } from './styles';
 import { Props } from './types';
+import useSendOfferHook from './useSendOfferHook';
 
 export function SendOfferModal(props: Props) {
   const { setOpen, open, hourly_rate, id, description } = props;
@@ -29,45 +31,28 @@ export function SendOfferModal(props: Props) {
   });
   const [postOffer, { isError, error, isSuccess }] = usePostOfferMutation();
 
-  const openNotificationWithIcon = (
-    type: NotificationType,
-    message: string,
-    description: string,
-  ) => {
-    api[type]({
-      message,
-      description,
-    });
-  };
-
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setOpen(false);
-    setConfirmLoading(false);
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
-  };
-
   const {
+    handleCancel,
+    handleOk,
     control,
-    handleSubmit,
-    reset,
     register,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      select: null,
-      rate: hourly_rate,
-      start: dayjs('2015/01/01', 'YYYY/MM/DD'),
-    },
+    errors,
+    handleSubmit,
+    openNotificationWithIcon,
+  } = useSendOfferHook({
+    api,
+    setConfirmLoading,
+    setOpen,
+    hourly_rate,
+    error,
+    isError,
+    isSuccess,
   });
 
   const onSubmit = async (payload: {
     select?: number | null;
     rate?: number;
-    start?: string | Date | Dayjs | number | null;
+    start?: Dayjs | null;
   }) => {
     try {
       const { select, rate, start } = payload;
@@ -90,24 +75,6 @@ export function SendOfferModal(props: Props) {
     }
   };
 
-  useEffect(() => {
-    if (isError) {
-      openNotificationWithIcon(
-        NotificationType.error,
-        t('loginPage.notificationMessage'),
-        t('modalInvite.offerError'),
-      );
-    }
-    if (isSuccess) {
-      openNotificationWithIcon(
-        NotificationType.success,
-        t('modalInvite.requestSuccessHeader'),
-        t('modalInvite.offerSuccess'),
-      );
-      reset({ select: null, rate: hourly_rate });
-    }
-  }, [error, isError, isSuccess]);
-
   return (
     <StyledModal
       title={t('modalInvite.offerTotle')}
@@ -119,7 +86,7 @@ export function SendOfferModal(props: Props) {
     >
       {contextHolder}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+        <Space direction="vertical" size="middle">
           <Controller
             {...register('select', { required: true })}
             name="select"
@@ -184,7 +151,7 @@ export function SendOfferModal(props: Props) {
                     onChange={date => {
                       onChange(date?.isValid ? date : null);
                     }}
-                    defaultValue={dayjs('2022/12/22', 'YYYY/MM/DD')}
+                    defaultValue={dayjs(todayDate, dateType)}
                     format={dateType}
                   />
                   <ErrorMessage

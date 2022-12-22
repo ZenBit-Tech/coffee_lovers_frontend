@@ -20,7 +20,7 @@ export default {
     requestError:
       'You have already sent request for this freelncer about this job',
     requestSuccess: 'Invite has been sent successfully',
-    offerSuccess: 'Invite has been sent successfully',
+    offerSuccess: 'Offer has been sent successfully',
     requestSuccessHeader: 'Success',
   },
 };
