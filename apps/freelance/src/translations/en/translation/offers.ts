@@ -7,8 +7,8 @@ export default {
     buttons: {
       acceptOffer: 'Accept offer',
       declineOffer: 'Decline offer',
-      chat: 'chat',
-      deleteInterview: 'delete invitation',
+      chat: 'Chat',
+      deleteInterview: 'Delete invitation',
     },
     hrly_rate: '$ {{rate}} / hr',
     sortOptions: {
