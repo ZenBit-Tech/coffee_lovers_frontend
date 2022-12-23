@@ -31,21 +31,21 @@ export interface sendInviteHookDto {
   hourly_rate?: number;
   isSuccess: boolean;
   isError: boolean;
-  error: FetchBaseQueryError | SerializedError | undefined;
+  error?: FetchBaseQueryError | SerializedError;
 }
 
 export interface sendInviteHookReturnDto {
   handleSubmit: UseFormHandleSubmit<{
     select: null;
-    rate: number | undefined;
+    rate?: number;
   }>;
   handleCancel: () => void;
   handleOk: () => void;
 
-  control: Control<{ select: null; rate: number | undefined }, unknown>;
+  control: Control<{ select: null; rate?: number }, unknown>;
   register: UseFormRegister<{
     select: null;
-    rate: number | undefined;
+    rate?: number;
   }>;
   errors: Partial<
     FieldErrorsImpl<{

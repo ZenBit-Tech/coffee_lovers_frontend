@@ -7,8 +7,8 @@ import { User } from 'redux/types/user.types';
 import { defaultAmountOfJobs } from './constants';
 
 interface UseJobOwnerDashboardReturn {
-  user: User | undefined;
-  jobList: GetPostedJobsResponse[] | undefined;
+  user?: User;
+  jobList?: GetPostedJobsResponse[];
   isShowAllJobs: boolean;
   jobsListSizeHandler: () => void;
   isLoading: boolean;

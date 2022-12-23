@@ -27,8 +27,8 @@ export const ProposalModal = ({
   ...props
 }: {
   openModal: boolean;
-  rate: number | undefined;
-  freelancer_rate: number | undefined;
+  rate?: number;
+  freelancer_rate?: number;
   id: number;
   onCancel: () => void;
 } & ModalProps) => {

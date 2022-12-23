@@ -4,7 +4,7 @@ import { useGetJobProposalsQuery } from 'redux/services/jobsApi';
 import { GetJobProposalsResponse } from 'redux/types/jobs.types';
 
 interface UseProposalsListResponse {
-  data: GetJobProposalsResponse | undefined;
+  data?: GetJobProposalsResponse;
   isSuccess: boolean;
   isLoading: boolean;
   clickHandler: (id: number) => void;

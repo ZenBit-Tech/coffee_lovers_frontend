@@ -6,7 +6,7 @@ const errorMessages: { error: string; message: string }[] = [
 ];
 
 export const getErrorMessage = (
-  error: UserError | SerializedError | undefined,
+  error?: UserError | SerializedError,
 ): string => {
   let errorMessage = '';
   if (error && 'data' in error) {

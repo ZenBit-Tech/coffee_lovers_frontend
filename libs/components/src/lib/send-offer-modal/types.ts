@@ -29,7 +29,7 @@ export interface sendOfferHookDto {
   setConfirmLoading: Dispatch<SetStateAction<boolean>>;
   setOpen: (op: boolean) => void;
   hourly_rate?: number;
-  error: FetchBaseQueryError | SerializedError | undefined;
+  error?: FetchBaseQueryError | SerializedError;
   isError: boolean;
   isSuccess: boolean;
 }
@@ -37,20 +37,17 @@ export interface sendOfferHookDto {
 export interface sendOfferHookReturnDto {
   handleSubmit: UseFormHandleSubmit<{
     select: null;
-    rate: number | undefined;
+    rate?: number;
     start: dayjs.Dayjs;
   }>;
   handleCancel: () => void;
   handleOk: () => void;
 
-  control: Control<
-    { select: null; rate: number | undefined; start: Dayjs },
-    unknown
-  >;
-  reset: UseFormReset<{ select: null; rate: number | undefined; start: Dayjs }>;
+  control: Control<{ select: null; rate?: number; start: Dayjs }, unknown>;
+  reset: UseFormReset<{ select: null; rate?: number; start: Dayjs }>;
   register: UseFormRegister<{
     select: null;
-    rate: number | undefined;
+    rate?: number;
     start: Dayjs;
   }>;
   errors: Partial<
