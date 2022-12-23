@@ -99,7 +99,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
       >
         <St.StInputNumber
           prefix={t('description.profileQp1.hRPrefix')}
-          addonAfter={t('description.profileQp1.hRSuffix')}
+          placeholder={t('description.profileQp1.hRSuffix')}
           min={profileQ1.hRMin}
         />
       </Form.Item>
