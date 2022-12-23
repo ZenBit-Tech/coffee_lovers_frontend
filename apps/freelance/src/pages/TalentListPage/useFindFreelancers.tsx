@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { FilterFormItems } from '@freelance/components';
 import { getFilterParams } from '@pages/FindJobs/utils';
 
-import { defaultPage, takeItems } from './constants';
+import { talentConsts } from './constants';
 import { GetFreelancerParams } from './model';
 
 interface useFindFreelancersReturn {
@@ -22,8 +22,8 @@ const useFindFreelancers = (): useFindFreelancersReturn => {
   const [filterPayload, setFilterPayload] = useState<GetFreelancerParams>({});
   const [search, setSearch] = useState<string>('');
   const [filtersVisibility, setFiltersVisibility] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(defaultPage);
-  const [take, setTake] = useState<number>(takeItems);
+  const [page, setPage] = useState<number>(talentConsts.defaultPage);
+  const [take, setTake] = useState<number>(talentConsts.takeItems);
 
   const submitFilter = (filterData: FilterFormItems) => {
     setFilterPayload(getFilterParams(filterData));

@@ -14,7 +14,7 @@ import {
   useAddUserEduInfoMutation,
   useAddUserWorkhistoryInfoMutation,
   useUpdateUserInfoMutation,
-} from 'src/redux/profileQuestions/profileQuestions1Api';
+} from 'src/redux/services/user';
 import { GetEducation, GetWorkhistory, User } from 'src/redux/types/user.types';
 
 import FormEduList from './FormEduList';
