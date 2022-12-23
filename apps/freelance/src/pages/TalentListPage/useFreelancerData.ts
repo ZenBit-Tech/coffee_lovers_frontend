@@ -3,6 +3,7 @@ import { useGetFreelancerQuery } from 'redux/services/freelancers';
 import { useGetFavoritesQuery } from 'redux/services/user';
 import { User } from 'redux/types/user.types';
 
+import { talentConsts } from './constants';
 import { GetFreelancerParams } from './model';
 
 export const useFreelancerData = (
@@ -18,12 +19,12 @@ export const useFreelancerData = (
     ...filterPayload,
   });
   const [freelancerRenderData, setFreelancerRenderData] = useState<User[]>(
-    data ? data[0] : [],
+    data ? data[talentConsts.firstEl] : [],
   );
   const { data: favorites } = useGetFavoritesQuery();
 
   useEffect(() => {
-    setFreelancerRenderData(data ? data[0] : []);
+    setFreelancerRenderData(data ? data[talentConsts.firstEl] : []);
   }, [data]);
 
   const favoritesHandler = () => {
@@ -33,7 +34,7 @@ export const useFreelancerData = (
   };
   const allFreelancerHanler = () => {
     if (data) {
-      setFreelancerRenderData(data[0]);
+      setFreelancerRenderData(data[talentConsts.firstEl]);
     }
   };
 

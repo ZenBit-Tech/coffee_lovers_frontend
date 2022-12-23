@@ -72,7 +72,8 @@ const TalentListPage = (): ReactElement => {
               size={talentConsts.largeSize}
               onClick={allFreelancerHanler}
             >
-              {t('talent.header')} - {data ? data[1] : 0}
+              {t('talent.header')} -{' '}
+              {data ? data[talentConsts.secondEl] : talentConsts.firstEl}
             </SecondaryButton>
             <SecondaryButton
               size={talentConsts.largeSize}
@@ -118,7 +119,7 @@ const TalentListPage = (): ReactElement => {
                     </St.StyledName>
                     <St.StyledRate
                       onChange={value => onChangeFavorite(item.id, value)}
-                      count={1}
+                      count={talentConsts.starCount}
                       value={isFreelancerFav(item, favorites)}
                     />
                   </St.StyledCardHeader>
