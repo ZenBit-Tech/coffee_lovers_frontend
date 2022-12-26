@@ -1,12 +1,25 @@
-import { Col, Form } from 'antd';
+import { Col, Form, Typography } from 'antd';
 import styled from 'styled-components';
 import { InputSearch, PrimaryButton } from '@freelance/components';
 import { baseTheme } from 'src/styles/theme';
 
+const { Text } = Typography;
+
+export const StyledWrapper = styled.div`
+  height: 70vh;
+  width: 100%;
+  position: relative;
+`;
+
 export const MessagesWrapper = styled.div`
-  height: 64vh;
-  overflow: auto;
+  max-height: 70vh;
+  vertical-align: bottom;
+  width: 100%;
+  overflow: scroll;
   padding-right: 10px;
+
+  position: absolute;
+  bottom: 0;
 
   ::-webkit-scrollbar {
     width: 10px;
@@ -42,27 +55,36 @@ export const InputSearchStyled = styled(InputSearch)`
 
 export const StyledLeftSide = styled(Col)`
   padding-top: 20px;
-  background-color: var(--grey);
-  box-shadow: 2px 2px 2px var(--grey);
-  border-radius: 5px;
+  background-color: ${baseTheme.colors.lightBlue};
+  border: 1px ${({ theme }) => theme.colors.grey} solid;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   width: 300px;
 `;
 
 export const StyledRightSide = styled(StyledLeftSide)`
   padding: 0 10px;
-  height: 80vh;
+  height: 85vh;
   background-color: var(--white-color);
-  padding-top: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  position: relative;
+`;
+
+export const StyledText = styled(Text)`
+  width: 150px;
 `;
 
 export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 15px;
-  justify-content: center;
+  gap: 20px;
+  justify-content: start;
   align-items: center;
   padding: 10px;
-  line-height: 2.7em;
+  margin-block-start: 0;
 `;
 
 export const BottomWrapper = styled(HeaderContainer)`
@@ -81,21 +103,22 @@ export const StyledButton = styled(PrimaryButton)`
 `;
 
 export const FirstUserText = styled.p`
-  background-color: var(--lightGrey);
-  box-shadow: 2px 2px 2px var(--grey);
+  border: 1px ${({ theme }) => theme.colors.grey} solid;
   border-radius: 10px;
   padding: 5px 10px;
   word-wrap: break-word;
 `;
 
 export const SecondUserText = styled(FirstUserText)`
-  background-color: var(--lightBlue);
+  background-color: ${baseTheme.colors.lightBlue};
 `;
 
 export const FirstUserContainer = styled.div`
   display: inline-block;
+  height: 100%;
   position: relative;
   text-align: left;
+  align-items: left;
   max-width: 75%;
   margin: 0 0 10px 0;
 `;
@@ -115,7 +138,9 @@ export const FreelancerNameStyled = styled.div`
 `;
 
 export const UserDivStyled = styled.div`
-  margin-left: 20px; ;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const SendOfferBtn = styled(PrimaryButton)`
