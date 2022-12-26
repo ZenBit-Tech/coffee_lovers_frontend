@@ -79,7 +79,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
         [profileQ1.descr]: user?.description,
         [profileQ1.pos]: user?.position,
         [profileQ2.skills]: user?.skills.map(el => el.id),
-        [profileQ2.category]: user?.category.id,
+        [profileQ2.category]: user?.category?.id,
         [profileQ1.avTime]: user?.available_time,
         [profileQ2.englishLevel]: user?.english_level,
         [profileQ2.otherExp]: user?.other_experience,
