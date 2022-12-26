@@ -6,5 +6,6 @@ export default {
     send: 'Send',
     sendOffer: 'Send offer',
     chooseChat: 'Choose a chat',
+    projectTitle: 'Project Title: ',
   },
 };

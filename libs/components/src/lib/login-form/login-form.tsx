@@ -77,7 +77,7 @@ export const LoginForm = () => {
                 },
                 {
                   required: true,
-                  message: `${t('loginPage.email_error_req')}`,
+                  message: `${t('errors.requiredError')}`,
                 },
               ]}
               hasFeedback
@@ -99,7 +99,7 @@ export const LoginForm = () => {
           render={({ field }) => (
             <Form.Item
               rules={[
-                { required: true, message: `${t('loginPage.password_error')}` },
+                { required: true, message: `${t('errors.requiredError')}` },
               ]}
               hasFeedback
               {...field}
