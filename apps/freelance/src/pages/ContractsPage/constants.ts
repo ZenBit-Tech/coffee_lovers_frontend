@@ -8,7 +8,5 @@ export const dateFormat = (dateString: Date) => {
   );
 };
 
-export const contractTypes = ['Active', 'Closed'];
-
-export const active = 0;
-export const closed = 1;
+export const closed = 0;
+export const active = 1;

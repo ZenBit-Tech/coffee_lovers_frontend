@@ -12,7 +12,6 @@ export * from './lib/constants/mockUserData';
 export * from './lib/container/container';
 export * from './lib/example-button/example-button';
 export * from './lib/filters';
-export * from './lib/fixed-contracts-bar/fixed-contracts-bar';
 export * from './lib/freelancer-profile-form';
 export * from './lib/google-login-button/index';
 export * from './lib/information-sticker';

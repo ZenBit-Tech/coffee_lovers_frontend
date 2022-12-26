@@ -9,7 +9,7 @@ import {
 } from 'redux/contracts/contracts';
 import { ContractsResponse } from 'redux/contracts/types';
 
-import { dateFormat } from './constants';
+import { active, closed, dateFormat } from './constants';
 import { DateText } from './styles';
 
 const ContractsList = () => {
@@ -22,19 +22,19 @@ const ContractsList = () => {
     <PageWrapper>
       <h3>{t('contracts.header')}</h3>
       <Tabs
-        defaultActiveKey="1"
+        defaultActiveKey={`${active}`}
         centered
         items={new Array(2).fill(null).map((_, i) => {
           const id = String(i + 1);
-          const pageItems = i === 0 ? closedContracts : activeContracts;
+          const pageItems = i === closed ? closedContracts : activeContracts;
           const pageName =
-            i === 0 ? t('contracts.closed') : t('contracts.active');
+            i === closed ? t('contracts.closed') : t('contracts.active');
 
           return {
             label: pageName,
             key: id,
-            children: pageItems?.map((el: ContractsResponse) => (
-              <StyledCardReusable>
+            children: pageItems?.map((el: ContractsResponse, index: number) => (
+              <StyledCardReusable key={index}>
                 <Row gutter={16} justify="center" align="middle">
                   <Col className="gutter-row" span={6}>
                     <div>{el.offer.job.title}</div>
