@@ -42,15 +42,15 @@ export interface sendInviteHookReturnDto {
   handleCancel: () => void;
   handleOk: () => void;
 
-  control: Control<{ select: null; rate?: number }, unknown>;
+  control: Control<{ select: null; rate: number | undefined }, unknown>;
   register: UseFormRegister<{
     select: null;
-    rate?: number;
+    rate: number | undefined;
   }>;
   errors: Partial<
     FieldErrorsImpl<{
       select: number;
-      rate: number;
+      rate?: number;
     }>
   >;
   openNotificationWithIcon: (

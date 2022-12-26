@@ -5,7 +5,6 @@ import {
   FieldErrorsImpl,
   UseFormHandleSubmit,
   UseFormRegister,
-  UseFormReset,
 } from 'react-hook-form';
 import { NotificationType } from '@freelance/constants';
 import { SerializedError } from '@reduxjs/toolkit';
@@ -43,17 +42,19 @@ export interface sendOfferHookReturnDto {
   handleCancel: () => void;
   handleOk: () => void;
 
-  control: Control<{ select: null; rate?: number; start: Dayjs }, unknown>;
-  reset: UseFormReset<{ select: null; rate?: number; start: Dayjs }>;
+  control: Control<
+    { select: null; rate: number | undefined; start: Dayjs },
+    unknown
+  >;
   register: UseFormRegister<{
     select: null;
-    rate?: number;
+    rate: number | undefined;
     start: Dayjs;
   }>;
   errors: Partial<
     FieldErrorsImpl<{
       select: number;
-      rate: number;
+      rate?: number;
       start: object;
     }>
   >;

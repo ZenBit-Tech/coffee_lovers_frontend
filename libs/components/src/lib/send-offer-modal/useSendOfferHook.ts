@@ -39,9 +39,9 @@ const useSendOfferHook = ({
 
   const {
     control,
-    reset,
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -72,11 +72,10 @@ const useSendOfferHook = ({
   return {
     handleCancel,
     handleOk,
-    handleSubmit,
     control,
-    reset,
     register,
     errors,
+    handleSubmit,
     openNotificationWithIcon,
   };
 };
