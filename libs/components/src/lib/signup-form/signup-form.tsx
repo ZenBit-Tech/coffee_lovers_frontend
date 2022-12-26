@@ -88,7 +88,11 @@ export function SignUpForm() {
         render={({ field }) => (
           <Form.Item
             rules={[
-              { required: true, message: `${t('loginPage.email_error')}` },
+              {
+                type: 'email',
+                message: `${t('loginPage.email_error')}`,
+              },
+              { required: true, message: `${t('errors.requiredError')}` },
             ]}
             hasFeedback
             {...field}
@@ -110,7 +114,7 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem
               rules={[
-                { required: true, message: `${t('loginPage.name_error')}` },
+                { required: true, message: `${t('errors.requiredError')}` },
               ]}
               hasFeedback
               {...field}
@@ -131,7 +135,7 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem
               rules={[
-                { required: true, message: `${t('loginPage.name_error')}` },
+                { required: true, message: `${t('errors.requiredError')}` },
               ]}
               hasFeedback
               {...field}
@@ -154,7 +158,7 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem
               rules={[
-                { required: true, message: `${t('loginPage.password_error')}` },
+                { required: true, message: `${t('errors.requiredError')}` },
                 {
                   pattern: passwordValidationRegExp,
                   message: `${t('resetPassword.validation.passwordRegExp')}`,
