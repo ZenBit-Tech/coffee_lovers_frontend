@@ -4,6 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { routes } from '@freelance/components';
+import {
+  useAcceptOfferMutation,
+  useDeclineOfferMutation,
+  useDeleteInterviewMutation,
+} from 'src/redux/services/requestApi';
 
 interface UseOfferInterviewCardReturn {
   t: TFunction;
@@ -13,9 +18,12 @@ interface UseOfferInterviewCardReturn {
   jobClickHandler: (id?: number) => void;
 }
 
-const useOfferInterviewCard = (): UseOfferInterviewCardReturn => {
+const useOfferInterviewCard = (id?: number): UseOfferInterviewCardReturn => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [acceptOffer] = useAcceptOfferMutation();
+  const [declineOffer] = useDeclineOfferMutation();
+  const [deleteInterview] = useDeleteInterviewMutation();
 
   const confirmAcceptOffer = (jobTitle: string): void => {
     Modal.confirm({
@@ -25,7 +33,9 @@ const useOfferInterviewCard = (): UseOfferInterviewCardReturn => {
       okText: t('offers.modal.confirm'),
       cancelText: t('offers.modal.cancel'),
       onOk() {
-        return;
+        if (id) {
+          acceptOffer(id);
+        }
       },
     });
   };
@@ -38,7 +48,9 @@ const useOfferInterviewCard = (): UseOfferInterviewCardReturn => {
       okText: t('offers.modal.confirm'),
       cancelText: t('offers.modal.cancel'),
       onOk() {
-        return;
+        if (id) {
+          declineOffer(id);
+        }
       },
     });
   };
@@ -51,7 +63,9 @@ const useOfferInterviewCard = (): UseOfferInterviewCardReturn => {
       okText: t('offers.modal.confirm'),
       cancelText: t('offers.modal.cancel'),
       onOk() {
-        return;
+        if (id) {
+          deleteInterview(id);
+        }
       },
     });
   };

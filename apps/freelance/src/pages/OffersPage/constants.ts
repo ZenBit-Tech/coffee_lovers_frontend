@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { OfferStatus } from 'redux/types/offers.types';
+import { OfferStatus } from 'redux/types/request.types';
 
 export enum TabKeys {
   OFFERS = 'offers',
