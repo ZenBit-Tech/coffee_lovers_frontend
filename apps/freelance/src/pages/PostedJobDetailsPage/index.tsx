@@ -16,8 +16,6 @@ import usePostedJobDetail from './usePostedJobDetails';
 const PostedJobDetails = () => {
   const { details, isLoading } = usePostedJobDetail();
 
-  console.log(details);
-
   return (
     <Wrapper isLoading={isLoading}>
       <StyledTitle>{details?.job.title}</StyledTitle>
