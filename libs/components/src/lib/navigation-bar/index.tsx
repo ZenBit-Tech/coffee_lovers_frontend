@@ -1,6 +1,7 @@
-import { Avatar, roles } from '@freelance/components';
+import { AvatarUpload, roles } from '@freelance/components';
 import { getFileUrl } from 'src/utils/api';
 
+import { avatarSize } from './constants';
 import {
   BarItem,
   BarItemsContainer,
@@ -18,7 +19,11 @@ export const NavigationBar = () => {
   return (
     <Container>
       <UserContainer>
-        <Avatar src={getFileUrl(user?.profile_image)} />
+        <AvatarUpload
+          src={getFileUrl(user?.profile_image)}
+          hideUploadText={true}
+          size={avatarSize}
+        />
         <UsernameContainer>
           <UserName>{`${user?.first_name || ''} ${
             user?.last_name || ''
