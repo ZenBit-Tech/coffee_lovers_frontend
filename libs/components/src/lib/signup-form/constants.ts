@@ -1,1 +1,1 @@
-export const nameValidationRefExp = /^[a-zA-Z]+$/;
+export const nameValidationRegExp = /^[a-zA-Z]+$/;

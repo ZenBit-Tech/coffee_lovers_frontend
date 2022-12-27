@@ -20,7 +20,7 @@ import { passwordValidationRegExp } from 'src/pages/PasswordReset/constants';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
-import { nameValidationRefExp } from './constants';
+import { nameValidationRegExp } from './constants';
 import { FormItem } from './styles';
 
 type FormValues = {
@@ -118,7 +118,7 @@ export function SignUpForm() {
               rules={[
                 { required: true, message: `${t('errors.requiredError')}` },
                 {
-                  pattern: nameValidationRefExp,
+                  pattern: nameValidationRegExp,
                   message: `${t('loginPage.onlyLettersError')}`,
                 },
               ]}
@@ -143,7 +143,7 @@ export function SignUpForm() {
               rules={[
                 { required: true, message: `${t('errors.requiredError')}` },
                 {
-                  pattern: nameValidationRefExp,
+                  pattern: nameValidationRegExp,
                   message: `${t('loginPage.onlyLettersError')}`,
                 },
               ]}
