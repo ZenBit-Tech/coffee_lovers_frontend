@@ -16,7 +16,7 @@ export default {
       add_one_more: 'Add one more',
       hR: 'Hourly Rate',
       hRPrefix: '$',
-      hRSuffix: 'USD per hour',
+      hRSuffix: 'Per hour',
       descr: 'Description',
       pos: 'Position',
       avTime: 'Available Time',

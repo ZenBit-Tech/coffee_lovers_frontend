@@ -15,7 +15,6 @@ import { userAuthApi } from './auth/auth-api';
 import { contractsApi } from './contracts/contracts';
 import { invitationApi } from './invitation/invitation';
 import { jobPostApi } from './job-post/job-post';
-import { profileQuestions1Api } from './profileQuestions/profileQuestions1Api';
 import { propertiesApi } from './properties/properties-api';
 import { persistedPropertiesReducer } from './properties/properties-slice';
 import { authApi } from './services/authApi';
@@ -31,7 +30,6 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [freelancersApi.reducerPath]: freelancersApi.reducer,
     user: persistedAuthReducer,
-    [profileQuestions1Api.reducerPath]: profileQuestions1Api.reducer,
     properties: persistedPropertiesReducer,
     [propertiesApi.reducerPath]: propertiesApi.reducer,
     [jobsApi.reducerPath]: jobsApi.reducer,
@@ -47,7 +45,6 @@ export const store = configureStore({
       },
     }).concat(
       userAuthApi.middleware,
-      profileQuestions1Api.middleware,
       authApi.middleware,
       userApi.middleware,
       propertiesApi.middleware,

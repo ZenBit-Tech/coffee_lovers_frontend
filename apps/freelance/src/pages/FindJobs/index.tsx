@@ -1,11 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import {
   Filters,
+  findJobsPageTestId,
   InputSearch,
   JobCard,
   PrimaryButton,
 } from '@freelance/components';
 import { useFindJobsQuery } from 'redux/services/jobsApi';
+import { baseTheme } from 'src/styles/theme';
 
 import { fetchLimit, filterRight, filterTop } from './constants';
 import {
@@ -39,17 +41,23 @@ const FindJobs = () => {
 
   return (
     <Wrapper isLoading={isLoading}>
-      <PageBar>
-        <TitleContainer>
+      <PageBar theme={baseTheme}>
+        <TitleContainer theme={baseTheme}>
           <div>{t('findJobs.title')}</div>
-          <div>{data?.meta.totalCount || 0}</div>
+          <div data-testid={findJobsPageTestId.totalCount}>
+            {data?.meta.totalCount || 0}
+          </div>
         </TitleContainer>
         <PageBarRightSideContainer>
           <InputSearch
             placeholder={t('findJobs.searchPlaceholder')}
             onSearch={onSearch}
+            data-testid={findJobsPageTestId.inputSearch}
           />
-          <PrimaryButton onClick={() => setFiltersVisibility(prev => !prev)}>
+          <PrimaryButton
+            onClick={() => setFiltersVisibility(prev => !prev)}
+            data-testid={findJobsPageTestId.filterButton}
+          >
             {t('findJobs.filters')}
           </PrimaryButton>
           <Filters
@@ -84,6 +92,7 @@ const FindJobs = () => {
           total={data?.meta.totalCount}
           pageSize={fetchLimit}
           onChange={onChangePagination}
+          theme={baseTheme}
         />
       )}
     </Wrapper>

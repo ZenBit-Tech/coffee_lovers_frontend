@@ -2,8 +2,13 @@ import { FC } from 'react';
 import { Form, Select } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { PrimaryButton, SecondaryButton } from '@freelance/components';
+import {
+  filtersTestId,
+  PrimaryButton,
+  SecondaryButton,
+} from '@freelance/components';
 import useProperties from 'src/hooks/useProperties';
+import { baseTheme } from 'src/styles/theme';
 
 import {
   categoriesName,
@@ -70,12 +75,14 @@ export const Filters: FC<FiltersProps> = ({
       left={left}
       right={right}
       bottom={bottom}
+      theme={baseTheme}
+      data-testid={filtersTestId.wrapper}
     >
       <StyledClose onClick={() => closeHandler()} />
       <StyledTitle>{t('filters.title')}</StyledTitle>
 
       <Form onFinish={handleSubmit(onSubmit)} form={form}>
-        <Container>
+        <Container theme={baseTheme}>
           <ItemContainer>
             <StyledFilterTitle>{t('filters.skills')}</StyledFilterTitle>
             <Controller

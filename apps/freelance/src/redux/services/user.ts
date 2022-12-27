@@ -7,12 +7,16 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
 import {
+  AddEducation,
+  AddFavorites,
+  AddWorkhistory,
   GetEducation,
+  GetFavorites,
   GetUserProposals,
   GetWorkhistory,
   PasswordResetPayload,
-  Role,
   SetProfileImageResponse,
+  UpdateUser,
   User,
   UserError,
 } from 'redux/types/user.types';
@@ -22,6 +26,9 @@ enum EndpointsRoutes {
   passwordReset = '/passwordreset',
   passwordResetCheckAvailability = '/passwordreset/',
   setProfileImage = '/setprofileimage',
+  addGetUserEduInfo = '/education-info',
+  addGetUserWorkhistoryInfo = '/workhistory-info',
+  addGetUserFavoritesInfo = '/favorites',
 }
 
 export const userApi = createApi({
@@ -30,24 +37,47 @@ export const userApi = createApi({
     baseUrl: baseUrl + ApiRoutes.USER,
     prepareHeaders: getHeaders(),
   }) as BaseQueryFn<string | FetchArgs, unknown, UserError>,
+  tagTypes: ['User', 'WorkInfo', 'EduInfo', 'Favorites'],
   endpoints: builder => ({
     getUserInfo: builder.query<User, void>({
       query: () => ({
         url: `/`,
         method: 'GET',
       }),
+      providesTags: ['User'],
     }),
     getUserWorkInfo: builder.query<GetWorkhistory[], void>({
       query: () => ({
-        url: `/workhistory-info`,
+        url: EndpointsRoutes.addGetUserWorkhistoryInfo,
         method: 'GET',
       }),
+      providesTags: ['WorkInfo'],
     }),
     getUserEducationInfo: builder.query<GetEducation[], void>({
       query: () => ({
-        url: `/education-info`,
+        url: EndpointsRoutes.addGetUserEduInfo,
         method: 'GET',
       }),
+      providesTags: ['EduInfo'],
+    }),
+    passwordResetCheckAvailability: builder.query<boolean, string>({
+      query: (key: string) => ({
+        url: EndpointsRoutes.passwordResetCheckAvailability + key,
+        method: 'GET',
+      }),
+    }),
+    getUserProposals: builder.query<GetUserProposals, void>({
+      query: () => ({
+        url: `/proposals`,
+        method: 'GET',
+      }),
+    }),
+    getFavorites: builder.query<GetFavorites[], void>({
+      query: () => ({
+        url: EndpointsRoutes.addGetUserFavoritesInfo,
+        method: 'GET',
+      }),
+      providesTags: ['Favorites'],
     }),
     passwordResetRequest: builder.mutation({
       query: (email: string) => ({
@@ -63,12 +93,6 @@ export const userApi = createApi({
         body: payload,
       }),
     }),
-    passwordResetCheckAvailability: builder.query<boolean, string>({
-      query: (key: string) => ({
-        url: EndpointsRoutes.passwordResetCheckAvailability + key,
-        method: 'GET',
-      }),
-    }),
     setProfileImage: builder.mutation<SetProfileImageResponse, FormData>({
       query: (formData: FormData) => ({
         url: EndpointsRoutes.setProfileImage,
@@ -76,19 +100,37 @@ export const userApi = createApi({
         body: formData,
       }),
     }),
-    addUserRole: builder.mutation({
-      query: (body: { role: Role }) => {
-        return {
-          url: '/',
-          method: 'PUT',
-          body,
-        };
-      },
-    }),
-    getUserProposals: builder.query<GetUserProposals, void>({
-      query: () => ({
-        url: `/proposals`,
+    updateUserInfo: builder.mutation({
+      query: (payload: UpdateUser) => ({
+        url: `/`,
+        method: 'PUT',
+        body: payload,
       }),
+      invalidatesTags: ['User'],
+    }),
+    addUserEduInfo: builder.mutation({
+      query: (payload: AddEducation[]) => ({
+        url: EndpointsRoutes.addGetUserEduInfo,
+        method: 'POST',
+        body: payload,
+      }),
+      invalidatesTags: ['EduInfo'],
+    }),
+    addUserWorkhistoryInfo: builder.mutation({
+      query: (payload: AddWorkhistory[]) => ({
+        url: EndpointsRoutes.addGetUserWorkhistoryInfo,
+        method: 'POST',
+        body: payload,
+      }),
+      invalidatesTags: ['WorkInfo'],
+    }),
+    setFavorites: builder.mutation({
+      query: (payload: AddFavorites) => ({
+        url: EndpointsRoutes.addGetUserFavoritesInfo,
+        method: 'POST',
+        body: payload,
+      }),
+      invalidatesTags: ['Favorites'],
     }),
   }),
 });
@@ -98,10 +140,14 @@ export const {
   usePasswordResetMutation,
   usePasswordResetCheckAvailabilityQuery,
   useSetProfileImageMutation,
-  useAddUserRoleMutation,
   useGetUserInfoQuery,
   useLazyGetUserInfoQuery,
   useGetUserProposalsQuery,
   useGetUserWorkInfoQuery,
   useGetUserEducationInfoQuery,
+  useAddUserWorkhistoryInfoMutation,
+  useAddUserEduInfoMutation,
+  useUpdateUserInfoMutation,
+  useSetFavoritesMutation,
+  useGetFavoritesQuery,
 } = userApi;

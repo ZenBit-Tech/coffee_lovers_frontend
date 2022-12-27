@@ -40,3 +40,11 @@ export interface ConversationResponse {
 export interface GetConversationParams {
   search?: string;
 }
+
+export interface ICurrentConversationInfo {
+  ownerName: string;
+  jobTitle: string;
+  profileImg: string;
+  jobDescription?: string;
+  jobRate?: number;
+}

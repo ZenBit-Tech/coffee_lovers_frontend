@@ -1,3 +1,5 @@
+import { ContractStatus } from './contracts.types';
+import { Offer } from './offers.types';
 import { Property } from './properties.types';
 import { User } from './user.types';
 
@@ -8,12 +10,20 @@ export interface Job {
   hourly_rate?: number;
   available_time?: string;
   english_level?: string;
-  durationAmount?: string[];
+  duration?: number;
+  duration_amount?: string;
   owner: User;
+  status: JobStatus;
   created_at: string;
   category?: Property;
   skills?: Property[];
   conversations: object[];
+}
+
+export enum JobStatus {
+  PENDING = 'Pending',
+  IN_PROGRESS = 'InProgress',
+  FINISHED = 'Finished',
 }
 
 export interface GetJobParams {
@@ -64,9 +74,21 @@ export interface GetPostedJobsResponse {
   hourly_rate: number;
   available_time: string;
   english_level: string;
+  status: JobStatus;
   created_at: string;
   category: Property;
   proposalsCount: number;
+}
+
+export interface GetPostedJobDetailsResponse {
+  job: Job;
+  hires: {
+    id: number;
+    created_at: string;
+    end: string;
+    offer: Offer;
+    status: ContractStatus;
+  }[];
 }
 
 export interface FrelancerPayload {

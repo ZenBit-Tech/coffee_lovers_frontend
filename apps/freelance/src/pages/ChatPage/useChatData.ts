@@ -7,8 +7,14 @@ import {
   useSendMessageMutation,
 } from 'redux/services/chatApi';
 import { useGetUserInfoQuery } from 'redux/services/user';
-import { ConversationResponse, MessageResponse } from 'redux/types/chat.types';
+import {
+  ConversationResponse,
+  ICurrentConversationInfo,
+  MessageResponse,
+} from 'redux/types/chat.types';
 import { User } from 'redux/types/user.types';
+
+import { zero } from './constants';
 
 type MessageType = {
   token: string;
@@ -27,10 +33,8 @@ interface useChatDataReturns {
   chatMessages?: MessageResponse[];
   form: FormInstance<InputType>;
   conversation: number;
-  ownerName: string;
-  projectName: string;
   conversations?: ConversationResponse[];
-  profileImg: string;
+  currentConversationInfo: ICurrentConversationInfo;
   handleSend: (values: InputType) => void;
   handleClick: (id: number) => number;
   onSearch: (value: string) => void;
@@ -41,22 +45,34 @@ const useChatData = (): useChatDataReturns => {
     state => state.user,
   );
   const token = access_token;
-  const [conversation, setConversation] = useState<IConversation>(1);
-  const { data: user } = useGetUserInfoQuery();
   const [search, setSearch] = useState<string>();
-  const { data: chatMessages } = useGetMessagesQuery({ token, conversation });
   const { data: conversations } = useGetConversationQuery({
     ...(search && { search }),
   });
+  const { data: user } = useGetUserInfoQuery();
+  const [conversation, setConversation] = useState<IConversation>(
+    conversations && conversations?.length > 0 ? conversations[zero].id : zero,
+  );
+  const skip = conversation > zero ? false : true;
+  const query = {
+    token,
+    conversation,
+  };
+  const { data: chatMessages } = useGetMessagesQuery(query, { skip });
   const [sendMessage] = useSendMessageMutation();
   const [form] = Form.useForm<InputType>();
-
   const currentConversation = conversations?.find(
     item => item.id === conversation,
   );
-  const ownerName = `${currentConversation?.user.first_name} ${currentConversation?.user.last_name}`;
-  const projectName = `${currentConversation?.job.title}`;
-  const profileImg = `${currentConversation?.user.profile_image}`;
+  const currentConversationInfo = {
+    ownerName:
+      `${currentConversation?.user.first_name} ${currentConversation?.user.last_name}` ||
+      '',
+    jobTitle: `${currentConversation?.job.title}` || '',
+    profileImg: `${currentConversation?.user.profile_image}`,
+    jobDescription: currentConversation?.job.description || '',
+    jobRate: currentConversation?.job.hourly_rate,
+  };
 
   const handleClick = (id: number) => {
     setConversation(id);
@@ -71,6 +87,7 @@ const useChatData = (): useChatDataReturns => {
       message: values.message,
     };
     message.token && sendMessage(message);
+    form.resetFields();
   };
 
   const onSearch = (value: string) => {
@@ -81,11 +98,9 @@ const useChatData = (): useChatDataReturns => {
     user,
     chatMessages,
     form,
-    projectName,
-    ownerName,
     conversation,
     conversations,
-    profileImg,
+    currentConversationInfo,
     handleSend,
     handleClick,
     onSearch,

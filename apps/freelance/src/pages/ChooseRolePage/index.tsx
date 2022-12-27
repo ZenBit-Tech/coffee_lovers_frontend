@@ -7,7 +7,7 @@ import { routes } from '@freelance/constants';
 import { roles } from '@freelance/constants';
 import { setRole } from 'redux/auth/auth-slice';
 import { Role } from 'redux/types/user.types';
-import { useAddUserRoleMutation } from 'src/redux/services/user';
+import { useUpdateUserInfoMutation } from 'src/redux/services/user';
 
 import { FormWrap, InputsWrapper, InputText, Title } from './styles';
 
@@ -26,14 +26,12 @@ const ChooseRole = () => {
   const [userRole, setUserRole] = useState<IRole>({ role: roles.visitor });
   const [freelancer, setFreelancer] = useState<RoleType>(false);
   const [jobOwner, setJobOwner] = useState<RoleType>(false);
-  const [addUserRole] = useAddUserRoleMutation();
+  const [addUserRole] = useUpdateUserInfoMutation();
 
   const onClick = () => {
     addUserRole(userRole);
     dispatch(setRole(userRole));
-    freelancer
-      ? navigate(`${routes.welcome}`)
-      : navigate(`${routes.jobOwnerDashboard}`);
+    freelancer ? navigate(`${routes.welcome}`) : navigate(`${routes.jobs}`);
   };
 
   const onFreelancerClick = () => {

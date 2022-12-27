@@ -11,9 +11,15 @@ import { beforeUpload } from './utils';
 
 interface AvatarUploadProps {
   src?: string;
+  size?: number;
+  hideUploadText?: boolean;
 }
 
-export const AvatarUpload: FC<AvatarUploadProps> = ({ src }) => {
+export const AvatarUpload: FC<AvatarUploadProps> = ({
+  src,
+  size,
+  hideUploadText,
+}) => {
   const { t } = useTranslation();
   const { imageUrl, uploadImage } = useProfileImage(src);
 
@@ -33,10 +39,12 @@ export const AvatarUpload: FC<AvatarUploadProps> = ({ src }) => {
       >
         <Avatar
           icon={<UserOutlined />}
-          size={avatarSize}
+          size={size || avatarSize}
           src={imageUrl ? imageUrl : null}
         />
-        <StyledUploadLine>{t('uploadImage.uploadText')}</StyledUploadLine>
+        {!hideUploadText && (
+          <StyledUploadLine>{t('uploadImage.uploadText')}</StyledUploadLine>
+        )}
       </StyledUpload>
     </ImgCrop>
   );

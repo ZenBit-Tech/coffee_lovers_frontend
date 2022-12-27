@@ -9,11 +9,11 @@ import ContractsList from '@pages/ContractsPage';
 import FreelancerProfile from '@pages/FreelancerEditProfile';
 import FreelancerPageInfo from '@pages/FreelancerPageInfo';
 import JobDetailsPage from '@pages/JobDetailsPage';
-import JobOwnerDashboard from '@pages/JobOwnerDashboard';
 import JobsPage from '@pages/JobsPage';
 import OffersPage from '@pages/OffersPage';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
+import PostedJobDetails from '@pages/PostedJobDetailsPage';
 import ProfileQuestions from '@pages/ProfileQuestions';
 import ProposalsList from '@pages/ProposalsList';
 import TalentListPage from '@pages/TalentListPage/index';
@@ -39,6 +39,10 @@ const SignupPage = lazy(
 );
 const JobPostPage = lazy(
   () => import(/* webpackChunkName: "JobPostPage" */ '@pages/JobPostPage'),
+);
+const JobUpdatePage = lazy(
+  () =>
+    import(/* webpackChunkName: "JobUpdatePage" */ '../pages/JobUpdatePage'),
 );
 
 export function App() {
@@ -104,12 +108,10 @@ export function App() {
                 element={<FreelancerPageInfo />}
               />
               <Route path={routes.jobPost} element={<JobPostPage />} />
-              <Route
-                path={routes.jobOwnerDashboard}
-                element={<JobOwnerDashboard />}
-              />
+              <Route path={routes.jobUpdate} element={<JobUpdatePage />} />
               <Route path={routes.talents} element={<TalentListPage />} />
               <Route path={routes.proposalsList} element={<ProposalsList />} />
+              <Route path={routes.postedJob} element={<PostedJobDetails />} />
             </Route>
           </Route>
         </Routes>

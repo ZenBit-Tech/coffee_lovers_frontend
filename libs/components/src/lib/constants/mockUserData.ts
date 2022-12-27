@@ -1,3 +1,4 @@
+import { FreelancerDataById } from 'src/redux/types/freelancers.types';
 import { AddEducation, AddWorkhistory, User } from 'src/redux/types/user.types';
 
 export interface mockWork extends AddWorkhistory {
@@ -7,7 +8,7 @@ export interface mockEducation extends AddEducation {
   id: number;
 }
 
-export const mockUserData: User = {
+export const mockUserData: FreelancerDataById = {
   id: 5,
   email: 'test@test.com',
   first_name: 'John',
@@ -30,41 +31,56 @@ export const mockUserData: User = {
     { id: 2, name: 'CSS' },
     { id: 4, name: 'Web development' },
   ],
+  educations: [
+    {
+      id: 1,
+      education_descr:
+        'Bachelors in International Business Administration. LCC IU',
+      education_from: '2010',
+      education_to: '2014',
+    },
+    {
+      id: 2,
+      education_descr: 'Harward IU',
+      education_from: '2015',
+      education_to: '2018',
+    },
+  ],
+  workHistory: [
+    {
+      id: 1,
+      work_history_descr: 'Full-Stack Developer at Apple inc',
+      work_history_from: '2016',
+      work_history_to: '2022',
+    },
+    {
+      id: 2,
+      work_history_descr: 'Front-End Developer at Twitter inc',
+      work_history_from: '2015',
+      work_history_to: '2016',
+    },
+    {
+      id: 3,
+      work_history_descr: 'Boudin Bakery',
+      work_history_from: '2013',
+      work_history_to: '2014',
+    },
+  ],
 };
 
-export const mockEducationData: mockEducation[] = [
+export const mockUsers: User[] = [
   {
     id: 1,
-    education_descr:
-      'Bachelors in International Business Administration. LCC IU',
-    education_from: '2010',
-    education_to: '2014',
-  },
+    email: 'johndoe@test.com',
+    first_name: 'John',
+    last_name: 'Doe',
+    profile_image: 'img/660ba6e4-557b-4033-8e79-656ea305f342.jpg',
+  } as User,
   {
     id: 2,
-    education_descr: 'Masters in Computer Science. Harward IU',
-    education_from: '2015',
-    education_to: '2018',
-  },
-];
-
-export const mockWorkHistoryData: mockWork[] = [
-  {
-    id: 1,
-    work_history_descr: 'Full-Stack Developer at Apple inc',
-    work_history_from: '2016',
-    work_history_to: '2022',
-  },
-  {
-    id: 2,
-    work_history_descr: 'Front-End Developer at Twitter inc',
-    work_history_from: '2015',
-    work_history_to: '2016',
-  },
-  {
-    id: 3,
-    work_history_descr: 'Service Clerk at Boudin Bakery',
-    work_history_from: '2013',
-    work_history_to: '2014',
-  },
+    email: 'adampowers@test.com',
+    first_name: 'Adam',
+    last_name: 'Powers',
+    profile_image: 'img/660ba6e4-557b-4033-8779-656ea304f342.jpg',
+  } as User,
 ];

@@ -29,7 +29,7 @@ const useOffersPage = (): UseOfferPageReturn => {
 
   return {
     t,
-    offers: offers?.sort(getSortOffersCallback(sort)),
+    offers: offers && [...offers].sort(getSortOffersCallback(sort)),
     interviews,
     isOffersLoading,
     isInterviewsLoading,
