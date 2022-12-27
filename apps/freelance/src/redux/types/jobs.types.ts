@@ -11,7 +11,7 @@ export interface Job {
   available_time?: string;
   english_level?: string;
   duration?: number;
-  duration_amount?: string[];
+  duration_amount?: string;
   owner: User;
   status: JobStatus;
   created_at: string;
