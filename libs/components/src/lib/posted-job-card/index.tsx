@@ -62,7 +62,11 @@ export const PostedJobCard: FC<PostedJobProps> = ({
               </InformationSticker>
             )}
           </StatusContainer>
-          <StyledTitle>{title || ''}</StyledTitle>
+          <StyledTitle
+            onClick={() => navigate(generatePath(routes.postedJob, { id }))}
+          >
+            {title || ''}
+          </StyledTitle>
         </TitleContainer>
 
         <Description>
