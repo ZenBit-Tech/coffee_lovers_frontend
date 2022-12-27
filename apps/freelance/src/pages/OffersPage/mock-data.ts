@@ -30,7 +30,7 @@ export const offers: Offer[] = [
     hourly_rate: 35,
     status: OfferStatus.ACCEPTED,
     created_at: '2022-11-25T22:24:28.682Z',
-  },
+  } as Offer,
   {
     id: 2,
     job: {
@@ -59,7 +59,7 @@ export const offers: Offer[] = [
     hourly_rate: 30,
     status: OfferStatus.PENDING,
     created_at: '2022-11-25T22:24:28.682Z',
-  },
+  } as Offer,
   {
     id: 3,
     job: {
@@ -86,7 +86,7 @@ export const offers: Offer[] = [
     hourly_rate: 40,
     status: OfferStatus.DECLINED,
     created_at: '2022-11-25T22:24:28.682Z',
-  },
+  } as Offer,
 ];
 
 export const interviews: Interview[] = [

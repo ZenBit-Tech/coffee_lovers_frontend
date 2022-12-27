@@ -12,6 +12,7 @@ import JobsPage from '@pages/JobsPage';
 import OffersPage from '@pages/OffersPage';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
+import PostedJobDetails from '@pages/PostedJobDetailsPage';
 import ProfileQuestions from '@pages/ProfileQuestions';
 import ProposalsList from '@pages/ProposalsList';
 import TalentListPage from '@pages/TalentListPage/index';
@@ -108,6 +109,7 @@ export function App() {
               <Route path={routes.jobUpdate} element={<JobUpdatePage />} />
               <Route path={routes.talents} element={<TalentListPage />} />
               <Route path={routes.proposalsList} element={<ProposalsList />} />
+              <Route path={routes.postedJob} element={<PostedJobDetails />} />
             </Route>
           </Route>
         </Routes>

@@ -13,6 +13,7 @@ import jobPostPage from './translation/jobPostPage';
 import loginPage from './translation/loginPage';
 import modals from './translation/modals';
 import offers from './translation/offers';
+import postedJobDetails from './translation/postedJobDetails';
 import postedJobs from './translation/postedJobs';
 import proposalsList from './translation/proposalsList';
 import resetPassword from './translation/resetPassword';
@@ -47,5 +48,6 @@ export default {
     ...postedJobs,
     ...offers,
     ...errors,
+    ...postedJobDetails,
   },
 };
