@@ -6,6 +6,7 @@ import {
   InformationSticker,
   routes,
 } from '@freelance/components';
+import { baseTheme } from 'src/styles/theme';
 import { formatDate } from 'src/utils/dates';
 
 import {
@@ -35,13 +36,13 @@ export const JobCard: FC<JobCardProps> = props => {
   };
 
   return (
-    <Wrapper>
-      <StyledTitle>
+    <Wrapper theme={baseTheme}>
+      <StyledTitle theme={baseTheme}>
         <div onClick={handleClick}>{props.title}</div>
       </StyledTitle>
 
       {props.description && (
-        <StyledDescription>
+        <StyledDescription theme={baseTheme}>
           <ExpandableText>{props.description}</ExpandableText>
         </StyledDescription>
       )}

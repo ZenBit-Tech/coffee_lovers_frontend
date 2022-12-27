@@ -10,3 +10,7 @@ export const freelancerPageInfo = {
   work: 'fpiworkhistoryArr',
   skills: 'fpiskillsArr',
 };
+
+export const findJobsPageTestId = {
+  totalCount: 'totalCount',
+};

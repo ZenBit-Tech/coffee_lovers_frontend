@@ -1,11 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import {
   Filters,
+  findJobsPageTestId,
   InputSearch,
   JobCard,
   PrimaryButton,
 } from '@freelance/components';
 import { useFindJobsQuery } from 'redux/services/jobsApi';
+import { baseTheme } from 'src/styles/theme';
 
 import { fetchLimit, filterRight, filterTop } from './constants';
 import {
@@ -39,10 +41,12 @@ const FindJobs = () => {
 
   return (
     <Wrapper isLoading={isLoading}>
-      <PageBar>
-        <TitleContainer>
+      <PageBar theme={baseTheme}>
+        <TitleContainer theme={baseTheme}>
           <div>{t('findJobs.title')}</div>
-          <div>{data?.meta.totalCount || 0}</div>
+          <div data-testid={findJobsPageTestId.totalCount}>
+            {data?.meta.totalCount || 0}
+          </div>
         </TitleContainer>
         <PageBarRightSideContainer>
           <InputSearch
@@ -84,6 +88,7 @@ const FindJobs = () => {
           total={data?.meta.totalCount}
           pageSize={fetchLimit}
           onChange={onChangePagination}
+          theme={baseTheme}
         />
       )}
     </Wrapper>

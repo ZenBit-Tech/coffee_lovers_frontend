@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react';
+import { baseTheme } from 'src/styles/theme';
 
 import { Container } from './styles';
 
@@ -16,7 +17,12 @@ export const InformationSticker: FC<InformationStickerProps> = ({
   primary,
 }) => {
   return (
-    <Container success={success} danger={danger} primary={primary}>
+    <Container
+      success={success}
+      danger={danger}
+      primary={primary}
+      theme={baseTheme}
+    >
       {children}
     </Container>
   );
