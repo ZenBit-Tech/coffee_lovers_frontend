@@ -18,8 +18,9 @@ export const routes = {
   proposalsList: '/job/:id/proposals',
   offers: '/offers',
   //Job Owner Routes
-  jobOwnerDashboard: '/jobownerdashboard',
   jobPost: '/owner-profile/job-post',
+  jobUpdate: '/owner-profile/job-update',
   talents: '/talents',
   freelancerInfo: '/:id/freelancer-info',
+  postedJob: '/postedjob/:id',
 };

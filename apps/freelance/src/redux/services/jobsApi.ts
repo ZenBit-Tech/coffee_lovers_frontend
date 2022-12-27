@@ -8,6 +8,7 @@ import {
   GetJobParams,
   GetJobProposalsResponse,
   GetJobResponse,
+  GetPostedJobDetailsResponse,
   GetPostedJobsResponse,
   IJobProposal,
   Job,
@@ -19,6 +20,7 @@ enum EndpointsRoutes {
   getJobProposals = '/proposals',
   getJob = '/job',
   getPostedJobs = '/posted',
+  getPostedJobDetails = '/posted/',
   offer = '/withoutoffer',
 }
 
@@ -68,6 +70,9 @@ export const jobsApi = createApi({
     getPostedJobs: builder.query<GetPostedJobsResponse[], void>({
       query: () => EndpointsRoutes.getPostedJobs,
     }),
+    getPostedJobDetails: builder.query<GetPostedJobDetailsResponse, string>({
+      query: (id: string) => EndpointsRoutes.getPostedJobDetails + id,
+    }),
   }),
 });
 
@@ -79,4 +84,5 @@ export const {
   useGetJobProposalsQuery,
   useGetPostedJobsQuery,
   useFindUserJobsWithoutOfferQuery,
+  useGetPostedJobDetailsQuery,
 } = jobsApi;

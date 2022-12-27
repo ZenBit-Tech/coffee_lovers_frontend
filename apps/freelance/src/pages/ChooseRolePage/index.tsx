@@ -31,9 +31,7 @@ const ChooseRole = () => {
   const onClick = () => {
     addUserRole(userRole);
     dispatch(setRole(userRole));
-    freelancer
-      ? navigate(`${routes.welcome}`)
-      : navigate(`${routes.jobOwnerDashboard}`);
+    freelancer ? navigate(`${routes.welcome}`) : navigate(`${routes.jobs}`);
   };
 
   const onFreelancerClick = () => {

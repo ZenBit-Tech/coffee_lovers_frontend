@@ -6,6 +6,7 @@ export interface ITheme {
     danger: string;
     lightGrey: string;
     grey: string;
+    lightBlue: string;
     white: string;
 
     button: {

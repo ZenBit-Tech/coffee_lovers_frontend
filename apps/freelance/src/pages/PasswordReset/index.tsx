@@ -27,7 +27,7 @@ const PasswordReset = () => {
 
   return (
     <Wrapper>
-      {isLinkValid === true && (
+      {isLinkValid && (
         <Form onFinish={handleSubmit(onSubmit)}>
           <h3>{t('resetPassword.title.newPassword')}</h3>
           <Controller

@@ -25,13 +25,15 @@ import {
 } from './styles';
 
 interface ProposalCardProps {
-  user: User | undefined;
+  onClick?: () => void;
+  user?: User;
   hourlyRate: number;
   availableTime?: string;
   coverLetter: string;
 }
 
 export const ProposalCard: FC<ProposalCardProps> = ({
+  onClick,
   user,
   hourlyRate,
   availableTime,
@@ -45,7 +47,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
         <StyledTopLeftSide>
           <Avatar size={avatarSize} src={getFileUrl(user?.profile_image)} />
           <FreelancerInfoContainer>
-            <StyledFreelancerName>
+            <StyledFreelancerName onClick={onClick}>
               {`${user?.first_name} ${user?.last_name}`}
             </StyledFreelancerName>
             <FreelancerDetailsContainer>

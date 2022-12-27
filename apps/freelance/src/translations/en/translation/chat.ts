@@ -3,7 +3,9 @@ export default {
     project: 'Project Name',
     user: 'User Name',
     message: 'Message',
-    send: 'send',
+    send: 'Send',
     sendOffer: 'Send offer',
+    chooseChat: 'Choose a chat',
+    projectTitle: 'Project Title: ',
   },
 };

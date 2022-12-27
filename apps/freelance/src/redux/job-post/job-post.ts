@@ -1,40 +1,52 @@
-import { ApiRoutes, baseUrl } from '@freelance/constants';
-import {
-  BaseQueryFn,
-  createApi,
-  FetchArgs,
-  fetchBaseQuery,
-} from '@reduxjs/toolkit/query/react';
-import { RootState } from 'redux/store';
+import queryString from 'query-string';
+import { JobUpdateValues } from '@freelance/components';
+import { baseUrl } from '@freelance/constants';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { getHeaders } from '@utils/api';
 
-import { Error, JobPost } from './job-post.types';
+import { GetJobResponse, JobPost } from './job-post.types';
+
+enum EndpointsRoutes {
+  JOB = '/job',
+  UPDATE = '/update',
+}
+
+enum ApiRoutes {
+  JOBS = '/jobs',
+}
 
 export const jobPostApi = createApi({
   reducerPath: 'jobPostApi',
   baseQuery: fetchBaseQuery({
     baseUrl,
-
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).user.access_token;
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
-      }
-
-      return headers;
+    prepareHeaders: getHeaders(),
+    paramsSerializer: params => {
+      return queryString.stringify(params, { arrayFormat: 'bracket' });
     },
-  }) as BaseQueryFn<string | FetchArgs, unknown, Error>,
+  }),
 
-  tagTypes: ['jobPostApi'],
   endpoints: builder => ({
-    postJobs: builder.mutation({
+    postJob: builder.mutation({
       query: (body: JobPost) => ({
         url: ApiRoutes.JOBS,
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['jobPostApi'],
+    }),
+    getJob: builder.query<GetJobResponse, number>({
+      query: id => ({
+        url: `${ApiRoutes.JOBS}/${id}${EndpointsRoutes.JOB}`,
+      }),
+    }),
+    updateJob: builder.mutation({
+      query: (body: JobUpdateValues) => ({
+        url: ApiRoutes.JOBS + EndpointsRoutes.UPDATE,
+        method: 'POST',
+        body,
+      }),
     }),
   }),
 });
 
-export const { usePostJobsMutation } = jobPostApi;
+export const { usePostJobMutation, useGetJobQuery, useUpdateJobMutation } =
+  jobPostApi;
