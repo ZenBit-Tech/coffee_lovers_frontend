@@ -36,6 +36,7 @@ export * from './lib/send-offer-modal/send-offer-modal';
 export * from './lib/signup-form/signup-form';
 export * from './lib/small-card/small-card';
 export * from './lib/some-element/some-element';
+export * from './lib/UI/card-user/card-user';
 export * from './lib/UI/danger-button';
 export * from './lib/UI/empty';
 export * from './lib/UI/expandable-text';
