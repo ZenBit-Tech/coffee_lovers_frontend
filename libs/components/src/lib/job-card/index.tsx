@@ -4,6 +4,7 @@ import { generatePath, useNavigate } from 'react-router-dom';
 import {
   ExpandableText,
   InformationSticker,
+  jobCardTestId,
   routes,
 } from '@freelance/components';
 import { baseTheme } from 'src/styles/theme';
@@ -36,8 +37,8 @@ export const JobCard: FC<JobCardProps> = props => {
   };
 
   return (
-    <Wrapper theme={baseTheme}>
-      <StyledTitle theme={baseTheme}>
+    <Wrapper theme={baseTheme} data-testid={jobCardTestId.wrapper}>
+      <StyledTitle theme={baseTheme} data-testid={jobCardTestId.title}>
         <div onClick={handleClick}>{props.title}</div>
       </StyledTitle>
 
@@ -48,11 +49,19 @@ export const JobCard: FC<JobCardProps> = props => {
       )}
 
       <PropertiesContainer>
-        <InformationSticker>{props.owner}</InformationSticker>
-        <InformationSticker>{formatDate(props.date)}</InformationSticker>
-        <InformationSticker>{props.category}</InformationSticker>
-        <InformationSticker>{props.duration}</InformationSticker>
-        <InformationSticker>
+        <InformationSticker data-testid={jobCardTestId.owner}>
+          {props.owner}
+        </InformationSticker>
+        <InformationSticker data-testid={jobCardTestId.date}>
+          {formatDate(props.date)}
+        </InformationSticker>
+        <InformationSticker data-testid={jobCardTestId.category}>
+          {props.category}
+        </InformationSticker>
+        <InformationSticker data-testid={jobCardTestId.duration}>
+          {props.duration}
+        </InformationSticker>
+        <InformationSticker data-testid={jobCardTestId.hrly_rate}>
           {t('jobCard.hrly_rate', { rate: props.rate })}
         </InformationSticker>
       </PropertiesContainer>

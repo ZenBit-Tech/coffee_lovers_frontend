@@ -52,8 +52,12 @@ const FindJobs = () => {
           <InputSearch
             placeholder={t('findJobs.searchPlaceholder')}
             onSearch={onSearch}
+            data-testid={findJobsPageTestId.inputSearch}
           />
-          <PrimaryButton onClick={() => setFiltersVisibility(prev => !prev)}>
+          <PrimaryButton
+            onClick={() => setFiltersVisibility(prev => !prev)}
+            data-testid={findJobsPageTestId.filterButton}
+          >
             {t('findJobs.filters')}
           </PrimaryButton>
           <Filters

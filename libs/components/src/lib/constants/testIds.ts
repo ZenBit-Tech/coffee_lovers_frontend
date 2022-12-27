@@ -1,3 +1,7 @@
+export const componentsTestId = {
+  //inputSearch: 'inputSearchComponent',
+};
+
 export const freelancerPageInfo = {
   nameSurname: 'fpinameSurname',
   categoryName: 'fpicategoryName',
@@ -12,5 +16,21 @@ export const freelancerPageInfo = {
 };
 
 export const findJobsPageTestId = {
-  totalCount: 'totalCount',
+  totalCount: 'findJobsTtotalCount',
+  filterButton: 'findJobsFilterButton',
+  inputSearch: 'findJobsInputSearch',
+};
+
+export const jobCardTestId = {
+  wrapper: 'jobCardWrapper',
+  title: 'jobCardTitle',
+  owner: 'jobCardOwner',
+  date: 'jobCardDate',
+  category: 'jobCardCategory',
+  duration: 'jobCardDuration',
+  hrly_rate: 'jobCardHrly_rate',
+};
+
+export const filtersTestId = {
+  wrapper: 'filtersWrapper',
 };

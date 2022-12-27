@@ -8,21 +8,15 @@ interface InformationStickerProps {
   success?: boolean;
   danger?: boolean;
   primary?: boolean;
+  'data-testid'?: string;
 }
 
 export const InformationSticker: FC<InformationStickerProps> = ({
   children,
-  success,
-  danger,
-  primary,
+  ...props
 }) => {
   return (
-    <Container
-      success={success}
-      danger={danger}
-      primary={primary}
-      theme={baseTheme}
-    >
+    <Container theme={baseTheme} {...props}>
       {children}
     </Container>
   );
