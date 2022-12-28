@@ -11,11 +11,12 @@ import {
   authFirstName,
   authLastName,
   authPassword,
+  NotificationType,
+  routes,
   StyledInput,
   StyledPasswordInput,
   useOpenNotification,
 } from '@freelance/components';
-import { authError, routes } from '@freelance/constants';
 import { passwordValidationRegExp } from 'src/pages/PasswordReset/constants';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
@@ -55,7 +56,7 @@ export function SignUpForm() {
       }
     } catch (error) {
       openNotificationWithIcon(
-        authError,
+        NotificationType.ERROR,
         `${t('loginPage.notificationMessage')}`,
         `${t('loginPage.notificationExistsDescr')}`,
       );
@@ -69,7 +70,7 @@ export function SignUpForm() {
     }
     if (isError) {
       openNotificationWithIcon(
-        authError,
+        NotificationType.ERROR,
         `${t('loginPage.notificationMessage')}`,
         `${t('loginPage.notificationExistsDescr')}`,
       );
