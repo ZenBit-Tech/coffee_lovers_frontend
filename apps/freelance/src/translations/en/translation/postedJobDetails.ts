@@ -5,6 +5,7 @@ export default {
     hrlyRate: 'Rate: ${{rate}} / hr',
     englishLevel: 'English level:',
     hires: 'Hires',
+    inputSearchPlaceholder: 'Search',
     btns: {
       chat: 'Chat',
       closeContract: 'Close contract',

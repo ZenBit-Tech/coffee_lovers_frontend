@@ -80,15 +80,17 @@ export interface GetPostedJobsResponse {
   proposalsCount: number;
 }
 
+export interface HireItem {
+  id: number;
+  created_at: string;
+  end: string;
+  offer: Offer;
+  status: ContractStatus;
+}
+
 export interface GetPostedJobDetailsResponse {
   job: Job;
-  hires: {
-    id: number;
-    created_at: string;
-    end: string;
-    offer: Offer;
-    status: ContractStatus;
-  }[];
+  hires: HireItem[];
 }
 
 export interface FrelancerPayload {
