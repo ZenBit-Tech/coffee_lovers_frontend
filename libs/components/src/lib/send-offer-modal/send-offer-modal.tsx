@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, DatePicker, Input, notification, Row, Space } from 'antd';
 import dayjs, { type Dayjs } from 'dayjs';
 import { Namespace } from 'i18next';
-import { Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
   Button,
@@ -28,31 +28,53 @@ export function SendOfferModal(props: Props) {
   const { setOpen, open, hourly_rate, id, description } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [jobId, setJobId] = useState<number | null>(null);
+
   const [api, contextHolder] = notification.useNotification();
   const { data: selectedJob } = useGetJobQuery(jobId);
   const { data, refetch } = useFindUserJobsWithoutOfferQuery({
     id,
   });
-
   const { t } = useTranslation<Namespace<string>>();
   const [postOffer, { isError, error, isSuccess }] = usePostOfferMutation();
+
+  const { handleCancel, handleOk, openNotificationWithIcon } = useSendOfferHook(
+    {
+      api,
+      setConfirmLoading,
+      setOpen,
+    },
+  );
   const {
-    handleCancel,
-    handleOk,
     control,
-    register,
-    errors,
     handleSubmit,
-    openNotificationWithIcon,
-  } = useSendOfferHook({
-    api,
-    setConfirmLoading,
-    setOpen,
-    hourly_rate,
-    error,
-    isError,
-    isSuccess,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      select: null,
+      rate: hourly_rate,
+      start: dayjs(todayDate, dateType),
+    },
   });
+
+  useEffect(() => {
+    if (isError) {
+      openNotificationWithIcon(
+        NotificationType.error,
+        t('loginPage.notificationMessage'),
+        t('modalInvite.offerError'),
+      );
+    }
+    if (isSuccess) {
+      openNotificationWithIcon(
+        NotificationType.success,
+        t('modalInvite.requestSuccessHeader'),
+        t('modalInvite.offerSuccess'),
+      );
+      reset({ select: null, rate: hourly_rate });
+    }
+  }, [error, isError, isSuccess]);
 
   const onSubmit = async (payload: {
     select?: number | null;

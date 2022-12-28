@@ -15,6 +15,5 @@ export interface Children {
     | ReactFragment
     | ReactPortal
     | Iterable<ReactI18NextChild>
-    | null
-    | undefined;
+    | null;
 }

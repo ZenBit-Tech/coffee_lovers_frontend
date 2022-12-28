@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Input, notification, Row } from 'antd';
 import { Namespace } from 'i18next';
-import { Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button, ValidationErrorMessage } from '@freelance/components';
 import { NotificationType } from '@freelance/components';
@@ -35,23 +35,43 @@ export function InterviewModal(props: Props) {
   const { data, refetch } = useFindUserJobsWithoutInviteQuery({
     id,
   });
+  const { handleCancel, handleOk, openNotificationWithIcon } =
+    useInterviewModalHook({
+      api,
+      setConfirmLoading,
+      setOpen,
+    });
+
   const {
-    handleCancel,
-    handleOk,
-    handleSubmit,
     control,
+    handleSubmit,
+    reset,
     register,
-    errors,
-    openNotificationWithIcon,
-  } = useInterviewModalHook({
-    api,
-    setConfirmLoading,
-    setOpen,
-    hourly_rate,
-    isSuccess,
-    isError,
-    error,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      select: null,
+      rate: hourly_rate,
+    },
   });
+
+  useEffect(() => {
+    if (isError) {
+      openNotificationWithIcon(
+        NotificationType.error,
+        t('loginPage.notificationMessage'),
+        t('modalInvite.requestError'),
+      );
+    }
+    if (isSuccess) {
+      openNotificationWithIcon(
+        NotificationType.success,
+        t('modalInvite.requestSuccessHeader'),
+        t('modalInvite.requestSuccess'),
+      );
+      reset({ select: null, rate: hourly_rate });
+    }
+  }, [error, isError, isSuccess]);
 
   const conversations = invitation?.data;
   const freelancer = invitation?.freelancer;
