@@ -46,12 +46,12 @@ const useChatData = (): useChatDataReturns => {
   );
   const token = access_token;
   const [search, setSearch] = useState<string>();
-  const { data: conversations, isSuccess } = useGetConversationQuery({
+  const { data: conversations } = useGetConversationQuery({
     ...(search && { search }),
   });
   const { data: user } = useGetUserInfoQuery();
   const [conversation, setConversation] = useState<IConversation>(
-    isSuccess ? conversations[zero].id : zero,
+    conversations && conversations?.length > 0 ? conversations[zero].id : zero,
   );
   const skip = conversation > zero ? false : true;
   const query = {

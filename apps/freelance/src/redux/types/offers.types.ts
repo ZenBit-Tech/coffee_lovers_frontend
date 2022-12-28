@@ -11,6 +11,7 @@ export interface Offer {
   id: number;
   job: Job;
   job_owner: User;
+  freelancer: User;
   hourly_rate: number;
   status: OfferStatus;
   created_at: string;

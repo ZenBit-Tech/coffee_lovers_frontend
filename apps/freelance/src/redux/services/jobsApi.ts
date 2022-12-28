@@ -9,6 +9,7 @@ import {
   GetJobParams,
   GetJobProposalsResponse,
   GetJobResponse,
+  GetPostedJobDetailsResponse,
   GetPostedJobsResponse,
   IJobProposal,
 } from 'redux/types/jobs.types';
@@ -20,6 +21,7 @@ enum EndpointsRoutes {
   getJobProposals = '/proposals',
   getJob = '/job',
   getPostedJobs = '/posted',
+  getPostedJobDetails = '/posted/',
   offer = '/withoutoffer',
   invite = '/withoutinvite',
 }
@@ -76,6 +78,9 @@ export const jobsApi = createApi({
     getPostedJobs: builder.query<GetPostedJobsResponse[], void>({
       query: () => EndpointsRoutes.getPostedJobs,
     }),
+    getPostedJobDetails: builder.query<GetPostedJobDetailsResponse, string>({
+      query: (id: string) => EndpointsRoutes.getPostedJobDetails + id,
+    }),
   }),
 });
 
@@ -88,4 +93,5 @@ export const {
   useGetPostedJobsQuery,
   useFindUserJobsWithoutOfferQuery,
   useFindUserJobsWithoutInviteQuery,
+  useGetPostedJobDetailsQuery,
 } = jobsApi;

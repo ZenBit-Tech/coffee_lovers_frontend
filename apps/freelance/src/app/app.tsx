@@ -5,6 +5,7 @@ import { Container, NavigationBar, roles } from '@freelance/components';
 import { routes } from '@freelance/components';
 import ChatPage from '@pages/ChatPage';
 import ChooseRole from '@pages/ChooseRolePage';
+import ContractsList from '@pages/ContractsPage';
 import FreelancerProfile from '@pages/FreelancerEditProfile';
 import FreelancerPageInfo from '@pages/FreelancerPageInfo';
 import JobDetailsPage from '@pages/JobDetailsPage';
@@ -12,6 +13,7 @@ import JobsPage from '@pages/JobsPage';
 import OffersPage from '@pages/OffersPage';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
+import PostedJobDetails from '@pages/PostedJobDetailsPage';
 import ProfileQuestions from '@pages/ProfileQuestions';
 import ProposalsList from '@pages/ProposalsList';
 import TalentListPage from '@pages/TalentListPage/index';
@@ -78,6 +80,7 @@ export function App() {
                 />
               }
             >
+              <Route path={routes.contracts} element={<ContractsList />} />
               <Route path={routes.chat} element={<ChatPage />} />
               <Route path={routes.jobs} element={<JobsPage />} />
             </Route>
@@ -106,6 +109,7 @@ export function App() {
               <Route path={routes.jobUpdate} element={<JobUpdatePage />} />
               <Route path={routes.talents} element={<TalentListPage />} />
               <Route path={routes.proposalsList} element={<ProposalsList />} />
+              <Route path={routes.postedJob} element={<PostedJobDetails />} />
             </Route>
           </Route>
         </Routes>

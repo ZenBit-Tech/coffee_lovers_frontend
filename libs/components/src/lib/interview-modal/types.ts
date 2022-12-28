@@ -65,7 +65,7 @@ export interface sendInviteHookReturnDto {
   handleCancel: () => void;
   handleOk: () => void;
 
-  control: Control<{ select: null; rate: number | undefined }, unknown>;
+  control: Control<{ select: null; rate: number }, unknown>;
   register: UseFormRegister<{
     select: null;
     rate: number | undefined;

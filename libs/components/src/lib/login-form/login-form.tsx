@@ -1,12 +1,18 @@
 import { useEffect } from 'react';
-import { Button, Form, notification } from 'antd';
+import { Button, Form } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { StyledInput, StyledPasswordInput } from '@freelance/components';
-import { routes } from '@freelance/components';
-import { authEmail, authError, authPassword } from '@freelance/components';
+import {
+  authEmail,
+  authError,
+  authPassword,
+  StyledInput,
+  StyledPasswordInput,
+  useOpenNotification,
+} from '@freelance/components';
+import { routes } from '@freelance/constants';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
@@ -17,8 +23,6 @@ type FormValues = {
   password: string;
 };
 
-type NotificationType = 'error';
-
 export const LoginForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -26,14 +30,7 @@ export const LoginForm = () => {
   const { handleSubmit, control } = useForm<FormValues>();
   const [loginUser, { data: loginData, isSuccess: isLoginSuccess, isError }] =
     useLoginUserMutation();
-  const [api, contextHolder] = notification.useNotification();
-
-  const openNotificationWithIcon = (type: NotificationType) => {
-    api[type]({
-      message: `${t('loginPage.notificationMessage')}`,
-      description: `${t('loginPage.notificationDescr')}`,
-    });
-  };
+  const { contextHolder, openNotificationWithIcon } = useOpenNotification();
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     try {
@@ -43,7 +40,11 @@ export const LoginForm = () => {
         await loginUser({ email, password });
       }
     } catch (error) {
-      openNotificationWithIcon(authError);
+      openNotificationWithIcon(
+        authError,
+        `${t('loginPage.notificationMessage')}`,
+        `${t('loginPage.notificationDescr')}`,
+      );
     }
   };
 
@@ -53,7 +54,11 @@ export const LoginForm = () => {
       navigate(routes.jobs);
     }
     if (isError) {
-      openNotificationWithIcon(authError);
+      openNotificationWithIcon(
+        authError,
+        `${t('loginPage.notificationMessage')}`,
+        `${t('loginPage.notificationDescr')}`,
+      );
     }
   });
 
@@ -77,7 +82,7 @@ export const LoginForm = () => {
                 },
                 {
                   required: true,
-                  message: `${t('loginPage.email_error_req')}`,
+                  message: `${t('errors.requiredError')}`,
                 },
               ]}
               hasFeedback
@@ -99,7 +104,7 @@ export const LoginForm = () => {
           render={({ field }) => (
             <Form.Item
               rules={[
-                { required: true, message: `${t('loginPage.password_error')}` },
+                { required: true, message: `${t('errors.requiredError')}` },
               ]}
               hasFeedback
               {...field}

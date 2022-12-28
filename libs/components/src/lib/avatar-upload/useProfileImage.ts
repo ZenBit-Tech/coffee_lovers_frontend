@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSetProfileImageMutation } from 'src/redux/services/user';
+import { getFileUrl } from 'src/utils/api';
 
 import { uploadName } from './constants';
 import { CustomRequestOptions } from './types';
@@ -15,9 +16,13 @@ const useProfileImage = (src?: string): useProfileImageReturn => {
 
   useEffect(() => {
     if (data?.file) {
-      setImageUrl(`${process.env['NX_API_URL']}/${data.file}`);
+      setImageUrl(getFileUrl(data.file));
     }
   }, [data]);
+
+  useEffect(() => {
+    setImageUrl(src || '');
+  }, [src]);
 
   const uploadImage = (options: CustomRequestOptions): void => {
     const { file } = options;

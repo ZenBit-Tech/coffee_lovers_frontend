@@ -14,7 +14,7 @@ import {
   useAddUserEduInfoMutation,
   useAddUserWorkhistoryInfoMutation,
   useUpdateUserInfoMutation,
-} from 'src/redux/profileQuestions/profileQuestions1Api';
+} from 'src/redux/services/user';
 import { GetEducation, GetWorkhistory, User } from 'src/redux/types/user.types';
 
 import FormEduList from './FormEduList';
@@ -79,7 +79,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
         [profileQ1.descr]: user?.description,
         [profileQ1.pos]: user?.position,
         [profileQ2.skills]: user?.skills.map(el => el.id),
-        [profileQ2.category]: user?.category.id,
+        [profileQ2.category]: user?.category?.id,
         [profileQ1.avTime]: user?.available_time,
         [profileQ2.englishLevel]: user?.english_level,
         [profileQ2.otherExp]: user?.other_experience,
@@ -99,7 +99,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
       >
         <St.StInputNumber
           prefix={t('description.profileQp1.hRPrefix')}
-          addonAfter={t('description.profileQp1.hRSuffix')}
+          placeholder={t('description.profileQp1.hRSuffix')}
           min={profileQ1.hRMin}
         />
       </Form.Item>

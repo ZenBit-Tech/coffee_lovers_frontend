@@ -36,7 +36,10 @@ const useNavigationBar = (): UseNavigationBarReturn => {
       { text: t('app_bar.nav.jobs'), action: () => navigate(routes.jobs) },
       ...(role === roles.freelancer
         ? [
-            { text: t('app_bar.nav.contracts'), action: () => ({}) },
+            {
+              text: t('app_bar.nav.contracts'),
+              action: () => navigate(routes.contracts),
+            },
             {
               text: t('app_bar.nav.offers'),
               action: () => navigate(routes.offers),
@@ -47,6 +50,10 @@ const useNavigationBar = (): UseNavigationBarReturn => {
             },
           ]
         : [
+            {
+              text: t('app_bar.nav.contracts'),
+              action: () => navigate(routes.contracts),
+            },
             { text: t('app_bar.nav.projects'), action: () => ({}) },
             { text: t('app_bar.nav.proposals'), action: () => ({}) },
             {

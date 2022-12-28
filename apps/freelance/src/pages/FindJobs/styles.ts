@@ -17,6 +17,7 @@ export const PageBar = styled.div`
   position: sticky;
   top: ${({ theme }) => theme.sizes.navigationBar.height};
   z-index: 10;
+  margin-bottom: 15px;
 `;
 
 export const ListContainer = styled.div`

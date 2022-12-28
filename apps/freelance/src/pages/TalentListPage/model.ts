@@ -1,4 +1,5 @@
 export interface User {
+  english_level: any;
   last_name: string;
   first_name: string;
   id: number;
