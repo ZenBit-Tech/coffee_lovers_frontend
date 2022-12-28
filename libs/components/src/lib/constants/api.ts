@@ -17,4 +17,5 @@ export enum ApiRoutes {
   INVITE = '/invite',
   CHAT = '/chat',
   REQUEST = '/request',
+  CONTRACTS = '/contracts',
 }

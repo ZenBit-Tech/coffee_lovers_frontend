@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Avatar, Badge, Form, Row } from 'antd';
+import { Avatar, Badge, Form, Row, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
 import {
@@ -26,11 +26,15 @@ import {
   StyledFormItem,
   StyledLeftSide,
   StyledRightSide,
+  StyledText,
+  StyledWrapper,
   UserDateStyled,
   UserDivStyled,
   UserWrapper,
 } from './styles';
 import useChatData from './useChatData';
+
+const { Text } = Typography;
 
 type Open = boolean;
 
@@ -72,36 +76,40 @@ const ChatPage = () => {
           placeholder={t('findJobs.searchPlaceholder')}
           onSearch={onSearch}
         />
-        <ul>
-          {conversations?.map(item => (
-            <li key={item.id} onClick={() => handleClick(item.id)}>
-              <UserWrapper
-                color={
-                  item.id === conversation
-                    ? baseTheme.colors.white
-                    : colors.transparent
-                }
-              >
-                <Badge
-                  color={baseTheme.colors.primary}
-                  count={item.new_messages}
+        {conversations && conversations.length > 0 && (
+          <ul>
+            {conversations?.map(item => (
+              <li key={item.id} onClick={() => handleClick(item.id)}>
+                <UserWrapper
+                  color={
+                    item.id === conversation
+                      ? baseTheme.colors.white
+                      : colors.transparent
+                  }
                 >
-                  <Avatar
-                    src={`${baseUrl}/${item.user.profile_image}`}
-                    size={defaultAvatarSize}
-                    icon={<UserOutlined />}
-                  />
-                </Badge>
-                <UserDivStyled>
-                  {user?.role === roles.jobOwner && <p>{item.job.title}</p>}
-                  <p>
-                    {item.user.first_name} {item.user.last_name}
-                  </p>
-                </UserDivStyled>
-              </UserWrapper>
-            </li>
-          ))}
-        </ul>
+                  <Badge
+                    color={baseTheme.colors.primary}
+                    count={item.new_messages}
+                  >
+                    <Avatar
+                      src={`${baseUrl}/${item.user.profile_image}`}
+                      size={defaultAvatarSize}
+                      icon={<UserOutlined />}
+                    />
+                  </Badge>
+                  <UserDivStyled>
+                    {user?.role === roles.jobOwner && (
+                      <StyledText ellipsis={true}>{item.job.title}</StyledText>
+                    )}
+                    <Text strong>
+                      {item.user.first_name} {item.user.last_name}
+                    </Text>
+                  </UserDivStyled>
+                </UserWrapper>
+              </li>
+            ))}
+          </ul>
+        )}
       </StyledLeftSide>
       <StyledRightSide span={18}>
         <HeaderContainer>
@@ -114,10 +122,13 @@ const ChatPage = () => {
                   icon={<UserOutlined />}
                 />
               )}
-              <h2>
-                {currentConversationInfo.ownerName}{' '}
-                {currentConversationInfo.jobTitle}
-              </h2>
+              <div>
+                <h2>{currentConversationInfo.ownerName}</h2>
+                <p>
+                  {t('chat.projectTitle')} {currentConversationInfo.jobTitle}
+                </p>
+              </div>
+
               {user?.role === roles.jobOwner && (
                 <SendOfferBtn onClick={showModal}>
                   {t('chat.sendOffer')}
@@ -128,36 +139,39 @@ const ChatPage = () => {
             <h2>{t('chat.chooseChat')}</h2>
           )}
         </HeaderContainer>
-        <MessagesWrapper id="messages">
-          <ul>
-            {chatMessages &&
-              chatMessages.map(item =>
-                user?.email === item.from.email ? (
-                  <li key={item.created_at}>
-                    <FirstUserContainer>
-                      <p>
-                        {user.first_name} {user.last_name}{' '}
-                        {formatDate(new Date(item.created_at))}{' '}
-                        {formatTime(new Date(item.created_at))}
-                      </p>
-                      <FirstUserText>{item.message}</FirstUserText>
-                    </FirstUserContainer>
-                  </li>
-                ) : (
-                  <li key={item.created_at}>
-                    <SecondUserContainer>
-                      <UserDateStyled>
-                        {item.from.first_name} {item.from.last_name}{' '}
-                        {formatDate(new Date(item.created_at))}{' '}
-                        {formatTime(new Date(item.created_at))}
-                      </UserDateStyled>
-                      <SecondUserText> {item.message}</SecondUserText>
-                    </SecondUserContainer>
-                  </li>
-                ),
-              )}
-          </ul>
-        </MessagesWrapper>
+
+        <StyledWrapper>
+          <MessagesWrapper id="messages">
+            <ul>
+              {chatMessages &&
+                chatMessages.map(item =>
+                  user?.email === item.from.email ? (
+                    <li key={item.created_at}>
+                      <FirstUserContainer>
+                        <p>
+                          {user.first_name} {user.last_name}{' '}
+                          {formatDate(new Date(item.created_at))}{' '}
+                          {formatTime(new Date(item.created_at))}
+                        </p>
+                        <FirstUserText>{item.message}</FirstUserText>
+                      </FirstUserContainer>
+                    </li>
+                  ) : (
+                    <li key={item.created_at}>
+                      <SecondUserContainer>
+                        <UserDateStyled>
+                          {item.from.first_name} {item.from.last_name}{' '}
+                          {formatDate(new Date(item.created_at))}{' '}
+                          {formatTime(new Date(item.created_at))}
+                        </UserDateStyled>
+                        <SecondUserText> {item.message}</SecondUserText>
+                      </SecondUserContainer>
+                    </li>
+                  ),
+                )}
+            </ul>
+          </MessagesWrapper>
+        </StyledWrapper>
 
         <Form form={form} layout="inline" onFinish={handleSend}>
           {!!conversation && (

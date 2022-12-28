@@ -1,5 +1,5 @@
 import { FreelancerDataById } from 'src/redux/types/freelancers.types';
-import { AddEducation, AddWorkhistory } from 'src/redux/types/user.types';
+import { AddEducation, AddWorkhistory, User } from 'src/redux/types/user.types';
 
 export interface mockWork extends AddWorkhistory {
   id?: number;
@@ -67,3 +67,20 @@ export const mockUserData: FreelancerDataById = {
     },
   ],
 };
+
+export const mockUsers: User[] = [
+  {
+    id: 1,
+    email: 'johndoe@test.com',
+    first_name: 'John',
+    last_name: 'Doe',
+    profile_image: 'img/660ba6e4-557b-4033-8e79-656ea305f342.jpg',
+  } as User,
+  {
+    id: 2,
+    email: 'adampowers@test.com',
+    first_name: 'Adam',
+    last_name: 'Powers',
+    profile_image: 'img/660ba6e4-557b-4033-8779-656ea304f342.jpg',
+  } as User,
+];

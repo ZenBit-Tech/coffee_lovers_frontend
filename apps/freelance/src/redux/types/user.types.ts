@@ -49,6 +49,16 @@ export interface AddWorkhistory {
   work_history_to?: string;
 }
 
+export interface AddFavorites {
+  is_favorite: boolean;
+  id: number;
+}
+
+export interface GetFavorites {
+  id: number;
+  freelancer: User;
+}
+
 export interface GetWorkhistory extends AddWorkhistory {
   id?: number;
 }

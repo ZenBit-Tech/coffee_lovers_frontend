@@ -23,6 +23,9 @@ export default {
     agreement_error: 'Please accept Terms&Conditions',
     notificationMessage: 'Error',
     notificationDescr: 'Wrong email or password',
+    notificationExistsDescr:
+      'Email is already registered. Please, go to Login Page.',
+    onlyLettersError: 'Invalid characters. Only letters are allowed.',
   },
   conditions: {
     title: 'Terms & Conditions',

@@ -4,7 +4,6 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { StyledInput, StyledPasswordInput } from '@freelance/components';
 import {
   authAgreement,
   authConfirmPassword,
@@ -12,12 +11,16 @@ import {
   authFirstName,
   authLastName,
   authPassword,
+  StyledInput,
+  StyledPasswordInput,
+  useOpenNotification,
 } from '@freelance/components';
-import { routes } from '@freelance/constants';
+import { authError, routes } from '@freelance/constants';
 import { passwordValidationRegExp } from 'src/pages/PasswordReset/constants';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
+import { nameValidationRegExp } from './constants';
 import { FormItem } from './styles';
 
 type FormValues = {
@@ -35,6 +38,7 @@ export function SignUpForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { handleSubmit, control } = useForm<FormValues>();
+  const { contextHolder, openNotificationWithIcon } = useOpenNotification();
 
   const [registerUser, { data: registerData, isSuccess, isError }] =
     useRegisterUserMutation();
@@ -50,7 +54,11 @@ export function SignUpForm() {
         await registerUser({ email, first_name, last_name, password });
       }
     } catch (error) {
-      alert(JSON.stringify(error));
+      openNotificationWithIcon(
+        authError,
+        `${t('loginPage.notificationMessage')}`,
+        `${t('loginPage.notificationExistsDescr')}`,
+      );
     }
   };
 
@@ -60,7 +68,11 @@ export function SignUpForm() {
       navigate(`${routes.role}`);
     }
     if (isError) {
-      alert('Something went wrong...');
+      openNotificationWithIcon(
+        authError,
+        `${t('loginPage.notificationMessage')}`,
+        `${t('loginPage.notificationExistsDescr')}`,
+      );
     }
   }, [isSuccess, isError]);
 
@@ -71,13 +83,18 @@ export function SignUpForm() {
       wrapperCol={{ span: 12 }}
       onFinish={handleSubmit(onSubmit)}
     >
+      {contextHolder}
       <Controller
         name={authEmail}
         control={control}
         render={({ field }) => (
           <Form.Item
             rules={[
-              { required: true, message: `${t('loginPage.email_error')}` },
+              {
+                type: 'email',
+                message: `${t('loginPage.email_error')}`,
+              },
+              { required: true, message: `${t('errors.requiredError')}` },
             ]}
             hasFeedback
             {...field}
@@ -99,7 +116,11 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem
               rules={[
-                { required: true, message: `${t('loginPage.name_error')}` },
+                { required: true, message: `${t('errors.requiredError')}` },
+                {
+                  pattern: nameValidationRegExp,
+                  message: `${t('loginPage.onlyLettersError')}`,
+                },
               ]}
               hasFeedback
               {...field}
@@ -120,7 +141,11 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem
               rules={[
-                { required: true, message: `${t('loginPage.name_error')}` },
+                { required: true, message: `${t('errors.requiredError')}` },
+                {
+                  pattern: nameValidationRegExp,
+                  message: `${t('loginPage.onlyLettersError')}`,
+                },
               ]}
               hasFeedback
               {...field}
@@ -143,7 +168,7 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem
               rules={[
-                { required: true, message: `${t('loginPage.password_error')}` },
+                { required: true, message: `${t('errors.requiredError')}` },
                 {
                   pattern: passwordValidationRegExp,
                   message: `${t('resetPassword.validation.passwordRegExp')}`,
