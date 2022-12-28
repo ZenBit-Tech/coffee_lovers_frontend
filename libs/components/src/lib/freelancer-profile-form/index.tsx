@@ -5,9 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
   DefInput,
+  NotificationType,
   profileQ1,
   profileQ2,
   StyledSelect,
+  useOpenNotification,
 } from '@freelance/components';
 import useProperties from 'src/hooks/useProperties';
 import {
@@ -45,6 +47,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
   const [UpdateUserInfo] = useUpdateUserInfoMutation();
   const [AddUserEduInfo] = useAddUserEduInfoMutation();
   const [AddUserWorkhistory] = useAddUserWorkhistoryInfoMutation();
+  const { contextHolder, openNotificationWithIcon } = useOpenNotification();
   const navigate = useNavigate();
   const {
     categories,
@@ -63,9 +66,18 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
       await AddUserEduInfo(educationPayloadArr());
       await AddUserWorkhistory(workPayloadArr());
       form.resetFields();
+      openNotificationWithIcon(
+        NotificationType.SUCCESS,
+        t('description.profileQp1.notifSuccess'),
+        t('description.profileQp1.notifSuccessMsg'),
+      );
       navigation && navigate(navigation);
     } catch (error) {
-      alert(error);
+      openNotificationWithIcon(
+        NotificationType.ERROR,
+        t('description.profileQp1.notifFailed'),
+        t('description.profileQp1.notifFailedMsg'),
+      );
     }
   };
 
@@ -90,6 +102,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
       requiredMark="optional"
       onFinish={values => handleSubmit(onFinish(values as IProfileQuestions))}
     >
+      {contextHolder}
       <Form.Item
         label={t('description.profileQp1.hR')}
         name={profileQ1.hR}

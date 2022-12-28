@@ -1,7 +1,14 @@
 import { ReactElement } from 'react';
 import { notification } from 'antd';
 
-type NotificationType = 'success' | 'info' | 'warning' | 'error';
+// export type NotificationType = 'success' | 'info' | 'warning' | 'error';
+
+export enum NotificationType {
+  SUCCESS = 'success',
+  INFO = 'info',
+  WARNING = 'warning',
+  ERROR = 'error',
+}
 
 interface useOpenNotificationReturns {
   contextHolder?: ReactElement<string>;

@@ -37,6 +37,10 @@ export default {
       mesTimeTo: 'Please, input time to!',
       mesWork: 'Work history field is required!',
       finish: 'Finish',
+      notifSuccess: 'Success',
+      notifSuccessMsg: 'Your profile has been edited',
+      notifFailed: 'Failed',
+      notifFailedMsg: 'Unexpected server error',
     },
     profileQp2: {
       pr_bar_completion_per: '50% completed',
