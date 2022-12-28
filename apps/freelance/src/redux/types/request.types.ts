@@ -22,21 +22,5 @@ export interface Interview {
   job: Job;
   job_owner: User;
   hourly_rate: number;
-}
-
-export interface GetOffersResponse {
-  id: number;
-  hourly_rate: number;
-  status: OfferStatus;
   created_at: string;
-  job: Job;
-  job_owner: User;
-}
-
-export interface GetInterviewsResponse {
-  id: number;
-  hourly_rate: number;
-  created_at: string;
-  job: Job;
-  job_owner: User;
 }

@@ -1,4 +1,4 @@
-import { Modal } from 'antd';
+import { message, Modal } from 'antd';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { generatePath, useNavigate } from 'react-router-dom';
@@ -35,6 +35,8 @@ const useOfferInterviewCard = (id?: number): UseOfferInterviewCardReturn => {
       onOk() {
         if (id) {
           acceptOffer(id);
+        } else {
+          message.error(t('offers.errors.unexpected'));
         }
       },
     });
@@ -50,6 +52,8 @@ const useOfferInterviewCard = (id?: number): UseOfferInterviewCardReturn => {
       onOk() {
         if (id) {
           declineOffer(id);
+        } else {
+          message.error(t('offers.errors.unexpected'));
         }
       },
     });
@@ -65,6 +69,8 @@ const useOfferInterviewCard = (id?: number): UseOfferInterviewCardReturn => {
       onOk() {
         if (id) {
           deleteInterview(id);
+        } else {
+          message.error(t('offers.errors.unexpected'));
         }
       },
     });
