@@ -33,7 +33,7 @@ const usePostedJobDetail = (): UsePostedJobDetailReturn => {
 
   return {
     job: data && data.job,
-    hires: data && getProccesedHires(data.hires, offset, search),
+    hires: data && getProccesedHires(data.hires, search),
     offset,
     isLoading,
     onSearch,

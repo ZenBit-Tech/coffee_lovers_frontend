@@ -43,7 +43,6 @@ export const setHiresPagination = (
 
 export const getProccesedHires = (
   hires: HireItem[],
-  offset: number,
   search?: string,
 ): HireItem[] => {
   return getSearchedHires(hires.sort(getHiresSortCallback()), search);
