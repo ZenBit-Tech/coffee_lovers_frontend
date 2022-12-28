@@ -12,7 +12,7 @@ import {
   GetPostedJobsResponse,
   IJobProposal,
 } from 'redux/types/jobs.types';
-import { OffersJobs } from 'redux/types/withoutoffer.types.ts';
+import { InviteJobs, OffersJobs } from 'redux/types/withoutoffer.types.ts';
 
 enum EndpointsRoutes {
   findJobs = '/',
@@ -21,6 +21,7 @@ enum EndpointsRoutes {
   getJob = '/job',
   getPostedJobs = '/posted',
   offer = '/withoutoffer',
+  invite = '/withoutinvite',
 }
 
 export const jobsApi = createApi({
@@ -32,6 +33,7 @@ export const jobsApi = createApi({
       return queryString.stringify(params, { arrayFormat: 'bracket' });
     },
   }),
+  tagTypes: ['Post'],
   endpoints: builder => ({
     findJobs: builder.query<FindJobsResponse, GetJobParams>({
       query: params => ({
@@ -61,7 +63,12 @@ export const jobsApi = createApi({
         url: `${EndpointsRoutes.offer}/${payload.id}`,
       }),
     }),
-    getJob: builder.query<GetJobResponse, number>({
+    findUserJobsWithoutInvite: builder.query<InviteJobs[], FrelancerPayload>({
+      query: (payload: FrelancerPayload) => ({
+        url: `${EndpointsRoutes.invite}/${payload.id}`,
+      }),
+    }),
+    getJob: builder.query<GetJobResponse, number | null>({
       query: id => ({
         url: `/${id}` + EndpointsRoutes.getJob,
       }),
@@ -80,4 +87,5 @@ export const {
   useGetJobProposalsQuery,
   useGetPostedJobsQuery,
   useFindUserJobsWithoutOfferQuery,
+  useFindUserJobsWithoutInviteQuery,
 } = jobsApi;

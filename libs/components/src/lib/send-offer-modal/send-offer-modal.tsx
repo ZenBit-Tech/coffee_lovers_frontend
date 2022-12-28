@@ -14,7 +14,10 @@ import { NotificationType } from '@freelance/components';
 import { ErrorMessage } from '@hookform/error-message';
 import { usePostOfferMutation } from 'src/redux/invite/inviteApi';
 import { Request } from 'src/redux/invite/types';
-import { useFindUserJobsWithoutOfferQuery } from 'src/redux/services/jobsApi';
+import {
+  useFindUserJobsWithoutOfferQuery,
+  useGetJobQuery,
+} from 'src/redux/services/jobsApi';
 import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
 
 import { StyledModal, StyledSelect } from './styles';
@@ -24,12 +27,14 @@ import useSendOfferHook from './useSendOfferHook';
 export function SendOfferModal(props: Props) {
   const { setOpen, open, hourly_rate, id, description } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const [jobId, setJobId] = useState<number | null>(null);
   const [api, contextHolder] = notification.useNotification();
-
-  const { t } = useTranslation<Namespace<string>>();
-  const { data } = useFindUserJobsWithoutOfferQuery({
+  const { data: selectedJob } = useGetJobQuery(jobId);
+  const { data, refetch } = useFindUserJobsWithoutOfferQuery({
     id,
   });
+
+  const { t } = useTranslation<Namespace<string>>();
   const [postOffer, { isError, error, isSuccess }] = usePostOfferMutation();
   const {
     handleCancel,
@@ -66,6 +71,7 @@ export function SendOfferModal(props: Props) {
           cover_letter: description,
         },
       });
+      refetch();
     } catch (err) {
       openNotificationWithIcon(
         NotificationType.error,
@@ -99,11 +105,17 @@ export function SendOfferModal(props: Props) {
                 <Col span={6}>
                   <StyledSelect
                     {...field}
-                    options={data?.map((el: OffersJobs) => ({
-                      ...el,
-                      value: el.id,
-                      label: el.title,
-                    }))}
+                    options={data
+                      ?.filter(el => el.count === 0)
+                      .map((el: OffersJobs) => ({
+                        ...el,
+                        value: el.id,
+                        label: el.title,
+                      }))}
+                    onChange={id => {
+                      setJobId(id as number);
+                      field.onChange(id);
+                    }}
                   />
                 </Col>
               </Row>
@@ -119,7 +131,7 @@ export function SendOfferModal(props: Props) {
                 <Col span={8}>
                   <p>{t('modalInvite.rate')}</p>
                 </Col>
-                <Col span={5}>
+                <Col span={6}>
                   <Input
                     type="number"
                     placeholder={t('modalInvite.placeholder')}
@@ -166,9 +178,12 @@ export function SendOfferModal(props: Props) {
             )}
           />
 
-          <Row>
-            <Col span={24}>{description}</Col>
-          </Row>
+          {jobId && (
+            <Row>
+              <Col span={8}>{t('modalInvite.description')}</Col>
+              <Col span={5}>{selectedJob?.job.description}</Col>
+            </Row>
+          )}
 
           <Row justify="end">
             <Space

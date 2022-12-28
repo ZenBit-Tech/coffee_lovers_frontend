@@ -22,5 +22,6 @@ export default {
     requestSuccess: 'Invite has been sent successfully',
     offerSuccess: 'Offer has been sent successfully',
     requestSuccessHeader: 'Success',
+    description: 'Job description',
   },
 };

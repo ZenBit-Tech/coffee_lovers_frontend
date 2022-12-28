@@ -10,6 +10,7 @@ import { NotificationType } from '@freelance/constants';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { NotificationInstance } from 'antd/es/notification/interface';
+import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
 
 export interface Props {
   hourly_rate?: number;
@@ -17,6 +18,8 @@ export interface Props {
   description?: string;
   open: boolean;
   setOpen: (op: boolean) => void;
+  // data?: OffersJobs[];
+  jobsWithoutOfferData?: OffersJobs[];
 }
 
 export interface FreelancerId {

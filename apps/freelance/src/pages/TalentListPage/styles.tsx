@@ -70,4 +70,5 @@ export const PropertiesContainer = styled.div`
 export const TextExContainer = styled.div`
   width: 250px;
   margin-left: 50px;
+  margin-bottom: -14px;
 `;

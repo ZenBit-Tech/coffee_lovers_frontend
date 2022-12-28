@@ -9,7 +9,10 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useGetInvitationDetailsQuery } from 'src/redux/invitation/invitation';
 import { usePostRequestMutation } from 'src/redux/invite/inviteApi';
 import { Invite } from 'src/redux/invite/types';
-import { useFindUserJobsWithoutOfferQuery } from 'src/redux/services/jobsApi';
+import {
+  useFindUserJobsWithoutInviteQuery,
+  useGetJobQuery,
+} from 'src/redux/services/jobsApi';
 
 import { ChatListPage, empty, many, SendInterviewPage } from './constants';
 import useInterviewModalHook from './interview-hook';
@@ -17,17 +20,19 @@ import { StyledModal, StyledSelect, StyledSpace } from './styles';
 import { Conversation, Props } from './types';
 
 export function InterviewModal(props: Props) {
-  const { setOpen, open, description, hourly_rate, id } = props;
+  const { setOpen, open, description, hourly_rate, id, refetchOffers } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-  const [page, setPage] = useState(ChatListPage);
-  const [api, contextHolder] = notification.useNotification();
+  const [page, setPage] = useState<string>(ChatListPage);
+  const [jobId, setJobId] = useState<null | number>(null);
 
+  const [api, contextHolder] = notification.useNotification();
+  const { data: selectedJob } = useGetJobQuery(jobId);
   const { t } = useTranslation<Namespace<string>>();
   const { data: invitation } = useGetInvitationDetailsQuery({
     frId: id,
   });
   const [postRequest, { isError, error, isSuccess }] = usePostRequestMutation();
-  const { data } = useFindUserJobsWithoutOfferQuery({
+  const { data, refetch } = useFindUserJobsWithoutInviteQuery({
     id,
   });
   const {
@@ -65,6 +70,9 @@ export function InterviewModal(props: Props) {
           cover_letter: description,
         },
       });
+      setJobId(null);
+      refetch();
+      refetchOffers();
     } catch (err) {
       openNotificationWithIcon(
         NotificationType.error,
@@ -129,13 +137,17 @@ export function InterviewModal(props: Props) {
                   <Col span={5}>
                     <StyledSelect
                       {...field}
-                      options={data?.map(
-                        (el: { id: number; title: string }) => ({
+                      options={data
+                        ?.filter(el => el.count === 0)
+                        .map((el: { id: number; title: string }) => ({
                           ...el,
                           value: el.id,
                           label: el.title,
-                        }),
-                      )}
+                        }))}
+                      onChange={id => {
+                        setJobId(id as number);
+                        field.onChange(id);
+                      }}
                     />
                   </Col>
                 </Row>
@@ -171,9 +183,14 @@ export function InterviewModal(props: Props) {
               )}
             />
 
-            <Row>
-              <Col span={24}>{description}</Col>
-            </Row>
+            {jobId && (
+              <Row>
+                <Col span={8}>
+                  <p>{t('modalInvite.description')}</p>
+                </Col>
+                <Col span={5}>{selectedJob?.job.description}</Col>
+              </Row>
+            )}
 
             <Row justify="end">
               <StyledSpace direction="horizontal" size="middle">

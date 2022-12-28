@@ -102,24 +102,32 @@ const TalentListPage = (): ReactElement => {
                   </TextExContainer>
                 </StyledCardHeader>
                 <PropertiesContainer>
-                  <InformationSticker>
-                    {t('talent.position', { position: item.position })}
-                  </InformationSticker>
-                  <InformationSticker>
-                    {t('talent.category', {
-                      category: item.category ? item.category.name : '',
-                    })}
-                  </InformationSticker>
-                  <InformationSticker>
-                    {t('talent.available_time', {
-                      available_time: item.available_time,
-                    })}
-                  </InformationSticker>
-                  <InformationSticker>
-                    {t('talent.hourly_rate', {
-                      hourly_rate: item.hourly_rate + ' $',
-                    })}
-                  </InformationSticker>
+                  {item.position && (
+                    <InformationSticker>
+                      {t('talent.position', { position: item.position })}
+                    </InformationSticker>
+                  )}
+                  {item.category && (
+                    <InformationSticker>
+                      {t('talent.category', {
+                        category: item.category.name,
+                      })}
+                    </InformationSticker>
+                  )}
+                  {item.available_time && (
+                    <InformationSticker>
+                      {t('talent.available_time', {
+                        available_time: item.available_time,
+                      })}
+                    </InformationSticker>
+                  )}
+                  {item.hourly_rate && (
+                    <InformationSticker>
+                      {t('talent.hourly_rate', {
+                        hourly_rate: item.hourly_rate + ' $',
+                      })}
+                    </InformationSticker>
+                  )}
                 </PropertiesContainer>
               </StyledCard>
             )}

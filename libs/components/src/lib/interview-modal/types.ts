@@ -7,9 +7,17 @@ import {
 } from 'react-hook-form';
 import { NotificationType } from '@freelance/constants';
 import { SerializedError } from '@reduxjs/toolkit';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+  QueryDefinition,
+} from '@reduxjs/toolkit/dist/query';
+import { QueryActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
 import { NotificationInstance } from 'antd/es/notification/interface';
-import { Job } from 'src/redux/types/jobs.types';
+import { FrelancerPayload, Job } from 'src/redux/types/jobs.types';
+import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
 
 export interface Props {
   open: boolean;
@@ -17,6 +25,21 @@ export interface Props {
   description?: string;
   hourly_rate?: number;
   id?: number;
+  refetchOffers: () => QueryActionCreatorResult<
+    QueryDefinition<
+      FrelancerPayload,
+      BaseQueryFn<
+        string | FetchArgs,
+        unknown,
+        FetchBaseQueryError,
+        unknown,
+        FetchBaseQueryMeta
+      >,
+      'Post',
+      OffersJobs[],
+      'jobsApi'
+    >
+  >;
 }
 
 export interface Conversation {

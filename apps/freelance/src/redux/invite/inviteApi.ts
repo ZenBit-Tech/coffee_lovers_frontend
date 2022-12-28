@@ -11,10 +11,9 @@ enum EndpointsRoutes {
 export const inviteApi = createApi({
   reducerPath: 'inviteApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl + ApiRoutes.INVITE,
+    baseUrl: baseUrl + ApiRoutes.REQUEST,
     prepareHeaders: getHeaders(),
   }),
-
   endpoints: builder => ({
     postRequest: builder.mutation({
       query: (payload: PostRequest) => ({
