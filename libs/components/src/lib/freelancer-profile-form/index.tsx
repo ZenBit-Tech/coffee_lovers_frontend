@@ -198,7 +198,17 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
           options={getOptionsForSelectWithId(skills)}
           placeholder={t('description.profileQp2.skills_descr')}
           showSearch
+          showArrow
           tokenSeparators={[',']}
+          optionFilterProp="children"
+          filterSort={(optionA, optionB) =>
+            (optionA?.label ?? '')
+              .toLowerCase()
+              .localeCompare((optionB?.label ?? '').toLowerCase())
+          }
+          filterOption={(input, option) =>
+            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+          }
         />
       </Form.Item>
       <Form.Item
@@ -218,7 +228,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
           options={getOptionsForSelectWithId(categories)}
           optionFilterProp="children"
           filterOption={(input, option) =>
-            (option?.label ?? '').includes(input)
+            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
           }
           filterSort={(optionA, optionB) =>
             (optionA?.label ?? '')
