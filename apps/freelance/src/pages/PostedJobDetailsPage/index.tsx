@@ -2,80 +2,100 @@ import { t } from 'i18next';
 import { Empty, HiredCard, InformationSticker } from '@freelance/components';
 import { formatDate } from '@utils/dates';
 
+import { maxHiredCards } from './constants';
 import {
   DescriptionContainer,
+  HiresBar,
   HiresContainer,
   HiresTitle,
   InformationContainer,
   StopHiringButton,
+  StyledInputSearch,
+  StyledPagination,
   StyledTitle,
   Wrapper,
 } from './styles';
 import usePostedJobDetail from './usePostedJobDetails';
+import { setHiresPagination } from './utils';
 
 const PostedJobDetails = () => {
-  const { details, isLoading } = usePostedJobDetail();
+  const { job, hires, offset, isLoading, onSearch, onChangePagination } =
+    usePostedJobDetail();
 
   return (
     <Wrapper isLoading={isLoading}>
-      <StyledTitle>{details?.job.title}</StyledTitle>
+      <StyledTitle>{job?.title}</StyledTitle>
 
       <InformationContainer>
-        {details?.job.created_at && (
+        {job?.created_at && (
           <InformationSticker>{`${t('postedJobDetails.created')} ${formatDate(
-            new Date(details.job.created_at),
+            new Date(job?.created_at),
           )}`}</InformationSticker>
         )}
-        {details?.job.category && (
-          <InformationSticker>{details.job.category.name}</InformationSticker>
+        {job?.category && (
+          <InformationSticker>{job.category.name}</InformationSticker>
         )}
-        {details?.job.duration && details.job.duration_amount && (
+        {job?.duration && job.duration_amount && (
           <InformationSticker>
-            {`${t('postedJobDetails.duration')} ${details.job.duration} (${
-              details.job.duration_amount
+            {`${t('postedJobDetails.duration')} ${job.duration} (${
+              job.duration_amount
             })`}
           </InformationSticker>
         )}
-        {details?.job.hourly_rate && (
+        {job?.hourly_rate && (
           <InformationSticker>
-            {t('postedJobDetails.hrlyRate', { rate: details.job.hourly_rate })}
+            {t('postedJobDetails.hrlyRate', { rate: job.hourly_rate })}
           </InformationSticker>
         )}
-        {details?.job.available_time && (
-          <InformationSticker>{details.job.available_time}</InformationSticker>
+        {job?.available_time && (
+          <InformationSticker>{job.available_time}</InformationSticker>
         )}
-        {details?.job.english_level && (
+        {job?.english_level && (
           <InformationSticker>{`${t('postedJobDetails.englishLevel')} ${
-            details.job.english_level
+            job.english_level
           }`}</InformationSticker>
         )}
       </InformationContainer>
 
-      {details?.job.skills?.length && (
+      {job?.skills?.length && (
         <InformationContainer>
-          {details?.job.skills?.map(skill => (
+          {job.skills.map(skill => (
             <InformationSticker key={skill.id}>{skill.name}</InformationSticker>
           ))}
         </InformationContainer>
       )}
 
-      {details?.job.description && (
-        <DescriptionContainer>{details.job.description}</DescriptionContainer>
+      {job?.description && (
+        <DescriptionContainer>{job?.description}</DescriptionContainer>
       )}
 
-      <HiresTitle>{t('postedJobDetails.hires')}</HiresTitle>
+      <HiresBar>
+        <HiresTitle>{t('postedJobDetails.hires')}</HiresTitle>
+        <StyledInputSearch
+          placeholder={t('postedJobDetails.inputSearchPlaceholder')}
+          onSearch={onSearch}
+        />
+      </HiresBar>
       <HiresContainer>
-        {details?.hires.map(contract => (
-          <HiredCard
-            key={contract.id}
-            freelancer={contract.offer.freelancer}
-            status={contract.status}
-          />
-        ))}
-        {!details?.hires.length && (
+        {hires &&
+          setHiresPagination(hires, offset).map(contract => (
+            <HiredCard
+              key={contract.id}
+              freelancer={contract.offer.freelancer}
+              status={contract.status}
+            />
+          ))}
+        {!hires?.length && (
           <Empty description={t('postedJobDetails.noHires')} />
         )}
       </HiresContainer>
+      {hires && hires.length > maxHiredCards && (
+        <StyledPagination
+          total={hires.length}
+          pageSize={maxHiredCards}
+          onChange={onChangePagination}
+        />
+      )}
       <StopHiringButton>
         {t('postedJobDetails.btns.stopHiring')}
       </StopHiringButton>
