@@ -116,7 +116,9 @@ export function SendOfferModal(props: Props) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Space direction="vertical" size="middle">
           <Controller
-            {...register('select', { required: true })}
+            {...register('select', {
+              required: t('modalInvite.required') || '',
+            })}
             name="select"
             control={control}
             render={({ field }) => (
@@ -145,7 +147,7 @@ export function SendOfferModal(props: Props) {
           />
 
           <Controller
-            {...register('rate', { required: 'required' })}
+            {...register('rate', { required: t('modalInvite.required') || '' })}
             name="rate"
             control={control}
             render={({ field }) => (
@@ -172,7 +174,9 @@ export function SendOfferModal(props: Props) {
           />
 
           <Controller
-            {...register('start', { required: 'required' })}
+            {...register('start', {
+              required: t('modalInvite.required') || '',
+            })}
             name="start"
             control={control}
             render={({ field: { onChange } }) => (

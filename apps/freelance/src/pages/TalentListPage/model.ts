@@ -1,5 +1,4 @@
 export interface User {
-  english_level: any;
   last_name: string;
   first_name: string;
   id: number;
@@ -10,7 +9,6 @@ export interface User {
   position: string;
   available_time: string;
   hourly_rate: string;
-  description: string;
 }
 
 interface Category {

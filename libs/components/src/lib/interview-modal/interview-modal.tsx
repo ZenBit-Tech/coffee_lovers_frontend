@@ -146,7 +146,9 @@ export function InterviewModal(props: Props) {
           {contextHolder}
           <StyledSpace direction="vertical" size="middle">
             <Controller
-              {...register('select', { required: true })}
+              {...register('select', {
+                required: t('modalInvite.required') || '',
+              })}
               name="select"
               control={control}
               render={({ field }) => (
@@ -175,7 +177,9 @@ export function InterviewModal(props: Props) {
             />
 
             <Controller
-              {...register('rate', { required: 'required' })}
+              {...register('rate', {
+                required: t('modalInvite.required') || '',
+              })}
               name="rate"
               control={control}
               render={({ field }) => (

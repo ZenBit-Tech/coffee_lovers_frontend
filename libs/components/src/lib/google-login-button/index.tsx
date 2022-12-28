@@ -38,9 +38,6 @@ export function GoogleLoginButton() {
             alert(err);
           }
         }}
-        onError={() => {
-          alert('Login Failed');
-        }}
       />
     </ButtonContainer>
   );

@@ -35,7 +35,6 @@ export const jobsApi = createApi({
       return queryString.stringify(params, { arrayFormat: 'bracket' });
     },
   }),
-  tagTypes: ['Post'],
   endpoints: builder => ({
     findJobs: builder.query<FindJobsResponse, GetJobParams>({
       query: params => ({

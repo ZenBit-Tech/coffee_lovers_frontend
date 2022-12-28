@@ -23,5 +23,6 @@ export default {
     offerSuccess: 'Offer has been sent successfully',
     requestSuccessHeader: 'Success',
     description: 'Job description',
+    required: 'This field is required',
   },
 };
