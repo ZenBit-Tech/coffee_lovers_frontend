@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { Button, Checkbox, Form, notification } from 'antd';
+import { Button, Checkbox, Form } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { StyledInput, StyledPasswordInput } from '@freelance/components';
 import {
   authAgreement,
   authConfirmPassword,
@@ -12,12 +11,16 @@ import {
   authFirstName,
   authLastName,
   authPassword,
+  StyledInput,
+  StyledPasswordInput,
+  useOpenNotification,
 } from '@freelance/components';
 import { authError, routes } from '@freelance/constants';
 import { passwordValidationRegExp } from 'src/pages/PasswordReset/constants';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
+import { nameValidationRegExp } from './constants';
 import { FormItem } from './styles';
 
 type FormValues = {
@@ -29,25 +32,16 @@ type FormValues = {
   agreement: boolean;
 };
 
-type NotificationType = 'error';
-
 export function SignUpForm() {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { handleSubmit, control } = useForm<FormValues>();
+  const { contextHolder, openNotificationWithIcon } = useOpenNotification();
 
   const [registerUser, { data: registerData, isSuccess, isError }] =
     useRegisterUserMutation();
-  const [api, contextHolder] = notification.useNotification();
-
-  const openNotificationWithIcon = (type: NotificationType) => {
-    api[type]({
-      message: `${t('loginPage.notificationMessage')}`,
-      description: `${t('loginPage.notificationExistsDescr')}`,
-    });
-  };
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     try {
@@ -60,7 +54,11 @@ export function SignUpForm() {
         await registerUser({ email, first_name, last_name, password });
       }
     } catch (error) {
-      openNotificationWithIcon(authError);
+      openNotificationWithIcon(
+        authError,
+        `${t('loginPage.notificationMessage')}`,
+        `${t('loginPage.notificationExistsDescr')}`,
+      );
     }
   };
 
@@ -70,7 +68,11 @@ export function SignUpForm() {
       navigate(`${routes.role}`);
     }
     if (isError) {
-      openNotificationWithIcon(authError);
+      openNotificationWithIcon(
+        authError,
+        `${t('loginPage.notificationMessage')}`,
+        `${t('loginPage.notificationExistsDescr')}`,
+      );
     }
   }, [isSuccess, isError]);
 
@@ -115,6 +117,10 @@ export function SignUpForm() {
             <FormItem
               rules={[
                 { required: true, message: `${t('errors.requiredError')}` },
+                {
+                  pattern: nameValidationRegExp,
+                  message: `${t('loginPage.onlyLettersError')}`,
+                },
               ]}
               hasFeedback
               {...field}
@@ -136,6 +142,10 @@ export function SignUpForm() {
             <FormItem
               rules={[
                 { required: true, message: `${t('errors.requiredError')}` },
+                {
+                  pattern: nameValidationRegExp,
+                  message: `${t('loginPage.onlyLettersError')}`,
+                },
               ]}
               hasFeedback
               {...field}

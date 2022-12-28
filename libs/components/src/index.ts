@@ -41,6 +41,7 @@ export * from './lib/UI/danger-button';
 export * from './lib/UI/empty';
 export * from './lib/UI/expandable-text';
 export * from './lib/UI/input-search';
+export * from './lib/UI/notification';
 export * from './lib/UI/page-wrapper';
 export * from './lib/UI/pagination';
 export * from './lib/UI/primary-button';
