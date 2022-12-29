@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import {
   Control,
@@ -5,7 +6,7 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from 'react-hook-form';
-import { NotificationType } from '@freelance/constants';
+import { NotificationInstance } from 'antd/es/notification/interface';
 
 export interface Props {
   hourly_rate?: number;
@@ -15,20 +16,19 @@ export interface Props {
   setOpen: (op: boolean) => void;
 }
 
+export interface sendOfferHookDto {
+  api: NotificationInstance;
+  hourly_rate?: number;
+  id?: number;
+  description?: string;
+  setJobId: Dispatch<SetStateAction<number | null>>;
+}
+
 export interface FreelancerId {
   id: number;
 }
 
 export interface sendOfferHookReturnDto {
-  handleCancel: () => void;
-  handleOk: () => void;
-
-  openNotificationWithIcon: (
-    type: NotificationType,
-    message: string,
-    description: string,
-  ) => void;
-
   control: Control<{
     select: null;
     rate: string | number;

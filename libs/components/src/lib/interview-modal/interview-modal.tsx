@@ -9,6 +9,7 @@ import {
   ValidationErrorMessage,
 } from '@freelance/components';
 import { ErrorMessage } from '@hookform/error-message';
+import UseModalOpenHook from 'src/hooks/modal-open-hook';
 import { useGetInvitationDetailsQuery } from 'src/redux/invitation/invitation';
 import { useFindUserJobsWithoutInviteQuery } from 'src/redux/invite/inviteApi';
 import { useGetJobQuery } from 'src/redux/services/jobsApi';
@@ -33,23 +34,19 @@ export function InterviewModal(props: Props) {
   const { data } = useFindUserJobsWithoutInviteQuery({
     id,
   });
-  const {
-    handleCancel,
-    handleOk,
-    control,
-    register,
-    handleSubmit,
-    errors,
-    onSubmit,
-  } = useInterviewModalHook({
-    id,
-    setJobId,
-    api,
-    description,
-    setConfirmLoading,
+  const { handleCancel, handleOk } = UseModalOpenHook({
     setOpen,
-    hourly_rate,
+    setConfirmLoading,
   });
+
+  const { control, register, handleSubmit, errors, onSubmit } =
+    useInterviewModalHook({
+      id,
+      setJobId,
+      api,
+      description,
+      hourly_rate,
+    });
 
   return (
     <StyledModal
@@ -78,10 +75,10 @@ export function InterviewModal(props: Props) {
               control={control}
               render={({ field }) => (
                 <Row justify="start">
-                  <Col span={6}>
+                  <Col span={8}>
                     <p>{t('modalInvite.choose')}</p>
                   </Col>
-                  <Col span={7}>
+                  <Col span={6}>
                     <StyledSelect
                       {...field}
                       options={data
@@ -109,10 +106,10 @@ export function InterviewModal(props: Props) {
               control={control}
               render={({ field }) => (
                 <Row justify="start">
-                  <Col span={6}>
+                  <Col span={8}>
                     <p>{t('modalInvite.rate')}</p>
                   </Col>
-                  <Col span={7}>
+                  <Col span={6}>
                     <Input
                       type="number"
                       placeholder={t('modalInvite.placeholder')}
@@ -134,10 +131,10 @@ export function InterviewModal(props: Props) {
 
             {jobId && (
               <Row>
-                <Col span={6}>
+                <Col span={8}>
                   <p>{t('modalInvite.description')}</p>
                 </Col>
-                <Col span={7}>{selectedJob?.job.description}</Col>
+                <Col span={6}>{selectedJob?.job.description}</Col>
               </Row>
             )}
 

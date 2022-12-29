@@ -6,7 +6,6 @@ export interface Props {
   invitation: {
     data: Conversation[];
     freelancer: User;
-    conversations: Conversation[];
   };
   setPage: Dispatch<SetStateAction<string>>;
 }

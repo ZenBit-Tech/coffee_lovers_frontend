@@ -2,7 +2,6 @@ import queryString from 'query-string';
 import { ApiRoutes, baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
-import { AvailableJobs } from 'redux/types/availableJobs.types.';
 import {
   FindJobsResponse,
   GetJobParams,
@@ -20,8 +19,6 @@ enum EndpointsRoutes {
   getJob = '/job',
   getPostedJobs = '/posted',
   getPostedJobDetails = '/posted/',
-  offer = '/withoutoffer',
-  invite = '/withoutinvite',
 }
 
 export const jobsApi = createApi({
@@ -38,11 +35,6 @@ export const jobsApi = createApi({
       query: params => ({
         url: EndpointsRoutes.findJobs,
         params,
-      }),
-    }),
-    findUserJobs: builder.query<AvailableJobs[], number>({
-      query: freelancer => ({
-        url: EndpointsRoutes.findUserJobs + '/' + freelancer,
       }),
     }),
     sendProposal: builder.mutation({
@@ -73,7 +65,6 @@ export const jobsApi = createApi({
 
 export const {
   useFindJobsQuery,
-  useFindUserJobsQuery,
   useSendProposalMutation,
   useGetJobQuery,
   useGetJobProposalsQuery,

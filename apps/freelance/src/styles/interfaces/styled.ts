@@ -45,12 +45,6 @@ export interface ITheme {
     navigationBar: { height: string };
   };
 
-  avatars: {
-    smallAvatar: number;
-    avarageAvatar: number;
-    bigAvatar: number;
-  };
-
   durations: {
     ms300: number;
   };

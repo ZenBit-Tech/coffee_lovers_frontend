@@ -6,18 +6,14 @@ import { dateType, NotificationType, todayDate } from '@freelance/constants';
 import { usePostOfferMutation } from 'src/redux/invite/inviteApi';
 import { Request } from 'src/redux/invite/types';
 
-import { sendInviteHookDto } from '../interview-modal/types';
-
-import { sendOfferHookReturnDto } from './types';
+import { sendOfferHookDto, sendOfferHookReturnDto } from './types';
 
 const useSendOfferHook = ({
   api,
-  setConfirmLoading,
-  setOpen,
   hourly_rate,
   id,
   description,
-}: sendInviteHookDto): sendOfferHookReturnDto => {
+}: sendOfferHookDto): sendOfferHookReturnDto => {
   const { t } = useTranslation();
   const [postOffer, { isError, isSuccess }] = usePostOfferMutation();
   const openNotificationWithIcon = (
@@ -29,16 +25,6 @@ const useSendOfferHook = ({
       message,
       description,
     });
-  };
-
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setOpen(false);
-    setConfirmLoading(false);
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
   };
 
   const {
@@ -100,9 +86,6 @@ const useSendOfferHook = ({
   }, [isError, isSuccess]);
 
   return {
-    handleCancel,
-    handleOk,
-    openNotificationWithIcon,
     control,
     register,
     handleSubmit,

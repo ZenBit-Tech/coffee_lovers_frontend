@@ -9,8 +9,6 @@ import { sendInviteHookDto, sendInviteHookReturnDto } from './types';
 
 const useInterviewModalHook = ({
   api,
-  setConfirmLoading,
-  setOpen,
   hourly_rate,
   id,
   description,
@@ -27,16 +25,6 @@ const useInterviewModalHook = ({
       message,
       description,
     });
-  };
-
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setOpen(false);
-    setConfirmLoading(false);
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
   };
 
   const {
@@ -95,8 +83,6 @@ const useInterviewModalHook = ({
   }, [isError, isSuccess]);
 
   return {
-    handleCancel,
-    handleOk,
     openNotificationWithIcon,
     control,
     register,

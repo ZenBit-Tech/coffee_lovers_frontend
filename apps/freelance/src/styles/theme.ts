@@ -47,12 +47,6 @@ export const baseTheme: ITheme = {
     navigationBar: { height: '60px' },
   },
 
-  avatars: {
-    smallAvatar: 40,
-    avarageAvatar: 50,
-    bigAvatar: 80,
-  },
-
   // in ms
   durations: {
     ms300: 300,

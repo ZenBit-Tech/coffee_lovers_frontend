@@ -11,13 +11,14 @@ import {
   ValidationErrorMessage,
 } from '@freelance/components';
 import { ErrorMessage } from '@hookform/error-message';
+import UseModalOpenHook from 'src/hooks/modal-open-hook';
 import { useFindUserJobsWithoutOfferQuery } from 'src/redux/invite/inviteApi';
 import { useGetJobQuery } from 'src/redux/services/jobsApi';
 import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
 
+import useSendOfferHook from './send-offer-hook.ts';
 import { StyledModal, StyledSelect } from './styles';
 import { Props } from './types';
-import useSendOfferHook from './useSendOfferHook';
 
 export function SendOfferModal(props: Props) {
   const { setOpen, open, hourly_rate, id, description } = props;
@@ -30,24 +31,19 @@ export function SendOfferModal(props: Props) {
     id,
   });
   const { t } = useTranslation<Namespace<string>>();
-
-  const {
-    handleCancel,
-    handleOk,
-    control,
-    register,
-    handleSubmit,
-    errors,
-    onSubmit,
-  } = useSendOfferHook({
-    api,
-    setConfirmLoading,
+  const { handleCancel, handleOk } = UseModalOpenHook({
     setOpen,
-    hourly_rate,
-    id,
-    description,
-    setJobId,
+    setConfirmLoading,
   });
+
+  const { control, register, handleSubmit, errors, onSubmit } =
+    useSendOfferHook({
+      api,
+      hourly_rate,
+      id,
+      description,
+      setJobId,
+    });
 
   return (
     <StyledModal
@@ -72,7 +68,7 @@ export function SendOfferModal(props: Props) {
                 <Col span={8}>
                   <p>{t('modalInvite.choose')}</p>
                 </Col>
-                <Col span={6}>
+                <Col span={9}>
                   <StyledSelect
                     {...field}
                     options={data
@@ -101,7 +97,7 @@ export function SendOfferModal(props: Props) {
                 <Col span={8}>
                   <p>{t('modalInvite.rate')}</p>
                 </Col>
-                <Col span={6}>
+                <Col span={9}>
                   <Input
                     type="number"
                     placeholder={t('modalInvite.placeholder')}
@@ -130,7 +126,7 @@ export function SendOfferModal(props: Props) {
                 <Col span={8}>
                   <p>{t('modalInvite.time')}</p>
                 </Col>
-                <Col span={6}>
+                <Col span={9}>
                   <DatePicker
                     onChange={date => {
                       onChange(date?.isValid ? date : null);
@@ -153,16 +149,12 @@ export function SendOfferModal(props: Props) {
           {jobId && (
             <Row>
               <Col span={8}>{t('modalInvite.description')}</Col>
-              <Col span={5}>{selectedJob?.job.description}</Col>
+              <Col span={10}>{selectedJob?.job.description}</Col>
             </Row>
           )}
 
           <Row justify="end">
-            <Space
-              direction="horizontal"
-              size="middle"
-              style={{ display: 'flex' }}
-            >
+            <Space direction="horizontal" size="middle">
               <Col span={6}>
                 <Button htmlType="submit" height="40px">
                   {t('modalInvite.submit')}

@@ -24,8 +24,6 @@ export interface Conversation {
 
 export interface sendInviteHookDto {
   api: NotificationInstance;
-  setConfirmLoading: Dispatch<SetStateAction<boolean>>;
-  setOpen: (op: boolean) => void;
   hourly_rate?: number;
   id?: number;
   description?: string;
@@ -33,9 +31,6 @@ export interface sendInviteHookDto {
 }
 
 export interface sendInviteHookReturnDto {
-  handleCancel: () => void;
-  handleOk: () => void;
-
   openNotificationWithIcon: (
     type: NotificationType,
     message: string,
@@ -60,7 +55,7 @@ export interface sendInviteHookReturnDto {
   errors: Partial<
     FieldErrorsImpl<{
       select: never;
-      rate: NonNullable<string | number>;
+      rate: string | number;
       start: object;
     }>
   >;

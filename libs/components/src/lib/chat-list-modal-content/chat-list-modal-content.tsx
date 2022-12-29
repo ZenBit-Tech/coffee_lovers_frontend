@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
-
-import Button from '../button/button';
+import { Button } from '@freelance/components';
 
 import { empty, many, SendInterviewPage } from './constants';
 import { Conversation, Props } from './types';

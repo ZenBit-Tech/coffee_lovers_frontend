@@ -2,7 +2,7 @@ import { ApiRoutes, baseUrl } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
 import { FrelancerPayload } from 'redux/types/jobs.types';
-import { InviteJobs, OffersJobs } from 'redux/types/withoutoffer.types.ts';
+import { OffersJobs } from 'redux/types/withoutoffer.types.ts';
 
 import { PostOffer, PostRequest } from './types';
 
@@ -27,7 +27,7 @@ export const inviteApi = createApi({
       }),
       providesTags: ['Invite', 'Offer'],
     }),
-    findUserJobsWithoutInvite: builder.query<InviteJobs[], FrelancerPayload>({
+    findUserJobsWithoutInvite: builder.query<OffersJobs[], FrelancerPayload>({
       query: (payload: FrelancerPayload) => ({
         url: `${EndpointsRoutes.withoutinvite}/${payload.id}`,
       }),
