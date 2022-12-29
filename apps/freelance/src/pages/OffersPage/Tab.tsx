@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { TFunction } from 'i18next';
 import { OfferInterviewCard } from '@freelance/components';
-import { Interview, Offer } from 'redux/types/offers.types';
+import { Interview, Offer } from 'redux/types/request.types';
 
 import { getSortOptions, SortOptions } from './constants';
 import { OfferList, OfferWrapper, StyledSelect } from './styles';

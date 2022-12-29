@@ -23,5 +23,8 @@ export default {
       deleteInterviewTitle:
         'Are you sure you want to delete this interview invitation?',
     },
+    errors: {
+      unexpected: 'Unexpected error',
+    },
   },
 };

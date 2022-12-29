@@ -21,6 +21,7 @@ import { authApi } from './services/authApi';
 import { chatApi } from './services/chatApi';
 import { freelancersApi } from './services/freelancers';
 import { jobsApi } from './services/jobsApi';
+import { requestApi } from './services/requestApi';
 import { userApi } from './services/user';
 
 export const store = configureStore({
@@ -36,6 +37,7 @@ export const store = configureStore({
     [jobPostApi.reducerPath]: jobPostApi.reducer,
     [invitationApi.reducerPath]: invitationApi.reducer,
     [chatApi.reducerPath]: chatApi.reducer,
+    [requestApi.reducerPath]: requestApi.reducer,
     [contractsApi.reducerPath]: contractsApi.reducer,
   },
   middleware: getDefaultMiddleware =>
@@ -53,6 +55,7 @@ export const store = configureStore({
       jobPostApi.middleware,
       invitationApi.middleware,
       chatApi.middleware,
+      requestApi.middleware,
       contractsApi.middleware,
     ),
 });

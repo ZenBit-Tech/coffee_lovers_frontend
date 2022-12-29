@@ -8,5 +8,6 @@ export * from './options';
 export * from './profileQuestions';
 export * from './role';
 export * from './routes';
+export * from './tags';
 export * from './testIds';
 export * from './validation';

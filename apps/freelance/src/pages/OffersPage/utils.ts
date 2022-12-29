@@ -1,4 +1,4 @@
-import { Offer } from 'redux/types/offers.types';
+import { Offer } from 'redux/types/request.types';
 
 import { offerStatusPriority, SortOptions } from './constants';
 
