@@ -12,7 +12,6 @@ import {
   SendOfferModal,
 } from '@freelance/components';
 import { useGetFreelancerByIdQuery } from 'redux/services/freelancers';
-import { useFindUserJobsWithoutOfferQuery } from 'redux/services/jobsApi';
 
 import * as St from './styles';
 
@@ -27,10 +26,6 @@ const FreelancerPageInfo = () => {
   const showModal = () => {
     setOpen(true);
   };
-  const { data: jobsWithoutOfferData, refetch: refetchOffers } =
-    useFindUserJobsWithoutOfferQuery({
-      id,
-    });
 
   return (
     <St.Wrapper isLoading={isLoading}>
@@ -169,14 +164,8 @@ const FreelancerPageInfo = () => {
           {t('description.freelancerPageInfo.inviteInterview')}
         </Button>
       </St.ButtonWrapper>
-      <InterviewModal
-        refetchOffers={refetchOffers}
-        open={open}
-        setOpen={setOpen}
-        {...userDataById}
-      />
+      <InterviewModal open={open} setOpen={setOpen} {...userDataById} />
       <SendOfferModal
-        jobsWithoutOfferData={jobsWithoutOfferData}
         open={offerOpen}
         setOpen={setOfferOpen}
         {...userDataById}

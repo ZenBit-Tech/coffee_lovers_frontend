@@ -1,25 +1,26 @@
 import { useEffect } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { dateType, NotificationType, todayDate } from '@freelance/constants';
-import { usePostOfferMutation } from 'src/redux/invite/inviteApi';
-import { Request } from 'src/redux/invite/types';
+import { usePostRequestMutation } from 'src/redux/invite/inviteApi';
+import { Invite } from 'src/redux/invite/types';
 
-import { sendInviteHookDto } from '../interview-modal/types';
+import { sendOfferHookReturnDto } from '../send-offer-modal/types';
 
-import { sendOfferHookReturnDto } from './types';
+import { sendInviteHookDto } from './types';
 
 const useSendOfferHook = ({
+  id,
+  setJobId,
   api,
+  description,
   setConfirmLoading,
   setOpen,
   hourly_rate,
-  id,
-  description,
 }: sendInviteHookDto): sendOfferHookReturnDto => {
+  const [postRequest, { isError, isSuccess }] = usePostRequestMutation();
   const { t } = useTranslation();
-  const [postOffer, { isError, isSuccess }] = usePostOfferMutation();
   const openNotificationWithIcon = (
     type: NotificationType,
     message: string,
@@ -56,27 +57,25 @@ const useSendOfferHook = ({
   });
 
   const onSubmit = async (payload: {
-    select?: number | null;
+    select: number | null;
     rate: number | string;
-    start?: Dayjs | null;
   }) => {
     try {
-      const { select, rate, start } = payload;
-      await postOffer({
+      await postRequest({
         freelancer: id,
-        jobId: select,
+        jobId: payload.select,
         data: {
-          hourly_rate: rate,
-          start,
-          status: Request.pending,
+          hourly_rate: payload.rate,
+          type: Invite.INTERVIEW,
           cover_letter: description,
         },
       });
+      setJobId(null);
     } catch (err) {
       openNotificationWithIcon(
         NotificationType.error,
         t('loginPage.notificationMessage'),
-        t('modalInvite.offerError'),
+        t('modalInvite.requestError'),
       );
     }
   };
@@ -102,12 +101,12 @@ const useSendOfferHook = ({
   return {
     handleCancel,
     handleOk,
-    openNotificationWithIcon,
     control,
     register,
     handleSubmit,
     errors,
     onSubmit,
+    openNotificationWithIcon,
   };
 };
 

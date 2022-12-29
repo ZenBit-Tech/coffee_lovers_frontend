@@ -1,7 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
+import {
+  Control,
+  FieldErrorsImpl,
+  UseFormHandleSubmit,
+  UseFormRegister,
+} from 'react-hook-form';
 import { NotificationType } from '@freelance/constants';
-import { NotificationInstance } from 'antd/es/notification/interface';
-import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
 
 export interface Props {
   hourly_rate?: number;
@@ -9,17 +13,10 @@ export interface Props {
   description?: string;
   open: boolean;
   setOpen: (op: boolean) => void;
-  jobsWithoutOfferData?: OffersJobs[];
 }
 
 export interface FreelancerId {
   id: number;
-}
-
-export interface sendOfferHookDto {
-  api: NotificationInstance;
-  setConfirmLoading: Dispatch<SetStateAction<boolean>>;
-  setOpen: (op: boolean) => void;
 }
 
 export interface sendOfferHookReturnDto {
@@ -31,4 +28,35 @@ export interface sendOfferHookReturnDto {
     message: string,
     description: string,
   ) => void;
+
+  control: Control<{
+    select: null;
+    rate: string | number;
+    start: dayjs.Dayjs;
+  }>;
+
+  register: UseFormRegister<{
+    select: null;
+    rate: string | number;
+    start: dayjs.Dayjs;
+  }>;
+
+  handleSubmit: UseFormHandleSubmit<{
+    select: null;
+    rate: string | number;
+    start: dayjs.Dayjs;
+  }>;
+
+  errors: Partial<
+    FieldErrorsImpl<{
+      select: never;
+      rate: NonNullable<string | number>;
+      start: object;
+    }>
+  >;
+  onSubmit: (payload: {
+    select: number | null;
+    rate: number | string;
+    start?: Dayjs | null;
+  }) => Promise<void>;
 }

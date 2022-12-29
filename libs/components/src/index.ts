@@ -5,6 +5,7 @@ export * from './lib/avatar-upload';
 export * from './lib/button/button';
 export * from './lib/button/styles';
 export * from './lib/button/styles';
+export * from './lib/chat-list-modal-content/chat-list-modal-content';
 export * from './lib/conditions-card/conditions-card';
 export { CardWrapper } from './lib/conditions-card/styles';
 export * from './lib/constants';

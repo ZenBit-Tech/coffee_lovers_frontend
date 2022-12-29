@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Col, DatePicker, Input, notification, Row, Space } from 'antd';
-import dayjs, { type Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { Namespace } from 'i18next';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
   Button,
@@ -10,14 +10,9 @@ import {
   todayDate,
   ValidationErrorMessage,
 } from '@freelance/components';
-import { NotificationType } from '@freelance/components';
 import { ErrorMessage } from '@hookform/error-message';
-import { usePostOfferMutation } from 'src/redux/invite/inviteApi';
-import { Request } from 'src/redux/invite/types';
-import {
-  useFindUserJobsWithoutOfferQuery,
-  useGetJobQuery,
-} from 'src/redux/services/jobsApi';
+import { useFindUserJobsWithoutOfferQuery } from 'src/redux/invite/inviteApi';
+import { useGetJobQuery } from 'src/redux/services/jobsApi';
 import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
 
 import { StyledModal, StyledSelect } from './styles';
@@ -31,77 +26,28 @@ export function SendOfferModal(props: Props) {
 
   const [api, contextHolder] = notification.useNotification();
   const { data: selectedJob } = useGetJobQuery(jobId);
-  const { data, refetch } = useFindUserJobsWithoutOfferQuery({
+  const { data } = useFindUserJobsWithoutOfferQuery({
     id,
   });
   const { t } = useTranslation<Namespace<string>>();
-  const [postOffer, { isError, error, isSuccess }] = usePostOfferMutation();
 
-  const { handleCancel, handleOk, openNotificationWithIcon } = useSendOfferHook(
-    {
-      api,
-      setConfirmLoading,
-      setOpen,
-    },
-  );
   const {
+    handleCancel,
+    handleOk,
     control,
-    handleSubmit,
     register,
-    reset,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      select: null,
-      rate: hourly_rate,
-      start: dayjs(todayDate, dateType),
-    },
+    handleSubmit,
+    errors,
+    onSubmit,
+  } = useSendOfferHook({
+    api,
+    setConfirmLoading,
+    setOpen,
+    hourly_rate,
+    id,
+    description,
+    setJobId,
   });
-
-  useEffect(() => {
-    if (isError) {
-      openNotificationWithIcon(
-        NotificationType.error,
-        t('loginPage.notificationMessage'),
-        t('modalInvite.offerError'),
-      );
-    }
-    if (isSuccess) {
-      openNotificationWithIcon(
-        NotificationType.success,
-        t('modalInvite.requestSuccessHeader'),
-        t('modalInvite.offerSuccess'),
-      );
-      reset({ select: null, rate: hourly_rate });
-    }
-  }, [error, isError, isSuccess]);
-
-  const onSubmit = async (payload: {
-    select?: number | null;
-    rate?: number;
-    start?: Dayjs | null;
-  }) => {
-    try {
-      const { select, rate, start } = payload;
-      await postOffer({
-        freelancer: id,
-        jobId: select,
-        data: {
-          hourly_rate: rate,
-          start,
-          status: Request.pending,
-          cover_letter: description,
-        },
-      });
-      refetch();
-    } catch (err) {
-      openNotificationWithIcon(
-        NotificationType.error,
-        t('loginPage.notificationMessage'),
-        t('modalInvite.offerError'),
-      );
-    }
-  };
 
   return (
     <StyledModal

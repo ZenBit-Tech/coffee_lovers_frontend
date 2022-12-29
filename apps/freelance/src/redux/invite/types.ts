@@ -13,7 +13,7 @@ export enum Invite {
 export interface PostRequest {
   data: {
     type?: Invite;
-    hourly_rate?: number;
+    hourly_rate: number | string;
     cover_letter?: string | null;
   };
   freelancer?: number;
@@ -23,7 +23,7 @@ export interface PostRequest {
 export interface PostOffer {
   data: {
     status?: Request;
-    hourly_rate?: number;
+    hourly_rate: number | string;
     start?: Dayjs | null;
     cover_letter?: string | null;
   };

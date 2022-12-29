@@ -5,7 +5,6 @@ import { getHeaders } from '@utils/api';
 import { AvailableJobs } from 'redux/types/availableJobs.types.';
 import {
   FindJobsResponse,
-  FrelancerPayload,
   GetJobParams,
   GetJobProposalsResponse,
   GetJobResponse,
@@ -13,7 +12,6 @@ import {
   GetPostedJobsResponse,
   IJobProposal,
 } from 'redux/types/jobs.types';
-import { InviteJobs, OffersJobs } from 'redux/types/withoutoffer.types.ts';
 
 enum EndpointsRoutes {
   findJobs = '/',
@@ -59,16 +57,6 @@ export const jobsApi = createApi({
         url: `/${id}` + EndpointsRoutes.getJobProposals,
       }),
     }),
-    findUserJobsWithoutOffer: builder.query<OffersJobs[], FrelancerPayload>({
-      query: (payload: FrelancerPayload) => ({
-        url: `${EndpointsRoutes.offer}/${payload.id}`,
-      }),
-    }),
-    findUserJobsWithoutInvite: builder.query<InviteJobs[], FrelancerPayload>({
-      query: (payload: FrelancerPayload) => ({
-        url: `${EndpointsRoutes.invite}/${payload.id}`,
-      }),
-    }),
     getJob: builder.query<GetJobResponse, number | null>({
       query: id => ({
         url: `/${id}` + EndpointsRoutes.getJob,
@@ -90,7 +78,5 @@ export const {
   useGetJobQuery,
   useGetJobProposalsQuery,
   useGetPostedJobsQuery,
-  useFindUserJobsWithoutOfferQuery,
-  useFindUserJobsWithoutInviteQuery,
   useGetPostedJobDetailsQuery,
 } = jobsApi;

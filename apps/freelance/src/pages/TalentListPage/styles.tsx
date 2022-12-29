@@ -75,9 +75,9 @@ export const PropertiesContainer = styled.div`
 `;
 
 export const TextExContainer = styled.div`
-  width: 250px;
+  width: 400px;
   margin-left: 50px;
-  margin-bottom: -14px;
+  margin-bottom: -12px;
 `;
 
 export const StyledRate = styled(Rate)`

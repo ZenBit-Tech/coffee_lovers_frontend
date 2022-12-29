@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
-import { Avatar, Input, List } from 'antd';
+import { Avatar, Col, Input, List, Rate, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 import {
   baseUrl,
+  ExpandableText,
   Filters,
   PrimaryButton,
   profileQ1,
@@ -105,21 +106,34 @@ const TalentListPage = (): ReactElement => {
             renderItem={(item: User) => (
               <St.StyledCard key={item.id}>
                 <St.StyledCardHeader>
-                  <Avatar
-                    src={`${baseUrl}/${item.profile_image}`}
-                    size={profileQ1.avatarBigSize}
-                    icon={<UserOutlined />}
-                  />
-                  <St.StyledName onClick={() => navFunc(item.id)}>
-                    {t('talent.name', {
-                      name: item.first_name + ' ' + item.last_name,
-                    })}
-                  </St.StyledName>
-                  <St.StyledRate
-                    onChange={value => onChangeFavorite(item.id, value)}
-                    count={talentConsts.starCount}
-                    value={isFreelancerFav(item, favorites)}
-                  />
+                  <Row align="middle">
+                    <Col span={4}>
+                      <Avatar
+                        src={`${baseUrl}/${item.profile_image}`}
+                        size={profileQ1.avatarBigSize}
+                        icon={<UserOutlined />}
+                      />
+                    </Col>
+                    <Col span={4}>
+                      <St.StyledName onClick={() => navFunc(item.id)}>
+                        {t('talent.name', {
+                          name: item.first_name + ' ' + item.last_name,
+                        })}
+                      </St.StyledName>
+                    </Col>
+                    <Col span={4}>
+                      <St.TextExContainer>
+                        <ExpandableText>{item.description}</ExpandableText>
+                      </St.TextExContainer>
+                    </Col>
+                    <Col span={4}>
+                      <Rate
+                        onChange={value => onChangeFavorite(item.id, value)}
+                        count={talentConsts.starCount}
+                        value={isFreelancerFav(item, favorites)}
+                      />
+                    </Col>
+                  </Row>
                 </St.StyledCardHeader>
                 <St.SmallCardContainer>
                   {item.position && (

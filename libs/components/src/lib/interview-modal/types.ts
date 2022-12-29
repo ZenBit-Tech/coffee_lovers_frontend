@@ -1,16 +1,13 @@
 import { Dispatch, SetStateAction } from 'react';
-import { NotificationType } from '@freelance/constants';
 import {
-  BaseQueryFn,
-  FetchArgs,
-  FetchBaseQueryError,
-  FetchBaseQueryMeta,
-  QueryDefinition,
-} from '@reduxjs/toolkit/dist/query';
-import { QueryActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
+  Control,
+  FieldErrorsImpl,
+  UseFormHandleSubmit,
+  UseFormRegister,
+} from 'react-hook-form';
+import { NotificationType } from '@freelance/constants';
 import { NotificationInstance } from 'antd/es/notification/interface';
-import { FrelancerPayload, Job } from 'src/redux/types/jobs.types';
-import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
+import { Job } from 'src/redux/types/jobs.types';
 
 export interface Props {
   open: boolean;
@@ -18,21 +15,6 @@ export interface Props {
   description?: string;
   hourly_rate?: number;
   id?: number;
-  refetchOffers: () => QueryActionCreatorResult<
-    QueryDefinition<
-      FrelancerPayload,
-      BaseQueryFn<
-        string | FetchArgs,
-        unknown,
-        FetchBaseQueryError,
-        unknown,
-        FetchBaseQueryMeta
-      >,
-      'Post',
-      OffersJobs[],
-      'jobsApi'
-    >
-  >;
 }
 
 export interface Conversation {
@@ -44,6 +26,10 @@ export interface sendInviteHookDto {
   api: NotificationInstance;
   setConfirmLoading: Dispatch<SetStateAction<boolean>>;
   setOpen: (op: boolean) => void;
+  hourly_rate?: number;
+  id?: number;
+  description?: string;
+  setJobId: Dispatch<SetStateAction<number | null>>;
 }
 
 export interface sendInviteHookReturnDto {
@@ -55,4 +41,32 @@ export interface sendInviteHookReturnDto {
     message: string,
     description: string,
   ) => void;
+
+  control: Control<{
+    select: null;
+    rate: string | number;
+  }>;
+
+  register: UseFormRegister<{
+    select: null;
+    rate: string | number;
+  }>;
+
+  handleSubmit: UseFormHandleSubmit<{
+    select: null;
+    rate: string | number;
+  }>;
+
+  errors: Partial<
+    FieldErrorsImpl<{
+      select: never;
+      rate: NonNullable<string | number>;
+      start: object;
+    }>
+  >;
+
+  onSubmit: (payload: {
+    select: number | null;
+    rate: number | string;
+  }) => Promise<void>;
 }
