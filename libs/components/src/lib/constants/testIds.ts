@@ -15,6 +15,11 @@ export const freelancerPageInfo = {
   skills: 'fpiskillsArr',
 };
 
+export const freelancerProfile = {
+  profileImage: 'fpprofileImage',
+  email: 'fpemail',
+};
+
 export const findJobsPageTestId = {
   totalCount: 'findJobsTtotalCount',
   filterButton: 'findJobsFilterButton',

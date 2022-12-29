@@ -71,7 +71,7 @@ const FormWorkList: FC<freelancerWorkProps> = ({ work }) => {
           ))}
           <Form.Item>
             <Button type="dashed" onClick={add} block icon={<PlusOutlined />}>
-              {t('description.profileQp1.add_one_more')}
+              {t('description.profileQp1.add_education')}
             </Button>
           </Form.Item>
         </>
