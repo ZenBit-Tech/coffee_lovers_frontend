@@ -12,7 +12,7 @@ describe('Auth actions', () => {
     store.dispatch(setUser({ access_token: testToken }));
     const stateAfterAction = store.getState();
 
-    expect(stateBeforeAction.user.access_token).toBe(null);
+    expect(stateBeforeAction.user.access_token).toBe('');
     expect(stateAfterAction.user.access_token).toBe(testToken);
   });
 
@@ -23,7 +23,7 @@ describe('Auth actions', () => {
     const stateAfterAction = store.getState();
 
     expect(stateBeforeAction.user.access_token).toBeDefined();
-    expect(stateAfterAction.user.access_token).toBe(null);
+    expect(stateAfterAction.user.access_token).toBe('');
   });
 
   test('Check that role has been changed', () => {

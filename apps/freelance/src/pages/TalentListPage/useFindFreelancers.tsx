@@ -6,7 +6,7 @@ import { talentConsts } from './constants';
 import { GetFreelancerParams } from './model';
 
 interface useFindFreelancersReturn {
-  filterPayload: GetFreelancerParams | undefined;
+  filterPayload?: GetFreelancerParams;
   search: string;
   filtersVisibility: boolean;
   page: number;

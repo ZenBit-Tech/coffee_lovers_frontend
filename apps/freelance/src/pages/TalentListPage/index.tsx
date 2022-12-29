@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
-import { Avatar, Input, List } from 'antd';
+import { Avatar, Col, Input, List, Rate, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 import {
   baseUrl,
+  ExpandableText,
   Filters,
   PrimaryButton,
   profileQ1,
@@ -103,57 +104,77 @@ const TalentListPage = (): ReactElement => {
           <List
             dataSource={freelancerRenderData}
             renderItem={(item: User) => (
-              <St.StyledCard
-                key={item.id}
-                title={
-                  <St.StyledCardHeader>
-                    <Avatar
-                      src={`${baseUrl}/${item.profile_image}`}
-                      size={profileQ1.avatarBigSize}
-                      icon={<UserOutlined />}
-                    />
-                    <St.StyledName onClick={() => navFunc(item.id)}>
-                      {t('talent.name', {
-                        name: item.first_name + ' ' + item.last_name,
-                      })}
-                    </St.StyledName>
-                    <St.StyledRate
-                      onChange={value => onChangeFavorite(item.id, value)}
-                      count={talentConsts.starCount}
-                      value={isFreelancerFav(item, favorites)}
-                    />
-                  </St.StyledCardHeader>
-                }
-              >
+              <St.StyledCard key={item.id}>
+                <St.StyledCardHeader>
+                  <Row align="middle">
+                    <Col span={4}>
+                      <Avatar
+                        src={`${baseUrl}/${item.profile_image}`}
+                        size={profileQ1.avatarBigSize}
+                        icon={<UserOutlined />}
+                      />
+                    </Col>
+                    <Col span={4}>
+                      <St.StyledName onClick={() => navFunc(item.id)}>
+                        {t('talent.name', {
+                          name: item.first_name + ' ' + item.last_name,
+                        })}
+                      </St.StyledName>
+                    </Col>
+                    <Col span={4}>
+                      <St.TextExContainer>
+                        <ExpandableText>{item.description}</ExpandableText>
+                      </St.TextExContainer>
+                    </Col>
+                    <Col span={4}>
+                      <Rate
+                        onChange={value => onChangeFavorite(item.id, value)}
+                        count={talentConsts.starCount}
+                        value={isFreelancerFav(item, favorites)}
+                      />
+                    </Col>
+                  </Row>
+                </St.StyledCardHeader>
                 <St.SmallCardContainer>
-                  <SmallCard
-                    width={talentConsts.largeSize}
-                    text={t('talent.position', { position: item.position })}
-                  />
-                  <SmallCard
-                    width={talentConsts.largeSize}
-                    text={t('talent.category', {
-                      category: item.category ? item.category.name : '',
-                    })}
-                  />
-                  <SmallCard
-                    width={talentConsts.largeSize}
-                    text={t('talent.available_time', {
-                      available_time: item.available_time,
-                    })}
-                  />
-                  <SmallCard
-                    width={talentConsts.largeSize}
-                    text={t('talent.hourly_rate', {
-                      hourly_rate: item.hourly_rate + ' $',
-                    })}
-                  />
-                  <SmallCard
-                    width={talentConsts.largeSize}
-                    text={t('talent.english_level', {
-                      english_level: item.english_level,
-                    })}
-                  />
+                  {item.position && (
+                    <SmallCard
+                      width={talentConsts.largeSize}
+                      text={t('talent.position', { position: item.position })}
+                    />
+                  )}
+
+                  {item.category && (
+                    <SmallCard
+                      width={talentConsts.largeSize}
+                      text={t('talent.category', {
+                        category: item.category.name,
+                      })}
+                    />
+                  )}
+                  {item.available_time && (
+                    <SmallCard
+                      width={talentConsts.largeSize}
+                      text={t('talent.available_time', {
+                        available_time: item.available_time,
+                      })}
+                    />
+                  )}
+                  {item.hourly_rate && (
+                    <SmallCard
+                      width={talentConsts.largeSize}
+                      text={t('talent.hourly_rate', {
+                        hourly_rate: item.hourly_rate + ' $',
+                      })}
+                    />
+                  )}
+                  {item.english_level && (
+                    <SmallCard
+                      width={talentConsts.largeSize}
+                      text={t('talent.english_level', {
+                        english_level: item.english_level,
+                      })}
+                    />
+                  )}
                 </St.SmallCardContainer>
               </St.StyledCard>
             )}

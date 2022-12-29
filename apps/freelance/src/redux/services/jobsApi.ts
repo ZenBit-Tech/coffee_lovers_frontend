@@ -4,14 +4,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
 import {
   FindJobsResponse,
-  FrelancerPayload,
   GetJobParams,
   GetJobProposalsResponse,
   GetJobResponse,
   GetPostedJobDetailsResponse,
   GetPostedJobsResponse,
   IJobProposal,
-  Job,
 } from 'redux/types/jobs.types';
 
 enum EndpointsRoutes {
@@ -21,7 +19,6 @@ enum EndpointsRoutes {
   getJob = '/job',
   getPostedJobs = '/posted',
   getPostedJobDetails = '/posted/',
-  offer = '/withoutoffer',
 }
 
 export const jobsApi = createApi({
@@ -40,11 +37,6 @@ export const jobsApi = createApi({
         params,
       }),
     }),
-    findUserJobs: builder.query<Job[], number | undefined>({
-      query: freelancer => ({
-        url: EndpointsRoutes.findUserJobs + '/' + freelancer,
-      }),
-    }),
     sendProposal: builder.mutation({
       query: (body: IJobProposal) => ({
         url: '/proposal',
@@ -57,12 +49,7 @@ export const jobsApi = createApi({
         url: `/${id}` + EndpointsRoutes.getJobProposals,
       }),
     }),
-    findUserJobsWithoutOffer: builder.query<Job[], FrelancerPayload>({
-      query: (payload: FrelancerPayload) => ({
-        url: `${EndpointsRoutes.offer}/${payload.id}`,
-      }),
-    }),
-    getJob: builder.query<GetJobResponse, number>({
+    getJob: builder.query<GetJobResponse, number | null>({
       query: id => ({
         url: `/${id}` + EndpointsRoutes.getJob,
       }),
@@ -78,11 +65,9 @@ export const jobsApi = createApi({
 
 export const {
   useFindJobsQuery,
-  useFindUserJobsQuery,
   useSendProposalMutation,
   useGetJobQuery,
   useGetJobProposalsQuery,
   useGetPostedJobsQuery,
-  useFindUserJobsWithoutOfferQuery,
   useGetPostedJobDetailsQuery,
 } = jobsApi;

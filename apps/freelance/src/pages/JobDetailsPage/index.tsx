@@ -9,6 +9,7 @@ import { skills } from '@pages/JobDetailsPage/constants';
 import { useGetJobQuery } from 'redux/services/jobsApi';
 import { useGetUserProposalsQuery } from 'redux/services/user';
 import { useGetUserInfoQuery } from 'redux/services/user';
+import { baseTheme } from 'src/styles/theme';
 import { formatDate } from 'src/utils/dates';
 
 import {
@@ -103,7 +104,11 @@ export default function JobDetailsPage() {
           </SkillsWrapper>
 
           <ButtonWrapper>
-            <StyledButton disabled={isActive} onClick={showModal}>
+            <StyledButton
+              theme={baseTheme}
+              disabled={isActive}
+              onClick={showModal}
+            >
               {t('job_details.send_proposal')}
             </StyledButton>
             {isActive && (

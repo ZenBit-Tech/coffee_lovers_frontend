@@ -1,6 +1,5 @@
 import { ContractStatus } from './contracts.types';
 import { Property } from './properties.types';
-import { Offer } from './request.types';
 import { User } from './user.types';
 
 export interface Job {

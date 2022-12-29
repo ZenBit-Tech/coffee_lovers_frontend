@@ -70,12 +70,12 @@ export const Filters: FC<FiltersProps> = ({
 
   return (
     <Wrapper
+      theme={baseTheme}
       visibility={visibility}
       top={top}
       left={left}
       right={right}
       bottom={bottom}
-      theme={baseTheme}
       data-testid={filtersTestId.wrapper}
     >
       <StyledClose onClick={() => closeHandler()} />

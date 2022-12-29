@@ -14,6 +14,7 @@ import { persistedAuthReducer } from 'redux/auth/auth-slice';
 import { userAuthApi } from './auth/auth-api';
 import { contractsApi } from './contracts/contracts';
 import { invitationApi } from './invitation/invitation';
+import { inviteApi } from './invite/inviteApi';
 import { jobPostApi } from './job-post/job-post';
 import { propertiesApi } from './properties/properties-api';
 import { persistedPropertiesReducer } from './properties/properties-slice';
@@ -37,6 +38,7 @@ export const store = configureStore({
     [jobPostApi.reducerPath]: jobPostApi.reducer,
     [invitationApi.reducerPath]: invitationApi.reducer,
     [chatApi.reducerPath]: chatApi.reducer,
+    [inviteApi.reducerPath]: inviteApi.reducer,
     [requestApi.reducerPath]: requestApi.reducer,
     [contractsApi.reducerPath]: contractsApi.reducer,
   },
@@ -57,6 +59,7 @@ export const store = configureStore({
       chatApi.middleware,
       requestApi.middleware,
       contractsApi.middleware,
+      inviteApi.middleware,
     ),
 });
 
