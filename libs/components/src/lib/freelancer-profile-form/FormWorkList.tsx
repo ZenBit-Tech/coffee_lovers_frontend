@@ -19,7 +19,7 @@ const FormWorkList: FC<freelancerWorkProps> = ({ work }) => {
     <Form.List
       name={profileQ1.workHistoryWrapper}
       initialValue={
-        profileQ1.workEduDefValue || (work && convertWorkTime(work))
+        (work && convertWorkTime(work)) || profileQ1.workEduDefValue
       }
     >
       {(fields, { add, remove }) => (
@@ -71,7 +71,7 @@ const FormWorkList: FC<freelancerWorkProps> = ({ work }) => {
           ))}
           <Form.Item>
             <Button type="dashed" onClick={add} block icon={<PlusOutlined />}>
-              {t('description.profileQp1.add_one_more')}
+              {t('description.profileQp1.add_education')}
             </Button>
           </Form.Item>
         </>

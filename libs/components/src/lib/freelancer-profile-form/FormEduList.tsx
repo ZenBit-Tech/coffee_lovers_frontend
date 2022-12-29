@@ -19,7 +19,7 @@ const FormEduList: FC<freelancerEduProps> = ({ education }) => {
     <Form.List
       name={profileQ1.edu}
       initialValue={
-        profileQ1.workEduDefValue || (education && convertEduTime(education))
+        (education && convertEduTime(education)) || profileQ1.workEduDefValue
       }
     >
       {(fields, { add, remove }) => (
@@ -86,7 +86,7 @@ const FormEduList: FC<freelancerEduProps> = ({ education }) => {
           ))}
           <Form.Item>
             <Button type="dashed" onClick={add} block icon={<PlusOutlined />}>
-              {t('description.profileQp1.add_one_more')}
+              {t('description.profileQp1.add_workhistory')}
             </Button>
           </Form.Item>
         </>
