@@ -1,3 +1,4 @@
+import { Empty } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@freelance/components';
 
@@ -12,7 +13,7 @@ export function ChatListModalContent(props: Props) {
 
   return (
     <div>
-      {conversations?.length > empty && (
+      {conversations?.length > empty ? (
         <>
           {t('modalInvite.notification', {
             ending: conversations?.length > many && 's',
@@ -28,15 +29,18 @@ export function ChatListModalContent(props: Props) {
             ))}
           </ul>
           <br />
-          <Button
-            onClick={() => {
-              setPage(SendInterviewPage);
-            }}
-          >
-            {t('modalInvite.newChat')}
-          </Button>
         </>
+      ) : (
+        <Empty />
       )}
+
+      <Button
+        onClick={() => {
+          setPage(SendInterviewPage);
+        }}
+      >
+        {t('modalInvite.newChat')}
+      </Button>
     </div>
   );
 }
