@@ -15,6 +15,7 @@ export interface Offer {
   hourly_rate: number;
   status: OfferStatus;
   created_at: string;
+  start: string;
 }
 
 export interface Interview {

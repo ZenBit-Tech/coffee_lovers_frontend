@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   authEmail,
-  authError,
   authPassword,
+  NotificationType,
   StyledInput,
   StyledPasswordInput,
   useOpenNotification,
@@ -41,7 +41,7 @@ export const LoginForm = () => {
       }
     } catch (error) {
       openNotificationWithIcon(
-        authError,
+        NotificationType.ERROR,
         `${t('loginPage.notificationMessage')}`,
         `${t('loginPage.notificationDescr')}`,
       );
@@ -55,7 +55,7 @@ export const LoginForm = () => {
     }
     if (isError) {
       openNotificationWithIcon(
-        authError,
+        NotificationType.ERROR,
         `${t('loginPage.notificationMessage')}`,
         `${t('loginPage.notificationDescr')}`,
       );

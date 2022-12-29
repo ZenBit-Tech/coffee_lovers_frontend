@@ -1,7 +1,15 @@
 import styled from 'styled-components';
-import { PageWrapper, PrimaryButton } from '@freelance/components';
+import {
+  InputSearch,
+  PageWrapper,
+  Pagination,
+  PrimaryButton,
+} from '@freelance/components';
 
-export const Wrapper = styled(PageWrapper)``;
+export const Wrapper = styled(PageWrapper)`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const StyledTitle = styled.h1`
   font-size: ${({ theme }) => theme.fontSize.extraLarge};
@@ -26,10 +34,20 @@ export const DescriptionContainer = styled.div`
   border-radius: 5px;
 `;
 
+export const HiresBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const HiresTitle = styled.h2`
   font-size: ${({ theme }) => theme.fontSize.large};
   margin-top: 15px;
   margin-bottom: 10px;
+`;
+
+export const StyledInputSearch = styled(InputSearch)`
+  max-width: 250px;
 `;
 
 export const HiresContainer = styled.div`
@@ -41,4 +59,9 @@ export const HiresContainer = styled.div`
 export const StopHiringButton = styled(PrimaryButton)`
   height: 40px;
   margin-top: 15px;
+  align-self: flex-start;
+`;
+
+export const StyledPagination = styled(Pagination)`
+  align-self: center;
 `;
