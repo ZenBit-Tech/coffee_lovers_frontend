@@ -1,4 +1,4 @@
-import { JobStatus } from 'src/redux/types/jobs.types';
+import { IJobProposal, JobStatus } from 'src/redux/types/jobs.types';
 import { ProposalByUserId } from 'src/redux/types/user.types';
 
 export const mockProposals: ProposalByUserId[] = [
@@ -20,3 +20,9 @@ export const mockProposals: ProposalByUserId[] = [
     },
   },
 ];
+
+export const mockProposalResponse: IJobProposal = {
+  job: 1,
+  hourly_rate: 2,
+  cover_letter: 'Test',
+};

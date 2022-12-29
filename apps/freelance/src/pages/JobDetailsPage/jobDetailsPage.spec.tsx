@@ -14,9 +14,11 @@ import '@testing-library/jest-dom';
 
 import JobDetailsPage from './index';
 
+const sendProposal = (mockProposalResponse: IJobProposal) => ({});
+
 jest.mock('redux/services/jobsApi', () => ({
   useGetJobQuery: () => ({ data: mockJobData, isLoading: false }),
-  useSendProposalMutation: (body: IJobProposal) => jest.fn(),
+  useSendProposalMutation: () => [sendProposal],
 }));
 
 jest.mock('redux/services/user', () => ({

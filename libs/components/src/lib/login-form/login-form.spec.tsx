@@ -17,6 +17,12 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => jest.fn(),
 }));
 
+const mockDispatch = jest.fn();
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(),
+  useDispatch: () => mockDispatch,
+}));
+
 describe('LoginForm', () => {
   const container: Element = document.createElement('div');
 
