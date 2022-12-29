@@ -5,7 +5,7 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from 'react-hook-form';
-import { NotificationType } from '@freelance/constants';
+import { NotificationType } from '@freelance/components';
 import { NotificationInstance } from 'antd/es/notification/interface';
 import { Job } from 'src/redux/types/jobs.types';
 

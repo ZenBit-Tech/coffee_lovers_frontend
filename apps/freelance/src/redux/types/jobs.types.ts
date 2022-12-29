@@ -1,5 +1,4 @@
 import { ContractStatus } from './contracts.types';
-import { Offer } from './offers.types';
 import { Property } from './properties.types';
 import { User } from './user.types';
 
@@ -80,15 +79,23 @@ export interface GetPostedJobsResponse {
   proposalsCount: number;
 }
 
+export interface HireItem {
+  id: number;
+  hourly_rate: number;
+  created_at: string;
+  start: string;
+  freelancer: User;
+  contract: {
+    id: number;
+    status: ContractStatus;
+    end: string;
+    created_at: string;
+  };
+}
+
 export interface GetPostedJobDetailsResponse {
   job: Job;
-  hires: {
-    id: number;
-    created_at: string;
-    end: string;
-    offer: Offer;
-    status: ContractStatus;
-  }[];
+  hires: HireItem[];
 }
 
 export interface FrelancerPayload {

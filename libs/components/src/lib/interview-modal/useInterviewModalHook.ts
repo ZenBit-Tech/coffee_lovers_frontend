@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { NotificationType } from '@freelance/constants';
+import { NotificationType } from '@freelance/components';
 import { usePostRequestMutation } from 'src/redux/invite/inviteApi';
 import { Invite } from 'src/redux/invite/types';
 
@@ -58,7 +58,7 @@ const useInterviewModalHook = ({
       setJobId(null);
     } catch (err) {
       openNotificationWithIcon(
-        NotificationType.error,
+        NotificationType.ERROR,
         t('loginPage.notificationMessage'),
         t('modalInvite.requestError'),
       );
@@ -68,14 +68,14 @@ const useInterviewModalHook = ({
   useEffect(() => {
     if (isError) {
       openNotificationWithIcon(
-        NotificationType.error,
+        NotificationType.ERROR,
         t('loginPage.notificationMessage'),
         t('modalInvite.offerError'),
       );
     }
     if (isSuccess) {
       openNotificationWithIcon(
-        NotificationType.success,
+        NotificationType.SUCCESS,
         t('modalInvite.requestSuccessHeader'),
         t('modalInvite.offerSuccess'),
       );

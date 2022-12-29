@@ -1,4 +1,4 @@
-import { InputNumber, Modal, Select } from 'antd';
+import { InputNumber, Modal, Select, Space } from 'antd';
 import styled from 'styled-components';
 
 export const StyledSelect = styled(Select)`
@@ -20,4 +20,8 @@ export const StyledNumberInput = styled(InputNumber)`
 export const StyledDescr = styled.p`
   margin-top: 20px;
   margin-bottom: 30px;
+`;
+
+export const StyledSpace = styled(Space)`
+  width: 100%;
 `;

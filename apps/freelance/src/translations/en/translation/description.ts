@@ -13,7 +13,8 @@ export default {
     profileQp1: {
       pr_bar_completion_per: '20% completed',
       upload_profile_photo: 'Upload Profile Photo',
-      add_one_more: 'Add one more',
+      add_education: 'Add Education',
+      add_workhistory: 'Add Workhistory',
       hR: 'Hourly Rate',
       hRPrefix: '$',
       hRSuffix: 'Per hour',
@@ -37,6 +38,10 @@ export default {
       mesTimeTo: 'Please, input time to!',
       mesWork: 'Work history field is required!',
       finish: 'Finish',
+      notifSuccess: 'Success',
+      notifSuccessMsg: 'Your profile has been edited',
+      notifFailed: 'Failed',
+      notifFailedMsg: 'Unexpected server error',
     },
     profileQp2: {
       pr_bar_completion_per: '50% completed',

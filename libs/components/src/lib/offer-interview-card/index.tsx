@@ -7,10 +7,10 @@ import {
   SecondaryButton,
   SuccessButton,
 } from '@freelance/components';
-import { Interview, Offer, OfferStatus } from 'src/redux/types/offers.types';
+import { Interview, Offer, OfferStatus } from 'src/redux/types/request.types';
 import { getFileUrl } from 'src/utils/api';
 
-import { avatarSize } from './constants';
+import { avatarSize, idOfUnderfined } from './constants';
 import {
   DescriptionContainer,
   JobContainer,
@@ -27,12 +27,19 @@ import {
 } from './styles';
 import useOfferInterviewCard from './useOfferInterviewCard';
 
-interface OfferCardProps {
-  offer?: Offer;
-  interview?: Interview;
+interface OfferProps {
+  offer: Offer;
+  interview?: never;
 }
 
-export const OfferInterviewCard: FC<OfferCardProps> = ({
+interface InterviewProps {
+  interview: Interview;
+  offer?: never;
+}
+
+type OfferInterviewProps = OfferProps | InterviewProps;
+
+export const OfferInterviewCard: FC<OfferInterviewProps> = ({
   offer,
   interview,
 }) => {
@@ -42,7 +49,7 @@ export const OfferInterviewCard: FC<OfferCardProps> = ({
     confirmDeclineOffer,
     confirmDeleteInterview,
     jobClickHandler,
-  } = useOfferInterviewCard();
+  } = useOfferInterviewCard(offer?.id || interview?.id || idOfUnderfined);
 
   return (
     <Wrapper>

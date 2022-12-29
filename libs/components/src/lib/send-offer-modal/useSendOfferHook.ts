@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { dateType, NotificationType, todayDate } from '@freelance/constants';
+import { NotificationType } from '@freelance/components';
+import { dateType, todayDate } from '@freelance/constants';
 import { usePostOfferMutation } from 'src/redux/invite/inviteApi';
 import { Request } from 'src/redux/invite/types';
 
@@ -60,7 +61,7 @@ const useSendOfferHook = ({
       });
     } catch (err) {
       openNotificationWithIcon(
-        NotificationType.error,
+        NotificationType.ERROR,
         t('loginPage.notificationMessage'),
         t('modalInvite.offerError'),
       );
@@ -70,14 +71,14 @@ const useSendOfferHook = ({
   useEffect(() => {
     if (isError) {
       openNotificationWithIcon(
-        NotificationType.error,
+        NotificationType.ERROR,
         t('loginPage.notificationMessage'),
         t('modalInvite.offerError'),
       );
     }
     if (isSuccess) {
       openNotificationWithIcon(
-        NotificationType.success,
+        NotificationType.SUCCESS,
         t('modalInvite.requestSuccessHeader'),
         t('modalInvite.offerSuccess'),
       );

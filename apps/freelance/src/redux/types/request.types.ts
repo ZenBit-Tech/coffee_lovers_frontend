@@ -15,6 +15,7 @@ export interface Offer {
   hourly_rate: number;
   status: OfferStatus;
   created_at: string;
+  start: string;
 }
 
 export interface Interview {
@@ -22,4 +23,5 @@ export interface Interview {
   job: Job;
   job_owner: User;
   hourly_rate: number;
+  created_at: string;
 }
