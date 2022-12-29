@@ -15,7 +15,7 @@ interface UseOfferInterviewCardReturn {
   confirmAcceptOffer: (jobTitle: string) => void;
   confirmDeclineOffer: (jobTitle: string) => void;
   confirmDeleteInterview: (jobTitle: string) => void;
-  jobClickHandler: (id: number) => void;
+  jobClickHandler: (id?: number) => void;
 }
 
 const useOfferInterviewCard = (id: number): UseOfferInterviewCardReturn => {
@@ -69,7 +69,7 @@ const useOfferInterviewCard = (id: number): UseOfferInterviewCardReturn => {
     confirmAcceptOffer,
     confirmDeclineOffer,
     confirmDeleteInterview,
-    jobClickHandler: (id: number) =>
+    jobClickHandler: (id?: number) =>
       navigate(generatePath(routes.jobDetails, { id })),
   };
 };

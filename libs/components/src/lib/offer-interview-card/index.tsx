@@ -10,7 +10,7 @@ import {
 import { Interview, Offer, OfferStatus } from 'src/redux/types/request.types';
 import { getFileUrl } from 'src/utils/api';
 
-import { avatarSize } from './constants';
+import { avatarSize, idOfUnderfined } from './constants';
 import {
   DescriptionContainer,
   JobContainer,
@@ -27,112 +27,144 @@ import {
 } from './styles';
 import useOfferInterviewCard from './useOfferInterviewCard';
 
-interface OfferInterviewCardProps {
-  item: Offer | Interview;
+interface OfferProps {
+  offer: Offer;
+  interview?: never;
 }
 
-export const OfferInterviewCard: FC<OfferInterviewCardProps> = ({ item }) => {
+interface InterviewProps {
+  interview: Interview;
+  offer?: never;
+}
+
+type OfferInterviewProps = OfferProps | InterviewProps;
+
+export const OfferInterviewCard: FC<OfferInterviewProps> = ({
+  offer,
+  interview,
+}) => {
   const {
     t,
     confirmAcceptOffer,
     confirmDeclineOffer,
     confirmDeleteInterview,
     jobClickHandler,
-  } = useOfferInterviewCard(item.id);
+  } = useOfferInterviewCard(offer?.id || interview?.id || idOfUnderfined);
 
   return (
     <Wrapper>
       <LeftSide>
         <JobContainer>
           <Avatar
-            src={getFileUrl(item.job_owner.profile_image)}
+            src={getFileUrl(
+              offer?.job_owner.profile_image ||
+                interview?.job_owner.profile_image,
+            )}
             size={avatarSize}
           />
           <JobDetailsContainer>
             <JobDetailsTop>
               <JobDetailsTopLeftSide>
-                <StyledJobTitle onClick={() => jobClickHandler(item.job.id)}>
-                  {item.job.title}
+                <StyledJobTitle
+                  onClick={() =>
+                    jobClickHandler(offer?.job.id || interview?.job.id)
+                  }
+                >
+                  {offer?.job.title || interview?.job.title}
                 </StyledJobTitle>
                 <StyledJobOwnerName>
-                  {`${item.job_owner.first_name} ${item.job_owner.last_name}`}
+                  {(offer?.job_owner.first_name ||
+                    interview?.job_owner.first_name ||
+                    '') +
+                    ' ' +
+                    (offer?.job_owner.last_name ||
+                      interview?.job_owner.last_name ||
+                      '')}
                 </StyledJobOwnerName>
               </JobDetailsTopLeftSide>
 
               <JobDetailsTopRightSide>
                 <InformationSticker
                   children={t('offers.hrly_rate', {
-                    rate: item.hourly_rate,
+                    rate: offer?.hourly_rate || interview?.hourly_rate,
                   })}
                 />
-                {(item as Offer)?.status && (
+                {offer?.status && (
                   <InformationSticker
-                    success={(item as Offer).status === OfferStatus.ACCEPTED}
-                    danger={(item as Offer).status === OfferStatus.DECLINED}
-                    primary={(item as Offer).status === OfferStatus.PENDING}
+                    success={offer.status === OfferStatus.ACCEPTED}
+                    danger={offer.status === OfferStatus.DECLINED}
+                    primary={offer.status === OfferStatus.PENDING}
                   >
-                    {(item as Offer).status}
+                    {offer.status}
                   </InformationSticker>
                 )}
               </JobDetailsTopRightSide>
             </JobDetailsTop>
 
             <JobDetailsBottom>
-              {item.job.category && (
+              {(offer?.job.category || interview?.job.category) && (
                 <InformationSticker>
-                  {item.job.category.name}
+                  {offer?.job.category?.name || interview?.job.category?.name}
                 </InformationSticker>
               )}
 
-              {item.job.skills?.map(skill => (
+              {offer?.job.skills?.map(skill => (
                 <InformationSticker key={skill.id}>
                   {skill.name}
                 </InformationSticker>
               ))}
+              {interview?.job.skills?.map(interview => (
+                <InformationSticker key={interview.id}>
+                  {interview.name}
+                </InformationSticker>
+              ))}
 
-              {item.job?.available_time && (
+              {(offer?.job?.available_time ||
+                interview?.job?.available_time) && (
                 <InformationSticker>
-                  {item.job.available_time}
+                  {offer?.job.available_time || interview?.job.available_time}
                 </InformationSticker>
               )}
 
-              {item.job?.english_level && (
+              {(offer?.job.english_level || interview?.job.english_level) && (
                 <InformationSticker>
-                  {item.job.english_level}
+                  {offer?.job.english_level || interview?.job.english_level}
                 </InformationSticker>
               )}
             </JobDetailsBottom>
           </JobDetailsContainer>
         </JobContainer>
 
-        {item.job?.description && (
+        {(offer?.job.description || interview?.job.description) && (
           <DescriptionContainer>
-            <ExpandableText>{item.job.description}</ExpandableText>
+            <ExpandableText>
+              {offer?.job.description || interview?.job.description}
+            </ExpandableText>
           </DescriptionContainer>
         )}
       </LeftSide>
 
       <RightSide>
-        {(item as Offer).status === OfferStatus.PENDING && (
+        {offer && offer.status === OfferStatus.PENDING && (
           <>
             <SuccessButton
-              onClick={() => confirmAcceptOffer(item.job.title || '')}
+              onClick={() => confirmAcceptOffer(offer.job.title || '')}
             >
               {t('offers.buttons.acceptOffer')}
             </SuccessButton>
             <DangerButton
-              onClick={() => confirmDeclineOffer(item.job.title || '')}
+              onClick={() => confirmDeclineOffer(offer.job.title || '')}
             >
               {t('offers.buttons.declineOffer')}
             </DangerButton>
           </>
         )}
-        {(item as Offer).status !== OfferStatus.DECLINED && (
+        {((offer && offer.status !== OfferStatus.DECLINED) || interview) && (
           <SecondaryButton>{t('offers.buttons.chat')}</SecondaryButton>
         )}
-        {!(item as Offer).status && (
+        {interview && (
           <DangerButton
-            onClick={() => confirmDeleteInterview(item.job.title || '')}
+            onClick={() => confirmDeleteInterview(interview.job.title || '')}
           >
             {t('offers.buttons.deleteInterview')}
           </DangerButton>

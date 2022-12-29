@@ -36,10 +36,10 @@ const Tab: FC<TabProps> = ({
       )}
       <OfferList>
         {offers?.map(offer => (
-          <OfferInterviewCard key={offer.id} item={offer} />
+          <OfferInterviewCard key={offer.id} offer={offer} />
         ))}
         {interviews?.map(interview => (
-          <OfferInterviewCard key={interview.id} item={interview} />
+          <OfferInterviewCard key={interview.id} interview={interview} />
         ))}
       </OfferList>
     </OfferWrapper>
