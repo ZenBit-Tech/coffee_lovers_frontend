@@ -1,15 +1,18 @@
 import { useState } from 'react';
-import { Col, DatePicker, Input, notification, Row, Space } from 'antd';
+import {
+  Col,
+  DatePicker,
+  Input,
+  notification,
+  Row,
+  Space,
+  Typography,
+} from 'antd';
 import dayjs from 'dayjs';
 import { Namespace } from 'i18next';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import {
-  Button,
-  dateType,
-  todayDate,
-  ValidationErrorMessage,
-} from '@freelance/components';
+import { Button, dateType, todayDate } from '@freelance/components';
 import { ErrorMessage } from '@hookform/error-message';
 import UseModalOpenHook from 'src/hooks/useModalOpen';
 import { useFindUserJobsWithoutOfferQuery } from 'src/redux/invite/inviteApi';
@@ -22,6 +25,7 @@ import useSendOfferHook from './useSendOfferHook';
 
 export function SendOfferModal(props: Props) {
   const { setOpen, open, hourly_rate, id, description } = props;
+  const { Text } = Typography;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [jobId, setJobId] = useState<number | null>(null);
   const [api, contextHolder] = notification.useNotification();
@@ -106,7 +110,7 @@ export function SendOfferModal(props: Props) {
                     errors={errors}
                     name="rate"
                     render={({ message }) => (
-                      <ValidationErrorMessage>{message}</ValidationErrorMessage>
+                      <Text type="danger">{message}</Text>
                     )}
                   />
                 </Col>
@@ -137,7 +141,7 @@ export function SendOfferModal(props: Props) {
                     errors={errors}
                     name="start"
                     render={({ message }) => (
-                      <ValidationErrorMessage>{message}</ValidationErrorMessage>
+                      <Text type="danger">{message}</Text>
                     )}
                   />
                 </Col>

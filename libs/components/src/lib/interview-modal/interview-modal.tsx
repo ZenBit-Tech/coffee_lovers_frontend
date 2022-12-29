@@ -1,13 +1,9 @@
 import { useState } from 'react';
-import { Col, Input, notification, Row } from 'antd';
+import { Col, Input, notification, Row, Typography } from 'antd';
 import { Namespace } from 'i18next';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import {
-  Button,
-  ChatListModalContent,
-  ValidationErrorMessage,
-} from '@freelance/components';
+import { Button, ChatListModalContent } from '@freelance/components';
 import { ErrorMessage } from '@hookform/error-message';
 import UseModalOpenHook from 'src/hooks/useModalOpen';
 import { useGetInvitationDetailsQuery } from 'src/redux/invitation/invitation';
@@ -21,6 +17,7 @@ import useInterviewModalHook from './useInterviewModalHook';
 
 export function InterviewModal(props: Props) {
   const { setOpen, open, description, hourly_rate, id } = props;
+  const { Text } = Typography;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [page, setPage] = useState<string>(ChatListPage);
   const [jobId, setJobId] = useState<null | number>(null);
@@ -119,9 +116,7 @@ export function InterviewModal(props: Props) {
                       errors={errors}
                       name="rate"
                       render={({ message }) => (
-                        <ValidationErrorMessage>
-                          {message}
-                        </ValidationErrorMessage>
+                        <Text type="danger">{message}</Text>
                       )}
                     />
                   </Col>
