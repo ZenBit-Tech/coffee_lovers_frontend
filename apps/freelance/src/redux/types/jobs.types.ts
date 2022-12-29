@@ -17,7 +17,7 @@ export interface Job {
   created_at: string;
   category?: Property;
   skills?: Property[];
-  conversations: object[];
+  conversations?: object[];
 }
 
 export enum JobStatus {

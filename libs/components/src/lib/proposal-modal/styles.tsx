@@ -28,7 +28,9 @@ export const RateWrapper = styled(Form.Item)`
   }
 `;
 
-export const StyledText = styled.p`
+export const StyledText = styled.div`
+  display: flex;
+  gap: 5px;
   margin-bottom: 10px;
   font-size: ${baseTheme.fontSize.large};
 `;

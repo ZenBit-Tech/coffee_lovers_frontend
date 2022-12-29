@@ -1,9 +1,9 @@
 import { Form, Modal, ModalProps } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { StyledButton } from '@freelance/components';
-import { profileQ1 } from '@freelance/constants';
+import { jobDataTestId, profileQ1, StyledButton } from '@freelance/components';
 import { useSendProposalMutation } from 'src/redux/services/jobsApi';
+import { baseTheme } from 'src/styles/theme';
 
 import {
   RateWrapper,
@@ -53,59 +53,69 @@ export const ProposalModal = ({
   };
 
   return (
-    <Modal
-      {...props}
-      open={openModal}
-      onCancel={onCancel}
-      centered
-      width={800}
-      footer={null}
-    >
-      <StyledForm
-        name="basic"
-        requiredMark="optional"
-        onFinish={values => handleSubmit(onFinish(values as IProposal))}
+    <div data-testid={jobDataTestId.jobProposalModal}>
+      <Modal
+        {...props}
+        open={openModal}
+        onCancel={onCancel}
+        centered
+        width={800}
+        footer={null}
       >
-        <StyledText>
-          {t('job_details.Profile_rate')} {freelancer_rate} $
-        </StyledText>
-
-        <RateWrapper
-          label={t('job_details.setup_rate')}
-          name={profileQ1.hR}
-          rules={[
-            { required: true, message: `${t('description.profileQp1.mesHR')}` },
-          ]}
+        <StyledForm
+          name="basic"
+          requiredMark="optional"
+          onFinish={values => handleSubmit(onFinish(values as IProposal))}
         >
-          <StyledNumInput
-            defaultValue={rate}
-            prefix={t('description.profileQp1.hRPrefix')}
-            addonAfter={t('description.profileQp1.hRSuffix')}
-            min={profileQ1.hRMin}
-          />
-        </RateWrapper>
+          <StyledText>
+            <p>{t('job_details.Profile_rate')}</p>
+            <p data-testid={jobDataTestId.jobFreelancerRate}>
+              {freelancer_rate} $
+            </p>
+          </StyledText>
 
-        <StyledText>{t('job_details.cover_letter')}</StyledText>
+          <RateWrapper
+            label={t('job_details.setup_rate')}
+            name={profileQ1.hR}
+            rules={[
+              {
+                required: true,
+                message: `${t('description.profileQp1.mesHR')}`,
+              },
+            ]}
+          >
+            <StyledNumInput
+              data-testid={jobDataTestId.jobNumberInput}
+              defaultValue={rate}
+              prefix={t('description.profileQp1.hRPrefix')}
+              addonAfter={t('description.profileQp1.hRSuffix')}
+              min={profileQ1.hRMin}
+            />
+          </RateWrapper>
 
-        <Form.Item
-          name={profileQ1.descr}
-          rules={[
-            {
-              required: true,
-              message: `${t('description.profileQp1.mesDescr')}`,
-            },
-          ]}
-        >
-          <StyledTextArea
-            rows={6}
-            placeholder={t('description.profileQp1.descr')}
-          />
-        </Form.Item>
+          <StyledText>{t('job_details.cover_letter')}</StyledText>
 
-        <StyledButton htmlType="submit" type="primary">
-          {t('job_details.send_proposal')}
-        </StyledButton>
-      </StyledForm>
-    </Modal>
+          <Form.Item
+            name={profileQ1.descr}
+            rules={[
+              {
+                required: true,
+                message: `${t('description.profileQp1.mesDescr')}`,
+              },
+            ]}
+          >
+            <StyledTextArea
+              data-testid={jobDataTestId.jobTextArea}
+              rows={6}
+              placeholder={t('description.profileQp1.descr')}
+            />
+          </Form.Item>
+
+          <StyledButton theme={baseTheme} htmlType="submit" type="primary">
+            {t('job_details.send_proposal')}
+          </StyledButton>
+        </StyledForm>
+      </Modal>
+    </div>
   );
 };

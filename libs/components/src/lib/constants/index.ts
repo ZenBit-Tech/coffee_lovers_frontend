@@ -3,6 +3,7 @@ export * from './auth';
 export * from './hooks';
 export * from './mockJobData';
 export * from './mockPropertiesData';
+export * from './mockProposals';
 export * from './mockUserData';
 export * from './options';
 export * from './profileQuestions';
