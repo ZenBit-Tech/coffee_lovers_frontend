@@ -1,4 +1,4 @@
-import { message, Modal } from 'antd';
+import { Modal } from 'antd';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { generatePath, useNavigate } from 'react-router-dom';
@@ -15,10 +15,10 @@ interface UseOfferInterviewCardReturn {
   confirmAcceptOffer: (jobTitle: string) => void;
   confirmDeclineOffer: (jobTitle: string) => void;
   confirmDeleteInterview: (jobTitle: string) => void;
-  jobClickHandler: (id?: number) => void;
+  jobClickHandler: (id: number) => void;
 }
 
-const useOfferInterviewCard = (id?: number): UseOfferInterviewCardReturn => {
+const useOfferInterviewCard = (id: number): UseOfferInterviewCardReturn => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [acceptOffer] = useAcceptOfferMutation();
@@ -33,11 +33,7 @@ const useOfferInterviewCard = (id?: number): UseOfferInterviewCardReturn => {
       okText: t('offers.modal.confirm'),
       cancelText: t('offers.modal.cancel'),
       onOk() {
-        if (id) {
-          acceptOffer(id);
-        } else {
-          message.error(t('offers.errors.unexpected'));
-        }
+        acceptOffer(id);
       },
     });
   };
@@ -50,11 +46,7 @@ const useOfferInterviewCard = (id?: number): UseOfferInterviewCardReturn => {
       okText: t('offers.modal.confirm'),
       cancelText: t('offers.modal.cancel'),
       onOk() {
-        if (id) {
-          declineOffer(id);
-        } else {
-          message.error(t('offers.errors.unexpected'));
-        }
+        declineOffer(id);
       },
     });
   };
@@ -67,11 +59,7 @@ const useOfferInterviewCard = (id?: number): UseOfferInterviewCardReturn => {
       okText: t('offers.modal.confirm'),
       cancelText: t('offers.modal.cancel'),
       onOk() {
-        if (id) {
-          deleteInterview(id);
-        } else {
-          message.error(t('offers.errors.unexpected'));
-        }
+        deleteInterview(id);
       },
     });
   };
@@ -81,7 +69,7 @@ const useOfferInterviewCard = (id?: number): UseOfferInterviewCardReturn => {
     confirmAcceptOffer,
     confirmDeclineOffer,
     confirmDeleteInterview,
-    jobClickHandler: (id?: number) =>
+    jobClickHandler: (id: number) =>
       navigate(generatePath(routes.jobDetails, { id })),
   };
 };
