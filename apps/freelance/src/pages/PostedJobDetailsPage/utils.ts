@@ -4,13 +4,20 @@ import { contractStatusPriority, maxHiredCards } from './constants';
 
 const getHiresSortCallback = (): ((a: HireItem, b: HireItem) => number) => {
   return (a: HireItem, b: HireItem) => {
-    if (contractStatusPriority[a.status] === contractStatusPriority[b.status]) {
+    if (
+      contractStatusPriority[a.contract.status] ===
+      contractStatusPriority[b.contract.status]
+    ) {
       return (
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        new Date(b.contract.created_at).getTime() -
+        new Date(a.contract.created_at).getTime()
       );
     }
 
-    return contractStatusPriority[a.status] - contractStatusPriority[b.status];
+    return (
+      contractStatusPriority[a.contract.status] -
+      contractStatusPriority[b.contract.status]
+    );
   };
 };
 
@@ -18,12 +25,10 @@ const getSearchedHires = (hires: HireItem[], search?: string): HireItem[] => {
   if (search) {
     return hires.filter(
       item =>
-        `${item.offer.freelancer.first_name} ${item.offer.freelancer.last_name}`
+        `${item.freelancer.first_name} ${item.freelancer.last_name}`
           .toLowerCase()
           .includes(search.toLowerCase()) ||
-        item.offer.freelancer.position
-          .toLowerCase()
-          .includes(search.toLowerCase()),
+        item.freelancer.position.toLowerCase().includes(search.toLowerCase()),
     );
   }
 
