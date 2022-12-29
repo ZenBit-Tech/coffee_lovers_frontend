@@ -36,7 +36,7 @@ jest.mock('redux/services/user', () => ({
   useAddUserWorkhistoryInfoMutation: () => [AddUserWorkhistory],
 }));
 
-describe('FreelancerPageInfo rendering component using data from rtk query', () => {
+describe('FreelancerProfile rendering component using data from rtk query', () => {
   const container: Element = document.createElement('div');
 
   beforeAll(() => {
