@@ -24,7 +24,6 @@ export function SendOfferModal(props: Props) {
   const { setOpen, open, hourly_rate, id, description } = props;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [jobId, setJobId] = useState<number | null>(null);
-
   const [api, contextHolder] = notification.useNotification();
   const { data: selectedJob } = useGetJobQuery(jobId);
   const { data } = useFindUserJobsWithoutOfferQuery({
