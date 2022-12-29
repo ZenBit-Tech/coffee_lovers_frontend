@@ -11,14 +11,14 @@ import {
   ValidationErrorMessage,
 } from '@freelance/components';
 import { ErrorMessage } from '@hookform/error-message';
-import UseModalOpenHook from 'src/hooks/modal-open-hook';
+import UseModalOpenHook from 'src/hooks/useModalOpen';
 import { useFindUserJobsWithoutOfferQuery } from 'src/redux/invite/inviteApi';
 import { useGetJobQuery } from 'src/redux/services/jobsApi';
 import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
 
-import useSendOfferHook from './send-offer-hook.ts';
 import { StyledModal, StyledSelect } from './styles';
 import { Props } from './types';
+import useSendOfferHook from './useSendOfferHook';
 
 export function SendOfferModal(props: Props) {
   const { setOpen, open, hourly_rate, id, description } = props;

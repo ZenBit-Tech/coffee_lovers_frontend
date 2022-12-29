@@ -16,6 +16,7 @@ const useInterviewModalHook = ({
 }: sendInviteHookDto): sendInviteHookReturnDto => {
   const { t } = useTranslation();
   const [postRequest, { isError, isSuccess }] = usePostRequestMutation();
+
   const openNotificationWithIcon = (
     type: NotificationType,
     message: string,

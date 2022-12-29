@@ -9,15 +9,15 @@ import {
   ValidationErrorMessage,
 } from '@freelance/components';
 import { ErrorMessage } from '@hookform/error-message';
-import UseModalOpenHook from 'src/hooks/modal-open-hook';
+import UseModalOpenHook from 'src/hooks/useModalOpen';
 import { useGetInvitationDetailsQuery } from 'src/redux/invitation/invitation';
 import { useFindUserJobsWithoutInviteQuery } from 'src/redux/invite/inviteApi';
 import { useGetJobQuery } from 'src/redux/services/jobsApi';
 
 import { ChatListPage } from './constants';
-import useInterviewModalHook from './interview-hook';
 import { StyledModal, StyledSelect, StyledSpace } from './styles';
 import { Props } from './types';
+import useInterviewModalHook from './useInterviewModalHook';
 
 export function InterviewModal(props: Props) {
   const { setOpen, open, description, hourly_rate, id } = props;

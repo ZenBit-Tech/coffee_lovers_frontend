@@ -1,4 +1,4 @@
-import { ModalHookReturn, ModalProps } from './types/modal-hook.types.';
+import { ModalHookReturn, ModalProps } from './types/modal-hook.types';
 
 const UseModalOpenHook = ({
   setConfirmLoading,
