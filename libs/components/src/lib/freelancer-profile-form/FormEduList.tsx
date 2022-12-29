@@ -19,7 +19,7 @@ const FormEduList: FC<freelancerEduProps> = ({ education }) => {
     <Form.List
       name={profileQ1.edu}
       initialValue={
-        (education && convertEduTime(education)) || profileQ1.workEduDefValue
+        profileQ1.workEduDefValue || (education && convertEduTime(education))
       }
     >
       {(fields, { add, remove }) => (

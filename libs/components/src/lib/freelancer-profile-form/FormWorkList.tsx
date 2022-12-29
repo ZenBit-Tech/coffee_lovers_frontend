@@ -19,7 +19,7 @@ const FormWorkList: FC<freelancerWorkProps> = ({ work }) => {
     <Form.List
       name={profileQ1.workHistoryWrapper}
       initialValue={
-        (work && convertWorkTime(work)) || profileQ1.workEduDefValue
+        profileQ1.workEduDefValue || (work && convertWorkTime(work))
       }
     >
       {(fields, { add, remove }) => (
