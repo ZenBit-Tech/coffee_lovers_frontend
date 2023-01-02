@@ -8,8 +8,8 @@ import { getFilterParams } from './utils';
 
 interface useFindJobsReturn {
   offset: number;
-  filterPayload: GetJobParams | undefined;
-  search: string | undefined;
+  filterPayload?: GetJobParams;
+  search?: string;
   filtersVisibility: boolean;
   setFiltersVisibility: Dispatch<SetStateAction<boolean>>;
   submitFilter: (filterData: FilterFormItems) => void;

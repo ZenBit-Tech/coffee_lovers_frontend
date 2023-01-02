@@ -1,3 +1,5 @@
+import { baseTheme } from 'src/styles/theme';
+
 import { StyledButton } from './styles';
 
 export interface ButtonProps {
@@ -25,6 +27,7 @@ export function Button({
     <StyledButton
       htmlType={htmlType}
       onClick={onClick}
+      theme={baseTheme}
       style={{
         backgroundColor: color,
         border,

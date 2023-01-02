@@ -23,4 +23,5 @@ export interface Interview {
   job: Job;
   job_owner: User;
   hourly_rate: number;
+  created_at: string;
 }

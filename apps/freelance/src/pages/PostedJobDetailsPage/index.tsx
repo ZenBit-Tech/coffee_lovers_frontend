@@ -78,11 +78,11 @@ const PostedJobDetails = () => {
       </HiresBar>
       <HiresContainer>
         {hires &&
-          setHiresPagination(hires, offset).map(contract => (
+          setHiresPagination(hires, offset).map(hire => (
             <HiredCard
-              key={contract.id}
-              freelancer={contract.offer.freelancer}
-              status={contract.status}
+              key={hire.contract.id}
+              freelancer={hire.freelancer}
+              status={hire.contract.status}
             />
           ))}
         {!hires?.length && (

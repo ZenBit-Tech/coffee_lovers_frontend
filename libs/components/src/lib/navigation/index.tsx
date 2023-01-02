@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { roles, routes } from '@freelance/components';
 import { selectRole } from 'src/redux/auth/auth-slice';
 import { logout } from 'src/redux/auth/auth-slice';
+import { baseTheme } from 'src/styles/theme';
 
 import { Nav, StyledButton } from './styles';
 
@@ -41,7 +42,7 @@ export function Navigation() {
           </StyledButton>
         </>
       )}
-      <StyledButton onClick={() => navigate(routes.chat)}>
+      <StyledButton theme={baseTheme} onClick={() => navigate(routes.chat)}>
         {t('app_bar.nav.chat')}
       </StyledButton>
 

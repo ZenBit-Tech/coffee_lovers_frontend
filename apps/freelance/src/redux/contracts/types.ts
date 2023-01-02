@@ -1,5 +1,5 @@
 import { Job } from 'redux/types/jobs.types';
-import { Offer, OfferStatus } from 'redux/types/offers.types';
+import { Offer, OfferStatus } from 'redux/types/request.types';
 import { User } from 'redux/types/user.types';
 
 export interface Error {

@@ -29,7 +29,6 @@ const ExampleRootPage = lazy(
   () =>
     import(/* webpackChunkName: "ExampleRootPage" */ '@pages/ExampleRootPage'),
 );
-const SignInGoogle = lazy(() => import('@pages/SignInGoogle'));
 const ConditionsPage = lazy(() => import('@pages/ConditionsPage'));
 const LoginPage = lazy(
   () => import(/* webpackChunkName: "ExampleRootPage" */ '@pages/LoginPage'),
@@ -55,7 +54,6 @@ export function App() {
         <Routes>
           <Route path="/" element={<Outlet />}>
             <Route path={routes.welcome} element={<WelcomePage />} />
-            <Route path={routes.googleAuth} element={<SignInGoogle />} />
             <Route path={routes.conditions} element={<ConditionsPage />} />
             <Route path={routes.role} element={<ChooseRole />} />
 

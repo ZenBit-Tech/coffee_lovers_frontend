@@ -26,7 +26,7 @@ export const getWebsocketHeaders = (
   authorization: `Bearer ${token}`,
 });
 
-export const getFileUrl = (filePath: string | undefined): string => {
+export const getFileUrl = (filePath?: string): string => {
   if (!filePath) return '';
 
   return `${baseUrl}/${filePath}`;

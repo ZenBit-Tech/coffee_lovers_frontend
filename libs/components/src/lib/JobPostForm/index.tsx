@@ -15,6 +15,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import useProperties from 'src/hooks/useProperties';
 import { usePostJobMutation } from 'src/redux/job-post/job-post';
+import { baseTheme } from 'src/styles/theme';
 
 import {
   ButtonWrapper,
@@ -258,7 +259,9 @@ export function JobPostForm() {
 
         <Form.Item>
           <ButtonWrapper>
-            <StyledButton htmlType="submit">{t('general.submit')}</StyledButton>
+            <StyledButton theme={baseTheme} htmlType="submit">
+              {t('general.submit')}
+            </StyledButton>
           </ButtonWrapper>
         </Form.Item>
       </Form>

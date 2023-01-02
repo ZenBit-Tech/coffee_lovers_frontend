@@ -27,7 +27,7 @@ interface UsePasswordResetResponse {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
-  error: UserError | SerializedError | undefined;
+  error?: UserError | SerializedError;
   isLinkValid?: boolean;
 }
 

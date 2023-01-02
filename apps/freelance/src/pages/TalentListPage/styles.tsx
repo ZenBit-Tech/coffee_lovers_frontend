@@ -1,10 +1,12 @@
-import { Card, Pagination, Rate, Skeleton } from 'antd';
+import { Pagination, Rate, Skeleton } from 'antd';
 import styled from 'styled-components';
 import { baseTheme } from 'src/styles/theme';
 
-export const StyledCard = styled(Card)`
+export const StyledCard = styled.div`
   margin-bottom: 20px;
   width: 70%;
+  border: 2px ${({ theme }) => theme.card.borderColor} solid;
+  border-radius: ${({ theme }) => theme.card.borderRadius};
 `;
 
 export const StyledPagination = styled(Pagination)`
@@ -47,10 +49,12 @@ export const StyledCardHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: left;
+  padding: 15px;
 `;
 
 export const SmallCardContainer = styled.div`
   margin-left: -20px;
+  padding: 15px;
 `;
 export const StyledHeader = styled.div`
   margin-top: 50px;
@@ -59,6 +63,21 @@ export const StyledHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const PropertiesContainer = styled.div`
+  display: flex;
+  margin: 10px 15px;
+
+  & > div {
+    margin-right: 15px;
+  }
+`;
+
+export const TextExContainer = styled.div`
+  width: 400px;
+  margin-left: 50px;
+  margin-bottom: -12px;
 `;
 
 export const StyledRate = styled(Rate)`

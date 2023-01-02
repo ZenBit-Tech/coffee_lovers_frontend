@@ -1,63 +1,49 @@
 import { useState } from 'react';
-import { Col, Input, Row } from 'antd';
+import { Col, Input, notification, Row, Typography } from 'antd';
 import { Namespace } from 'i18next';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@freelance/components';
-import TextArea from 'antd/lib/input/TextArea';
+import { Button, ChatListModalContent } from '@freelance/components';
+import { ErrorMessage } from '@hookform/error-message';
+import UseModalOpenHook from 'src/hooks/useModalOpen';
 import { useGetInvitationDetailsQuery } from 'src/redux/invitation/invitation';
-import { useFindUserJobsQuery } from 'src/redux/services/jobsApi';
-import { Job } from 'src/redux/types/jobs.types';
+import { useFindUserJobsWithoutInviteQuery } from 'src/redux/invite/inviteApi';
+import { useGetJobQuery } from 'src/redux/services/jobsApi';
 
-import {
-  ChatListPage,
-  empty,
-  Endpoints,
-  many,
-  SendInterviewPage,
-} from './constants';
+import { ChatListPage } from './constants';
 import { StyledModal, StyledSelect, StyledSpace } from './styles';
-import { Conversation, Props } from './types';
+import { Props } from './types';
+import useInterviewModalHook from './useInterviewModalHook';
 
 export function InterviewModal(props: Props) {
-  const { setOpen, open, freelancerId, rate } = props;
+  const { setOpen, open, description, hourly_rate, id } = props;
+  const { Text } = Typography;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-  const [page, setPage] = useState(ChatListPage);
+  const [page, setPage] = useState<string>(ChatListPage);
+  const [jobId, setJobId] = useState<null | number>(null);
 
+  const [api, contextHolder] = notification.useNotification();
+  const { data: selectedJob } = useGetJobQuery(jobId);
   const { t } = useTranslation<Namespace<string>>();
   const { data: invitation } = useGetInvitationDetailsQuery({
-    frId: freelancerId,
+    frId: id,
   });
-  const { data } = useFindUserJobsQuery(freelancerId);
-  const conversations = invitation?.data;
-  const freelancer = invitation?.freelancer;
-
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setOpen(false);
-    setConfirmLoading(false);
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
-  };
-
-  const { control, handleSubmit, reset, register } = useForm({
-    defaultValues: {
-      select: null,
-      rate: rate,
-      description: '',
-    },
+  const { data } = useFindUserJobsWithoutInviteQuery({
+    id,
+  });
+  const { handleCancel, handleOk } = UseModalOpenHook({
+    setOpen,
+    setConfirmLoading,
   });
 
-  const onSubmit = (payload: {
-    select: number | null;
-    rate?: number | null;
-    description: string | null;
-  }) => {
-    alert(payload);
-    reset({ select: null, rate: rate, description: '' });
-  };
+  const { control, register, handleSubmit, errors, onSubmit } =
+    useInterviewModalHook({
+      id,
+      setJobId,
+      api,
+      description,
+      hourly_rate,
+    });
 
   return (
     <StyledModal
@@ -72,38 +58,16 @@ export function InterviewModal(props: Props) {
       onCancel={handleCancel}
       footer={null}
     >
-      {conversations?.length > empty && page === ChatListPage ? (
-        <>
-          {t('modalInvite.notification', {
-            ending: conversations?.length > many && 's',
-            firstName: freelancer?.first_name,
-            lastName: freelancer?.last_name,
-          })}
-          <ul>
-            {conversations?.map((el: Conversation) => (
-              <li>
-                <a
-                  href={`${process.env['NX_API_URL']}/${Endpoints.conversations}/${el.id}`}
-                >
-                  {t('modalInvite.jobTitle', { job: el.job.title })}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <br />
-          <Button
-            onClick={() => {
-              setPage(SendInterviewPage);
-            }}
-          >
-            {t('modalInvite.newChat')}
-          </Button>
-        </>
+      {page === ChatListPage ? (
+        <ChatListModalContent invitation={invitation} setPage={setPage} />
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
+          {contextHolder}
           <StyledSpace direction="vertical" size="middle">
             <Controller
-              {...register('select', { required: true })}
+              {...register('select', {
+                required: t('modalInvite.required') || '',
+              })}
               name="select"
               control={control}
               render={({ field }) => (
@@ -111,14 +75,20 @@ export function InterviewModal(props: Props) {
                   <Col span={8}>
                     <p>{t('modalInvite.choose')}</p>
                   </Col>
-                  <Col span={5}>
+                  <Col span={6}>
                     <StyledSelect
                       {...field}
-                      options={data?.map((el: Job) => ({
-                        ...el,
-                        value: el.id,
-                        label: el.title,
-                      }))}
+                      options={data
+                        ?.filter(el => el.count === 0)
+                        .map((el: { id: number; title: string }) => ({
+                          ...el,
+                          value: el.id,
+                          label: el.title,
+                        }))}
+                      onChange={id => {
+                        setJobId(id as number);
+                        field.onChange(id);
+                      }}
                     />
                   </Col>
                 </Row>
@@ -126,7 +96,9 @@ export function InterviewModal(props: Props) {
             />
 
             <Controller
-              {...register('rate', { required: true })}
+              {...register('rate', {
+                required: t('modalInvite.required') || '',
+              })}
               name="rate"
               control={control}
               render={({ field }) => (
@@ -134,28 +106,33 @@ export function InterviewModal(props: Props) {
                   <Col span={8}>
                     <p>{t('modalInvite.rate')}</p>
                   </Col>
-                  <Col span={5}>
+                  <Col span={6}>
                     <Input
                       type="number"
                       placeholder={t('modalInvite.placeholder')}
                       {...field}
                     />
+                    <ErrorMessage
+                      errors={errors}
+                      name="rate"
+                      render={({ message }) => (
+                        <Text type="danger">{message}</Text>
+                      )}
+                    />
                   </Col>
                 </Row>
               )}
             />
-            <Controller
-              {...register('description', { required: true, min: 15 })}
-              name="description"
-              control={control}
-              render={({ field }) => (
-                <Row>
-                  <Col span={24}>
-                    <TextArea {...field} />
-                  </Col>
-                </Row>
-              )}
-            />
+
+            {jobId && (
+              <Row>
+                <Col span={8}>
+                  <p>{t('modalInvite.description')}</p>
+                </Col>
+                <Col span={6}>{selectedJob?.job.description}</Col>
+              </Row>
+            )}
+
             <Row justify="end">
               <StyledSpace direction="horizontal" size="middle">
                 <Col span={6}>

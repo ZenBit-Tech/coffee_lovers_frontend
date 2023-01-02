@@ -5,13 +5,13 @@ import { useParams } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 import {
   baseUrl,
+  Button,
   freelancerPageInfo,
   InterviewModal,
   profileQ1,
   SendOfferModal,
 } from '@freelance/components';
 import { useGetFreelancerByIdQuery } from 'redux/services/freelancers';
-import { baseTheme } from 'src/styles/theme';
 
 import * as St from './styles';
 
@@ -103,7 +103,7 @@ const FreelancerPageInfo = () => {
             <St.Label>{t('description.profileQp1.edu')}</St.Label>
           </Col>
           <Col span={18}>
-            {userDataById?.educations.map(el => (
+            {userDataById?.educations?.map(el => (
               <St.FlexWrapper data-testid={freelancerPageInfo.edu} key={el.id}>
                 <St.EduData>{el.education_descr}</St.EduData>
                 <St.EduTime>{el.education_from}</St.EduTime>
@@ -157,24 +157,18 @@ const FreelancerPageInfo = () => {
         </Row>
       </St.FreelancerInfo>
       <St.ButtonWrapper>
-        <St.StyledButton theme={baseTheme} onClick={() => setOfferOpen(true)}>
+        <Button onClick={() => setOfferOpen(true)}>
           {t('description.freelancerPageInfo.sendOffer')}
-        </St.StyledButton>
-        <St.StyledButton onClick={showModal}>
+        </Button>
+        <Button onClick={showModal}>
           {t('description.freelancerPageInfo.inviteInterview')}
-        </St.StyledButton>
+        </Button>
       </St.ButtonWrapper>
-      <InterviewModal
-        freelancerId={userDataById?.id}
-        open={open}
-        setOpen={setOpen}
-        rate={userDataById?.hourly_rate}
-      />
+      <InterviewModal open={open} setOpen={setOpen} {...userDataById} />
       <SendOfferModal
         open={offerOpen}
         setOpen={setOfferOpen}
-        freelancerId={userDataById?.id}
-        rate={userDataById?.hourly_rate}
+        {...userDataById}
       />
     </St.Wrapper>
   );

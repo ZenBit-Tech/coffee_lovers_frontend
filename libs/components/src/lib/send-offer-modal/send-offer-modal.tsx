@@ -1,54 +1,52 @@
 import { useState } from 'react';
-import { Col, DatePicker, Form, Input, Row, Space } from 'antd';
+import {
+  Col,
+  DatePicker,
+  Input,
+  notification,
+  Row,
+  Space,
+  Typography,
+} from 'antd';
 import dayjs from 'dayjs';
 import { Namespace } from 'i18next';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@freelance/components';
-import TextArea from 'antd/lib/input/TextArea';
-import { useFindUserJobsWithoutOfferQuery } from 'src/redux/services/jobsApi';
-import { Job } from 'src/redux/types/jobs.types';
+import { Button, dateType, todayDate } from '@freelance/components';
+import { ErrorMessage } from '@hookform/error-message';
+import UseModalOpenHook from 'src/hooks/useModalOpen';
+import { useFindUserJobsWithoutOfferQuery } from 'src/redux/invite/inviteApi';
+import { useGetJobQuery } from 'src/redux/services/jobsApi';
+import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
 
-import { dateType, descrLength, todayDate } from './constants';
-import { StyledModal, StyledSelect } from './styles';
+import { StyledModal, StyledSelect, StyledSpace } from './styles';
 import { Props } from './types';
+import useSendOfferHook from './useSendOfferHook';
 
 export function SendOfferModal(props: Props) {
-  const { setOpen, open, freelancerId, rate } = props;
+  const { setOpen, open, hourly_rate, id, description } = props;
+  const { Text } = Typography;
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-  const { t } = useTranslation<Namespace<string>>();
+  const [jobId, setJobId] = useState<number | null>(null);
+  const [api, contextHolder] = notification.useNotification();
+  const { data: selectedJob } = useGetJobQuery(jobId);
   const { data } = useFindUserJobsWithoutOfferQuery({
-    id: freelancerId,
+    id,
+  });
+  const { t } = useTranslation<Namespace<string>>();
+  const { handleCancel, handleOk } = UseModalOpenHook({
+    setOpen,
+    setConfirmLoading,
   });
 
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setOpen(false);
-    setConfirmLoading(false);
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
-  };
-
-  const { control, handleSubmit, reset, register } = useForm({
-    defaultValues: {
-      select: null,
-      rate: rate,
-      start: '',
-      description: '',
-    },
-  });
-
-  const onSubmit = async (payload: {
-    select?: number | null;
-    rate?: number | null;
-    start?: string;
-    description?: string | null;
-  }) => {
-    alert(payload);
-    reset({ select: null, rate: rate, description: '' });
-  };
+  const { control, register, handleSubmit, errors, onSubmit } =
+    useSendOfferHook({
+      api,
+      hourly_rate,
+      id,
+      description,
+      setJobId,
+    });
 
   return (
     <StyledModal
@@ -59,10 +57,13 @@ export function SendOfferModal(props: Props) {
       onCancel={handleCancel}
       footer={null}
     >
+      {contextHolder}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+        <StyledSpace direction="vertical" size="middle">
           <Controller
-            {...register('select', { required: true })}
+            {...register('select', {
+              required: t('modalInvite.required') || '',
+            })}
             name="select"
             control={control}
             render={({ field }) => (
@@ -70,23 +71,28 @@ export function SendOfferModal(props: Props) {
                 <Col span={8}>
                   <p>{t('modalInvite.choose')}</p>
                 </Col>
-                <Col span={6}>
-                  <Form.Item {...field}>
-                    <StyledSelect
-                      options={data?.map((el: Job) => ({
+                <Col span={7}>
+                  <StyledSelect
+                    {...field}
+                    options={data
+                      ?.filter(el => el.count === 0)
+                      .map((el: OffersJobs) => ({
                         ...el,
                         value: el.id,
                         label: el.title,
                       }))}
-                    />
-                  </Form.Item>
+                    onChange={id => {
+                      setJobId(id as number);
+                      field.onChange(id);
+                    }}
+                  />
                 </Col>
               </Row>
             )}
           />
 
           <Controller
-            {...register('rate', { required: true })}
+            {...register('rate', { required: t('modalInvite.required') || '' })}
             name="rate"
             control={control}
             render={({ field }) => (
@@ -94,60 +100,64 @@ export function SendOfferModal(props: Props) {
                 <Col span={8}>
                   <p>{t('modalInvite.rate')}</p>
                 </Col>
-                <Col span={6}>
-                  <Form.Item {...field}>
-                    <Input
-                      defaultValue={rate}
-                      type="number"
-                      placeholder={t('modalInvite.placeholder')}
-                      {...field}
-                    />
-                  </Form.Item>
+                <Col span={7}>
+                  <Input
+                    type="number"
+                    placeholder={t('modalInvite.placeholder')}
+                    {...field}
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="rate"
+                    render={({ message }) => (
+                      <Text type="danger">{message}</Text>
+                    )}
+                  />
                 </Col>
               </Row>
             )}
           />
 
           <Controller
-            {...register('start', { required: true })}
+            {...register('start', {
+              required: t('modalInvite.required') || '',
+            })}
             name="start"
             control={control}
-            render={({ field }) => (
+            render={({ field: { onChange } }) => (
               <Row justify="start">
                 <Col span={8}>
                   <p>{t('modalInvite.time')}</p>
                 </Col>
-                <Col span={6}>
-                  <Form.Item {...field}>
-                    <DatePicker
-                      defaultValue={dayjs(todayDate, dateType)}
-                      picker="date"
-                    />
-                  </Form.Item>
+                <Col span={7}>
+                  <DatePicker
+                    onChange={date => {
+                      onChange(date?.isValid ? date : null);
+                    }}
+                    defaultValue={dayjs(todayDate, dateType)}
+                    format={dateType}
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="start"
+                    render={({ message }) => (
+                      <Text type="danger">{message}</Text>
+                    )}
+                  />
                 </Col>
               </Row>
             )}
           />
-          <Controller
-            {...register('description', { required: true, min: descrLength })}
-            name="description"
-            control={control}
-            render={({ field }) => (
-              <Row>
-                <Col span={24}>
-                  <Form.Item {...field}>
-                    <TextArea />
-                  </Form.Item>
-                </Col>
-              </Row>
-            )}
-          />
+
+          {jobId && (
+            <Row>
+              <Col span={8}>{t('modalInvite.description')}</Col>
+              <Col span={7}>{selectedJob?.job.description}</Col>
+            </Row>
+          )}
+
           <Row justify="end">
-            <Space
-              direction="horizontal"
-              size="middle"
-              style={{ display: 'flex' }}
-            >
+            <Space direction="horizontal" size="middle">
               <Col span={6}>
                 <Button htmlType="submit" height="40px">
                   {t('modalInvite.submit')}
@@ -160,7 +170,7 @@ export function SendOfferModal(props: Props) {
               </Col>
             </Space>
           </Row>
-        </Space>
+        </StyledSpace>
       </form>
     </StyledModal>
   );
