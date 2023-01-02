@@ -96,6 +96,24 @@ export interface GetUserProposals {
   }[];
 }
 
+export interface ProposalByUserId {
+  id: number;
+  hourly_rate: number;
+  cover_letter: string;
+  job: {
+    id: number;
+    title: string;
+    description: string;
+    hourly_rate: number;
+    available_time: string;
+    english_level: string;
+    duration: number;
+    duration_amount: string;
+    status: string;
+    created_at: string;
+  };
+}
+
 export interface FreelancerQuery {
   skills?: number[];
   categories?: number[];

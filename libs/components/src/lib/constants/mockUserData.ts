@@ -91,6 +91,31 @@ export const mockUsers: User[] = [
   } as User,
 ];
 
+export const mockOneUser: User = {
+  id: 5,
+  email: 'test@test.com',
+  first_name: 'John',
+  last_name: 'Doe',
+  profile_image: '',
+  available_time: 'Full-Time',
+  description:
+    'I am a very energetic and self-motivated person. I always strive for the best. Like to listen to music',
+  hourly_rate: 12,
+  other_experience: 'Scrum experience',
+  english_level: 'Upper-Intermediate',
+  category: {
+    id: 1,
+    name: 'Front-end',
+  },
+  role: 'Freelancer',
+  position: 'Software engeneer',
+  skills: [
+    { id: 1, name: 'HTML' },
+    { id: 2, name: 'CSS' },
+    { id: 4, name: 'Web development' },
+  ],
+};
+
 export const mockFreelancerProfileData: User = {
   id: 123,
   email: 'test@test.com',

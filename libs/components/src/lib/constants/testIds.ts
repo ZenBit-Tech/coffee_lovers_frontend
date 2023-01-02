@@ -39,3 +39,21 @@ export const jobCardTestId = {
 export const filtersTestId = {
   wrapper: 'filtersWrapper',
 };
+
+export const jobDataTestId = {
+  testTitle: 'jobDataTitle',
+  jobDate: 'jobDataDate',
+  jobCategory: 'jobDataCategory',
+  jobDuration: 'jobDataDuration',
+  jobRate: 'jobDataRate',
+  jobTime: 'jobDataTime',
+  jobEnglish: 'jobDataEnglish',
+  jobDescription: 'jobDataDescription',
+  jobSkills: 'jobDataSkills',
+  jobOwner: 'jobDataOwner',
+  jobFreelancerRate: 'jobDataFreelancerRate',
+  jobTextArea: 'jobDataTextArea',
+  jobNumberInput: 'jobDataNumberInput',
+  jobSendProposalBtn: 'jobDataSendProposalBtn',
+  jobProposalModal: 'jobDataProposalModal',
+};

@@ -1,4 +1,9 @@
-import { FindJobsResponse, Job, JobStatus } from 'src/redux/types/jobs.types';
+import {
+  FindJobsResponse,
+  GetJobResponse,
+  Job,
+  JobStatus,
+} from 'src/redux/types/jobs.types';
 
 import { mockUsers } from './mockUserData';
 
@@ -45,4 +50,38 @@ export const mockFindJobsResponse: FindJobsResponse = {
   meta: {
     totalCount: 2,
   },
+};
+
+export const mockJobData: GetJobResponse = {
+  job: {
+    id: 1,
+    title: 'Login page',
+    description: 'Login page in Vue.js',
+    hourly_rate: 40,
+    available_time: 'Part-Time',
+    english_level: 'Intermediate',
+    duration: 1,
+    duration_amount: 'Week',
+    status: JobStatus.PENDING,
+    created_at: '2022-12-08T12:37:44.968Z',
+    owner: mockUsers[0],
+    category: {
+      id: 1,
+      name: 'JavaScript',
+    },
+    skills: [
+      {
+        id: 1,
+        name: 'HTML',
+      },
+      {
+        id: 2,
+        name: 'CSS',
+      },
+      {
+        id: 3,
+        name: 'Web development',
+      },
+    ],
+  } as Job,
 };
