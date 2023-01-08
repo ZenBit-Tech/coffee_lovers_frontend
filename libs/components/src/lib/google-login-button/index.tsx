@@ -1,23 +1,27 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '@freelance/constants';
+import { roles, routes } from '@freelance/constants';
 import { GoogleLogin } from '@react-oauth/google';
-import { setUser } from 'src/redux/auth/auth-slice';
+import { selectRole, setRole, setUser } from 'src/redux/auth/auth-slice';
 import { useAddUserGoogleMutation } from 'src/redux/services/authApi';
+import { useGetUserInfoQuery } from 'src/redux/services/user';
 
 import { ButtonContainer } from './styles';
 
 export function GoogleLoginButton() {
   const [addUser, { data, isSuccess, isError, error }] =
     useAddUserGoogleMutation();
+  const { data: user } = useGetUserInfoQuery();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const role = useSelector(selectRole);
 
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser({ access_token: data.access_token }));
-      if (data.role) {
+      dispatch(setRole({ role: (user && user.role) || roles.visitor }));
+      if (role !== roles.visitor) {
         navigate(`${routes.jobs}`);
       } else {
         navigate(`${routes.role}`);
@@ -26,7 +30,7 @@ export function GoogleLoginButton() {
     if (isError) {
       alert(error);
     }
-  }, [data, dispatch, error, isError, isSuccess, navigate]);
+  }, [data, dispatch, error, isError, isSuccess, navigate, user, role]);
 
   return (
     <ButtonContainer>
