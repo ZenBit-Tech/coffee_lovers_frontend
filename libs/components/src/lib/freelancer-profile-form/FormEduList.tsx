@@ -86,7 +86,7 @@ const FormEduList: FC<freelancerEduProps> = ({ education }) => {
           ))}
           <Form.Item>
             <Button type="dashed" onClick={add} block icon={<PlusOutlined />}>
-              {t('description.profileQp1.add_workhistory')}
+              {t('description.profileQp1.add_education')}
             </Button>
           </Form.Item>
         </>
