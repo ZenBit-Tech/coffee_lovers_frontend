@@ -1,7 +1,6 @@
 import { lazy } from 'react';
-import { useSelector } from 'react-redux';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import { Container, NavigationBar, roles } from '@freelance/components';
+import { Container, roles } from '@freelance/components';
 import { routes } from '@freelance/components';
 import ChatPage from '@pages/ChatPage';
 import ChooseRole from '@pages/ChooseRolePage';
@@ -10,6 +9,7 @@ import FreelancerProfile from '@pages/FreelancerEditProfile';
 import FreelancerPageInfo from '@pages/FreelancerPageInfo';
 import JobDetailsPage from '@pages/JobDetailsPage';
 import JobsPage from '@pages/JobsPage';
+import NotFoundPage from '@pages/NotFoundPage'
 import OffersPage from '@pages/OffersPage';
 import PasswordReset from '@pages/PasswordReset';
 import PasswordResetRequest from '@pages/PasswordResetRequest';
@@ -18,12 +18,8 @@ import ProfileQuestions from '@pages/ProfileQuestions';
 import ProposalsList from '@pages/ProposalsList';
 import TalentListPage from '@pages/TalentListPage/index';
 import WelcomePage from '@pages/WelcomePage';
-import { selectRole } from 'redux/auth/auth-slice';
-import { Role } from 'redux/types/user.types';
 import PrivateRoute from 'src/Routes/PrivateRoute';
 import PublicRoute from 'src/Routes/PublicRoute';
-
-import { RoutesWrapper } from './styles';
 
 const ExampleRootPage = lazy(
   () =>
@@ -45,12 +41,9 @@ const JobUpdatePage = lazy(
 );
 
 export function App() {
-  const role: Role = useSelector(selectRole);
 
   return (
     <Container>
-      {role !== roles.visitor && <NavigationBar />}
-      <RoutesWrapper isAppBar={role !== roles.visitor}>
         <Routes>
           <Route path="/" element={<Outlet />}>
             <Route path={routes.welcome} element={<WelcomePage />} />
@@ -111,9 +104,9 @@ export function App() {
               <Route path={routes.proposalsList} element={<ProposalsList />} />
               <Route path={routes.postedJob} element={<PostedJobDetails />} />
             </Route>
+            <Route path='*' element={<NotFoundPage />} />
           </Route>
         </Routes>
-      </RoutesWrapper>
     </Container>
   );
 }

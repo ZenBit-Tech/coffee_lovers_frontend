@@ -3,7 +3,7 @@ import { GoogleLoginButton, LoginForm } from '@freelance/components';
 
 import { Wrapper } from './styles';
 
-export default function LoginPage() {
+function LoginPage() {
   return (
     <Wrapper>
       <Space align="start">
@@ -13,3 +13,5 @@ export default function LoginPage() {
     </Wrapper>
   );
 }
+
+export default LoginPage;
