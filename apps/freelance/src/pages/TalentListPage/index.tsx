@@ -44,6 +44,9 @@ const TalentListPage = (): ReactElement => {
     data,
     favorites,
     allFreelancerHanler,
+    allHiresHandler,
+    hires,
+    isHires,
   } = useFreelancerData(page, search, take, filterPayload);
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -78,6 +81,12 @@ const TalentListPage = (): ReactElement => {
             </SecondaryButton>
             <SecondaryButton
               size={talentConsts.largeSize}
+              onClick={allHiresHandler}
+            >
+              {t('talent.allhiresbtn')}
+            </SecondaryButton>
+            <SecondaryButton
+              size={talentConsts.largeSize}
               onClick={favoritesHandler}
             >
               {t('talent.favoritesbtn')}
@@ -102,7 +111,9 @@ const TalentListPage = (): ReactElement => {
         </PageBar>
         {!isLoading && (
           <List
-            dataSource={freelancerRenderData}
+            dataSource={
+              isHires ? hires.map(el => el.user) : freelancerRenderData
+            }
             renderItem={(item: User) => (
               <St.StyledCard key={item.id}>
                 <St.StyledCardHeader>
@@ -122,17 +133,27 @@ const TalentListPage = (): ReactElement => {
                       </St.StyledName>
                     </Col>
                     <Col span={4}>
-                      <St.TextExContainer>
-                        <ExpandableText>{item.description}</ExpandableText>
-                      </St.TextExContainer>
+                      {isHires ? (
+                        <St.TextExContainer>
+                          {hires
+                            .find(hire => hire.user.id === item.id)
+                            ?.jobTitle.map(el => (
+                              <p>{el}</p>
+                            ))}
+                        </St.TextExContainer>
+                      ) : (
+                        <St.TextExContainer>
+                          <ExpandableText>{item.description}</ExpandableText>
+                        </St.TextExContainer>
+                      )}
                     </Col>
-                    <Col span={4}>
+                    <St.StyledRateBox>
                       <Rate
                         onChange={value => onChangeFavorite(item.id, value)}
                         count={talentConsts.starCount}
                         value={isFreelancerFav(item, favorites)}
                       />
-                    </Col>
+                    </St.StyledRateBox>
                   </Row>
                 </St.StyledCardHeader>
                 <St.SmallCardContainer>
