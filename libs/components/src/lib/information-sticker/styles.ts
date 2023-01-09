@@ -12,7 +12,9 @@ export const Container = styled.div<ContainerProps>`
   padding: 4px 10px;
   border-radius: 10px;
   line-height: normal;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   color: ${props => (props.success ? ({ theme }) => theme.colors.success : '')};
   border-color: ${props =>

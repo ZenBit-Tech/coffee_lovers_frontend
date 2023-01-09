@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import { ApiRoutes, baseUrl } from '@freelance/constants';
+import { ApiRoutes, baseUrl, jobApiTags } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
 import {
@@ -19,6 +19,7 @@ enum EndpointsRoutes {
   getJob = '/job',
   getPostedJobs = '/posted',
   getPostedJobDetails = '/posted/',
+  stopHiring = '/stophiring/',
 }
 
 export const jobsApi = createApi({
@@ -30,6 +31,7 @@ export const jobsApi = createApi({
       return queryString.stringify(params, { arrayFormat: 'bracket' });
     },
   }),
+  tagTypes: Object.values(jobApiTags),
   endpoints: builder => ({
     findJobs: builder.query<FindJobsResponse, GetJobParams>({
       query: params => ({
@@ -56,9 +58,18 @@ export const jobsApi = createApi({
     }),
     getPostedJobs: builder.query<GetPostedJobsResponse[], void>({
       query: () => EndpointsRoutes.getPostedJobs,
+      providesTags: [jobApiTags.postedJob],
     }),
     getPostedJobDetails: builder.query<GetPostedJobDetailsResponse, string>({
       query: (id: string) => EndpointsRoutes.getPostedJobDetails + id,
+      providesTags: [jobApiTags.postedJob],
+    }),
+    stopHiring: builder.mutation({
+      query: (jobId: number) => ({
+        url: EndpointsRoutes.stopHiring + jobId,
+        method: 'POST',
+      }),
+      invalidatesTags: [jobApiTags.postedJob],
     }),
   }),
 });
@@ -70,4 +81,5 @@ export const {
   useGetJobProposalsQuery,
   useGetPostedJobsQuery,
   useGetPostedJobDetailsQuery,
+  useStopHiringMutation,
 } = jobsApi;
