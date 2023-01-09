@@ -6,5 +6,5 @@ export const FormWrap = styled.div`
 `;
 
 export const StyledButton = styled(Button)`
-
+ padding: 5px;
 `;
