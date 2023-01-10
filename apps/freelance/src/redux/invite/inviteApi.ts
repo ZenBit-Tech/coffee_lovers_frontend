@@ -20,7 +20,7 @@ export const inviteApi = createApi({
     baseUrl: baseUrl + ApiRoutes.REQUEST,
     prepareHeaders: getHeaders(),
   }),
-  tagTypes: Object.values(offerTags),
+  tagTypes: [offerTags.offer, offerTags.invite],
   endpoints: builder => ({
     findUserJobsWithoutOffer: builder.query<OffersJobs[], FrelancerPayload>({
       query: (payload: FrelancerPayload) => ({
