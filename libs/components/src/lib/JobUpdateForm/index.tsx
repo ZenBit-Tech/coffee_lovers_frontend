@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Form, Space, Typography } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   description,
   GetJobResponse,
@@ -36,6 +36,9 @@ export const JobUpdateForm = () => {
   const [job, setJob] = useState<GetJobResponse>();
   const { t } = useTranslation();
 
+  const params = useParams();
+  const jobId = Number(params?.['id']);
+
   const {
     control: jobUpdateControl,
     handleSubmit: jobUpdateHandleSubmit,
@@ -46,11 +49,8 @@ export const JobUpdateForm = () => {
 
   const navigate = useNavigate();
 
-  //temporally const with magic number
-  const jobNumber = 2;
-
   const [updateJob] = useUpdateJobMutation();
-  const { data, isLoading } = useGetJobQuery(jobNumber);
+  const { data, isLoading } = useGetJobQuery(jobId);
 
   useEffect(() => {
     const awd = () => {
@@ -61,8 +61,7 @@ export const JobUpdateForm = () => {
 
   const jobUpdateOnSubmit: SubmitHandler<JobUpdateValues> = async data => {
     try {
-      //temporally const with magic number
-      const JobUpdateData = { id: jobNumber, ...data };
+      const JobUpdateData = { id: jobId, ...data };
       await updateJob(JobUpdateData);
       navigate(routes.talents);
     } catch (error) {
