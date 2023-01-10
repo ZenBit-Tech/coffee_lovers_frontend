@@ -1,5 +1,6 @@
+import { ContractStatus } from 'redux/types/contracts.types';
 import { Job } from 'redux/types/jobs.types';
-import { Offer, OfferStatus } from 'redux/types/request.types';
+import { OfferStatus } from 'redux/types/request.types';
 import { User } from 'redux/types/user.types';
 
 export interface Error {
@@ -19,7 +20,7 @@ export enum DurationAmount {
 export interface ContractsResponse {
   id: number;
   created_at: string;
-  status: Offer;
+  status: ContractStatus;
   end: Date;
   offer: {
     id: number;
