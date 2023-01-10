@@ -9,6 +9,8 @@ import {
   useDeclineOfferMutation,
   useDeleteInterviewMutation,
 } from 'src/redux/services/requestApi';
+import { Job } from 'src/redux/types/jobs.types';
+import { User } from 'src/redux/types/user.types';
 
 interface UseOfferInterviewCardReturn {
   t: TFunction;
@@ -16,9 +18,14 @@ interface UseOfferInterviewCardReturn {
   confirmDeclineOffer: (jobTitle: string) => void;
   confirmDeleteInterview: (jobTitle: string) => void;
   jobClickHandler: (id?: number) => void;
+  startChatHandler: () => void;
 }
 
-const useOfferInterviewCard = (id: number): UseOfferInterviewCardReturn => {
+const useOfferInterviewCard = (
+  id: number,
+  user: User,
+  job: Job,
+): UseOfferInterviewCardReturn => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [acceptOffer] = useAcceptOfferMutation();
@@ -71,6 +78,10 @@ const useOfferInterviewCard = (id: number): UseOfferInterviewCardReturn => {
     confirmDeleteInterview,
     jobClickHandler: (id?: number) =>
       navigate(generatePath(routes.jobDetails, { id })),
+    startChatHandler: () =>
+      navigate(
+        generatePath(routes.chatUser, { userId: user.id, jobId: job.id }),
+      ),
   };
 };
 

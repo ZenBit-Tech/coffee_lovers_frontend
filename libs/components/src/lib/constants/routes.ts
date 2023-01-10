@@ -10,6 +10,7 @@ export const routes = {
   // Protected Routes
   role: '/role',
   chat: '/chat',
+  chatUser: '/chat?user=:userId&job=:jobId',
   jobs: '/jobs',
   //Freelancer Routes
   profileQuestions: '/profile-questions',

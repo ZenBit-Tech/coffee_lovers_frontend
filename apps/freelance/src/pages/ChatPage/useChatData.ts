@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, FormInstance } from 'antd';
+import { useSearchParams } from 'react-router-dom';
 import useAppSelector from '@hooks/useAppSelector';
 import {
+  useCreateConversationMutation,
   useGetConversationQuery,
   useGetMessagesQuery,
   useSendMessageMutation,
@@ -14,7 +16,7 @@ import {
 } from 'redux/types/chat.types';
 import { User } from 'redux/types/user.types';
 
-import { zero } from './constants';
+import { jobSearchParam, userSearchParam, zero } from './constants';
 
 type MessageType = {
   token: string;
@@ -41,6 +43,7 @@ interface useChatDataReturns {
 }
 
 const useChatData = (): useChatDataReturns => {
+  const [searchParams] = useSearchParams();
   const { access_token }: { access_token: string } = useAppSelector(
     state => state.user,
   );
@@ -53,6 +56,24 @@ const useChatData = (): useChatDataReturns => {
   const [conversation, setConversation] = useState<IConversation>(
     conversations && conversations?.length > 0 ? conversations[zero].id : zero,
   );
+  const [createConversation] = useCreateConversationMutation();
+
+  useEffect(() => {
+    const userId = searchParams.get(userSearchParam);
+    const jobId = searchParams.get(jobSearchParam);
+
+    if (conversations && userId && jobId) {
+      const searchedConversation = conversations.find(
+        item => item.user.id === +userId && item.job.id === +jobId,
+      );
+      if (searchedConversation) {
+        setConversation(searchedConversation.id);
+      } else {
+        createConversation({ job: +jobId, user: +userId });
+      }
+    }
+  }, [conversations]);
+
   const skip = conversation > zero ? false : true;
   const query = {
     token,
