@@ -72,6 +72,8 @@ const useChatData = (): useChatDataReturns => {
     profileImg: `${currentConversation?.user.profile_image}`,
     jobDescription: currentConversation?.job.description || '',
     jobRate: currentConversation?.job.hourly_rate,
+    jobId: currentConversation?.job.id,
+    freelancerId: currentConversation?.user.id,
   };
 
   const handleClick = (id: number) => {

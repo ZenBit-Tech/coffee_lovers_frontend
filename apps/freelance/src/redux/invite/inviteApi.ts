@@ -4,10 +4,11 @@ import { getHeaders } from '@utils/api';
 import { FrelancerPayload } from 'redux/types/jobs.types';
 import { OffersJobs } from 'redux/types/withoutoffer.types.ts';
 
-import { PostOffer, PostRequest } from './types';
+import { GetOffersResponse, PostOffer, PostRequest } from './types';
 
 enum EndpointsRoutes {
   offer = '/offer',
+  offers = '/offers',
   invite = '/invite',
   withoutoffer = 'withoutoffer',
   withoutinvite = 'withoutinvite',
@@ -49,6 +50,13 @@ export const inviteApi = createApi({
       }),
       invalidatesTags: ['Offer'],
     }),
+    getUserOffers: builder.query<GetOffersResponse[], void>({
+      query: () => ({
+        url: EndpointsRoutes.offers,
+        method: 'GET',
+      }),
+      providesTags: ['Offer'],
+    }),
   }),
 });
 
@@ -57,4 +65,5 @@ export const {
   usePostOfferMutation,
   useFindUserJobsWithoutInviteQuery,
   useFindUserJobsWithoutOfferQuery,
+  useGetUserOffersQuery,
 } = inviteApi;

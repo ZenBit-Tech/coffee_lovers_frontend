@@ -7,11 +7,15 @@ import {
   OfferFromChatModal,
   roles,
   StyledInput,
+  useOpenNotification,
 } from '@freelance/components';
+import { useGetUserOffersQuery } from 'redux/invite/inviteApi';
+import { GetOffersResponse, Request } from 'redux/invite/types';
 import { baseTheme } from 'src/styles/theme';
 import { formatDate, formatTime } from 'src/utils/dates';
 
 import { colors, defaultAvatarSize, message } from './constants';
+import { ReceivedOfferModal } from './receivedOffer';
 import {
   BottomWrapper,
   FirstUserContainer,
@@ -40,14 +44,24 @@ type Open = boolean;
 
 const ChatPage = () => {
   const { t } = useTranslation();
+  const { data: offers } = useGetUserOffersQuery();
   const [openModal, setOpenModal] = useState<Open>(false);
+  const [openReceivedOfferModal, setOpenReceivedOfferModal] =
+    useState<Open>(false);
+  const [pendingOffer, setPendingOffer] = useState<boolean>(false);
+  const [offer, setOffer] = useState<GetOffersResponse>();
 
   const showModal = () => {
     setOpenModal(true);
   };
 
+  const showReceivedOfferModal = () => {
+    setOpenReceivedOfferModal(true);
+  };
+
   const onCancel = () => {
     setOpenModal(false);
+    setOpenReceivedOfferModal(false);
   };
 
   const {
@@ -61,6 +75,8 @@ const ChatPage = () => {
     handleClick,
     onSearch,
   } = useChatData();
+  const { contextHolder, openNotificationWithIcon } = useOpenNotification();
+  const messageValue = Form.useWatch('message', form);
 
   useEffect(() => {
     const el = document.getElementById('messages');
@@ -69,8 +85,19 @@ const ChatPage = () => {
     }
   }, [chatMessages]);
 
+  useEffect(() => {
+    if (user?.role === roles.freelancer) {
+      const currentOffer = offers
+        ?.filter(item => item.status === Request.pending)
+        .find(item => item.job.id === currentConversationInfo.jobId);
+      setOffer(currentOffer);
+      currentOffer ? setPendingOffer(true) : setPendingOffer(false);
+    }
+  }, [conversation, currentConversationInfo.jobId, offers, user?.role]);
+
   return (
     <Row>
+      {contextHolder}
       <StyledLeftSide span={6}>
         <InputSearchStyled
           placeholder={t('findJobs.searchPlaceholder')}
@@ -98,9 +125,7 @@ const ChatPage = () => {
                     />
                   </Badge>
                   <UserDivStyled>
-                    {user?.role === roles.jobOwner && (
-                      <StyledText ellipsis={true}>{item.job.title}</StyledText>
-                    )}
+                    <StyledText ellipsis={true}>{item.job.title}</StyledText>
                     <Text strong>
                       {item.user.first_name} {item.user.last_name}
                     </Text>
@@ -132,6 +157,11 @@ const ChatPage = () => {
               {user?.role === roles.jobOwner && (
                 <SendOfferBtn onClick={showModal}>
                   {t('chat.sendOffer')}
+                </SendOfferBtn>
+              )}
+              {user?.role === roles.freelancer && pendingOffer && (
+                <SendOfferBtn onClick={showReceivedOfferModal}>
+                  {t('chat.received_offer')}
                 </SendOfferBtn>
               )}
             </>
@@ -176,12 +206,16 @@ const ChatPage = () => {
         <Form form={form} layout="inline" onFinish={handleSend}>
           {!!conversation && (
             <BottomWrapper>
-              <StyledFormItem name={message} rules={[{ required: true }]}>
+              <StyledFormItem name={message}>
                 <StyledInput placeholder={t('chat.message')} />
               </StyledFormItem>
 
               <Form.Item>
-                <StyledButton type="primary" htmlType="submit">
+                <StyledButton
+                  type="primary"
+                  htmlType="submit"
+                  disabled={!messageValue}
+                >
                   {t('chat.send')}
                 </StyledButton>
               </Form.Item>
@@ -193,6 +227,13 @@ const ChatPage = () => {
         openModal={openModal}
         onCancel={onCancel}
         currentConversationInfo={currentConversationInfo}
+        openNotificationWithIcon={openNotificationWithIcon}
+      />
+      <ReceivedOfferModal
+        openModal={openReceivedOfferModal}
+        onCancel={onCancel}
+        offer={offer}
+        openNotificationWithIcon={openNotificationWithIcon}
       />
     </Row>
   );

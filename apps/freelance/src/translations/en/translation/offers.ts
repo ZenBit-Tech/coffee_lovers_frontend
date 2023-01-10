@@ -26,5 +26,13 @@ export default {
     errors: {
       unexpected: 'Unexpected error',
     },
+    receive: {
+      title: 'You have an offer',
+      rate: 'Hourly rate:',
+      start: 'Start of project:',
+      description: 'Description:',
+      accept: 'Accept',
+      decline: 'Decline',
+    },
   },
 };

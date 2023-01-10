@@ -1,9 +1,13 @@
+import { useEffect } from 'react';
 import { DatePicker, Form, Modal, ModalProps } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { StyledButton } from '@freelance/components';
+import { NotificationType, StyledButton } from '@freelance/components';
 import { profileQ1 } from '@freelance/constants';
+import { usePostOfferMutation } from 'src/redux/invite/inviteApi';
+import { Request } from 'src/redux/invite/types';
 import { ICurrentConversationInfo } from 'src/redux/types/chat.types';
+import { formatDate } from 'src/utils/dates';
 
 import { StyledDescr, StyledNumberInput, StyledTitle } from './styles';
 
@@ -16,14 +20,22 @@ export const OfferFromChatModal = ({
   openModal,
   currentConversationInfo,
   onCancel,
+  openNotificationWithIcon,
   ...props
 }: {
   openModal: boolean;
   currentConversationInfo: ICurrentConversationInfo;
   onCancel: () => void;
+  openNotificationWithIcon: (
+    type: NotificationType,
+    message: string,
+    description: string,
+  ) => void;
 } & ModalProps) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
+
+  const [postOffer, { isSuccess }] = usePostOfferMutation();
   const { handleSubmit } = useForm({
     defaultValues: {
       rate: currentConversationInfo.jobRate,
@@ -34,16 +46,31 @@ export const OfferFromChatModal = ({
   const onFinish: SubmitHandler<ISendOffer> = async values => {
     try {
       const offerResponse = {
-        rate: values.rate,
-        date: values.date,
+        data: {
+          status: Request.pending,
+          hourly_rate: values.rate,
+          start: formatDate(new Date(values.date)),
+        },
+        freelancer: currentConversationInfo.freelancerId,
+        jobId: currentConversationInfo.jobId,
       };
-      await alert(JSON.stringify(offerResponse));
+      await postOffer(offerResponse);
       form.resetFields();
       onCancel();
     } catch (error) {
       alert(error);
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      openNotificationWithIcon(
+        NotificationType.SUCCESS,
+        'Success',
+        'Your offer was successfully send',
+      );
+    }
+  }, [isSuccess]);
 
   return (
     <Modal
@@ -62,7 +89,7 @@ export const OfferFromChatModal = ({
         <StyledTitle>{currentConversationInfo.jobTitle}</StyledTitle>
 
         <Form.Item
-          label={t('job_details.setup_rate')}
+          label={t('job_details.start_date')}
           name="date"
           rules={[
             { required: true, message: `${t('description.profileQp1.mesHR')}` },
