@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { routes } from '@freelance/constants';
 import { selectAuthToken, setRole } from 'redux/auth/auth-slice';
-import { useGetUserInfoQuery } from 'redux/services/user';
+import { useGetUserInfoQuery } from 'redux/services/userApi';
 import { Role } from 'redux/types/user.types';
 
 export default function PrivateRoute({

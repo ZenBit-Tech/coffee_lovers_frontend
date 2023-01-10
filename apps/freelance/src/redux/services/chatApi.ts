@@ -1,7 +1,7 @@
 import { io, Socket } from 'socket.io-client';
-import { ApiRoutes, baseUrl, websocketUrl } from '@freelance/constants';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { getHeaders, getWebsocketHeaders } from '@utils/api';
+import { ApiRoutes, apiTags, websocketUrl } from '@freelance/constants';
+import { getWebsocketHeaders } from '@utils/api';
+import { emptySplitApi } from 'redux/emptySplitApi';
 import {
   ConversationResponse,
   CreateMessagePayload,
@@ -11,8 +11,11 @@ import {
   SendMessagePayload,
 } from 'redux/types/chat.types';
 
+const serviceRoute = ApiRoutes.CHAT;
+
 enum EndpointsRoutes {
-  GET_MESSAGES = '/messages/',
+  getConversation = '/',
+  getMessages = '/messages/',
 }
 
 export enum ChatEvents {
@@ -34,15 +37,11 @@ const getSocket = (token: string) => {
   return socket;
 };
 
-export const chatApi = createApi({
-  reducerPath: 'chatApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl + ApiRoutes.CHAT,
-    prepareHeaders: getHeaders(),
-  }),
+const chatApi = emptySplitApi.injectEndpoints({
   endpoints: build => ({
     getMessages: build.query<MessageResponse[], GetMessagesPayload>({
-      query: payload => EndpointsRoutes.GET_MESSAGES + payload.conversation,
+      query: payload =>
+        serviceRoute + EndpointsRoutes.getMessages + payload.conversation,
       async onCacheEntryAdded(
         payload,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
@@ -83,9 +82,10 @@ export const chatApi = createApi({
     getConversation: build.query<ConversationResponse[], GetConversationParams>(
       {
         query: params => ({
-          url: `/`,
+          url: serviceRoute + EndpointsRoutes.getConversation,
           params,
         }),
+        providesTags: [apiTags.conversation],
       },
     ),
   }),

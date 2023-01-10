@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useGetFreelancerQuery } from 'redux/services/freelancers';
-import { useGetFavoritesQuery } from 'redux/services/user';
+import { useGetFreelancerQuery } from 'redux/services/userApi';
+import { useGetFavoritesQuery } from 'redux/services/userApi';
 import { User } from 'redux/types/user.types';
 
 import { talentConsts } from './constants';

@@ -15,8 +15,8 @@ import { useTranslation } from 'react-i18next';
 import { Button, dateType, todayDate } from '@freelance/components';
 import { ErrorMessage } from '@hookform/error-message';
 import UseModalOpenHook from 'src/hooks/useModalOpen';
-import { useFindUserJobsWithoutOfferQuery } from 'src/redux/invite/inviteApi';
 import { useGetJobQuery } from 'src/redux/services/jobsApi';
+import { useFindUserJobsWithoutOfferQuery } from 'src/redux/services/requestApi';
 import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
 
 import { StyledModal, StyledSelect, StyledSpace } from './styles';

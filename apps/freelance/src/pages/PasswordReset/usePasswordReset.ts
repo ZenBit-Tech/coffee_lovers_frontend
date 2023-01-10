@@ -13,8 +13,8 @@ import { SerializedError } from '@reduxjs/toolkit';
 import {
   usePasswordResetCheckAvailabilityQuery,
   usePasswordResetMutation,
-} from 'redux/services/user';
-import { UserError } from 'redux/types/user.types';
+} from 'redux/services/userApi';
+import { ApiError } from 'redux/types/error.types';
 
 type Inputs = {
   password: string;
@@ -27,7 +27,7 @@ interface UsePasswordResetResponse {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
-  error?: UserError | SerializedError;
+  error?: ApiError | SerializedError;
   isLinkValid?: boolean;
 }
 

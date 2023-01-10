@@ -6,7 +6,7 @@ import {
   useGetMessagesQuery,
   useSendMessageMutation,
 } from 'redux/services/chatApi';
-import { useGetUserInfoQuery } from 'redux/services/user';
+import { useGetUserInfoQuery } from 'redux/services/userApi';
 import {
   ConversationResponse,
   ICurrentConversationInfo,

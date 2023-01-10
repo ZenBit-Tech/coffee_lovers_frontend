@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { NotificationType } from '@freelance/components';
-import { usePostRequestMutation } from 'src/redux/invite/inviteApi';
-import { Invite } from 'src/redux/invite/types';
+import { usePostRequestMutation } from 'src/redux/services/requestApi';
+import { RequestType } from 'src/redux/types/request.types';
 
 import { sendInviteHookDto, sendInviteHookReturnDto } from './types';
 
@@ -51,7 +51,7 @@ const useInterviewModalHook = ({
         jobId: payload.select,
         data: {
           hourly_rate: payload.rate,
-          type: Invite.INTERVIEW,
+          type: RequestType.INTERVIEW,
           cover_letter: description,
         },
       });

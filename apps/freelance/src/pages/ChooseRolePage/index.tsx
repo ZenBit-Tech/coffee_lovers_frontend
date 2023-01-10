@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { routes } from '@freelance/constants';
 import { roles } from '@freelance/constants';
 import { setRole } from 'redux/auth/auth-slice';
+import { useUpdateUserInfoMutation } from 'redux/services/userApi';
 import { Role } from 'redux/types/user.types';
-import { useUpdateUserInfoMutation } from 'src/redux/services/user';
 
 import { FormWrap, InputsWrapper, InputText, Title } from './styles';
 
