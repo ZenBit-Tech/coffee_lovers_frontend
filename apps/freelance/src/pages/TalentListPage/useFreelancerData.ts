@@ -9,7 +9,7 @@ import { GetFreelancerParams } from './model';
 
 interface FreelancersHired {
   user: User;
-  jobTitle: (string | undefined)[];
+  jobTitle: string[];
 }
 
 export const useFreelancerData = (
@@ -60,10 +60,12 @@ export const useFreelancerData = (
         if (index === -1) {
           uniqueHiresArr.push({
             user: el.offer.freelancer,
-            jobTitle: [el.offer.job.title],
+            jobTitle: el.offer.job.title ? [el.offer.job.title] : [],
           });
         } else {
-          uniqueHiresArr[index].jobTitle.push(el.offer.job.title);
+          if (el.offer.job.title) {
+            uniqueHiresArr[index].jobTitle.push(el.offer.job.title);
+          }
         }
       });
       setHires(uniqueHiresArr);
