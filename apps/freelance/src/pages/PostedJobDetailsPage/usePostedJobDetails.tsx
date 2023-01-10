@@ -38,7 +38,7 @@ const usePostedJobDetail = (): UsePostedJobDetailReturn => {
     setOffset((page - 1) * maxHiredCards);
   };
 
-  const stopHiringHandler = () => {
+  const stopHiringHandler = (): void => {
     if (data) {
       Modal.confirm({
         title: t('postedJobDetails.modal.stopHiring'),

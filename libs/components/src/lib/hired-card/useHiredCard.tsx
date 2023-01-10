@@ -15,7 +15,7 @@ const useHiredCard = (
 ): UseHiredCardReturn => {
   const [closeContract] = useCloseContractMutation();
 
-  const closeContractHandler = () => {
+  const closeContractHandler = (): void => {
     Modal.confirm({
       title: t('postedJobDetails.modal.closeContract'),
       icon: <CheckCircleOutlined />,
