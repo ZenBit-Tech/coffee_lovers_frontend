@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
 import { Modal, ModalProps, Space } from 'antd';
 import { t } from 'i18next';
 import {
   DangerButton,
+  modalWidth,
   NotificationType,
   SuccessButton,
 } from '@freelance/components';
@@ -28,10 +28,8 @@ export const ReceivedOfferModal = ({
     description: string,
   ) => void;
 } & ModalProps) => {
-  const [acceptOffer, { isSuccess: isAcceptSuccess }] =
-    useAcceptOfferMutation();
-  const [declineOffer, { isSuccess: isDeclineSuccess }] =
-    useDeclineOfferMutation();
+  const [acceptOffer] = useAcceptOfferMutation();
+  const [declineOffer] = useDeclineOfferMutation();
   const onAccept = () => {
     offer && acceptOffer(offer.id);
     onCancel();
@@ -42,30 +40,13 @@ export const ReceivedOfferModal = ({
     onCancel();
   };
 
-  useEffect(() => {
-    if (isAcceptSuccess) {
-      openNotificationWithIcon(
-        NotificationType.SUCCESS,
-        'Accepted',
-        'You have accepted the offer',
-      );
-    }
-    if (isDeclineSuccess) {
-      openNotificationWithIcon(
-        NotificationType.INFO,
-        'Declined',
-        'You have declined the offer',
-      );
-    }
-  }, [isAcceptSuccess, isDeclineSuccess, openNotificationWithIcon]);
-
   return (
     <Modal
       {...props}
       open={openModal}
       onCancel={onCancel}
       centered
-      width={800}
+      width={modalWidth}
       footer={null}
     >
       <Space align="center" direction="vertical">

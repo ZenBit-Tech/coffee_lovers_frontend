@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Avatar, Badge, Form, Row, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
@@ -9,8 +9,6 @@ import {
   StyledInput,
   useOpenNotification,
 } from '@freelance/components';
-import { useGetUserOffersQuery } from 'redux/invite/inviteApi';
-import { GetOffersResponse, Request } from 'redux/invite/types';
 import { baseTheme } from 'src/styles/theme';
 import { formatDate, formatTime } from 'src/utils/dates';
 
@@ -44,12 +42,10 @@ type Open = boolean;
 
 const ChatPage = () => {
   const { t } = useTranslation();
-  const { data: offers } = useGetUserOffersQuery();
+
   const [openModal, setOpenModal] = useState<Open>(false);
   const [openReceivedOfferModal, setOpenReceivedOfferModal] =
     useState<Open>(false);
-  const [pendingOffer, setPendingOffer] = useState<boolean>(false);
-  const [offer, setOffer] = useState<GetOffersResponse>();
 
   const showModal = () => {
     setOpenModal(true);
@@ -71,29 +67,14 @@ const ChatPage = () => {
     conversation,
     conversations,
     currentConversationInfo,
+    pendingOffer,
+    offer,
     handleSend,
     handleClick,
     onSearch,
   } = useChatData();
   const { contextHolder, openNotificationWithIcon } = useOpenNotification();
   const messageValue = Form.useWatch('message', form);
-
-  useEffect(() => {
-    const el = document.getElementById('messages');
-    if (el) {
-      el.scrollTop = el.scrollHeight;
-    }
-  }, [chatMessages]);
-
-  useEffect(() => {
-    if (user?.role === roles.freelancer) {
-      const currentOffer = offers
-        ?.filter(item => item.status === Request.pending)
-        .find(item => item.job.id === currentConversationInfo.jobId);
-      setOffer(currentOffer);
-      currentOffer ? setPendingOffer(true) : setPendingOffer(false);
-    }
-  }, [conversation, currentConversationInfo.jobId, offers, user?.role]);
 
   return (
     <Row>

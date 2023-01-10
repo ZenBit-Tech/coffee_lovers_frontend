@@ -39,3 +39,8 @@ export const skillsOptions: OptionProps[] = [
   { value: 'JavaScript' },
   { value: 'Node' },
 ];
+
+export const offerTags = {
+  offer: 'Offer',
+  invite: 'Invite',
+};

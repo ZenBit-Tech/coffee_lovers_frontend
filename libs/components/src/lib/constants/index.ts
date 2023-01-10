@@ -5,6 +5,7 @@ export * from './mockJobData';
 export * from './mockPropertiesData';
 export * from './mockProposals';
 export * from './mockUserData';
+export * from './modals';
 export * from './options';
 export * from './profileQuestions';
 export * from './role';

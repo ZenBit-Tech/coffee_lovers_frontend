@@ -3,7 +3,7 @@ import { DatePicker, Form, Modal, ModalProps } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { NotificationType, StyledButton } from '@freelance/components';
-import { profileQ1 } from '@freelance/constants';
+import { modalWidth, profileQ1 } from '@freelance/constants';
 import { usePostOfferMutation } from 'src/redux/invite/inviteApi';
 import { Request } from 'src/redux/invite/types';
 import { ICurrentConversationInfo } from 'src/redux/types/chat.types';
@@ -66,8 +66,8 @@ export const OfferFromChatModal = ({
     if (isSuccess) {
       openNotificationWithIcon(
         NotificationType.SUCCESS,
-        'Success',
-        'Your offer was successfully send',
+        `${t('offers.receive.success')}`,
+        `${t('offers.receive.successMessage')}`,
       );
     }
   }, [isSuccess]);
@@ -78,7 +78,7 @@ export const OfferFromChatModal = ({
       open={openModal}
       onCancel={onCancel}
       centered
-      width={800}
+      width={modalWidth}
       footer={null}
     >
       <Form

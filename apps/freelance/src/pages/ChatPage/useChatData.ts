@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, FormInstance } from 'antd';
+import { roles } from '@freelance/components';
 import useAppSelector from '@hooks/useAppSelector';
+import { useGetUserOffersQuery } from 'redux/invite/inviteApi';
+import { GetOffersResponse, Request } from 'redux/invite/types';
 import {
   useGetConversationQuery,
   useGetMessagesQuery,
@@ -35,6 +38,8 @@ interface useChatDataReturns {
   conversation: number;
   conversations?: ConversationResponse[];
   currentConversationInfo: ICurrentConversationInfo;
+  pendingOffer: boolean;
+  offer?: GetOffersResponse;
   handleSend: (values: InputType) => void;
   handleClick: (id: number) => number;
   onSearch: (value: string) => void;
@@ -50,6 +55,9 @@ const useChatData = (): useChatDataReturns => {
     ...(search && { search }),
   });
   const { data: user } = useGetUserInfoQuery();
+  const { data: offers } = useGetUserOffersQuery();
+  const [pendingOffer, setPendingOffer] = useState<boolean>(false);
+  const [offer, setOffer] = useState<GetOffersResponse>();
   const [conversation, setConversation] = useState<IConversation>(
     conversations && conversations?.length > 0 ? conversations[zero].id : zero,
   );
@@ -96,6 +104,23 @@ const useChatData = (): useChatDataReturns => {
     setSearch(value.trim());
   };
 
+  useEffect(() => {
+    const el = document.getElementById('messages');
+    if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
+  }, [chatMessages]);
+
+  useEffect(() => {
+    if (user?.role === roles.freelancer) {
+      const currentOffer = offers
+        ?.filter(item => item.status === Request.pending)
+        .find(item => item.job.id === currentConversationInfo.jobId);
+      setOffer(currentOffer);
+      currentOffer ? setPendingOffer(true) : setPendingOffer(false);
+    }
+  }, [conversation, currentConversationInfo.jobId, offers, user?.role]);
+
   return {
     user,
     chatMessages,
@@ -103,6 +128,8 @@ const useChatData = (): useChatDataReturns => {
     conversation,
     conversations,
     currentConversationInfo,
+    pendingOffer,
+    offer,
     handleSend,
     handleClick,
     onSearch,
