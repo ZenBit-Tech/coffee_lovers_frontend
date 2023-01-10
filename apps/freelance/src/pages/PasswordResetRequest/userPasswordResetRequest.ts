@@ -6,8 +6,8 @@ import {
   UseFormHandleSubmit,
 } from 'react-hook-form';
 import { SerializedError } from '@reduxjs/toolkit';
-import { usePasswordResetRequestMutation } from 'redux/services/user';
-import { UserError } from 'redux/types/user.types';
+import { usePasswordResetRequestMutation } from 'redux/services/userApi';
+import { ApiError } from 'redux/types/error.types';
 
 type Inputs = {
   email: string;
@@ -20,7 +20,7 @@ interface UsePasswordResetRequestResponse {
   email: string;
   isLoading: boolean;
   isError: boolean;
-  error?: UserError | SerializedError;
+  error?: ApiError | SerializedError;
   isSuccess: boolean;
 }
 

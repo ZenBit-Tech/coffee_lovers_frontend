@@ -15,7 +15,7 @@ import {
 } from '@freelance/components';
 import { filterRight, filterTop } from '@pages/FindJobs/constants';
 import { PageBar, PageBarRightSideContainer } from '@pages/FindJobs/styles';
-import { useSetFavoritesMutation } from 'redux/services/user';
+import { useSetFavoritesMutation } from 'redux/services/userApi';
 import { User } from 'redux/types/user.types';
 
 import { talentConsts } from './constants';

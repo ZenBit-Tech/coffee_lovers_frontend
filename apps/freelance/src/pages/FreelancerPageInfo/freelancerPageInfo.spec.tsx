@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 
 import FreelancerPageInfo from './index';
 
-jest.mock('redux/services/freelancers', () => ({
+jest.mock('redux/services/userApi', () => ({
   useGetFreelancerByIdQuery: () => ({ data: mockUserData, isLoading: false }),
 }));
 

@@ -5,15 +5,6 @@ export interface PasswordResetPayload {
   key: string;
 }
 
-export interface UserError {
-  data: {
-    message: string;
-    statusCode: number;
-    error: string;
-  };
-  status: number;
-}
-
 export interface User {
   id: number;
   email: string;
@@ -124,4 +115,9 @@ export interface FreelancerQuery {
   search?: string;
   page?: number;
   take?: number;
+}
+
+export interface FreelancerDataById extends User {
+  workHistory?: GetWorkhistory[];
+  educations?: GetEducation[];
 }

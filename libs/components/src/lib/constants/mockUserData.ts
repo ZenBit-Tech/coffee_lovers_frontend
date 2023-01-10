@@ -1,4 +1,4 @@
-import { FreelancerDataById } from 'src/redux/types/freelancers.types';
+import { FreelancerDataById } from 'src/redux/types/user.types';
 import {
   AddEducation,
   AddWorkhistory,

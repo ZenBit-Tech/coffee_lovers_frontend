@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useGetPostedJobsQuery } from 'redux/services/jobsApi';
-import { useGetUserInfoQuery } from 'redux/services/user';
+import { useGetUserInfoQuery } from 'redux/services/userApi';
 import { GetPostedJobsResponse } from 'redux/types/jobs.types';
 import { User } from 'redux/types/user.types';
 

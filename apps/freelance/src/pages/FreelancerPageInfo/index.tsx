@@ -11,7 +11,7 @@ import {
   profileQ1,
   SendOfferModal,
 } from '@freelance/components';
-import { useGetFreelancerByIdQuery } from 'redux/services/freelancers';
+import { useGetFreelancerByIdQuery } from 'redux/services/userApi';
 
 import * as St from './styles';
 

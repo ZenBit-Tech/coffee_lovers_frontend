@@ -7,7 +7,7 @@ import {
   useGetUserEducationInfoQuery,
   useGetUserInfoQuery,
   useGetUserWorkInfoQuery,
-} from 'redux/services/user';
+} from 'redux/services/userApi';
 import { baseTheme } from 'src/styles/theme';
 
 import * as St from './styles';

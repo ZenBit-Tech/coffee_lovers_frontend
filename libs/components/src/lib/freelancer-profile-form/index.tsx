@@ -11,12 +11,12 @@ import {
   StyledSelect,
   useOpenNotification,
 } from '@freelance/components';
-import useProperties from 'src/hooks/useProperties';
 import {
   useAddUserEduInfoMutation,
   useAddUserWorkhistoryInfoMutation,
   useUpdateUserInfoMutation,
-} from 'src/redux/services/user';
+} from 'redux/services/userApi';
+import useProperties from 'src/hooks/useProperties';
 import { GetEducation, GetWorkhistory, User } from 'src/redux/types/user.types';
 
 import FormEduList from './FormEduList';

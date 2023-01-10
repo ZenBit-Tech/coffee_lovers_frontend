@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   description,
-  GetJobResponse,
   hourly_rate,
   jobUpdateSchema,
   JobUpdateValues,
@@ -20,7 +19,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {
   useGetJobQuery,
   useUpdateJobMutation,
-} from 'src/redux/job-post/job-post';
+} from 'src/redux/services/jobsApi';
+import { Job } from 'src/redux/types/jobs.types';
 
 import {
   ButtonWrapper,
@@ -33,7 +33,7 @@ import {
 const { Title, Text } = Typography;
 
 export const JobUpdateForm = () => {
-  const [job, setJob] = useState<GetJobResponse>();
+  const [job, setJob] = useState<Job>();
   const { t } = useTranslation();
 
   const params = useParams();
