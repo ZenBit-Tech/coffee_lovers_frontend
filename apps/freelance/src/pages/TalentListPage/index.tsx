@@ -125,16 +125,17 @@ const TalentListPage = (): ReactElement => {
                         icon={<UserOutlined />}
                       />
                     </Col>
-                    <Col span={4}>
+                    <Col span={8}>
                       <St.StyledName onClick={() => navFunc(item.id)}>
                         {t('talent.name', {
                           name: item.first_name + ' ' + item.last_name,
                         })}
                       </St.StyledName>
-                    </Col>
-                    <Col span={4}>
                       {isHires ? (
                         <St.TextExContainer>
+                          <St.StyledWhContainer>
+                            {t('talent.work_history')}
+                          </St.StyledWhContainer>
                           {hires
                             .find(hire => hire.user.id === item.id)
                             ?.jobTitle.map(el => (

@@ -38,8 +38,14 @@ export const StyledSkeleton = styled(Skeleton)`
   width: 600px;
 `;
 export const StyledName = styled.p`
-  font-size: ${baseTheme.fontSize.medium};
+  font-size: ${baseTheme.fontSize.large};
+  font-weight: ${baseTheme.weight.bold};
+  min-width: 100%;
   margin-left: 50px;
+`;
+
+export const StyledWhContainer = styled.p`
+  font-weight: ${baseTheme.weight.bold};
 `;
 
 export const StyledInformation = styled.p`

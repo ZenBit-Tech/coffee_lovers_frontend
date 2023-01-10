@@ -11,5 +11,6 @@ export default {
     search: 'Search',
     filter: 'Filter',
     name: '{{name}}',
+    work_history: 'Work History:',
   },
 };
