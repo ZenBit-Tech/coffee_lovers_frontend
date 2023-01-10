@@ -55,7 +55,7 @@ describe('ContractsPage page rendering', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('should show active contracts by default', () => {
+  it('should show contracts Tab bar and content', () => {
     const baseElement = render(<ContractsList />);
 
     expect(baseElement).toBeTruthy();
