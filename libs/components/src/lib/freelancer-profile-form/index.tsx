@@ -39,7 +39,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
     getOptionsForSelectString,
     getOptionsForSelectWithId,
   } = useProperties();
-  const { contextHolder, handleSubmit, onFinish, form, setFormState } =
+  const { contextHolder, handleSubmit, onFinish, form } =
     useFreelacerProfileForm(navigation);
 
   return (
@@ -62,9 +62,6 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
       labelAlign="left"
       requiredMark="optional"
       onFinish={values => handleSubmit(onFinish(values as IProfileQuestions))}
-      onChange={() => {
-        setFormState(true);
-      }}
     >
       {contextHolder}
       <Form.Item
