@@ -26,6 +26,13 @@ export const findJobsPageTestId = {
   inputSearch: 'findJobsInputSearch',
 };
 
+export const contractsPageTestId = {
+  contractsTab: 'contractsTab',
+  contractsWrapper: 'contractsWrapper',
+  contractsCard: 'contractsCard',
+  freelancerNameContract: 'freelancerNameContract',
+};
+
 export const jobCardTestId = {
   wrapper: 'jobCardWrapper',
   title: 'jobCardTitle',

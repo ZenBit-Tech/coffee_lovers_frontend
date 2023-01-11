@@ -13,6 +13,7 @@ enum ContractsEndpoints {
   opened = '/active',
   closed = '/closed',
   closeContract = '/close/',
+  all = '/all',
 }
 
 export const contractsApi = createApi({
@@ -42,6 +43,9 @@ export const contractsApi = createApi({
         method: 'POST',
       }),
     }),
+    getAllContracts: builder.query<ContractsResponse[], void>({
+      query: () => `${ApiRoutes.CONTRACTS}${ContractsEndpoints.all}`,
+    }),
   }),
 });
 
@@ -49,4 +53,5 @@ export const {
   useGetClosedContractsQuery,
   useGetActiveConractsQuery,
   useCloseContractMutation,
+  useGetAllContractsQuery,
 } = contractsApi;
