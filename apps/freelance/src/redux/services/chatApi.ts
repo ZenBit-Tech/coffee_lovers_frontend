@@ -1,5 +1,10 @@
 import { io, Socket } from 'socket.io-client';
-import { ApiRoutes, baseUrl, websocketUrl } from '@freelance/constants';
+import {
+  ApiRoutes,
+  baseUrl,
+  keepUnusedDataFor,
+  websocketUrl,
+} from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getHeaders, getWebsocketHeaders } from '@utils/api';
 import {
@@ -23,8 +28,9 @@ export enum ChatEvents {
 }
 
 let socket: Socket;
+let joinedConversations: number[] = [];
 
-const getSocket = (token: string) => {
+const getSocket = (token: string): Socket => {
   if (!socket) {
     socket = io(websocketUrl, {
       extraHeaders: getWebsocketHeaders(token),
@@ -32,6 +38,13 @@ const getSocket = (token: string) => {
   }
 
   return socket;
+};
+
+const joinConversation = (conversationId: number): void => {
+  socket.emit(ChatEvents.JOIN_CONVERSATION, {
+    conversation: conversationId,
+  });
+  joinedConversations.push(conversationId);
 };
 
 export const chatApi = createApi({
@@ -43,6 +56,7 @@ export const chatApi = createApi({
   endpoints: build => ({
     getMessages: build.query<MessageResponse[], GetMessagesPayload>({
       query: payload => EndpointsRoutes.GET_MESSAGES + payload.conversation,
+      keepUnusedDataFor,
       async onCacheEntryAdded(
         payload,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
@@ -51,10 +65,18 @@ export const chatApi = createApi({
 
         const socket = getSocket(payload.token);
 
-        socket.on(ChatEvents.CONNECT, () => {
-          socket.emit(ChatEvents.JOIN_CONVERSATION, {
-            conversation: payload.conversation,
+        if (joinedConversations.length) {
+          joinedConversations.forEach(conversationId => {
+            socket.emit(ChatEvents.LEAVE_CONVERSATION, {
+              conversation: conversationId,
+            });
           });
+          joinedConversations = [];
+          joinConversation(payload.conversation);
+        }
+
+        socket.on(ChatEvents.CONNECT, () => {
+          joinConversation(payload.conversation);
         });
 
         socket.on(ChatEvents.MESSAGE, message => {
@@ -64,7 +86,7 @@ export const chatApi = createApi({
         });
 
         await cacheEntryRemoved;
-        socket.close();
+        socket.removeAllListeners();
       },
     }),
     sendMessage: build.mutation<void, SendMessagePayload>({
