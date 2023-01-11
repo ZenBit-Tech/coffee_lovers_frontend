@@ -13,7 +13,7 @@ const ProposalsList = () => {
       <ListContainer>
         {data?.proposals.map(proposal => (
           <ProposalCard
-            onClick={() => clickHandler(proposal.id)}
+            onClick={() => clickHandler(proposal.user?.id)}
             key={proposal.id}
             user={proposal.user}
             hourlyRate={proposal.hourly_rate}

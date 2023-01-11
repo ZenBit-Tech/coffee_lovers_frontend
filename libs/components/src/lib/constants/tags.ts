@@ -6,3 +6,7 @@ export const requestApiTags = {
 export const chatApiTags = {
   conversation: 'Conversation',
 };
+
+export const jobApiTags = {
+  postedJob: 'PostedJob',
+};
