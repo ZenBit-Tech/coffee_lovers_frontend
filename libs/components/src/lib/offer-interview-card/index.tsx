@@ -10,7 +10,7 @@ import {
 import { Interview, Offer, OfferStatus } from 'src/redux/types/request.types';
 import { getFileUrl } from 'src/utils/api';
 
-import { avatarSize, idOfUndefined } from './constants';
+import { avatarSize } from './constants';
 import {
   DescriptionContainer,
   JobContainer,
@@ -51,7 +51,7 @@ export const OfferInterviewCard: FC<OfferInterviewProps> = ({
     jobClickHandler,
     startChatHandler,
   } = useOfferInterviewCard(
-    offer?.id || interview?.id || idOfUndefined,
+    offer?.id || interview?.id || '',
     offer?.job_owner || interview?.job_owner,
     offer?.job || interview?.job,
   );

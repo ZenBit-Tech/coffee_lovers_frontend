@@ -27,22 +27,22 @@ export const requestApi = createApi({
       query: () => EndpointsRoutes.getInterviews,
       providesTags: [requestApiTags.interview],
     }),
-    acceptOffer: builder.mutation<void, number>({
-      query: (id: number) => ({
+    acceptOffer: builder.mutation<void, number | string>({
+      query: (id: number | string) => ({
         url: EndpointsRoutes.acceptOffer + id,
         method: 'POST',
       }),
       invalidatesTags: [requestApiTags.offer],
     }),
-    declineOffer: builder.mutation<void, number>({
-      query: (id: number) => ({
+    declineOffer: builder.mutation<void, number | string>({
+      query: (id: number | string) => ({
         url: EndpointsRoutes.declineOffer + id,
         method: 'POST',
       }),
       invalidatesTags: [requestApiTags.offer],
     }),
-    deleteInterview: builder.mutation<void, number>({
-      query: (id: number) => ({
+    deleteInterview: builder.mutation<void, number | string>({
+      query: (id: number | string) => ({
         url: EndpointsRoutes.deleteInterview + id,
         method: 'DELETE',
       }),

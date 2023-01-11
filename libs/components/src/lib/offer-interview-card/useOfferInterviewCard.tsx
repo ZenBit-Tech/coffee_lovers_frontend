@@ -22,7 +22,7 @@ interface UseOfferInterviewCardReturn {
 }
 
 const useOfferInterviewCard = (
-  id: number,
+  id: number | string,
   user?: User,
   job?: Job,
 ): UseOfferInterviewCardReturn => {
