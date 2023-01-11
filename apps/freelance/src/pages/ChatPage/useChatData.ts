@@ -2,19 +2,20 @@ import { useEffect, useState } from 'react';
 import { Form, FormInstance } from 'antd';
 import { roles } from '@freelance/components';
 import useAppSelector from '@hooks/useAppSelector';
-import { useGetUserOffersQuery } from 'redux/invite/inviteApi';
-import { GetOffersResponse, Request } from 'redux/invite/types';
+import { GetOffersResponse } from 'redux/invite/types';
 import {
   useGetConversationQuery,
   useGetMessagesQuery,
   useSendMessageMutation,
 } from 'redux/services/chatApi';
+import { useGetOffersQuery } from 'redux/services/requestApi';
 import { useGetUserInfoQuery } from 'redux/services/user';
 import {
   ConversationResponse,
   ICurrentConversationInfo,
   MessageResponse,
 } from 'redux/types/chat.types';
+import { OfferStatus } from 'redux/types/request.types';
 import { User } from 'redux/types/user.types';
 
 import { zero } from './constants';
@@ -55,7 +56,7 @@ const useChatData = (): useChatDataReturns => {
     ...(search && { search }),
   });
   const { data: user } = useGetUserInfoQuery();
-  const { data: offers } = useGetUserOffersQuery();
+  const { data: offers } = useGetOffersQuery();
   const [pendingOffer, setPendingOffer] = useState<boolean>(false);
   const [offer, setOffer] = useState<GetOffersResponse>();
   const [conversation, setConversation] = useState<IConversation>(
@@ -114,7 +115,7 @@ const useChatData = (): useChatDataReturns => {
   useEffect(() => {
     if (user?.role === roles.freelancer) {
       const currentOffer = offers
-        ?.filter(item => item.status === Request.pending)
+        ?.filter(item => item.status === OfferStatus.PENDING)
         .find(item => item.job.id === currentConversationInfo.jobId);
       setOffer(currentOffer);
       currentOffer ? setPendingOffer(true) : setPendingOffer(false);
