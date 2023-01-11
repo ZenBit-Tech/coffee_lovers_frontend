@@ -1,5 +1,10 @@
 import { io, Socket } from 'socket.io-client';
-import { ApiRoutes, baseUrl, websocketUrl } from '@freelance/constants';
+import {
+  ApiRoutes,
+  baseUrl,
+  keepUnusedDataFor,
+  websocketUrl,
+} from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getHeaders, getWebsocketHeaders } from '@utils/api';
 import {
@@ -36,7 +41,6 @@ const getSocket = (token: string): Socket => {
 };
 
 const joinConversation = (conversationId: number): void => {
-  console.log(`joined ${conversationId}`);
   socket.emit(ChatEvents.JOIN_CONVERSATION, {
     conversation: conversationId,
   });
@@ -52,6 +56,7 @@ export const chatApi = createApi({
   endpoints: build => ({
     getMessages: build.query<MessageResponse[], GetMessagesPayload>({
       query: payload => EndpointsRoutes.GET_MESSAGES + payload.conversation,
+      keepUnusedDataFor,
       async onCacheEntryAdded(
         payload,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
@@ -65,7 +70,6 @@ export const chatApi = createApi({
             socket.emit(ChatEvents.LEAVE_CONVERSATION, {
               conversation: conversationId,
             });
-            console.log(`left ${conversationId}`);
           });
           joinedConversations = [];
           joinConversation(payload.conversation);
@@ -82,7 +86,7 @@ export const chatApi = createApi({
         });
 
         await cacheEntryRemoved;
-        socket.close();
+        socket.removeAllListeners();
       },
     }),
     sendMessage: build.mutation<void, SendMessagePayload>({

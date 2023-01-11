@@ -58,11 +58,7 @@ const useChatData = (): useChatDataReturns => {
     token,
     conversation,
   };
-  const {
-    data: chatMessages,
-    isSuccess,
-    refetch,
-  } = useGetMessagesQuery(query, { skip });
+  const { data: chatMessages } = useGetMessagesQuery(query, { skip });
   const [sendMessage] = useSendMessageMutation();
   const [form] = Form.useForm<InputType>();
   const currentConversation = conversations?.find(
@@ -80,9 +76,6 @@ const useChatData = (): useChatDataReturns => {
 
   const handleClick = (id: number) => {
     setConversation(id);
-    if (isSuccess) {
-      refetch();
-    }
 
     return conversation;
   };
