@@ -17,6 +17,11 @@ export interface SendMessagePayload {
   message: string;
 }
 
+export interface CreateConversationPayload {
+  job: number;
+  user: number;
+}
+
 export interface MessageResponse {
   from: User;
   conversation: number;

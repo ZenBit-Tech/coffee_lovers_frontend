@@ -52,7 +52,7 @@ export const StyledAction = styled.span`
 
   &:hover {
     cursor: pointer;
-    color: ${({ theme }) => theme.colors.lightBlue};
+    color: ${({ theme }) => theme.colors.secondary};
   }
 
   &::after {
