@@ -23,8 +23,9 @@ export enum ChatEvents {
 }
 
 let socket: Socket;
+let joinedConversations: number[] = [];
 
-const getSocket = (token: string) => {
+const getSocket = (token: string): Socket => {
   if (!socket) {
     socket = io(websocketUrl, {
       extraHeaders: getWebsocketHeaders(token),
@@ -32,6 +33,14 @@ const getSocket = (token: string) => {
   }
 
   return socket;
+};
+
+const joinConversation = (conversationId: number): void => {
+  console.log(`joined ${conversationId}`);
+  socket.emit(ChatEvents.JOIN_CONVERSATION, {
+    conversation: conversationId,
+  });
+  joinedConversations.push(conversationId);
 };
 
 export const chatApi = createApi({
@@ -51,10 +60,19 @@ export const chatApi = createApi({
 
         const socket = getSocket(payload.token);
 
-        socket.on(ChatEvents.CONNECT, () => {
-          socket.emit(ChatEvents.JOIN_CONVERSATION, {
-            conversation: payload.conversation,
+        if (joinedConversations.length) {
+          joinedConversations.forEach(conversationId => {
+            socket.emit(ChatEvents.LEAVE_CONVERSATION, {
+              conversation: conversationId,
+            });
+            console.log(`left ${conversationId}`);
           });
+          joinedConversations = [];
+          joinConversation(payload.conversation);
+        }
+
+        socket.on(ChatEvents.CONNECT, () => {
+          joinConversation(payload.conversation);
         });
 
         socket.on(ChatEvents.MESSAGE, message => {
