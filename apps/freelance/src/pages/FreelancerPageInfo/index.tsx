@@ -157,9 +157,6 @@ const FreelancerPageInfo = () => {
         </Row>
       </St.FreelancerInfo>
       <St.ButtonWrapper>
-        <Button onClick={() => setOfferOpen(true)}>
-          {t('description.freelancerPageInfo.sendOffer')}
-        </Button>
         <Button onClick={showModal}>
           {t('description.freelancerPageInfo.inviteInterview')}
         </Button>
