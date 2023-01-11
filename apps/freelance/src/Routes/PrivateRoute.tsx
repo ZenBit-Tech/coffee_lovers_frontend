@@ -23,14 +23,18 @@ export default function PrivateRoute({
   }
 
   if (data && !allowedRoles.includes(data.role)) {
-    return <RoutesWrapper isAppBar={data.role !== roles.visitor}>
-      {data.role !== roles.visitor && <NavigationBar />}
-      <Navigate to={routes.jobs} state={{ from: location }} replace />
-    </RoutesWrapper>;
+    return (
+      <RoutesWrapper isAppBar={data.role !== roles.visitor}>
+        {data.role !== roles.visitor && <NavigationBar />}
+        <Navigate to={routes.jobs} state={{ from: location }} replace />
+      </RoutesWrapper>
+    );
   }
 
-  return <RoutesWrapper isAppBar={data && data.role !== roles.visitor}>
-    {data && data.role !== roles.visitor && <NavigationBar />}
-    <Outlet />
-    </RoutesWrapper>;
+  return (
+    <RoutesWrapper isAppBar={data && data.role !== roles.visitor}>
+      {data && data.role !== roles.visitor && <NavigationBar />}
+      <Outlet />
+    </RoutesWrapper>
+  );
 }

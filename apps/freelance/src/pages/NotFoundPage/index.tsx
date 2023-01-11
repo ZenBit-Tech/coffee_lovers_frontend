@@ -5,15 +5,21 @@ import { useNavigate } from 'react-router-dom';
 import { routes } from '@freelance/components';
 
 const NotFoundPage: React.FC = () => {
-    const { t } = useTranslation();
-    const navigate = useNavigate();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
-    return <Result
-        status="404"
-        title="404"
-        subTitle={t('notFound.title')}
-        extra={<Button onClick={() => navigate(routes.jobs)} type="primary">{t('notFound.buttonText')}</Button>}
+  return (
+    <Result
+      status="404"
+      title="404"
+      subTitle={t('notFound.title')}
+      extra={
+        <Button onClick={() => navigate(routes.jobs)} type="primary">
+          {t('notFound.buttonText')}
+        </Button>
+      }
     />
+  );
 };
 
 export default NotFoundPage;
