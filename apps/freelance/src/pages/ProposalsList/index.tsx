@@ -1,4 +1,5 @@
-import { ProposalCard } from '@freelance/components';
+import { t } from 'i18next';
+import { Empty, ProposalCard } from '@freelance/components';
 
 import { ListContainer, StyledProjectName, Wrapper } from './styles';
 import useProposalsList from './useProposalsList';
@@ -21,6 +22,9 @@ const ProposalsList = () => {
           />
         ))}
       </ListContainer>
+      {!data?.proposals.length && (
+        <Empty description={t('proposalsList.empty_placeholder')} />
+      )}
     </Wrapper>
   );
 };
