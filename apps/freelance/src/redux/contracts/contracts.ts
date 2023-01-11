@@ -12,13 +12,14 @@ import { ContractsResponse, Error } from './types';
 enum ContractsEndpoints {
   opened = '/active',
   closed = '/closed',
+  closeContract = '/close/',
   all = '/all',
 }
 
 export const contractsApi = createApi({
   reducerPath: 'contractsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl,
+    baseUrl: baseUrl + ApiRoutes.CONTRACTS,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).user.access_token;
       if (token) {
@@ -31,13 +32,19 @@ export const contractsApi = createApi({
 
   endpoints: builder => ({
     getActiveConracts: builder.query<ContractsResponse[], void>({
-      query: () => `${ApiRoutes.CONTRACTS}${ContractsEndpoints.opened}`,
+      query: () => ContractsEndpoints.opened,
     }),
     getClosedContracts: builder.query<ContractsResponse[], void>({
-      query: () => `${ApiRoutes.CONTRACTS}${ContractsEndpoints.closed}`,
+      query: () => ContractsEndpoints.closed,
+    }),
+    closeContract: builder.mutation({
+      query: (contractId: number) => ({
+        url: ContractsEndpoints.closeContract + contractId,
+        method: 'POST',
+      }),
     }),
     getAllContracts: builder.query<ContractsResponse[], void>({
-      query: () => `${ApiRoutes.CONTRACTS}${ContractsEndpoints.all}`,
+      query: () => `${ContractsEndpoints.all}`,
     }),
   }),
 });
@@ -45,5 +52,6 @@ export const contractsApi = createApi({
 export const {
   useGetClosedContractsQuery,
   useGetActiveConractsQuery,
+  useCloseContractMutation,
   useGetAllContractsQuery,
 } = contractsApi;

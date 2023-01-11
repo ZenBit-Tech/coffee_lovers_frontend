@@ -7,7 +7,7 @@ interface UseProposalsListResponse {
   data?: GetJobProposalsResponse;
   isSuccess: boolean;
   isLoading: boolean;
-  clickHandler: (id: number) => void;
+  clickHandler: (id?: number) => void;
 }
 
 type ProposalsListParams = {
@@ -23,7 +23,7 @@ const useProposalsList = (): UseProposalsListResponse => {
     data,
     isSuccess,
     isLoading,
-    clickHandler: (id: number) =>
+    clickHandler: (id?: number) =>
       navigate(generatePath(routes.freelancerInfo, { id })),
   };
 };
