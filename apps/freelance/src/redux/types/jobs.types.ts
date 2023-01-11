@@ -1,4 +1,4 @@
-import { ContractStatus } from './contracts.types';
+import { Contract } from './contracts.types';
 import { Property } from './properties.types';
 import { User } from './user.types';
 
@@ -85,12 +85,7 @@ export interface HireItem {
   created_at: string;
   start: string;
   freelancer: User;
-  contract: {
-    id: number;
-    status: ContractStatus;
-    end: string;
-    created_at: string;
-  };
+  contract: Contract;
 }
 
 export interface GetPostedJobDetailsResponse {

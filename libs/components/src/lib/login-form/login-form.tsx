@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Button, Form } from 'antd';
+import { Form } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -15,8 +15,9 @@ import {
 import { routes } from '@freelance/constants';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
+import { baseTheme } from 'src/styles/theme';
 
-import { FormWrap } from './styles';
+import { FormWrap, StyledButton } from './styles';
 
 type FormValues = {
   email: string;
@@ -120,27 +121,34 @@ export const LoginForm = () => {
         />
 
         <Form.Item>
-          <Button size="large" type="primary" block htmlType="submit">
+          <StyledButton 
+          theme={baseTheme} 
+          size="large" 
+          type="primary" 
+          block  
+          htmlType="submit">
             {t('loginPage.loginPage_name')}
-          </Button>
+          </StyledButton>
         </Form.Item>
       </FormWrap>
 
       <Form.Item>
-        <Button
+        <StyledButton 
+          theme={baseTheme}
           type="link"
           htmlType="button"
           onClick={() => navigate(`${routes.signup}`)}
         >
           {t('loginPage.signUp')}
-        </Button>
-        <Button
+        </StyledButton>
+        <StyledButton
+          theme={baseTheme}
           type="link"
           htmlType="button"
           onClick={() => navigate(`${routes.passwordreset}`)}
         >
           {t('loginPage.forgot_password')}
-        </Button>
+        </StyledButton>
       </Form.Item>
     </Form>
   );

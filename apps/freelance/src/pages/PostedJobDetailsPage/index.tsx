@@ -1,6 +1,7 @@
 import { t } from 'i18next';
 import { Empty, HiredCard, InformationSticker } from '@freelance/components';
 import { formatDate } from '@utils/dates';
+import { JobStatus } from 'redux/types/jobs.types';
 
 import { maxHiredCards } from './constants';
 import {
@@ -13,18 +14,45 @@ import {
   StyledInputSearch,
   StyledPagination,
   StyledTitle,
+  TitleContainer,
   Wrapper,
 } from './styles';
 import usePostedJobDetail from './usePostedJobDetails';
 import { setHiresPagination } from './utils';
 
 const PostedJobDetails = () => {
-  const { job, hires, offset, isLoading, onSearch, onChangePagination } =
-    usePostedJobDetail();
+  const {
+    job,
+    hires,
+    offset,
+    isLoading,
+    onSearch,
+    onChangePagination,
+    stopHiringHandler,
+  } = usePostedJobDetail();
 
   return (
     <Wrapper isLoading={isLoading}>
-      <StyledTitle>{job?.title}</StyledTitle>
+      <TitleContainer>
+        <StyledTitle>{job?.title}</StyledTitle>
+        {job?.status === JobStatus.PENDING && (
+          <InformationSticker>
+            {t('postedJobs.status.pending')}
+          </InformationSticker>
+        )}
+
+        {job?.status === JobStatus.IN_PROGRESS && (
+          <InformationSticker success>
+            {t('postedJobs.status.inProgress')}
+          </InformationSticker>
+        )}
+
+        {job?.status === JobStatus.FINISHED && (
+          <InformationSticker primary>
+            {t('postedJobs.status.finished')}
+          </InformationSticker>
+        )}
+      </TitleContainer>
 
       <InformationContainer>
         {job?.created_at && (
@@ -82,7 +110,7 @@ const PostedJobDetails = () => {
             <HiredCard
               key={hire.contract.id}
               freelancer={hire.freelancer}
-              status={hire.contract.status}
+              contract={hire.contract}
             />
           ))}
         {!hires?.length && (
@@ -96,9 +124,11 @@ const PostedJobDetails = () => {
           onChange={onChangePagination}
         />
       )}
-      <StopHiringButton>
-        {t('postedJobDetails.btns.stopHiring')}
-      </StopHiringButton>
+      {job?.status !== JobStatus.FINISHED && (
+        <StopHiringButton onClick={stopHiringHandler}>
+          {t('postedJobDetails.btns.stopHiring')}
+        </StopHiringButton>
+      )}
     </Wrapper>
   );
 };

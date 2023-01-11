@@ -1,7 +1,12 @@
 import { Col, Row, Tabs } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { PageWrapper, roles, StyledCardReusable } from '@freelance/components';
+import {
+  contractsPageTestId,
+  PageWrapper,
+  roles,
+  StyledCardReusable,
+} from '@freelance/components';
 import { selectRole } from 'redux/auth/auth-slice';
 import {
   useGetActiveConractsQuery,
@@ -22,6 +27,7 @@ const ContractsList = () => {
     <PageWrapper>
       <h3>{t('contracts.header')}</h3>
       <Tabs
+        data-testid={contractsPageTestId.contractsTab}
         defaultActiveKey={`${active}`}
         centered
         items={new Array(2).fill(null).map((_, i) => {
@@ -35,12 +41,21 @@ const ContractsList = () => {
             key: id,
             children: pageItems?.map((el: ContractsResponse, index: number) => (
               <StyledCardReusable key={index}>
-                <Row gutter={16} justify="center" align="middle">
+                <Row
+                  data-testid={contractsPageTestId.contractsCard}
+                  gutter={16}
+                  justify="center"
+                  align="middle"
+                >
                   <Col className="gutter-row" span={6}>
-                    <div>{el.offer.job.title}</div>
+                    <div data-testid={contractsPageTestId.contractsWrapper}>
+                      {el.offer.job.title}
+                    </div>
                   </Col>
                   <Col className="gutter-row" span={8}>
-                    <div>
+                    <div
+                      data-testid={contractsPageTestId.freelancerNameContract}
+                    >
                       {role === roles.freelancer
                         ? el.offer.job_owner.first_name +
                           ' ' +
