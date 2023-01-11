@@ -23,8 +23,8 @@ interface UseOfferInterviewCardReturn {
 
 const useOfferInterviewCard = (
   id: number,
-  user: User,
-  job: Job,
+  user?: User,
+  job?: Job,
 ): UseOfferInterviewCardReturn => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ const useOfferInterviewCard = (
       navigate(generatePath(routes.jobDetails, { id })),
     startChatHandler: () =>
       navigate(
-        generatePath(routes.chatUser, { userId: user.id, jobId: job.id }),
+        generatePath(routes.chatUser, { userId: user?.id, jobId: job?.id }),
       ),
   };
 };

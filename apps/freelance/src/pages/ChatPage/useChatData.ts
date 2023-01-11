@@ -74,7 +74,7 @@ const useChatData = (): useChatDataReturns => {
     }
   }, [conversations]);
 
-  const skip = conversation > zero ? false : true;
+  const skip = conversation <= zero;
   const query = {
     token,
     conversation,
