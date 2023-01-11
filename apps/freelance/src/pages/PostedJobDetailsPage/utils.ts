@@ -28,7 +28,9 @@ const getSearchedHires = (hires: HireItem[], search?: string): HireItem[] => {
         `${item.freelancer.first_name} ${item.freelancer.last_name}`
           .toLowerCase()
           .includes(search.toLowerCase()) ||
-        item.freelancer.position.toLowerCase().includes(search.toLowerCase()),
+        item?.freelancer?.position
+          ?.toLowerCase()
+          .includes(search.toLowerCase()),
     );
   }
 
@@ -50,5 +52,5 @@ export const getProccesedHires = (
   hires: HireItem[],
   search?: string,
 ): HireItem[] => {
-  return getSearchedHires(hires.sort(getHiresSortCallback()), search);
+  return getSearchedHires([...hires].sort(getHiresSortCallback()), search);
 };

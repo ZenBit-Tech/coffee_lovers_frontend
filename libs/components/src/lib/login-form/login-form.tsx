@@ -121,19 +121,20 @@ export const LoginForm = () => {
         />
 
         <Form.Item>
-          <StyledButton 
-          theme={baseTheme} 
-          size="large" 
-          type="primary" 
-          block  
-          htmlType="submit">
+          <StyledButton
+            theme={baseTheme}
+            size="large"
+            type="primary"
+            block
+            htmlType="submit"
+          >
             {t('loginPage.loginPage_name')}
           </StyledButton>
         </Form.Item>
       </FormWrap>
 
       <Form.Item>
-        <StyledButton 
+        <StyledButton
           theme={baseTheme}
           type="link"
           htmlType="button"
