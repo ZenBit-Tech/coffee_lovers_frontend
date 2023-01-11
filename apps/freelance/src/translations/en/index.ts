@@ -52,6 +52,6 @@ export default {
     ...offers,
     ...errors,
     ...postedJobDetails,
-    ...notFoundPage
+    ...notFoundPage,
   },
 };
