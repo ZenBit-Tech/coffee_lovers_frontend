@@ -54,8 +54,6 @@ const useNavigationBar = (): UseNavigationBarReturn => {
               text: t('app_bar.nav.contracts'),
               action: () => navigate(routes.contracts),
             },
-            { text: t('app_bar.nav.projects'), action: () => ({}) },
-            { text: t('app_bar.nav.proposals'), action: () => ({}) },
             {
               text: t('app_bar.nav.talents'),
               action: () => navigate(routes.talents),
