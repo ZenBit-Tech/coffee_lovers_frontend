@@ -7,5 +7,6 @@ export default {
     sendOffer: 'Send offer',
     chooseChat: 'Choose a chat',
     projectTitle: 'Project Title: ',
+    received_offer: 'You have an offer',
   },
 };

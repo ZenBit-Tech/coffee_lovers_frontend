@@ -104,6 +104,7 @@ export const StyledButton = styled(PrimaryButton)`
 
 export const FirstUserText = styled.p`
   border: 1px ${({ theme }) => theme.colors.grey} solid;
+  min-height: 33px;
   border-radius: 10px;
   padding: 5px 10px;
   word-wrap: break-word;
