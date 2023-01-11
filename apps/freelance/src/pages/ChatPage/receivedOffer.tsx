@@ -30,14 +30,41 @@ export const ReceivedOfferModal = ({
 } & ModalProps) => {
   const [acceptOffer] = useAcceptOfferMutation();
   const [declineOffer] = useDeclineOfferMutation();
+
   const onAccept = () => {
-    offer && acceptOffer(offer.id);
-    onCancel();
+    try {
+      offer && acceptOffer(offer.id);
+      onCancel();
+      openNotificationWithIcon(
+        NotificationType.SUCCESS,
+        t('offers.receive.accepted'),
+        t('offers.receive.acceptedMessage'),
+      );
+    } catch (error) {
+      openNotificationWithIcon(
+        NotificationType.ERROR,
+        t('description.profileQp1.notifFailed'),
+        t('description.profileQp1.notifFailedMsg'),
+      );
+    }
   };
 
   const onDecline = () => {
-    offer && declineOffer(offer.id);
-    onCancel();
+    try {
+      offer && declineOffer(offer.id);
+      onCancel();
+      openNotificationWithIcon(
+        NotificationType.INFO,
+        t('offers.receive.declined'),
+        t('offers.receive.declinedMessage'),
+      );
+    } catch (error) {
+      openNotificationWithIcon(
+        NotificationType.ERROR,
+        t('description.profileQp1.notifFailed'),
+        t('description.profileQp1.notifFailedMsg'),
+      );
+    }
   };
 
   return (
