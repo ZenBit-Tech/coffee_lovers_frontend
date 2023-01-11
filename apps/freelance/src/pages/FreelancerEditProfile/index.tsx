@@ -1,6 +1,4 @@
-import { Avatar } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { UserOutlined } from '@ant-design/icons';
 import { baseUrl, freelancerProfile, profileQ1 } from '@freelance/components';
 import { AvatarUpload, FreelancerForm } from '@freelance/components';
 import {
@@ -22,15 +20,10 @@ const FreelancerProfile = () => {
   return (
     <St.Wrapper isLoading={isLoadingUser || isLoadingWork || isLoadingEdu}>
       <St.LogoWrapper theme={baseTheme} direction="vertical">
-        {user?.profile_image ? (
-          <Avatar
-            src={`${baseUrl}/${user?.profile_image}`}
-            size={profileQ1.avatarBigSize}
-            icon={<UserOutlined />}
-          />
-        ) : (
-          <AvatarUpload />
-        )}
+        <AvatarUpload
+          size={profileQ1.avatarBigSize}
+          src={`${baseUrl}/${user?.profile_image}`}
+        />
         <p data-testid={freelancerProfile.profileImage}>
           {user?.first_name} {user?.last_name}
         </p>

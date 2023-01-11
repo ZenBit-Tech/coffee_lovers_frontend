@@ -97,6 +97,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
           placeholder={t('description.profileQp1.descr')}
           allowClear
           rows={4}
+          maxLength={profileQ1.textAreaSymbCount}
         />
       </Form.Item>
       <Form.Item
@@ -228,6 +229,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
           placeholder={t('description.profileQp2.other_exp_descr')}
           allowClear
           rows={4}
+          maxLength={profileQ1.textAreaSymbCount}
         />
       </Form.Item>
       <Form.Item
