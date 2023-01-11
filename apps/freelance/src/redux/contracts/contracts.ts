@@ -12,6 +12,7 @@ import { ContractsResponse, Error } from './types';
 enum ContractsEndpoints {
   opened = '/active',
   closed = '/closed',
+  all = '/all',
 }
 
 export const contractsApi = createApi({
@@ -35,8 +36,14 @@ export const contractsApi = createApi({
     getClosedContracts: builder.query<ContractsResponse[], void>({
       query: () => `${ApiRoutes.CONTRACTS}${ContractsEndpoints.closed}`,
     }),
+    getAllContracts: builder.query<ContractsResponse[], void>({
+      query: () => `${ApiRoutes.CONTRACTS}${ContractsEndpoints.all}`,
+    }),
   }),
 });
 
-export const { useGetClosedContractsQuery, useGetActiveConractsQuery } =
-  contractsApi;
+export const {
+  useGetClosedContractsQuery,
+  useGetActiveConractsQuery,
+  useGetAllContractsQuery,
+} = contractsApi;

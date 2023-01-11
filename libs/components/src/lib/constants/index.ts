@@ -1,6 +1,7 @@
 export * from './api';
 export * from './auth';
 export * from './hooks';
+export * from './mockContracts';
 export * from './mockJobData';
 export * from './mockPropertiesData';
 export * from './mockProposals';
