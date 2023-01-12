@@ -1,5 +1,10 @@
 import { io, Socket } from 'socket.io-client';
-import { ApiRoutes, apiTags, websocketUrl } from '@freelance/constants';
+import {
+  ApiRoutes,
+  apiTags,
+  keepUnusedDataFor,
+  websocketUrl,
+} from '@freelance/constants';
 import { getWebsocketHeaders } from '@utils/api';
 import { emptySplitApi } from 'redux/emptySplitApi';
 import {
@@ -28,8 +33,9 @@ export enum ChatEvents {
 }
 
 let socket: Socket;
+let joinedConversations: number[] = [];
 
-const getSocket = (token: string) => {
+const getSocket = (token: string): Socket => {
   if (!socket) {
     socket = io(websocketUrl, {
       extraHeaders: getWebsocketHeaders(token),
@@ -39,11 +45,19 @@ const getSocket = (token: string) => {
   return socket;
 };
 
+const joinConversation = (conversationId: number): void => {
+  socket.emit(ChatEvents.JOIN_CONVERSATION, {
+    conversation: conversationId,
+  });
+  joinedConversations.push(conversationId);
+};
+
 const chatApi = emptySplitApi.injectEndpoints({
   endpoints: build => ({
     getMessages: build.query<MessageResponse[], GetMessagesPayload>({
       query: payload =>
         serviceRoute + EndpointsRoutes.getMessages + payload.conversation,
+      keepUnusedDataFor,
       async onCacheEntryAdded(
         payload,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
@@ -52,10 +66,18 @@ const chatApi = emptySplitApi.injectEndpoints({
 
         const socket = getSocket(payload.token);
 
-        socket.on(ChatEvents.CONNECT, () => {
-          socket.emit(ChatEvents.JOIN_CONVERSATION, {
-            conversation: payload.conversation,
+        if (joinedConversations.length) {
+          joinedConversations.forEach(conversationId => {
+            socket.emit(ChatEvents.LEAVE_CONVERSATION, {
+              conversation: conversationId,
+            });
           });
+          joinedConversations = [];
+          joinConversation(payload.conversation);
+        }
+
+        socket.on(ChatEvents.CONNECT, () => {
+          joinConversation(payload.conversation);
         });
 
         socket.on(ChatEvents.MESSAGE, message => {
@@ -65,7 +87,7 @@ const chatApi = emptySplitApi.injectEndpoints({
         });
 
         await cacheEntryRemoved;
-        socket.close();
+        socket.removeAllListeners();
       },
     }),
     sendMessage: build.mutation<void, SendMessagePayload>({
