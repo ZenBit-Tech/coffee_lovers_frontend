@@ -1,11 +1,14 @@
 import { FC } from 'react';
 import { Button } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { generatePath, useNavigate } from 'react-router-dom';
 import {
   Avatar,
   ExpandableText,
   InformationSticker,
+  routes,
 } from '@freelance/components';
+import { Job } from 'src/redux/types/jobs.types';
 import { User } from 'src/redux/types/user.types';
 import { getFileUrl } from 'src/utils/api';
 
@@ -27,6 +30,7 @@ import {
 interface ProposalCardProps {
   onClick?: () => void;
   user?: User;
+  job?: Job;
   hourlyRate: number;
   availableTime?: string;
   coverLetter: string;
@@ -35,11 +39,13 @@ interface ProposalCardProps {
 export const ProposalCard: FC<ProposalCardProps> = ({
   onClick,
   user,
+  job,
   hourlyRate,
   availableTime,
   coverLetter,
 }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <Wrapper>
@@ -72,7 +78,18 @@ export const ProposalCard: FC<ProposalCardProps> = ({
               <InformationSticker>{availableTime}</InformationSticker>
             )}
           </HourlyRateContainer>
-          <Button>{t('proposalsList.start_chat')}</Button>
+          <Button
+            onClick={() =>
+              navigate(
+                generatePath(routes.chatUser, {
+                  userId: user?.id,
+                  jobId: job?.id,
+                }),
+              )
+            }
+          >
+            {t('proposalsList.start_chat')}
+          </Button>
         </StyledTopRightSide>
       </StyledTop>
 
