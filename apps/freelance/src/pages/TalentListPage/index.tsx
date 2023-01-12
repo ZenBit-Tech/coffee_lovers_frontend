@@ -66,7 +66,6 @@ const TalentListPage = (): ReactElement => {
       alert(error);
     }
   };
-  console.log(hires);
 
   const getTotal = () => {
     if (currentBtnPage === currentTab.favorites) {
