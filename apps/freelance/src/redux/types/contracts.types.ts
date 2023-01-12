@@ -10,7 +10,7 @@ export enum ContractStatus {
 export interface ContractsResponse {
   id: number;
   created_at: string;
-  status: Offer;
+  status: ContractStatus;
   end: Date;
   offer: {
     id: number;
@@ -22,4 +22,12 @@ export interface ContractsResponse {
     freelancer: User;
     job_owner: User;
   };
+}
+
+export interface Contract {
+  id: number;
+  status: ContractStatus;
+  offer: Offer;
+  created_at: string;
+  end: string;
 }

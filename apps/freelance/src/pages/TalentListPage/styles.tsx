@@ -1,4 +1,4 @@
-import { Pagination, Rate, Skeleton } from 'antd';
+import { Pagination, Skeleton } from 'antd';
 import styled from 'styled-components';
 import { baseTheme } from 'src/styles/theme';
 
@@ -7,6 +7,7 @@ export const StyledCard = styled.div`
   width: 70%;
   border: 2px ${({ theme }) => theme.card.borderColor} solid;
   border-radius: ${({ theme }) => theme.card.borderRadius};
+  position: relative;
 `;
 
 export const StyledPagination = styled(Pagination)`
@@ -24,7 +25,7 @@ export const StyledPagination = styled(Pagination)`
 
 export const TitleContainer = styled.div`
   display: flex;
-  min-width: 39%;
+  min-width: 50%;
   justify-content: space-between;
 `;
 
@@ -37,8 +38,14 @@ export const StyledSkeleton = styled(Skeleton)`
   width: 600px;
 `;
 export const StyledName = styled.p`
-  font-size: ${baseTheme.fontSize.medium};
-  margin-left: 20px;
+  font-size: ${baseTheme.fontSize.large};
+  font-weight: ${baseTheme.weight.bold};
+  min-width: 100%;
+  margin-left: 50px;
+`;
+
+export const StyledWhContainer = styled.p`
+  font-weight: ${baseTheme.weight.bold};
 `;
 
 export const StyledInformation = styled.p`
@@ -80,6 +87,8 @@ export const TextExContainer = styled.div`
   margin-bottom: -12px;
 `;
 
-export const StyledRate = styled(Rate)`
-  margin-left: auto;
+export const StyledRateBox = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 15px;
 `;

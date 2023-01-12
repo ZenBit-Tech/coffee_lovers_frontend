@@ -9,4 +9,4 @@ export const dateFormat = (dateString: Date) => {
 };
 
 export const closed = 0;
-export const active = 1;
+export const active = 2;

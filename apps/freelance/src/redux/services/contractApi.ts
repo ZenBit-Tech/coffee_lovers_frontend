@@ -7,6 +7,8 @@ const serviceRoute = ApiRoutes.CONTRACTS;
 enum ContractsEndpoints {
   opened = '/active',
   closed = '/closed',
+  closeContract = '/close/',
+  all = '/all',
 }
 
 export const contractApi = emptySplitApi.injectEndpoints({
@@ -17,8 +19,21 @@ export const contractApi = emptySplitApi.injectEndpoints({
     getClosedContracts: builder.query<ContractsResponse[], void>({
       query: () => serviceRoute + ContractsEndpoints.closed,
     }),
+    closeContract: builder.mutation({
+      query: (contractId: number) => ({
+        url: ContractsEndpoints.closeContract + contractId,
+        method: 'POST',
+      }),
+    }),
+    getAllContracts: builder.query<ContractsResponse[], void>({
+      query: () => `${ContractsEndpoints.all}`,
+    }),
   }),
 });
 
-export const { useGetClosedContractsQuery, useGetActiveConractsQuery } =
-  contractApi;
+export const {
+  useGetClosedContractsQuery,
+  useGetActiveConractsQuery,
+  useCloseContractMutation,
+  useGetAllContractsQuery,
+} = contractApi;

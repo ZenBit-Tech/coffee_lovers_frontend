@@ -1,4 +1,5 @@
-import { ProposalCard } from '@freelance/components';
+import { t } from 'i18next';
+import { Empty, ProposalCard } from '@freelance/components';
 
 import { ListContainer, StyledProjectName, Wrapper } from './styles';
 import useProposalsList from './useProposalsList';
@@ -12,7 +13,7 @@ const ProposalsList = () => {
       <ListContainer>
         {data?.proposals.map(proposal => (
           <ProposalCard
-            onClick={() => clickHandler(proposal.id)}
+            onClick={() => clickHandler(proposal.user?.id)}
             key={proposal.id}
             user={proposal.user}
             hourlyRate={proposal.hourly_rate}
@@ -21,6 +22,9 @@ const ProposalsList = () => {
           />
         ))}
       </ListContainer>
+      {!data?.proposals.length && (
+        <Empty description={t('proposalsList.empty_placeholder')} />
+      )}
     </Wrapper>
   );
 };

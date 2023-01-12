@@ -33,22 +33,22 @@ const requestApi = emptySplitApi.injectEndpoints({
       query: () => serviceRoute + EndpointsRoutes.getInterviews,
       providesTags: [apiTags.interview],
     }),
-    acceptOffer: builder.mutation<void, number>({
-      query: (id: number) => ({
+    acceptOffer: builder.mutation<void, number | string>({
+      query: (id: number | string) => ({
         url: serviceRoute + EndpointsRoutes.acceptOffer + id,
         method: 'POST',
       }),
       invalidatesTags: [apiTags.offer],
     }),
-    declineOffer: builder.mutation<void, number>({
-      query: (id: number) => ({
+    declineOffer: builder.mutation<void, number | string>({
+      query: (id: number | string) => ({
         url: serviceRoute + EndpointsRoutes.declineOffer + id,
         method: 'POST',
       }),
       invalidatesTags: [apiTags.offer],
     }),
-    deleteInterview: builder.mutation<void, number>({
-      query: (id: number) => ({
+    deleteInterview: builder.mutation<void, number | string>({
+      query: (id: number | string) => ({
         url: serviceRoute + EndpointsRoutes.deleteInterview + id,
         method: 'DELETE',
       }),

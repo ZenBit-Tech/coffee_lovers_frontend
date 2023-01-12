@@ -11,10 +11,19 @@ export const Wrapper = styled(PageWrapper)`
   flex-direction: column;
 `;
 
-export const StyledTitle = styled.h1`
-  font-size: ${({ theme }) => theme.fontSize.extraLarge};
+export const TitleContainer = styled.div`
+  display: flex;
+  align-content: center;
   margin-top: 15px;
   margin-bottom: 10px;
+
+  & > div:last-child {
+    margin-left: 15px;
+  }
+`;
+
+export const StyledTitle = styled.h1`
+  font-size: ${({ theme }) => theme.fontSize.extraLarge};
 `;
 export const InformationContainer = styled.div`
   display: flex;

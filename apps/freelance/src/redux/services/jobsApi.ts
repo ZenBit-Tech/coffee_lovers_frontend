@@ -22,6 +22,7 @@ enum EndpointsRoutes {
   getPostedJobs = '/posted',
   getPostedJobDetails = '/posted/',
   updateJob = '/update',
+  stopHiring = '/stophiring/',
 }
 
 const jobsApi = emptySplitApi.injectEndpoints({
@@ -73,6 +74,13 @@ const jobsApi = emptySplitApi.injectEndpoints({
         body,
       }),
     }),
+    stopHiring: builder.mutation({
+      query: (jobId: number) => ({
+        url: EndpointsRoutes.stopHiring + jobId,
+        method: 'POST',
+      }),
+      invalidatesTags: [apiTags.postedJob],
+    }),
   }),
 });
 
@@ -85,4 +93,5 @@ export const {
   useGetPostedJobDetailsQuery,
   useUpdateJobMutation,
   usePostJobMutation,
+  useStopHiringMutation,
 } = jobsApi;

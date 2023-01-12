@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { t } from 'i18next';
 import { Avatar, DangerButton, SecondaryButton } from '@freelance/components';
-import { ContractStatus } from 'src/redux/types/contracts.types';
+import { Contract, ContractStatus } from 'src/redux/types/contracts.types';
 import { User } from 'src/redux/types/user.types';
 import { getFileUrl } from 'src/utils/api';
 
@@ -15,13 +15,16 @@ import {
   StyledStatus,
   Wrapper,
 } from './styles';
+import useHiredCard from './useHiredCard';
 
 interface HiredCardProps {
   freelancer: User;
-  status: ContractStatus;
+  contract: Contract;
 }
 
-export const HiredCard: FC<HiredCardProps> = ({ freelancer, status }) => {
+export const HiredCard: FC<HiredCardProps> = ({ freelancer, contract }) => {
+  const { closeContractHandler } = useHiredCard(contract, freelancer);
+
   return (
     <Wrapper>
       <LeftSide>
@@ -36,15 +39,15 @@ export const HiredCard: FC<HiredCardProps> = ({ freelancer, status }) => {
 
       <RightSide>
         <StyledStatus
-          active={status === ContractStatus.ACTIVE}
-          closed={status === ContractStatus.CLOSED}
+          active={contract.status === ContractStatus.ACTIVE}
+          closed={contract.status === ContractStatus.CLOSED}
         >
-          {status}
+          {contract.status}
         </StyledStatus>
-        {status === ContractStatus.ACTIVE && (
+        {contract.status === ContractStatus.ACTIVE && (
           <>
             <SecondaryButton>{t('postedJobDetails.btns.chat')}</SecondaryButton>
-            <DangerButton>
+            <DangerButton onClick={closeContractHandler}>
               {t('postedJobDetails.btns.closeContract')}
             </DangerButton>
           </>

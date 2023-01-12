@@ -4,6 +4,7 @@ import { getWebsocketHeaders } from '@utils/api';
 import { emptySplitApi } from 'redux/emptySplitApi';
 import {
   ConversationResponse,
+  CreateConversationPayload,
   CreateMessagePayload,
   GetConversationParams,
   GetMessagesPayload,
@@ -16,6 +17,7 @@ const serviceRoute = ApiRoutes.CHAT;
 enum EndpointsRoutes {
   getConversation = '/',
   getMessages = '/messages/',
+  createConversation = '/',
 }
 
 export enum ChatEvents {
@@ -88,6 +90,14 @@ const chatApi = emptySplitApi.injectEndpoints({
         providesTags: [apiTags.conversation],
       },
     ),
+    createConversation: build.mutation({
+      query: (body: CreateConversationPayload) => ({
+        url: EndpointsRoutes.createConversation,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [apiTags.conversation],
+    }),
   }),
 });
 
@@ -95,4 +105,5 @@ export const {
   useGetMessagesQuery,
   useGetConversationQuery,
   useSendMessageMutation,
+  useCreateConversationMutation,
 } = chatApi;
