@@ -2,6 +2,7 @@ import { io, Socket } from 'socket.io-client';
 import {
   ApiRoutes,
   baseUrl,
+  chatApiTags,
   keepUnusedDataFor,
   websocketUrl,
 } from '@freelance/constants';
@@ -9,6 +10,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getHeaders, getWebsocketHeaders } from '@utils/api';
 import {
   ConversationResponse,
+  CreateConversationPayload,
   CreateMessagePayload,
   GetConversationParams,
   GetMessagesPayload,
@@ -18,6 +20,7 @@ import {
 
 enum EndpointsRoutes {
   GET_MESSAGES = '/messages/',
+  CREATE_CONVERSATION = '/',
 }
 
 export enum ChatEvents {
@@ -53,6 +56,7 @@ export const chatApi = createApi({
     baseUrl: baseUrl + ApiRoutes.CHAT,
     prepareHeaders: getHeaders(),
   }),
+  tagTypes: Object.values(chatApiTags),
   endpoints: build => ({
     getMessages: build.query<MessageResponse[], GetMessagesPayload>({
       query: payload => EndpointsRoutes.GET_MESSAGES + payload.conversation,
@@ -108,8 +112,17 @@ export const chatApi = createApi({
           url: `/`,
           params,
         }),
+        providesTags: [chatApiTags.conversation],
       },
     ),
+    createConversation: build.mutation({
+      query: (body: CreateConversationPayload) => ({
+        url: EndpointsRoutes.CREATE_CONVERSATION,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [chatApiTags.conversation],
+    }),
   }),
 });
 
@@ -117,4 +130,5 @@ export const {
   useGetMessagesQuery,
   useGetConversationQuery,
   useSendMessageMutation,
+  useCreateConversationMutation,
 } = chatApi;

@@ -26,5 +26,19 @@ export default {
     errors: {
       unexpected: 'Unexpected error',
     },
+    receive: {
+      title: 'You have an offer',
+      rate: 'Hourly rate:',
+      start: 'Start of project:',
+      description: 'Description:',
+      accept: 'Accept',
+      decline: 'Decline',
+      accepted: 'Accepted',
+      acceptedMessage: 'You have accepted the offer',
+      declined: 'Declined',
+      declinedMessage: 'You have declined the offer',
+      success: 'Success',
+      successMessage: 'Your offer was successfully send',
+    },
   },
 };

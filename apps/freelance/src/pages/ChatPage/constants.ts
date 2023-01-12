@@ -4,3 +4,5 @@ export const colors = {
 };
 export const defaultAvatarSize = 40;
 export const zero = 0;
+export const userSearchParam = 'user';
+export const jobSearchParam = 'job';

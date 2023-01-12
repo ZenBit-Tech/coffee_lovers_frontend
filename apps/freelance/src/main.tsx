@@ -1,4 +1,4 @@
-import { StrictMode, Suspense } from 'react';
+import { Suspense } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { ConfigProvider } from 'antd';
 import { Provider } from 'react-redux';
@@ -21,21 +21,19 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <GoogleOAuthProvider clientId={process.env['NX_CLIENT_ID'] as string}>
-    <StrictMode>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <ThemeProvider theme={baseTheme}>
-              <ConfigProvider theme={antdTheme}>
-                <BrowserRouter>
-                  <GlobalStyle />
-                  <App />
-                </BrowserRouter>
-              </ConfigProvider>
-            </ThemeProvider>
-          </PersistGate>
-        </Provider>
-      </Suspense>
-    </StrictMode>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={baseTheme}>
+            <ConfigProvider theme={antdTheme}>
+              <BrowserRouter>
+                <GlobalStyle />
+                <App />
+              </BrowserRouter>
+            </ConfigProvider>
+          </ThemeProvider>
+        </PersistGate>
+      </Provider>
+    </Suspense>
   </GoogleOAuthProvider>,
 );

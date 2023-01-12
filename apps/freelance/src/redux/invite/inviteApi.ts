@@ -1,13 +1,14 @@
-import { ApiRoutes, baseUrl } from '@freelance/constants';
+import { ApiRoutes, baseUrl, offerTags } from '@freelance/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getHeaders } from '@utils/api';
 import { FrelancerPayload } from 'redux/types/jobs.types';
 import { OffersJobs } from 'redux/types/withoutoffer.types.ts';
 
-import { PostOffer, PostRequest } from './types';
+import { GetOffersResponse, PostOffer, PostRequest } from './types';
 
 enum EndpointsRoutes {
   offer = '/offer',
+  offers = '/offers',
   invite = '/invite',
   withoutoffer = 'withoutoffer',
   withoutinvite = 'withoutinvite',
@@ -19,19 +20,19 @@ export const inviteApi = createApi({
     baseUrl: baseUrl + ApiRoutes.REQUEST,
     prepareHeaders: getHeaders(),
   }),
-  tagTypes: ['Offer', 'Invite'],
+  tagTypes: [offerTags.offer, offerTags.invite],
   endpoints: builder => ({
     findUserJobsWithoutOffer: builder.query<OffersJobs[], FrelancerPayload>({
       query: (payload: FrelancerPayload) => ({
         url: `${EndpointsRoutes.withoutoffer}/${payload.id}`,
       }),
-      providesTags: ['Invite', 'Offer'],
+      providesTags: [offerTags.offer, offerTags.invite],
     }),
     findUserJobsWithoutInvite: builder.query<OffersJobs[], FrelancerPayload>({
       query: (payload: FrelancerPayload) => ({
         url: `${EndpointsRoutes.withoutinvite}/${payload.id}`,
       }),
-      providesTags: ['Invite'],
+      providesTags: [offerTags.invite],
     }),
     postRequest: builder.mutation({
       query: (payload: PostRequest) => ({
@@ -39,7 +40,7 @@ export const inviteApi = createApi({
         method: 'POST',
         body: payload.data,
       }),
-      invalidatesTags: ['Invite'],
+      invalidatesTags: [offerTags.invite],
     }),
     postOffer: builder.mutation({
       query: (payload: PostOffer) => ({
@@ -47,7 +48,14 @@ export const inviteApi = createApi({
         method: 'POST',
         body: payload.data,
       }),
-      invalidatesTags: ['Offer'],
+      invalidatesTags: [offerTags.offer],
+    }),
+    getUserOffers: builder.query<GetOffersResponse[], void>({
+      query: () => ({
+        url: EndpointsRoutes.offers,
+        method: 'GET',
+      }),
+      providesTags: [offerTags.offer],
     }),
   }),
 });
@@ -57,4 +65,5 @@ export const {
   usePostOfferMutation,
   useFindUserJobsWithoutInviteQuery,
   useFindUserJobsWithoutOfferQuery,
+  useGetUserOffersQuery,
 } = inviteApi;
