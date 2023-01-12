@@ -44,7 +44,7 @@ export const contractsApi = createApi({
       }),
     }),
     getAllContracts: builder.query<ContractsResponse[], void>({
-      query: () => `${ApiRoutes.CONTRACTS}${ContractsEndpoints.all}`,
+      query: () => `${ContractsEndpoints.all}`,
     }),
   }),
 });

@@ -32,6 +32,7 @@ export const profileQ1 = {
     },
   },
   avatarBigSize: 130,
+  textAreaSymbCount: 1000,
 };
 
 export const prBarProfileQ2Per = 50;
