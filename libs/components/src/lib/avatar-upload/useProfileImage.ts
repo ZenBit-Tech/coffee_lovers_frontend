@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSetProfileImageMutation } from 'src/redux/services/user';
+import { useSetProfileImageMutation } from 'redux/services/userApi';
 import { getFileUrl } from 'src/utils/api';
 
 import { uploadName } from './constants';

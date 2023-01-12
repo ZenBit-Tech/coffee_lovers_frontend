@@ -4,8 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { NotificationType } from '@freelance/components';
 import { dateType, todayDate } from '@freelance/constants';
-import { usePostOfferMutation } from 'src/redux/invite/inviteApi';
-import { Request } from 'src/redux/invite/types';
+import { usePostOfferMutation } from 'src/redux/services/requestApi';
 
 import { sendOfferHookDto, sendOfferHookReturnDto } from './types';
 
@@ -55,7 +54,6 @@ const useSendOfferHook = ({
         data: {
           hourly_rate: rate,
           start,
-          status: Request.pending,
           cover_letter: description,
         },
       });

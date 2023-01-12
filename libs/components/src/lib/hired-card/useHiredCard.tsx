@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import { t } from 'i18next';
 import { CheckCircleOutlined } from '@ant-design/icons';
-import { useCloseContractMutation } from 'src/redux/contracts/contracts';
+import { useCloseContractMutation } from 'src/redux/services/contractApi';
 import { Contract } from 'src/redux/types/contracts.types';
 import { User } from 'src/redux/types/user.types';
 

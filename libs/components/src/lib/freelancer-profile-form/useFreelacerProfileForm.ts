@@ -14,7 +14,7 @@ import {
   useAddUserEduInfoMutation,
   useAddUserWorkhistoryInfoMutation,
   useUpdateUserInfoMutation,
-} from 'src/redux/services/user';
+} from 'src/redux/services/userApi';
 
 import { onFinishLogic } from './hooks';
 import { IProfileQuestions } from './model';

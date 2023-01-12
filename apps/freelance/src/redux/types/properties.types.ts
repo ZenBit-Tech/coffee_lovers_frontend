@@ -19,3 +19,8 @@ export interface PropertiesResponse {
   durationAmount: string[];
   availableTime: string[];
 }
+
+export enum DurationAmount {
+  MONTH = 'Month',
+  WEEK = 'Week',
+}

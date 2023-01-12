@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { NotificationType, StyledButton } from '@freelance/components';
 import { modalWidth, profileQ1 } from '@freelance/constants';
-import { usePostOfferMutation } from 'src/redux/invite/inviteApi';
+import { usePostOfferMutation } from 'src/redux/services/requestApi';
 import { ICurrentConversationInfo } from 'src/redux/types/chat.types';
 import { formatDate } from 'src/utils/dates';
 

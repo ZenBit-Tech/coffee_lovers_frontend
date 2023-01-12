@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Form, FormInstance } from 'antd';
 import { useSearchParams } from 'react-router-dom';
 import useAppSelector from '@hooks/useAppSelector';
-import { GetOffersResponse } from 'redux/invite/types';
 import {
   useCreateConversationMutation,
   useGetConversationQuery,
@@ -10,13 +9,13 @@ import {
   useSendMessageMutation,
 } from 'redux/services/chatApi';
 import { useGetOffersQuery } from 'redux/services/requestApi';
-import { useGetUserInfoQuery } from 'redux/services/user';
+import { useGetUserInfoQuery } from 'redux/services/userApi';
 import {
   ConversationResponse,
   ICurrentConversationInfo,
   MessageResponse,
 } from 'redux/types/chat.types';
-import { OfferStatus } from 'redux/types/request.types';
+import { Offer, OfferStatus } from 'redux/types/request.types';
 import { User } from 'redux/types/user.types';
 
 import { jobSearchParam, userSearchParam, zero } from './constants';
@@ -41,7 +40,7 @@ interface useChatDataReturns {
   conversations?: ConversationResponse[];
   currentConversationInfo: ICurrentConversationInfo;
   pendingOffer: boolean;
-  offer?: GetOffersResponse;
+  offer?: Offer;
   handleSend: (values: InputType) => void;
   handleClick: (id: number) => number;
   onSearch: (value: string) => void;
@@ -60,7 +59,7 @@ const useChatData = (): useChatDataReturns => {
   const { data: user } = useGetUserInfoQuery();
   const { data: offers } = useGetOffersQuery();
   const [pendingOffer, setPendingOffer] = useState<boolean>(false);
-  const [offer, setOffer] = useState<GetOffersResponse>();
+  const [offer, setOffer] = useState<Offer>();
   const [conversation, setConversation] = useState<IConversation>(
     conversations && conversations?.length > 0 ? conversations[zero].id : zero,
   );

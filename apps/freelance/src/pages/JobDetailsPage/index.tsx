@@ -11,8 +11,8 @@ import {
 import { PageWrapper } from '@freelance/components';
 import { skills } from '@pages/JobDetailsPage/constants';
 import { useGetJobQuery } from 'redux/services/jobsApi';
-import { useGetUserProposalsQuery } from 'redux/services/user';
-import { useGetUserInfoQuery } from 'redux/services/user';
+import { useGetUserProposalsQuery } from 'redux/services/userApi';
+import { useGetUserInfoQuery } from 'redux/services/userApi';
 import { baseTheme } from 'src/styles/theme';
 import { formatDate } from 'src/utils/dates';
 

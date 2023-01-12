@@ -111,6 +111,7 @@ const PostedJobDetails = () => {
               key={hire.contract.id}
               freelancer={hire.freelancer}
               contract={hire.contract}
+              job={job}
             />
           ))}
         {!hires?.length && (

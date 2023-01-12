@@ -14,7 +14,7 @@ import {
 } from '@freelance/components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useProperties from 'src/hooks/useProperties';
-import { usePostJobMutation } from 'src/redux/job-post/job-post';
+import { usePostJobMutation } from 'src/redux/services/jobsApi';
 import { baseTheme } from 'src/styles/theme';
 
 import {
