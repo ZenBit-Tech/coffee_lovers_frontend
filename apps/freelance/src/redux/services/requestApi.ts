@@ -19,8 +19,8 @@ enum EndpointsRoutes {
   deleteInterview = '/interview/',
   offer = '/offer',
   invite = '/invite',
-  withoutoffer = 'withoutoffer',
-  withoutinvite = 'withoutinvite',
+  withoutoffer = '/withoutoffer',
+  withoutinvite = '/withoutinvite',
 }
 
 const requestApi = emptySplitApi.injectEndpoints({
