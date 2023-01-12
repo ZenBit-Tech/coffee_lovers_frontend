@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { NotificationType, StyledButton } from '@freelance/components';
 import { modalWidth, profileQ1 } from '@freelance/constants';
 import { usePostOfferMutation } from 'src/redux/invite/inviteApi';
-import { Request } from 'src/redux/invite/types';
 import { ICurrentConversationInfo } from 'src/redux/types/chat.types';
 import { formatDate } from 'src/utils/dates';
 
@@ -46,7 +45,6 @@ export const OfferFromChatModal = ({
     try {
       const offerResponse = {
         data: {
-          status: Request.pending,
           hourly_rate: values.rate,
           start: formatDate(new Date(values.date)),
         },

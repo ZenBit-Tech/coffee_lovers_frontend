@@ -105,8 +105,6 @@ const useChatData = (): useChatDataReturns => {
     freelancerId: currentConversation?.user.id,
   };
 
-  console.log(offer);
-
   const handleClick = (id: number) => {
     setConversation(id);
 
