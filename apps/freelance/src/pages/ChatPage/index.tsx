@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Avatar, Badge, Form, Row, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
@@ -7,11 +7,13 @@ import {
   OfferFromChatModal,
   roles,
   StyledInput,
+  useOpenNotification,
 } from '@freelance/components';
 import { baseTheme } from 'src/styles/theme';
 import { formatDate, formatTime } from 'src/utils/dates';
 
 import { colors, defaultAvatarSize, message } from './constants';
+import { ReceivedOfferModal } from './receivedOffer';
 import {
   BottomWrapper,
   FirstUserContainer,
@@ -40,14 +42,22 @@ type Open = boolean;
 
 const ChatPage = () => {
   const { t } = useTranslation();
+
   const [openModal, setOpenModal] = useState<Open>(false);
+  const [openReceivedOfferModal, setOpenReceivedOfferModal] =
+    useState<Open>(false);
 
   const showModal = () => {
     setOpenModal(true);
   };
 
+  const showReceivedOfferModal = () => {
+    setOpenReceivedOfferModal(true);
+  };
+
   const onCancel = () => {
     setOpenModal(false);
+    setOpenReceivedOfferModal(false);
   };
 
   const {
@@ -57,20 +67,18 @@ const ChatPage = () => {
     conversation,
     conversations,
     currentConversationInfo,
+    pendingOffer,
+    offer,
     handleSend,
     handleClick,
     onSearch,
   } = useChatData();
-
-  useEffect(() => {
-    const el = document.getElementById('messages');
-    if (el) {
-      el.scrollTop = el.scrollHeight;
-    }
-  }, [chatMessages]);
+  const { contextHolder, openNotificationWithIcon } = useOpenNotification();
+  const messageValue = Form.useWatch('message', form);
 
   return (
     <Row>
+      {contextHolder}
       <StyledLeftSide span={6}>
         <InputSearchStyled
           placeholder={t('findJobs.searchPlaceholder')}
@@ -98,9 +106,7 @@ const ChatPage = () => {
                     />
                   </Badge>
                   <UserDivStyled>
-                    {user?.role === roles.jobOwner && (
-                      <StyledText ellipsis={true}>{item.job.title}</StyledText>
-                    )}
+                    <StyledText ellipsis={true}>{item.job.title}</StyledText>
                     <Text strong>
                       {item.user.first_name} {item.user.last_name}
                     </Text>
@@ -129,9 +135,14 @@ const ChatPage = () => {
                 </p>
               </div>
 
-              {user?.role === roles.jobOwner && (
+              {user?.role === roles.jobOwner && !pendingOffer && (
                 <SendOfferBtn onClick={showModal}>
                   {t('chat.sendOffer')}
+                </SendOfferBtn>
+              )}
+              {user?.role === roles.freelancer && pendingOffer && (
+                <SendOfferBtn onClick={showReceivedOfferModal}>
+                  {t('chat.received_offer')}
                 </SendOfferBtn>
               )}
             </>
@@ -176,12 +187,16 @@ const ChatPage = () => {
         <Form form={form} layout="inline" onFinish={handleSend}>
           {!!conversation && (
             <BottomWrapper>
-              <StyledFormItem name={message} rules={[{ required: true }]}>
+              <StyledFormItem name={message}>
                 <StyledInput placeholder={t('chat.message')} />
               </StyledFormItem>
 
               <Form.Item>
-                <StyledButton type="primary" htmlType="submit">
+                <StyledButton
+                  type="primary"
+                  htmlType="submit"
+                  disabled={!messageValue}
+                >
                   {t('chat.send')}
                 </StyledButton>
               </Form.Item>
@@ -193,6 +208,13 @@ const ChatPage = () => {
         openModal={openModal}
         onCancel={onCancel}
         currentConversationInfo={currentConversationInfo}
+        openNotificationWithIcon={openNotificationWithIcon}
+      />
+      <ReceivedOfferModal
+        openModal={openReceivedOfferModal}
+        onCancel={onCancel}
+        offer={offer}
+        openNotificationWithIcon={openNotificationWithIcon}
       />
     </Row>
   );

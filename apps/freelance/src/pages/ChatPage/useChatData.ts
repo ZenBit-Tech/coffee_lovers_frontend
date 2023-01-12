@@ -2,18 +2,21 @@ import { useEffect, useState } from 'react';
 import { Form, FormInstance } from 'antd';
 import { useSearchParams } from 'react-router-dom';
 import useAppSelector from '@hooks/useAppSelector';
+import { GetOffersResponse } from 'redux/invite/types';
 import {
   useCreateConversationMutation,
   useGetConversationQuery,
   useGetMessagesQuery,
   useSendMessageMutation,
 } from 'redux/services/chatApi';
+import { useGetOffersQuery } from 'redux/services/requestApi';
 import { useGetUserInfoQuery } from 'redux/services/user';
 import {
   ConversationResponse,
   ICurrentConversationInfo,
   MessageResponse,
 } from 'redux/types/chat.types';
+import { OfferStatus } from 'redux/types/request.types';
 import { User } from 'redux/types/user.types';
 
 import { jobSearchParam, userSearchParam, zero } from './constants';
@@ -37,6 +40,8 @@ interface useChatDataReturns {
   conversation: number;
   conversations?: ConversationResponse[];
   currentConversationInfo: ICurrentConversationInfo;
+  pendingOffer: boolean;
+  offer?: GetOffersResponse;
   handleSend: (values: InputType) => void;
   handleClick: (id: number) => number;
   onSearch: (value: string) => void;
@@ -53,6 +58,9 @@ const useChatData = (): useChatDataReturns => {
     ...(search && { search }),
   });
   const { data: user } = useGetUserInfoQuery();
+  const { data: offers } = useGetOffersQuery();
+  const [pendingOffer, setPendingOffer] = useState<boolean>(false);
+  const [offer, setOffer] = useState<GetOffersResponse>();
   const [conversation, setConversation] = useState<IConversation>(
     conversations && conversations?.length > 0 ? conversations[zero].id : zero,
   );
@@ -93,7 +101,11 @@ const useChatData = (): useChatDataReturns => {
     profileImg: `${currentConversation?.user.profile_image}`,
     jobDescription: currentConversation?.job.description || '',
     jobRate: currentConversation?.job.hourly_rate,
+    jobId: currentConversation?.job.id,
+    freelancerId: currentConversation?.user.id,
   };
+
+  console.log(offer);
 
   const handleClick = (id: number) => {
     setConversation(id);
@@ -115,6 +127,21 @@ const useChatData = (): useChatDataReturns => {
     setSearch(value.trim());
   };
 
+  useEffect(() => {
+    const el = document.getElementById('messages');
+    if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
+  }, [chatMessages]);
+
+  useEffect(() => {
+    const currentOffer = offers
+      ?.filter(item => item.status === OfferStatus.PENDING)
+      .find(item => item.job.id === currentConversationInfo.jobId);
+    setOffer(currentOffer);
+    currentOffer ? setPendingOffer(true) : setPendingOffer(false);
+  }, [conversation, currentConversationInfo.jobId, offers, user?.role]);
+
   return {
     user,
     chatMessages,
@@ -122,6 +149,8 @@ const useChatData = (): useChatDataReturns => {
     conversation,
     conversations,
     currentConversationInfo,
+    pendingOffer,
+    offer,
     handleSend,
     handleClick,
     onSearch,

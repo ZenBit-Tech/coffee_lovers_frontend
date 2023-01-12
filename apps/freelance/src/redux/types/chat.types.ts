@@ -52,4 +52,6 @@ export interface ICurrentConversationInfo {
   profileImg: string;
   jobDescription?: string;
   jobRate?: number;
+  jobId?: number;
+  freelancerId?: number;
 }

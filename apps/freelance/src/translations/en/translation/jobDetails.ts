@@ -14,5 +14,6 @@ export default {
     setup_rate: 'Setup rate',
     cover_letter: 'Cover letter',
     error_msg: 'You have already submitted a proposal for this job',
+    start_date: 'Start of Project',
   },
 };
