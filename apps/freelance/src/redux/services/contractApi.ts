@@ -1,4 +1,4 @@
-import { ApiRoutes } from '@freelance/constants';
+import { ApiRoutes, apiTags } from '@freelance/constants';
 import { emptySplitApi } from 'redux/emptySplitApi';
 import { ContractsResponse } from 'redux/types/contracts.types';
 
@@ -21,12 +21,13 @@ export const contractApi = emptySplitApi.injectEndpoints({
     }),
     closeContract: builder.mutation({
       query: (contractId: number) => ({
-        url: ContractsEndpoints.closeContract + contractId,
+        url: serviceRoute + ContractsEndpoints.closeContract + contractId,
         method: 'POST',
       }),
+      invalidatesTags: [apiTags.postedJob],
     }),
     getAllContracts: builder.query<ContractsResponse[], void>({
-      query: () => `${ContractsEndpoints.all}`,
+      query: () => serviceRoute + ContractsEndpoints.all,
     }),
   }),
 });

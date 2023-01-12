@@ -76,7 +76,7 @@ const jobsApi = emptySplitApi.injectEndpoints({
     }),
     stopHiring: builder.mutation({
       query: (jobId: number) => ({
-        url: EndpointsRoutes.stopHiring + jobId,
+        url: serviceRoute + EndpointsRoutes.stopHiring + jobId,
         method: 'POST',
       }),
       invalidatesTags: [apiTags.postedJob],
