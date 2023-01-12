@@ -6,11 +6,11 @@ import {
   NotificationType,
   SuccessButton,
 } from '@freelance/components';
-import { GetOffersResponse } from 'redux/invite/types';
 import {
   useAcceptOfferMutation,
   useDeclineOfferMutation,
 } from 'redux/services/requestApi';
+import { Offer } from 'redux/types/request.types';
 
 export const ReceivedOfferModal = ({
   openModal,
@@ -20,7 +20,7 @@ export const ReceivedOfferModal = ({
   ...props
 }: {
   openModal: boolean;
-  offer?: GetOffersResponse;
+  offer?: Offer;
   onCancel: () => void;
   openNotificationWithIcon: (
     type: NotificationType,

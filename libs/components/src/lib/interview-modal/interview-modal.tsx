@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { Button, ChatListModalContent } from '@freelance/components';
 import { ErrorMessage } from '@hookform/error-message';
 import UseModalOpenHook from 'src/hooks/useModalOpen';
-import { useGetInvitationDetailsQuery } from 'src/redux/invitation/invitation';
-import { useFindUserJobsWithoutInviteQuery } from 'src/redux/invite/inviteApi';
+import { useGetInvitationDetailsQuery } from 'src/redux/services/invitationApi';
 import { useGetJobQuery } from 'src/redux/services/jobsApi';
+import { useFindUserJobsWithoutInviteQuery } from 'src/redux/services/requestApi';
 
 import { ChatListPage } from './constants';
 import { StyledModal, StyledSelect, StyledSpace } from './styles';

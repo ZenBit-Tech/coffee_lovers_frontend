@@ -11,8 +11,8 @@ import { selectRole } from 'redux/auth/auth-slice';
 import {
   useGetActiveConractsQuery,
   useGetClosedContractsQuery,
-} from 'redux/contracts/contracts';
-import { ContractsResponse } from 'redux/contracts/types';
+} from 'redux/services/contractApi';
+import { ContractsResponse } from 'redux/types/contracts.types';
 
 import { active, closed, dateFormat } from './constants';
 import { DateText } from './styles';
