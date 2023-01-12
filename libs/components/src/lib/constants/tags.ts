@@ -3,10 +3,15 @@ export const requestApiTags = {
   interview: 'Interview',
 };
 
-export const chatApiTags = {
+export const apiTags = {
+  user: 'User',
+  workInfo: 'WorkInfo',
+  eduInfo: 'EduInfo',
+  offer: 'Offer',
+  interview: 'Interview',
   conversation: 'Conversation',
-};
-
-export const jobApiTags = {
+  job: 'Job',
   postedJob: 'PostedJob',
+  favorites: 'Favorites',
+  invite: 'Invite',
 };

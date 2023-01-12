@@ -96,3 +96,15 @@ export interface GetPostedJobDetailsResponse {
 export interface FrelancerPayload {
   id?: number;
 }
+
+export interface JobPost {
+  title: string;
+  description: string;
+  hourly_rate: number;
+  category: number;
+  english_level: string;
+  skills: number[];
+  duration: number;
+  duration_amount: string;
+  available_time: string;
+}

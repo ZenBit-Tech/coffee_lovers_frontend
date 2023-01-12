@@ -1,7 +1,15 @@
-import { ApiRoutes, baseUrl, requestApiTags } from '@freelance/constants';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { getHeaders } from '@utils/api';
-import { Interview, Offer } from 'redux/types/request.types';
+import { ApiRoutes, apiTags } from '@freelance/constants';
+import { emptySplitApi } from 'redux/emptySplitApi';
+import { FrelancerPayload } from 'redux/types/jobs.types';
+import {
+  Interview,
+  Offer,
+  PostOffer,
+  PostRequest,
+} from 'redux/types/request.types';
+import { OffersJobs } from 'redux/types/withoutoffer.types.ts';
+
+const serviceRoute = ApiRoutes.REQUEST;
 
 enum EndpointsRoutes {
   getOffers = '/offers',
@@ -9,44 +17,72 @@ enum EndpointsRoutes {
   acceptOffer = '/accept/offer/',
   declineOffer = '/decline/offer/',
   deleteInterview = '/interview/',
+  offer = '/offer',
+  invite = '/invite',
+  withoutoffer = 'withoutoffer',
+  withoutinvite = 'withoutinvite',
 }
 
-export const requestApi = createApi({
-  reducerPath: 'requestApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl + ApiRoutes.REQUEST,
-    prepareHeaders: getHeaders(),
-  }),
-  tagTypes: Object.values(requestApiTags),
+const requestApi = emptySplitApi.injectEndpoints({
   endpoints: builder => ({
     getOffers: builder.query<Offer[], void>({
-      query: () => EndpointsRoutes.getOffers,
-      providesTags: [requestApiTags.offer],
+      query: () => serviceRoute + EndpointsRoutes.getOffers,
+      providesTags: [apiTags.offer],
     }),
     getInterviews: builder.query<Interview[], void>({
-      query: () => EndpointsRoutes.getInterviews,
-      providesTags: [requestApiTags.interview],
+      query: () => serviceRoute + EndpointsRoutes.getInterviews,
+      providesTags: [apiTags.interview],
     }),
     acceptOffer: builder.mutation<void, number | string>({
       query: (id: number | string) => ({
-        url: EndpointsRoutes.acceptOffer + id,
+        url: serviceRoute + EndpointsRoutes.acceptOffer + id,
         method: 'POST',
       }),
-      invalidatesTags: [requestApiTags.offer],
+      invalidatesTags: [apiTags.offer],
     }),
     declineOffer: builder.mutation<void, number | string>({
       query: (id: number | string) => ({
-        url: EndpointsRoutes.declineOffer + id,
+        url: serviceRoute + EndpointsRoutes.declineOffer + id,
         method: 'POST',
       }),
-      invalidatesTags: [requestApiTags.offer],
+      invalidatesTags: [apiTags.offer],
     }),
     deleteInterview: builder.mutation<void, number | string>({
       query: (id: number | string) => ({
-        url: EndpointsRoutes.deleteInterview + id,
+        url: serviceRoute + EndpointsRoutes.deleteInterview + id,
         method: 'DELETE',
       }),
-      invalidatesTags: [requestApiTags.interview],
+      invalidatesTags: [apiTags.interview],
+    }),
+    findUserJobsWithoutOffer: builder.query<OffersJobs[], FrelancerPayload>({
+      query: (payload: FrelancerPayload) => ({
+        url: serviceRoute + `${EndpointsRoutes.withoutoffer}/${payload.id}`,
+      }),
+      providesTags: [apiTags.invite, apiTags.offer],
+    }),
+    findUserJobsWithoutInvite: builder.query<OffersJobs[], FrelancerPayload>({
+      query: (payload: FrelancerPayload) => ({
+        url: serviceRoute + `${EndpointsRoutes.withoutinvite}/${payload.id}`,
+      }),
+      providesTags: [apiTags.invite],
+    }),
+    postRequest: builder.mutation({
+      query: (payload: PostRequest) => ({
+        url: serviceRoute + `/${payload.freelancer}/${payload.jobId}`,
+        method: 'POST',
+        body: payload.data,
+      }),
+      invalidatesTags: [apiTags.invite],
+    }),
+    postOffer: builder.mutation({
+      query: (payload: PostOffer) => ({
+        url:
+          serviceRoute +
+          `${EndpointsRoutes.offer}/${payload.freelancer}/${payload.jobId}`,
+        method: 'POST',
+        body: payload.data,
+      }),
+      invalidatesTags: [apiTags.offer],
     }),
   }),
 });
@@ -57,4 +93,8 @@ export const {
   useAcceptOfferMutation,
   useDeclineOfferMutation,
   useDeleteInterviewMutation,
+  usePostRequestMutation,
+  usePostOfferMutation,
+  useFindUserJobsWithoutInviteQuery,
+  useFindUserJobsWithoutOfferQuery,
 } = requestApi;

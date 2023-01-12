@@ -3,7 +3,7 @@ import fetchMock from 'jest-fetch-mock';
 import { Provider } from 'react-redux';
 import { renderHook, waitFor } from '@testing-library/react';
 import { setUser } from 'redux/auth/auth-slice';
-import { useGetUserWorkInfoQuery } from 'redux/services/user';
+import { useGetUserWorkInfoQuery } from 'redux/services/userApi';
 import { store } from 'redux/store';
 
 import { noToken, testToken, userApiWorkHistory } from './mock-data';

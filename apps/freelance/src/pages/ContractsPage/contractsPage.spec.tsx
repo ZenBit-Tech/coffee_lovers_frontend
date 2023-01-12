@@ -13,7 +13,7 @@ import ContractsList from './index';
 const mockActiveData = jest.fn().mockReturnValue(activeContractsMock);
 const mockClosedData = jest.fn().mockReturnValue(closedContractsMock);
 
-jest.mock('redux/contracts/contracts', () => ({
+jest.mock('redux/services/contractApi', () => ({
   useGetActiveConractsQuery: () => ({
     data: mockActiveData(),
   }),
