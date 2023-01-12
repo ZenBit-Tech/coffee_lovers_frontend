@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useGetAllContractsQuery } from 'redux/contracts/contracts';
 import { useGetFreelancerQuery } from 'redux/services/freelancers';
 import { useGetFavoritesQuery } from 'redux/services/user';
-import { User } from 'redux/types/user.types';
+import { FreelancerListItem, User } from 'redux/types/user.types';
 
 import { talentConsts } from './constants';
 import { GetFreelancerParams } from './model';
@@ -12,7 +12,11 @@ interface FreelancersHired {
   jobTitle: string[];
 }
 
-// type currentBtnPage = 'all' | 'hired' | 'favorites';
+export enum currentTab {
+  all = 'all',
+  hired = 'hired',
+  favorites = 'favorites',
+}
 
 export const useFreelancerData = (
   page: number,
@@ -27,14 +31,16 @@ export const useFreelancerData = (
     take,
     ...filterPayload,
   });
-  const [freelancerRenderData, setFreelancerRenderData] = useState<User[]>(
-    data ? data[talentConsts.firstEl] : [],
-  );
+  const [freelancerRenderData, setFreelancerRenderData] = useState<
+    FreelancerListItem[]
+  >(data ? data[talentConsts.firstEl] : []);
   const [hires, setHires] = useState<FreelancersHired[]>(
     data ? data[talentConsts.firstEl] : [],
   );
   const [isHires, setIsHires] = useState<boolean>(false);
-  // const [currentBtnPage, setCurrentBtnPage] = useState<currentBtnPage>('all');
+  const [currentBtnPage, setCurrentBtnPage] = useState<currentTab>(
+    currentTab.all,
+  );
   const { data: favoritesQuery } = useGetFavoritesQuery({
     page: pageFav,
     take,
@@ -42,20 +48,42 @@ export const useFreelancerData = (
   const { data: allHires } = useGetAllContractsQuery();
 
   useEffect(() => {
-    setFreelancerRenderData(data ? data[talentConsts.firstEl] : []);
-  }, [data]);
+    if (currentBtnPage === currentTab.all) {
+      setFreelancerRenderData(data ? data[talentConsts.firstEl] : []);
+    } else if (currentBtnPage === currentTab.favorites) {
+      favoritesQuery &&
+        setFreelancerRenderData(
+          favoritesQuery.favorites.map(el => ({
+            ...el.freelancer,
+            isFavorite: true,
+          })),
+        );
+    }
+  }, [data, favoritesQuery, currentBtnPage]);
+
+  const getCurrentPagePagination = (): number => {
+    if (currentBtnPage === currentTab.all) {
+      return page;
+    } else if (currentBtnPage === currentTab.favorites) {
+      return pageFav;
+    }
+
+    return talentConsts.defaultPage;
+  };
 
   const favoritesHandler = () => {
-    if (favoritesQuery) {
-      setFreelancerRenderData(
-        favoritesQuery.favorites.map(el => el.freelancer),
-      );
-    }
+    setCurrentBtnPage(currentTab.favorites);
+    // if (favoritesQuery) {
+    //   setFreelancerRenderData(
+    //     favoritesQuery.favorites.map(el => ({...el.freelancer, isFavorite: true})),
+    //   );
+    // }
     setIsHires(false);
   };
   const allFreelancerHanler = () => {
     if (data) {
-      setFreelancerRenderData(data[talentConsts.firstEl]);
+      setCurrentBtnPage(currentTab.all);
+      // setFreelancerRenderData(data[talentConsts.firstEl]);
     }
     setIsHires(false);
   };
@@ -77,6 +105,7 @@ export const useFreelancerData = (
           }
         }
       });
+      setCurrentBtnPage(currentTab.hired);
       setHires(uniqueHiresArr);
       setIsHires(true);
     }
@@ -92,5 +121,7 @@ export const useFreelancerData = (
     allHiresHandler,
     hires,
     isHires,
+    currentBtnPage,
+    getCurrentPagePagination,
   };
 };

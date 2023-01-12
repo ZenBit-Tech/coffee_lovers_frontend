@@ -14,6 +14,10 @@ export interface UserError {
   status: number;
 }
 
+export interface FreelancerListItem extends User {
+  isFavorite?: object | boolean;
+}
+
 export interface User {
   id: number;
   email: string;
