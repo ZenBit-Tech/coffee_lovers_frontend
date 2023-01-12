@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Form, FormInstance } from 'antd';
-import { roles } from '@freelance/components';
 import useAppSelector from '@hooks/useAppSelector';
 import { GetOffersResponse } from 'redux/invite/types';
 import {
@@ -85,6 +84,8 @@ const useChatData = (): useChatDataReturns => {
     freelancerId: currentConversation?.user.id,
   };
 
+  console.log(offer);
+
   const handleClick = (id: number) => {
     setConversation(id);
 
@@ -113,13 +114,11 @@ const useChatData = (): useChatDataReturns => {
   }, [chatMessages]);
 
   useEffect(() => {
-    if (user?.role === roles.freelancer) {
-      const currentOffer = offers
-        ?.filter(item => item.status === OfferStatus.PENDING)
-        .find(item => item.job.id === currentConversationInfo.jobId);
-      setOffer(currentOffer);
-      currentOffer ? setPendingOffer(true) : setPendingOffer(false);
-    }
+    const currentOffer = offers
+      ?.filter(item => item.status === OfferStatus.PENDING)
+      .find(item => item.job.id === currentConversationInfo.jobId);
+    setOffer(currentOffer);
+    currentOffer ? setPendingOffer(true) : setPendingOffer(false);
   }, [conversation, currentConversationInfo.jobId, offers, user?.role]);
 
   return {

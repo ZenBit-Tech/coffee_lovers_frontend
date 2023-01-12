@@ -135,7 +135,7 @@ const ChatPage = () => {
                 </p>
               </div>
 
-              {user?.role === roles.jobOwner && (
+              {user?.role === roles.jobOwner && !pendingOffer && (
                 <SendOfferBtn onClick={showModal}>
                   {t('chat.sendOffer')}
                 </SendOfferBtn>
