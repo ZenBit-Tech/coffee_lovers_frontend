@@ -11,6 +11,8 @@ interface useFindFreelancersReturn {
   filtersVisibility: boolean;
   page: number;
   take: number;
+  pageFav: number;
+  setPageFav: (page: number) => void;
   setFiltersVisibility: Dispatch<SetStateAction<boolean>>;
   setPage: (page: number) => void;
   setTake: (take: number) => void;
@@ -23,6 +25,7 @@ const useFindFreelancers = (): useFindFreelancersReturn => {
   const [search, setSearch] = useState<string>('');
   const [filtersVisibility, setFiltersVisibility] = useState<boolean>(false);
   const [page, setPage] = useState<number>(talentConsts.defaultPage);
+  const [pageFav, setPageFav] = useState<number>(talentConsts.defaultPage);
   const [take, setTake] = useState<number>(talentConsts.takeItems);
 
   const submitFilter = (filterData: FilterFormItems) => {
@@ -44,6 +47,8 @@ const useFindFreelancers = (): useFindFreelancersReturn => {
     onSearch,
     setPage,
     setTake,
+    pageFav,
+    setPageFav,
   };
 };
 

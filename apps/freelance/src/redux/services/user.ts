@@ -21,6 +21,8 @@ import {
   UserError,
 } from 'redux/types/user.types';
 
+import { FreelancerFavQuery } from './../types/user.types';
+
 enum EndpointsRoutes {
   passwordResetRequest = '/passwordresetrequest',
   passwordReset = '/passwordreset',
@@ -72,9 +74,10 @@ export const userApi = createApi({
         method: 'GET',
       }),
     }),
-    getFavorites: builder.query<GetFavorites[], void>({
-      query: () => ({
+    getFavorites: builder.query<GetFavorites, FreelancerFavQuery>({
+      query: (params: FreelancerFavQuery) => ({
         url: EndpointsRoutes.addGetUserFavoritesInfo,
+        params,
         method: 'GET',
       }),
       providesTags: ['Favorites'],

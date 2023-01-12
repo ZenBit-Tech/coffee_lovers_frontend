@@ -31,6 +31,8 @@ const TalentListPage = (): ReactElement => {
     search,
     take,
     filtersVisibility,
+    pageFav,
+    // setPageFav,
     submitFilter,
     onSearch,
     setPage,
@@ -42,12 +44,12 @@ const TalentListPage = (): ReactElement => {
     freelancerRenderData,
     favoritesHandler,
     data,
-    favorites,
+    favoritesQuery,
     allFreelancerHanler,
     allHiresHandler,
     hires,
     isHires,
-  } = useFreelancerData(page, search, take, filterPayload);
+  } = useFreelancerData(page, search, take, pageFav, filterPayload);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [addFavorites] = useSetFavoritesMutation();
@@ -152,7 +154,7 @@ const TalentListPage = (): ReactElement => {
                       <Rate
                         onChange={value => onChangeFavorite(item.id, value)}
                         count={talentConsts.starCount}
-                        value={isFreelancerFav(item, favorites)}
+                        value={isFreelancerFav(item, favoritesQuery?.favorites)}
                       />
                     </St.StyledRateBox>
                   </Row>

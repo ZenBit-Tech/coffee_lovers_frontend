@@ -55,6 +55,11 @@ export interface AddFavorites {
 }
 
 export interface GetFavorites {
+  totalCount: number;
+  favorites: Favorites[];
+}
+
+export interface Favorites {
   id: number;
   freelancer: User;
 }
@@ -124,4 +129,9 @@ export interface FreelancerQuery {
   search?: string;
   page?: number;
   take?: number;
+}
+
+export interface FreelancerFavQuery {
+  take?: number;
+  page?: number;
 }

@@ -12,10 +12,13 @@ interface FreelancersHired {
   jobTitle: string[];
 }
 
+// type currentBtnPage = 'all' | 'hired' | 'favorites';
+
 export const useFreelancerData = (
   page: number,
   search: string,
   take: number,
+  pageFav: number,
   filterPayload?: GetFreelancerParams,
 ) => {
   const { data, isLoading } = useGetFreelancerQuery({
@@ -31,7 +34,11 @@ export const useFreelancerData = (
     data ? data[talentConsts.firstEl] : [],
   );
   const [isHires, setIsHires] = useState<boolean>(false);
-  const { data: favorites } = useGetFavoritesQuery();
+  // const [currentBtnPage, setCurrentBtnPage] = useState<currentBtnPage>('all');
+  const { data: favoritesQuery } = useGetFavoritesQuery({
+    page: pageFav,
+    take,
+  });
   const { data: allHires } = useGetAllContractsQuery();
 
   useEffect(() => {
@@ -39,8 +46,10 @@ export const useFreelancerData = (
   }, [data]);
 
   const favoritesHandler = () => {
-    if (favorites) {
-      setFreelancerRenderData(favorites.map(el => el.freelancer));
+    if (favoritesQuery) {
+      setFreelancerRenderData(
+        favoritesQuery.favorites.map(el => el.freelancer),
+      );
     }
     setIsHires(false);
   };
@@ -78,7 +87,7 @@ export const useFreelancerData = (
     freelancerRenderData,
     favoritesHandler,
     data,
-    favorites,
+    favoritesQuery,
     allFreelancerHanler,
     allHiresHandler,
     hires,
