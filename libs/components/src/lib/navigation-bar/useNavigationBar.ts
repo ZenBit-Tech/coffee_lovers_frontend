@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { roles, routes } from '@freelance/components';
+import { useGetUserInfoQuery } from 'redux/services/userApi';
 import { logout, selectRole } from 'src/redux/auth/auth-slice';
-import { useGetUserInfoQuery } from 'src/redux/services/user';
 import { User } from 'src/redux/types/user.types';
 
 interface BarLink {

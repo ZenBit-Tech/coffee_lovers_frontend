@@ -15,7 +15,7 @@ import {
 } from '@freelance/components';
 import { filterRight, filterTop } from '@pages/FindJobs/constants';
 import { PageBar, PageBarRightSideContainer } from '@pages/FindJobs/styles';
-import { useSetFavoritesMutation } from 'redux/services/user';
+import { useSetFavoritesMutation } from 'redux/services/userApi';
 import { FreelancerListItem } from 'redux/types/user.types';
 
 import { talentConsts } from './constants';
@@ -66,6 +66,7 @@ const TalentListPage = (): ReactElement => {
       alert(error);
     }
   };
+  console.log(hires);
 
   const getTotal = () => {
     if (currentBtnPage === currentTab.favorites) {
@@ -132,7 +133,7 @@ const TalentListPage = (): ReactElement => {
               isHires ? hires.map(el => el.user) : freelancerRenderData
             }
             renderItem={(item: FreelancerListItem) => (
-              <St.StyledCard key={item.id}>
+              <St.StyledCard>
                 <St.StyledCardHeader>
                   <Row align="middle">
                     <Col span={4}>

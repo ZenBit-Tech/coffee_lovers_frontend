@@ -1,15 +1,11 @@
-import { ApiRoutes, baseUrl } from '@freelance/constants';
-import {
-  BaseQueryFn,
-  createApi,
-  FetchArgs,
-  fetchBaseQuery,
-} from '@reduxjs/toolkit/query/react';
-import { getHeaders } from '@utils/api';
+import { ApiRoutes, apiTags } from '@freelance/constants';
+import { emptySplitApi } from 'redux/emptySplitApi';
 import {
   AddEducation,
   AddFavorites,
   AddWorkhistory,
+  FreelancerDataById,
+  FreelancerQuery,
   GetEducation,
   GetFavorites,
   GetUserProposals,
@@ -18,122 +14,135 @@ import {
   SetProfileImageResponse,
   UpdateUser,
   User,
-  UserError,
 } from 'redux/types/user.types';
 
 import { FreelancerFavQuery } from './../types/user.types';
 
+const serviceRoute = ApiRoutes.USER;
+
 enum EndpointsRoutes {
+  getUserInfo = '/',
   passwordResetRequest = '/passwordresetrequest',
   passwordReset = '/passwordreset',
   passwordResetCheckAvailability = '/passwordreset/',
+  getUserProposals = '/proposals',
   setProfileImage = '/setprofileimage',
+  updateUserInfo = '/',
   addGetUserEduInfo = '/education-info',
   addGetUserWorkhistoryInfo = '/workhistory-info',
   addGetUserFavoritesInfo = '/favorites',
+  freelancer = '/freelancer/',
 }
 
-export const userApi = createApi({
-  reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl + ApiRoutes.USER,
-    prepareHeaders: getHeaders(),
-  }) as BaseQueryFn<string | FetchArgs, unknown, UserError>,
-  tagTypes: ['User', 'WorkInfo', 'EduInfo', 'Favorites'],
+export const userApi = emptySplitApi.injectEndpoints({
   endpoints: builder => ({
     getUserInfo: builder.query<User, void>({
       query: () => ({
-        url: `/`,
+        url: serviceRoute + EndpointsRoutes.getUserInfo,
         method: 'GET',
       }),
-      providesTags: ['User'],
+      providesTags: [apiTags.user],
     }),
     getUserWorkInfo: builder.query<GetWorkhistory[], void>({
       query: () => ({
-        url: EndpointsRoutes.addGetUserWorkhistoryInfo,
+        url: serviceRoute + EndpointsRoutes.addGetUserWorkhistoryInfo,
         method: 'GET',
       }),
-      providesTags: ['WorkInfo'],
+      providesTags: [apiTags.workInfo],
     }),
     getUserEducationInfo: builder.query<GetEducation[], void>({
       query: () => ({
-        url: EndpointsRoutes.addGetUserEduInfo,
+        url: serviceRoute + EndpointsRoutes.addGetUserEduInfo,
         method: 'GET',
       }),
-      providesTags: ['EduInfo'],
+      providesTags: [apiTags.eduInfo],
     }),
     passwordResetCheckAvailability: builder.query<boolean, string>({
       query: (key: string) => ({
-        url: EndpointsRoutes.passwordResetCheckAvailability + key,
+        url:
+          serviceRoute + EndpointsRoutes.passwordResetCheckAvailability + key,
         method: 'GET',
       }),
     }),
     getUserProposals: builder.query<GetUserProposals, void>({
       query: () => ({
-        url: `/proposals`,
+        url: serviceRoute + EndpointsRoutes.getUserProposals,
         method: 'GET',
       }),
     }),
     getFavorites: builder.query<GetFavorites, FreelancerFavQuery>({
       query: (params: FreelancerFavQuery) => ({
-        url: EndpointsRoutes.addGetUserFavoritesInfo,
+        url: serviceRoute + EndpointsRoutes.addGetUserFavoritesInfo,
         params,
         method: 'GET',
       }),
-      providesTags: ['Favorites'],
+      providesTags: [apiTags.favorites],
     }),
     passwordResetRequest: builder.mutation({
       query: (email: string) => ({
-        url: EndpointsRoutes.passwordResetRequest,
+        url: serviceRoute + EndpointsRoutes.passwordResetRequest,
         method: 'POST',
         body: { email },
       }),
     }),
     passwordReset: builder.mutation({
       query: (payload: PasswordResetPayload) => ({
-        url: EndpointsRoutes.passwordReset,
+        url: serviceRoute + EndpointsRoutes.passwordReset,
         method: 'POST',
         body: payload,
       }),
     }),
     setProfileImage: builder.mutation<SetProfileImageResponse, FormData>({
       query: (formData: FormData) => ({
-        url: EndpointsRoutes.setProfileImage,
+        url: serviceRoute + EndpointsRoutes.setProfileImage,
         method: 'POST',
         body: formData,
       }),
     }),
     updateUserInfo: builder.mutation({
       query: (payload: UpdateUser) => ({
-        url: `/`,
+        url: serviceRoute + EndpointsRoutes.updateUserInfo,
         method: 'PUT',
         body: payload,
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: [apiTags.user],
     }),
     addUserEduInfo: builder.mutation({
       query: (payload: AddEducation[]) => ({
-        url: EndpointsRoutes.addGetUserEduInfo,
+        url: serviceRoute + EndpointsRoutes.addGetUserEduInfo,
         method: 'POST',
         body: payload,
       }),
-      invalidatesTags: ['EduInfo'],
+      invalidatesTags: [apiTags.eduInfo],
     }),
     addUserWorkhistoryInfo: builder.mutation({
       query: (payload: AddWorkhistory[]) => ({
-        url: EndpointsRoutes.addGetUserWorkhistoryInfo,
+        url: serviceRoute + EndpointsRoutes.addGetUserWorkhistoryInfo,
         method: 'POST',
         body: payload,
       }),
-      invalidatesTags: ['WorkInfo'],
+      invalidatesTags: [apiTags.workInfo],
     }),
     setFavorites: builder.mutation({
       query: (payload: AddFavorites) => ({
-        url: EndpointsRoutes.addGetUserFavoritesInfo,
+        url: serviceRoute + EndpointsRoutes.addGetUserFavoritesInfo,
         method: 'POST',
         body: payload,
       }),
-      invalidatesTags: ['Favorites'],
+      invalidatesTags: [apiTags.favorites],
+    }),
+    getFreelancer: builder.query({
+      query: (params: FreelancerQuery) => ({
+        url: serviceRoute + EndpointsRoutes.freelancer,
+        params,
+      }),
+      providesTags: [apiTags.favorites],
+    }),
+    getFreelancerById: builder.query<FreelancerDataById, number>({
+      query: (key: number) => ({
+        url: serviceRoute + EndpointsRoutes.freelancer + key,
+        method: 'GET',
+      }),
     }),
   }),
 });
@@ -153,4 +162,6 @@ export const {
   useUpdateUserInfoMutation,
   useSetFavoritesMutation,
   useGetFavoritesQuery,
+  useGetFreelancerQuery,
+  useGetFreelancerByIdQuery,
 } = userApi;

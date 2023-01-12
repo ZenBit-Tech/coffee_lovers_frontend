@@ -1,7 +1,5 @@
-import queryString from 'query-string';
-import { ApiRoutes, baseUrl, jobApiTags } from '@freelance/constants';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { getHeaders } from '@utils/api';
+import { ApiRoutes, apiTags, JobUpdateValues } from '@freelance/constants';
+import { emptySplitApi } from 'redux/emptySplitApi';
 import {
   FindJobsResponse,
   GetJobParams,
@@ -10,66 +8,78 @@ import {
   GetPostedJobDetailsResponse,
   GetPostedJobsResponse,
   IJobProposal,
+  JobPost,
 } from 'redux/types/jobs.types';
+
+const serviceRoute = ApiRoutes.JOBS;
 
 enum EndpointsRoutes {
   findJobs = '/',
+  sendProposal = 'proposal',
   findUserJobs = '/userjobs',
   getJobProposals = '/proposals',
   getJob = '/job',
   getPostedJobs = '/posted',
   getPostedJobDetails = '/posted/',
+  updateJob = '/update',
   stopHiring = '/stophiring/',
 }
 
-export const jobsApi = createApi({
-  reducerPath: 'jobsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl + ApiRoutes.JOBS,
-    prepareHeaders: getHeaders(),
-    paramsSerializer: params => {
-      return queryString.stringify(params, { arrayFormat: 'bracket' });
-    },
-  }),
-  tagTypes: Object.values(jobApiTags),
+const jobsApi = emptySplitApi.injectEndpoints({
   endpoints: builder => ({
     findJobs: builder.query<FindJobsResponse, GetJobParams>({
       query: params => ({
-        url: EndpointsRoutes.findJobs,
+        url: serviceRoute + EndpointsRoutes.findJobs,
         params,
       }),
+      providesTags: [apiTags.job],
     }),
     sendProposal: builder.mutation({
       query: (body: IJobProposal) => ({
-        url: '/proposal',
+        url: serviceRoute + EndpointsRoutes.sendProposal,
         method: 'POST',
         body,
       }),
     }),
     getJobProposals: builder.query<GetJobProposalsResponse, string>({
       query: id => ({
-        url: `/${id}` + EndpointsRoutes.getJobProposals,
+        url: serviceRoute + `/${id}` + EndpointsRoutes.getJobProposals,
       }),
     }),
     getJob: builder.query<GetJobResponse, number | null>({
       query: id => ({
-        url: `/${id}` + EndpointsRoutes.getJob,
+        url: serviceRoute + `/${id}` + EndpointsRoutes.getJob,
       }),
     }),
     getPostedJobs: builder.query<GetPostedJobsResponse[], void>({
-      query: () => EndpointsRoutes.getPostedJobs,
-      providesTags: [jobApiTags.postedJob],
+      query: () => serviceRoute + EndpointsRoutes.getPostedJobs,
+      providesTags: [apiTags.postedJob],
     }),
     getPostedJobDetails: builder.query<GetPostedJobDetailsResponse, string>({
-      query: (id: string) => EndpointsRoutes.getPostedJobDetails + id,
-      providesTags: [jobApiTags.postedJob],
+      query: (id: string) =>
+        serviceRoute + EndpointsRoutes.getPostedJobDetails + id,
+      providesTags: [apiTags.postedJob],
+    }),
+    postJob: builder.mutation({
+      query: (body: JobPost) => ({
+        url: serviceRoute,
+        method: 'POST',
+        body,
+      }),
+    }),
+    updateJob: builder.mutation({
+      query: (body: JobUpdateValues) => ({
+        url: serviceRoute + EndpointsRoutes.updateJob,
+        method: 'POST',
+        body,
+      }),
     }),
     stopHiring: builder.mutation({
       query: (jobId: number) => ({
-        url: EndpointsRoutes.stopHiring + jobId,
+        url: serviceRoute + EndpointsRoutes.stopHiring + jobId,
         method: 'POST',
       }),
-      invalidatesTags: [jobApiTags.postedJob],
+      invalidatesTags: [apiTags.postedJob],
     }),
   }),
 });
@@ -81,5 +91,7 @@ export const {
   useGetJobProposalsQuery,
   useGetPostedJobsQuery,
   useGetPostedJobDetailsQuery,
+  useUpdateJobMutation,
+  usePostJobMutation,
   useStopHiringMutation,
 } = jobsApi;

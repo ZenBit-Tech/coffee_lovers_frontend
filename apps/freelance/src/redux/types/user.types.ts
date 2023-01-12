@@ -139,3 +139,8 @@ export interface FreelancerFavQuery {
   take?: number;
   page?: number;
 }
+
+export interface FreelancerDataById extends User {
+  workHistory?: GetWorkhistory[];
+  educations?: GetEducation[];
+}

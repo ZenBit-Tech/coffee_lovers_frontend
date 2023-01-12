@@ -1,4 +1,4 @@
-import { ContractsResponse } from 'src/redux/contracts/types';
+import { ContractsResponse } from 'src/redux/types/contracts.types';
 import { ContractStatus } from 'src/redux/types/contracts.types';
 import { Job } from 'src/redux/types/jobs.types';
 import { OfferStatus } from 'src/redux/types/request.types';

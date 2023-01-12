@@ -10,7 +10,7 @@ import {
 import { Interview, Offer, OfferStatus } from 'src/redux/types/request.types';
 import { getFileUrl } from 'src/utils/api';
 
-import { avatarSize, idOfUnderfined } from './constants';
+import { avatarSize } from './constants';
 import {
   DescriptionContainer,
   JobContainer,
@@ -49,7 +49,12 @@ export const OfferInterviewCard: FC<OfferInterviewProps> = ({
     confirmDeclineOffer,
     confirmDeleteInterview,
     jobClickHandler,
-  } = useOfferInterviewCard(offer?.id || interview?.id || idOfUnderfined);
+    startChatHandler,
+  } = useOfferInterviewCard(
+    offer?.id || interview?.id || '',
+    offer?.job_owner || interview?.job_owner,
+    offer?.job || interview?.job,
+  );
 
   return (
     <Wrapper>
@@ -160,7 +165,9 @@ export const OfferInterviewCard: FC<OfferInterviewProps> = ({
           </>
         )}
         {((offer && offer.status !== OfferStatus.DECLINED) || interview) && (
-          <SecondaryButton>{t('offers.buttons.chat')}</SecondaryButton>
+          <SecondaryButton onClick={startChatHandler}>
+            {t('offers.buttons.chat')}
+          </SecondaryButton>
         )}
         {interview && (
           <DangerButton

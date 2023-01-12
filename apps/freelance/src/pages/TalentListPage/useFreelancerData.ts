@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useGetAllContractsQuery } from 'redux/contracts/contracts';
-import { useGetFreelancerQuery } from 'redux/services/freelancers';
-import { useGetFavoritesQuery } from 'redux/services/user';
+import { useGetAllContractsQuery } from 'redux/services/contractApi';
+import { useGetFreelancerQuery } from 'redux/services/userApi';
+import { useGetFavoritesQuery } from 'redux/services/userApi';
 import { FreelancerListItem, User } from 'redux/types/user.types';
 
 import { talentConsts } from './constants';
@@ -54,6 +54,7 @@ export const useFreelancerData = (
   useEffect(() => {
     if (currentBtnPage === currentTab.all) {
       setFreelancerRenderData(data ? data[talentConsts.firstEl] : []);
+      setIsHires(false);
     }
     if (currentBtnPage === currentTab.favorites) {
       favoritesQuery &&
@@ -63,6 +64,7 @@ export const useFreelancerData = (
             isFavorite: true,
           })),
         );
+      setIsHires(false);
     }
     if (currentBtnPage === currentTab.hired) {
       const uniqueHiresArr: FreelancersHired[] = [];
@@ -82,6 +84,7 @@ export const useFreelancerData = (
             }
           }
         });
+      setIsHires(true);
       setHires(uniqueHiresArr);
     }
   }, [data, favoritesQuery, currentBtnPage, allHires]);
@@ -98,23 +101,14 @@ export const useFreelancerData = (
 
   const favoritesHandler = () => {
     setCurrentBtnPage(currentTab.favorites);
-    // if (favoritesQuery) {
-    //   setFreelancerRenderData(
-    //     favoritesQuery.favorites.map(el => ({...el.freelancer, isFavorite: true})),
-    //   );
-    // }
-    setIsHires(false);
   };
   const allFreelancerHanler = () => {
     if (data) {
       setCurrentBtnPage(currentTab.all);
-      // setFreelancerRenderData(data[talentConsts.firstEl]);
     }
-    setIsHires(false);
   };
   const allHiresHandler = () => {
     setCurrentBtnPage(currentTab.hired);
-    setIsHires(true);
   };
 
   return {
