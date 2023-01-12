@@ -15,8 +15,7 @@ import {
   UpdateUser,
   User,
 } from 'redux/types/user.types';
-
-import { FreelancerFavQuery } from './../types/user.types';
+import { FreelancerFavQuery } from 'redux/types/user.types';
 
 const serviceRoute = ApiRoutes.USER;
 
