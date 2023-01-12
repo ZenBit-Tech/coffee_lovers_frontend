@@ -31,8 +31,8 @@ const TalentListPage = (): ReactElement => {
     take,
     filtersVisibility,
     pageFav,
-    // pageHired,
-    // setPageHired,
+    pageHired,
+    setPageHired,
     setPageFav,
     submitFilter,
     onSearch,
@@ -47,12 +47,13 @@ const TalentListPage = (): ReactElement => {
     data,
     favoritesQuery,
     allFreelancerHanler,
+    allHires,
     allHiresHandler,
     hires,
     isHires,
     currentBtnPage,
     getCurrentPagePagination,
-  } = useFreelancerData(page, search, take, pageFav, filterPayload);
+  } = useFreelancerData(page, search, take, pageFav, pageHired, filterPayload);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [addFavorites] = useSetFavoritesMutation();
@@ -67,8 +68,11 @@ const TalentListPage = (): ReactElement => {
   };
 
   const getTotal = () => {
-    if (currentBtnPage === 'favorites') {
+    if (currentBtnPage === currentTab.favorites) {
       return [favoritesQuery?.favorites] && favoritesQuery?.totalCount;
+    }
+    if (currentBtnPage === currentTab.hired) {
+      return [allHires?.allHiredFreelancers] && allHires?.totalCount;
     }
 
     return data && data[1];
@@ -228,6 +232,9 @@ const TalentListPage = (): ReactElement => {
           }
           if (currentBtnPage === currentTab.all) {
             setPage(page);
+          }
+          if (currentBtnPage === currentTab.hired) {
+            setPageHired(page);
           }
         }}
         total={getTotal()}

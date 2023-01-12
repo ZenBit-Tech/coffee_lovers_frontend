@@ -23,6 +23,7 @@ export const useFreelancerData = (
   search: string,
   take: number,
   pageFav: number,
+  pageHired: number,
   filterPayload?: GetFreelancerParams,
 ) => {
   const { data, isLoading } = useGetFreelancerQuery({
@@ -45,12 +46,16 @@ export const useFreelancerData = (
     page: pageFav,
     take,
   });
-  const { data: allHires } = useGetAllContractsQuery();
+  const { data: allHires } = useGetAllContractsQuery({
+    page: pageHired,
+    take,
+  });
 
   useEffect(() => {
     if (currentBtnPage === currentTab.all) {
       setFreelancerRenderData(data ? data[talentConsts.firstEl] : []);
-    } else if (currentBtnPage === currentTab.favorites) {
+    }
+    if (currentBtnPage === currentTab.favorites) {
       favoritesQuery &&
         setFreelancerRenderData(
           favoritesQuery.favorites.map(el => ({
@@ -59,7 +64,27 @@ export const useFreelancerData = (
           })),
         );
     }
-  }, [data, favoritesQuery, currentBtnPage]);
+    if (currentBtnPage === currentTab.hired) {
+      const uniqueHiresArr: FreelancersHired[] = [];
+      allHires &&
+        allHires.allHiredFreelancers.forEach(el => {
+          const index = uniqueHiresArr.findIndex(
+            element => el.offer.freelancer.id === element.user.id,
+          );
+          if (index === -1) {
+            uniqueHiresArr.push({
+              user: el.offer.freelancer,
+              jobTitle: el.offer.job.title ? [el.offer.job.title] : [],
+            });
+          } else {
+            if (el.offer.job.title) {
+              uniqueHiresArr[index].jobTitle.push(el.offer.job.title);
+            }
+          }
+        });
+      setHires(uniqueHiresArr);
+    }
+  }, [data, favoritesQuery, currentBtnPage, allHires]);
 
   const getCurrentPagePagination = (): number => {
     if (currentBtnPage === currentTab.all) {
@@ -88,27 +113,8 @@ export const useFreelancerData = (
     setIsHires(false);
   };
   const allHiresHandler = () => {
-    if (allHires) {
-      const uniqueHiresArr: FreelancersHired[] = [];
-      allHires.forEach(el => {
-        const index = uniqueHiresArr.findIndex(
-          element => el.offer.freelancer.id === element.user.id,
-        );
-        if (index === -1) {
-          uniqueHiresArr.push({
-            user: el.offer.freelancer,
-            jobTitle: el.offer.job.title ? [el.offer.job.title] : [],
-          });
-        } else {
-          if (el.offer.job.title) {
-            uniqueHiresArr[index].jobTitle.push(el.offer.job.title);
-          }
-        }
-      });
-      setCurrentBtnPage(currentTab.hired);
-      setHires(uniqueHiresArr);
-      setIsHires(true);
-    }
+    setCurrentBtnPage(currentTab.hired);
+    setIsHires(true);
   };
 
   return {
@@ -121,6 +127,7 @@ export const useFreelancerData = (
     allHiresHandler,
     hires,
     isHires,
+    allHires,
     currentBtnPage,
     getCurrentPagePagination,
   };

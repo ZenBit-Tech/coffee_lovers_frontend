@@ -1,3 +1,5 @@
+import { ContractsResponse } from 'redux/contracts/types';
+
 import { Offer } from './request.types';
 
 export enum ContractStatus {
@@ -11,4 +13,14 @@ export interface Contract {
   offer: Offer;
   created_at: string;
   end: string;
+}
+
+export interface GetHiresContracts {
+  totalCount: number;
+  allHiredFreelancers: ContractsResponse[];
+}
+
+export interface HiresQuery {
+  take?: number;
+  page?: number;
 }

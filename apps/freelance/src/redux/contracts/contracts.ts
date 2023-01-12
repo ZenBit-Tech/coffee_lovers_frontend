@@ -6,6 +6,7 @@ import {
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'redux/store';
+import { GetHiresContracts, HiresQuery } from 'redux/types/contracts.types';
 
 import { ContractsResponse, Error } from './types';
 
@@ -43,8 +44,12 @@ export const contractsApi = createApi({
         method: 'POST',
       }),
     }),
-    getAllContracts: builder.query<ContractsResponse[], void>({
-      query: () => `${ContractsEndpoints.all}`,
+    getAllContracts: builder.query<GetHiresContracts, HiresQuery>({
+      query: (params: HiresQuery) => ({
+        url: ContractsEndpoints.all,
+        method: 'GET',
+        params,
+      }),
     }),
   }),
 });
