@@ -39,6 +39,7 @@ const getSocket = (token: string): Socket => {
   if (!socket) {
     socket = io(websocketUrl, {
       extraHeaders: getWebsocketHeaders(token),
+      withCredentials: true,
     });
   }
 
