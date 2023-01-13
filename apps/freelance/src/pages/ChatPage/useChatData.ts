@@ -41,6 +41,7 @@ interface useChatDataReturns {
   currentConversationInfo: ICurrentConversationInfo;
   pendingOffer: boolean;
   offer?: Offer;
+  offers?: Offer[];
   handleSend: (values: InputType) => void;
   handleClick: (id: number) => number;
   onSearch: (value: string) => void;
@@ -148,6 +149,7 @@ const useChatData = (): useChatDataReturns => {
     currentConversationInfo,
     pendingOffer,
     offer,
+    offers,
     handleSend,
     handleClick,
     onSearch,

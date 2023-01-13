@@ -11,6 +11,19 @@ export const StyledWrapper = styled.div`
   position: relative;
 `;
 
+export const ContactsList = styled.ul`
+  overflow: scroll;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--blue);
+    border-radius: 50px;
+  }
+`;
+
 export const MessagesWrapper = styled.div`
   max-height: 70vh;
   vertical-align: bottom;

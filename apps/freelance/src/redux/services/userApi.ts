@@ -39,6 +39,7 @@ export const userApi = emptySplitApi.injectEndpoints({
         url: serviceRoute + EndpointsRoutes.getUserInfo,
         method: 'GET',
       }),
+      keepUnusedDataFor: 0.0001,
       providesTags: [apiTags.user],
     }),
     getUserWorkInfo: builder.query<GetWorkhistory[], void>({
@@ -67,6 +68,7 @@ export const userApi = emptySplitApi.injectEndpoints({
         url: serviceRoute + EndpointsRoutes.getUserProposals,
         method: 'GET',
       }),
+      providesTags: [apiTags.proposal],
     }),
     getFavorites: builder.query<GetFavorites[], void>({
       query: () => ({

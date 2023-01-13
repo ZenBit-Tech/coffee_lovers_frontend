@@ -15,7 +15,7 @@ const serviceRoute = ApiRoutes.JOBS;
 
 enum EndpointsRoutes {
   findJobs = '/',
-  sendProposal = 'proposal',
+  sendProposal = '/proposal',
   findUserJobs = '/userjobs',
   getJobProposals = '/proposals',
   getJob = '/job',
@@ -40,11 +40,13 @@ const jobsApi = emptySplitApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: [apiTags.proposal],
     }),
     getJobProposals: builder.query<GetJobProposalsResponse, string>({
       query: id => ({
         url: serviceRoute + `/${id}` + EndpointsRoutes.getJobProposals,
       }),
+      providesTags: [apiTags.proposal],
     }),
     getJob: builder.query<GetJobResponse, number | null>({
       query: id => ({

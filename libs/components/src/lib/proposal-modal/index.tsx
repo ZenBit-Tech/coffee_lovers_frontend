@@ -1,7 +1,12 @@
 import { Form, Modal, ModalProps } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { jobDataTestId, profileQ1, StyledButton } from '@freelance/components';
+import {
+  jobDataTestId,
+  NotificationType,
+  profileQ1,
+  StyledButton,
+} from '@freelance/components';
 import { useSendProposalMutation } from 'src/redux/services/jobsApi';
 import { baseTheme } from 'src/styles/theme';
 
@@ -24,6 +29,7 @@ export const ProposalModal = ({
   freelancer_rate,
   id,
   onCancel,
+  openNotificationWithIcon,
   ...props
 }: {
   openModal: boolean;
@@ -31,6 +37,11 @@ export const ProposalModal = ({
   freelancer_rate?: number;
   id: number;
   onCancel: () => void;
+  openNotificationWithIcon: (
+    type: NotificationType,
+    message: string,
+    description: string,
+  ) => void;
 } & ModalProps) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
@@ -47,8 +58,17 @@ export const ProposalModal = ({
       await sendProposal(proposalResponse);
       form.resetFields();
       onCancel();
+      openNotificationWithIcon(
+        NotificationType.SUCCESS,
+        t('offers.receive.success'),
+        t('successMessage'),
+      );
     } catch (error) {
-      alert(error);
+      openNotificationWithIcon(
+        NotificationType.ERROR,
+        t('description.profileQp1.notifFailed'),
+        t('description.profileQp1.notifFailedMsg'),
+      );
     }
   };
 
