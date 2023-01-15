@@ -32,7 +32,11 @@ export function GoogleLoginButton() {
 
   const login = useGoogleLogin({
     onSuccess: async credentialResponse => {
-      await addUser(credentialResponse);
+      try {
+        await addUser(credentialResponse);
+      } catch (err) {
+        alert(err);
+      }
     },
   });
 
