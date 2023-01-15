@@ -138,7 +138,7 @@ const ChatPage = () => {
               </div>
 
               {user?.role === roles.jobOwner &&
-                offers?.find(
+                !offers?.find(
                   offer => offer.job.id === currentConversationInfo.jobId,
                 ) && (
                   <SendOfferBtn onClick={showModal}>
