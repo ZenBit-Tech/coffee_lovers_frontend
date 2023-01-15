@@ -12,7 +12,7 @@ import {
 import { baseTheme } from 'src/styles/theme';
 import { formatDate, formatTime } from 'src/utils/dates';
 
-import { colors, defaultAvatarSize, message } from './constants';
+import { colors, defaultAvatarSize, message, zero } from './constants';
 import { ReceivedOfferModal } from './receivedOffer';
 import {
   BottomWrapper,
@@ -97,7 +97,7 @@ const ChatPage = () => {
                 >
                   <Badge
                     color={baseTheme.colors.primary}
-                    count={item.new_messages}
+                    count={item.id === conversation ? zero : item.new_messages}
                   >
                     <Avatar
                       src={`${baseUrl}/${item.user.profile_image}`}
