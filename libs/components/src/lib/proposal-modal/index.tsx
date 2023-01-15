@@ -84,6 +84,12 @@ export const ProposalModal = ({
       >
         <StyledForm
           name="basic"
+          fields={[
+            {
+              name: profileQ1.hR,
+              value: rate,
+            },
+          ]}
           requiredMark="optional"
           onFinish={values => handleSubmit(onFinish(values as IProposal))}
         >
@@ -106,7 +112,6 @@ export const ProposalModal = ({
           >
             <StyledNumInput
               data-testid={jobDataTestId.jobNumberInput}
-              defaultValue={rate}
               prefix={t('description.profileQp1.hRPrefix')}
               addonAfter={t('description.profileQp1.hRSuffix')}
               min={profileQ1.hRMin}

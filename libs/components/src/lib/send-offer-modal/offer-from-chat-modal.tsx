@@ -79,6 +79,12 @@ export const OfferFromChatModal = ({
     >
       <Form
         name="basic"
+        fields={[
+          {
+            name: profileQ1.hR,
+            value: currentConversationInfo.jobRate,
+          },
+        ]}
         requiredMark="optional"
         onFinish={values => handleSubmit(onFinish(values as ISendOffer))}
       >
@@ -96,13 +102,12 @@ export const OfferFromChatModal = ({
 
         <Form.Item
           label={t('job_details.setup_rate')}
-          name="rate"
+          name={profileQ1.hR}
           rules={[
             { required: true, message: `${t('description.profileQp1.mesHR')}` },
           ]}
         >
           <StyledNumberInput
-            defaultValue={currentConversationInfo.jobRate}
             prefix={t('description.profileQp1.hRPrefix')}
             addonAfter={t('description.profileQp1.hRSuffix')}
             min={profileQ1.hRMin}
