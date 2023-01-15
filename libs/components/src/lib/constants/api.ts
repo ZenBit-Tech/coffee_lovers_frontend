@@ -19,3 +19,5 @@ export enum ApiRoutes {
   REQUEST = '/request',
   CONTRACTS = '/contracts',
 }
+
+export const keepUnusedDataFor = 0.01;
