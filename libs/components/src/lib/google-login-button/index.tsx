@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
+import { Avatar } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '@freelance/constants';
+import { GoogleIconUrl } from '@freelance/constants';
 import { useGoogleLogin } from '@react-oauth/google';
 import { setUser } from 'src/redux/auth/auth-slice';
 import { useAddUserGoogleMutation } from 'src/redux/services/authApi';
@@ -43,6 +45,7 @@ export function GoogleLoginButton() {
   return (
     <ButtonContainer>
       <GoogleButton onClick={() => login()}>
+        <Avatar src={GoogleIconUrl} size="default" />
         {t('loginPage.google')}
       </GoogleButton>
     </ButtonContainer>

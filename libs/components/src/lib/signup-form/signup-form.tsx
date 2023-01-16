@@ -81,7 +81,7 @@ export function SignUpForm() {
     <Form
       name="basic"
       form={form}
-      wrapperCol={{ span: 12 }}
+      wrapperCol={{ span: 24 }}
       onFinish={handleSubmit(onSubmit)}
     >
       {contextHolder}
@@ -109,7 +109,6 @@ export function SignUpForm() {
           </Form.Item>
         )}
       />
-
       <Form.Item>
         <Controller
           name={authFirstName}
@@ -161,7 +160,6 @@ export function SignUpForm() {
           )}
         />
       </Form.Item>
-
       <Form.Item>
         <Controller
           name={authPassword}
@@ -220,7 +218,6 @@ export function SignUpForm() {
           )}
         />
       </Form.Item>
-
       <Form.Item
         name={authAgreement}
         valuePropName="checked"
@@ -240,7 +237,6 @@ export function SignUpForm() {
           <a href={routes.conditions}>{t('loginPage.terms')}</a>
         </Checkbox>
       </Form.Item>
-
       <Form.Item>
         <Button size="large" type="primary" block htmlType="submit">
           {t('loginPage.signUp')}
