@@ -1,3 +1,5 @@
+import { FreelancerDataById } from 'redux/types/user.types';
+
 export interface User {
   last_name: string;
   first_name: string;
@@ -14,6 +16,21 @@ export interface User {
 interface Category {
   name: string;
   id: number;
+}
+
+export interface TestFavoritiesRes {
+  data: {
+    id: number;
+    freelancer: { id: number; user: FreelancerDataById };
+  }[];
+}
+
+export interface TestTalentsRes {
+  data: [FreelancerDataById[], number];
+}
+
+export interface TestContractsRes {
+  data: FreelancerDataById[];
 }
 
 interface Name {

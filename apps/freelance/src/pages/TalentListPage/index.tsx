@@ -12,11 +12,13 @@ import {
   routes,
   SecondaryButton,
   SmallCard,
+  talentsPageTestId,
 } from '@freelance/components';
 import { filterRight, filterTop } from '@pages/FindJobs/constants';
 import { PageBar, PageBarRightSideContainer } from '@pages/FindJobs/styles';
 import { useSetFavoritesMutation } from 'redux/services/userApi';
 import { User } from 'redux/types/user.types';
+import { baseTheme } from 'src/styles/theme';
 
 import { talentConsts } from './constants';
 import * as St from './styles';
@@ -70,7 +72,7 @@ const TalentListPage = (): ReactElement => {
   return (
     <>
       <St.Container>
-        <PageBar>
+        <PageBar theme={baseTheme} data-testid={talentsPageTestId.talentsBar}>
           <St.TitleContainer>
             <SecondaryButton
               size={talentConsts.largeSize}
@@ -97,10 +99,14 @@ const TalentListPage = (): ReactElement => {
               placeholder={t('findJobs.searchPlaceholder')}
               onSearch={onSearch}
             />
-            <PrimaryButton onClick={() => setFiltersVisibility(prev => !prev)}>
+            <PrimaryButton
+              data-testid={talentsPageTestId.talentsFilterButton}
+              onClick={() => setFiltersVisibility(prev => !prev)}
+            >
               {t('findJobs.filters')}
             </PrimaryButton>
             <Filters
+              data-testid={talentsPageTestId.talentsFilter}
               visibility={filtersVisibility}
               closeHandler={() => setFiltersVisibility(false)}
               submit={submitFilter}
@@ -111,11 +117,16 @@ const TalentListPage = (): ReactElement => {
         </PageBar>
         {!isLoading && (
           <List
+            data-testid={talentsPageTestId.listOfTalents}
             dataSource={
               isHires ? hires.map(el => el.user) : freelancerRenderData
             }
             renderItem={(item: User) => (
-              <St.StyledCard key={item.id}>
+              <St.StyledCard
+                theme={baseTheme}
+                key={item.id}
+                data-testid={talentsPageTestId.talentsCard}
+              >
                 <St.StyledCardHeader>
                   <Row align="middle">
                     <Col span={4}>
@@ -126,7 +137,10 @@ const TalentListPage = (): ReactElement => {
                       />
                     </Col>
                     <Col span={8}>
-                      <St.StyledName onClick={() => navFunc(item.id)}>
+                      <St.StyledName
+                        data-testid={talentsPageTestId.talentName}
+                        onClick={() => navFunc(item.id)}
+                      >
                         {t('talent.name', {
                           name: item.first_name + ' ' + item.last_name,
                         })}
@@ -148,7 +162,9 @@ const TalentListPage = (): ReactElement => {
                         </St.TextExContainer>
                       )}
                     </Col>
-                    <St.StyledRateBox>
+                    <St.StyledRateBox
+                      data-testid={talentsPageTestId.talentRate}
+                    >
                       <Rate
                         onChange={value => onChangeFavorite(item.id, value)}
                         count={talentConsts.starCount}
@@ -204,6 +220,8 @@ const TalentListPage = (): ReactElement => {
         )}
       </St.Container>
       <St.StyledPagination
+        data-testid={talentsPageTestId.talentsPagination}
+        theme={baseTheme}
         onChange={page => {
           setPage(page);
         }}
