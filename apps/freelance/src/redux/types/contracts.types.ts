@@ -31,3 +31,13 @@ export interface Contract {
   created_at: string;
   end: string;
 }
+
+export interface GetHiresContracts {
+  totalCount: number;
+  allHiredFreelancers: ContractsResponse[];
+}
+
+export interface HiresQuery {
+  take?: number;
+  page?: number;
+}

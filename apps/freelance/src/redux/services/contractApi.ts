@@ -1,6 +1,10 @@
 import { ApiRoutes, apiTags } from '@freelance/constants';
 import { emptySplitApi } from 'redux/emptySplitApi';
-import { ContractsResponse } from 'redux/types/contracts.types';
+import {
+  ContractsResponse,
+  GetHiresContracts,
+  HiresQuery,
+} from 'redux/types/contracts.types';
 
 const serviceRoute = ApiRoutes.CONTRACTS;
 
@@ -26,8 +30,13 @@ export const contractApi = emptySplitApi.injectEndpoints({
       }),
       invalidatesTags: [apiTags.postedJob],
     }),
-    getAllContracts: builder.query<ContractsResponse[], void>({
-      query: () => serviceRoute + ContractsEndpoints.all,
+    getAllContracts: builder.query<GetHiresContracts, HiresQuery>({
+      query: (params: HiresQuery) => ({
+        url: serviceRoute + ContractsEndpoints.all,
+        method: 'GET',
+        params,
+      }),
+      providesTags: [apiTags.favorites],
     }),
   }),
 });
