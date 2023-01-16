@@ -26,7 +26,6 @@ export default {
     notificationExistsDescr:
       'Email is already registered. Please, go to Login Page.',
     onlyLettersError: 'Invalid characters. Only letters are allowed.',
-    google: 'Login with Google',
   },
   conditions: {
     title: 'Terms & Conditions',

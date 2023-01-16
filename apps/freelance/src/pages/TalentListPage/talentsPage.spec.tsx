@@ -11,19 +11,18 @@ import '@testing-library/jest-dom';
 
 import ContractsList from './index';
 import TalentListPage from './index';
-import { TestContractsRes, TestFavoritiesRes, TestTalentsRes } from './model';
 
 jest.mock('redux/services/contractApi', () => ({
-  useGetAllContractsQuery: (): TestContractsRes => ({
+  useGetAllContractsQuery: () => ({
     data: [mockUserData],
   }),
 }));
 
 jest.mock('redux/services/userApi', () => ({
-  useGetFavoritesQuery: (): TestFavoritiesRes => ({
+  useGetFavoritesQuery: () => ({
     data: [{ id: 1, freelancer: { id: 5, user: mockUserData } }],
   }),
-  useGetFreelancerQuery: (): TestTalentsRes => ({
+  useGetFreelancerQuery: () => ({
     data: [[mockUserData], 1],
   }),
   useSetFavoritesMutation: () => [() => null],
