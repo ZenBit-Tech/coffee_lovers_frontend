@@ -64,9 +64,14 @@ const useChatData = (): useChatDataReturns => {
   const [conversation, setConversation] = useState<IConversation>(
     conversations && conversations?.length > 0 ? conversations[zero].id : zero,
   );
+  const [conversationsRender, setConversationsRender] = useState<
+    ConversationResponse[]
+  >([]);
   const [createConversation] = useCreateConversationMutation();
 
   useEffect(() => {
+    setConversationsRender(conversations || []);
+
     const userId = searchParams.get(userSearchParam);
     const jobId = searchParams.get(jobSearchParam);
 
@@ -81,6 +86,18 @@ const useChatData = (): useChatDataReturns => {
       }
     }
   }, [conversations]);
+
+  useEffect(() => {
+    const conversationsData = [...conversationsRender];
+    const index = conversationsData.findIndex(item => item.id === conversation);
+    if (index >= zero) {
+      conversationsData[index] = {
+        ...conversationsData[index],
+        new_messages: zero,
+      };
+    }
+    setConversationsRender(conversationsData);
+  }, [conversation]);
 
   const skip = conversation <= zero;
   const query = {
@@ -104,8 +121,6 @@ const useChatData = (): useChatDataReturns => {
     jobId: currentConversation?.job.id,
     freelancerId: currentConversation?.user.id,
   };
-
-  console.log(offer);
 
   const handleClick = (id: number) => {
     setConversation(id);
@@ -148,7 +163,7 @@ const useChatData = (): useChatDataReturns => {
     chatMessages,
     form,
     conversation,
-    conversations,
+    conversations: conversationsRender,
     currentConversationInfo,
     pendingOffer,
     offer,
