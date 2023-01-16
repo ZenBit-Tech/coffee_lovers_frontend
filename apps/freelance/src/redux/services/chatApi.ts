@@ -97,6 +97,7 @@ const chatApi = emptySplitApi.injectEndpoints({
         const message: CreateMessagePayload = {
           message: payload.message,
           conversation: payload.conversation,
+          to: payload.to,
         };
 
         return new Promise(resolve => {

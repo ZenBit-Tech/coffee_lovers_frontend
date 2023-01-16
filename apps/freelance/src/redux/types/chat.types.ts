@@ -4,6 +4,7 @@ import { User } from './user.types';
 export interface CreateMessagePayload {
   conversation: number;
   message: string;
+  to?: number;
 }
 
 export interface GetMessagesPayload {
@@ -15,6 +16,7 @@ export interface SendMessagePayload {
   token: string;
   conversation: number;
   message: string;
+  to?: number;
 }
 
 export interface CreateConversationPayload {
