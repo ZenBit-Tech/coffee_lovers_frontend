@@ -3,6 +3,7 @@ import { Form, FormInstance } from 'antd';
 import { useSearchParams } from 'react-router-dom';
 import useAppSelector from '@hooks/useAppSelector';
 import {
+  leaveAllConversations,
   useCreateConversationMutation,
   useGetConversationQuery,
   useGetMessagesQuery,
@@ -68,6 +69,12 @@ const useChatData = (): useChatDataReturns => {
     ConversationResponse[]
   >([]);
   const [createConversation] = useCreateConversationMutation();
+
+  useEffect(() => {
+    return () => {
+      leaveAllConversations();
+    };
+  }, []);
 
   useEffect(() => {
     setConversationsRender(conversations || []);

@@ -53,6 +53,17 @@ const joinConversation = (conversationId: number): void => {
   joinedConversations.push(conversationId);
 };
 
+export const leaveAllConversations = (): void => {
+  if (joinedConversations.length) {
+    joinedConversations.forEach(conversationId => {
+      socket.emit(ChatEvents.LEAVE_CONVERSATION, {
+        conversation: conversationId,
+      });
+    });
+    joinedConversations = [];
+  }
+};
+
 const chatApi = emptySplitApi.injectEndpoints({
   endpoints: build => ({
     getMessages: build.query<MessageResponse[], GetMessagesPayload>({
@@ -66,16 +77,8 @@ const chatApi = emptySplitApi.injectEndpoints({
         await cacheDataLoaded;
 
         const socket = getSocket(payload.token);
-
-        if (joinedConversations.length) {
-          joinedConversations.forEach(conversationId => {
-            socket.emit(ChatEvents.LEAVE_CONVERSATION, {
-              conversation: conversationId,
-            });
-          });
-          joinedConversations = [];
-          joinConversation(payload.conversation);
-        }
+        leaveAllConversations();
+        joinConversation(payload.conversation);
 
         socket.on(ChatEvents.CONNECT, () => {
           joinConversation(payload.conversation);
@@ -112,6 +115,7 @@ const chatApi = emptySplitApi.injectEndpoints({
           params,
         }),
         providesTags: [apiTags.conversation],
+        keepUnusedDataFor,
       },
     ),
     createConversation: build.mutation({
