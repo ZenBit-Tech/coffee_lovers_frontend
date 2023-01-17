@@ -12,12 +12,15 @@ import {
   UserRole,
 } from './styles';
 import useNavigationBar from './useNavigationBar';
+import useNotifications from './useNotifications';
 
 export const NavigationBar = () => {
   const { user, links, t } = useNavigationBar();
+  const { contextHolder } = useNotifications();
 
   return (
     <Container>
+      {contextHolder}
       <UserContainer>
         <AvatarUpload
           src={getFileUrl(user?.profile_image)}

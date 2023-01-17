@@ -3,6 +3,7 @@ import { Form, FormInstance } from 'antd';
 import { useSearchParams } from 'react-router-dom';
 import useAppSelector from '@hooks/useAppSelector';
 import {
+  leaveAllConversations,
   useCreateConversationMutation,
   useGetConversationQuery,
   useGetMessagesQuery,
@@ -24,6 +25,7 @@ type MessageType = {
   token: string;
   conversation: number;
   message: string;
+  to?: number;
 };
 
 type InputType = {
@@ -67,6 +69,12 @@ const useChatData = (): useChatDataReturns => {
     ConversationResponse[]
   >([]);
   const [createConversation] = useCreateConversationMutation();
+
+  useEffect(() => {
+    return () => {
+      leaveAllConversations();
+    };
+  }, []);
 
   useEffect(() => {
     setConversationsRender(conversations || []);
@@ -132,6 +140,7 @@ const useChatData = (): useChatDataReturns => {
       token: access_token,
       conversation: conversation,
       message: values.message,
+      to: currentConversation?.user.id,
     };
     message.token && sendMessage(message);
     form.resetFields();
