@@ -15,7 +15,7 @@ const serviceRoute = ApiRoutes.JOBS;
 
 enum EndpointsRoutes {
   findJobs = '/',
-  sendProposal = 'proposal',
+  sendProposal = '/proposal',
   findUserJobs = '/userjobs',
   getJobProposals = '/proposals',
   getJob = '/job',

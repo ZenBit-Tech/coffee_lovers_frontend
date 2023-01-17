@@ -14,6 +14,7 @@ import jobPostPage from './translation/jobPostPage';
 import loginPage from './translation/loginPage';
 import modals from './translation/modals';
 import notFoundPage from './translation/notFoundPage';
+import notifications from './translation/notifications';
 import offers from './translation/offers';
 import postedJobDetails from './translation/postedJobDetails';
 import postedJobs from './translation/postedJobs';
@@ -53,5 +54,6 @@ export default {
     ...errors,
     ...postedJobDetails,
     ...notFoundPage,
+    ...notifications,
   },
 };
