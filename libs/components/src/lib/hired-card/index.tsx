@@ -4,16 +4,15 @@ import { generatePath, useNavigate } from 'react-router-dom';
 import {
   Avatar,
   DangerButton,
+  RatingModal,
   routes,
   SecondaryButton,
+  useOpenNotification,
 } from '@freelance/components';
-import { useOpenNotification } from '@freelance/components';
 import { Contract, ContractStatus } from 'src/redux/types/contracts.types';
 import { Job } from 'src/redux/types/jobs.types';
 import { User } from 'src/redux/types/user.types';
 import { getFileUrl } from 'src/utils/api';
-
-import RatingModal from '../add-rating-modal';
 
 import {
   FreelacerName,

@@ -17,7 +17,7 @@ import { SetFreelancerRating } from 'src/redux/types/user.types';
 import * as St from './styles';
 import { IRatingModal } from './types';
 
-const RatingModal: FC<IRatingModal> = props => {
+export const RatingModal: FC<IRatingModal> = props => {
   const { isModalOpen, setIsModalOpen, job_id, freelancer_id, contract } =
     props;
   const [form] = Form.useForm();
@@ -108,5 +108,3 @@ const RatingModal: FC<IRatingModal> = props => {
     </Modal>
   );
 };
-
-export default RatingModal;
