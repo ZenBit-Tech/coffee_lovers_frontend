@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import { notification } from 'antd';
+import { Avatar, notification } from 'antd';
 import { t } from 'i18next';
+import { UserOutlined } from '@ant-design/icons';
 import { useGetNotificationsQuery } from 'redux/services/notificationsApi';
 import {
   NotificationEvent,
@@ -8,6 +9,7 @@ import {
   NotificationType,
 } from 'redux/types/notifications.types';
 import useAppSelector from 'src/hooks/useAppSelector';
+import { getFileUrl } from 'src/utils/api';
 
 import { lastElementIndex, notificationPlacement } from './constants';
 
@@ -22,6 +24,7 @@ const useNotifications = () => {
     message?: string,
     description?: string,
     type?: NotificationIconType,
+    avatar?: string,
   ) => {
     const notificationPayload = {
       message,
@@ -30,6 +33,12 @@ const useNotifications = () => {
     };
 
     switch (type) {
+      case NotificationIconType.MESSAGE:
+        api.info({
+          ...notificationPayload,
+          icon: <Avatar src={getFileUrl(avatar)} icon={<UserOutlined />} />,
+        });
+        break;
       case NotificationIconType.SUCCESS:
         api.success(notificationPayload);
         break;
@@ -50,6 +59,8 @@ const useNotifications = () => {
           openNotification(
             `${notification.user?.first_name} ${notification.user?.last_name}`,
             notification?.message,
+            NotificationIconType.MESSAGE,
+            notification.user?.profile_image,
           );
           break;
         case NotificationType.NEW_OFFER:

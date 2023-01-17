@@ -21,4 +21,5 @@ export enum NotificationIconType {
   INFO = 'info',
   SUCCESS = 'success',
   ERROR = 'error',
+  MESSAGE = 'message',
 }
