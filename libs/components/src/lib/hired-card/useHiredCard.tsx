@@ -1,19 +1,27 @@
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Modal } from 'antd';
 import { t } from 'i18next';
 import { CheckCircleOutlined } from '@ant-design/icons';
-import { useCloseContractMutation } from 'src/redux/services/contractApi';
+import { NotificationType } from '@freelance/components';
 import { Contract } from 'src/redux/types/contracts.types';
 import { User } from 'src/redux/types/user.types';
 
 interface UseHiredCardReturn {
   closeContractHandler: () => void;
+  isModalOpen: boolean;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const useHiredCard = (
   contract: Contract,
   freelancer: User,
+  openNotificationWithIcon: (
+    type: NotificationType,
+    message: string,
+    description: string,
+  ) => void,
 ): UseHiredCardReturn => {
-  const [closeContract] = useCloseContractMutation();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const closeContractHandler = (): void => {
     Modal.confirm({
@@ -23,13 +31,15 @@ const useHiredCard = (
       okText: t('postedJobDetails.modal.confirm'),
       cancelText: t('postedJobDetails.modal.cancel'),
       onOk() {
-        closeContract(contract.id);
+        setIsModalOpen(true);
       },
     });
   };
 
   return {
     closeContractHandler,
+    isModalOpen,
+    setIsModalOpen,
   };
 };
 

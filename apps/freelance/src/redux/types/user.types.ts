@@ -5,6 +5,19 @@ export interface PasswordResetPayload {
   key: string;
 }
 
+export interface UserError {
+  data: {
+    message: string;
+    statusCode: number;
+    error: string;
+  };
+  status: number;
+}
+
+export interface FreelancerListItem extends User {
+  isFavorite?: object | boolean;
+}
+
 export interface User {
   id: number;
   email: string;
@@ -46,6 +59,11 @@ export interface AddFavorites {
 }
 
 export interface GetFavorites {
+  totalCount: number;
+  favorites: Favorites[];
+}
+
+export interface Favorites {
   id: number;
   freelancer: User;
 }
@@ -117,7 +135,19 @@ export interface FreelancerQuery {
   take?: number;
 }
 
+export interface FreelancerFavQuery {
+  take?: number;
+  page?: number;
+}
+
 export interface FreelancerDataById extends User {
   workHistory?: GetWorkhistory[];
   educations?: GetEducation[];
+}
+
+export interface SetFreelancerRating {
+  freelancer_id: number;
+  freelancer_rating: number;
+  rating_comment: string;
+  job_id?: number;
 }

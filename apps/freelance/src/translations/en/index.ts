@@ -1,3 +1,4 @@
+import ratingModal from './translation/addRatingModal';
 import appBar from './translation/appBar';
 import chat from './translation/chat';
 import chooseRole from './translation/chooseRole';
@@ -55,5 +56,6 @@ export default {
     ...postedJobDetails,
     ...notFoundPage,
     ...notifications,
+    ...ratingModal,
   },
 };
