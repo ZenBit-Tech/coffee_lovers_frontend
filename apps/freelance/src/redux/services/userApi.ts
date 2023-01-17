@@ -15,6 +15,7 @@ import {
   UpdateUser,
   User,
 } from 'redux/types/user.types';
+import { FreelancerFavQuery } from 'redux/types/user.types';
 
 const serviceRoute = ApiRoutes.USER;
 
@@ -68,9 +69,10 @@ export const userApi = emptySplitApi.injectEndpoints({
         method: 'GET',
       }),
     }),
-    getFavorites: builder.query<GetFavorites[], void>({
-      query: () => ({
+    getFavorites: builder.query<GetFavorites, FreelancerFavQuery>({
+      query: (params: FreelancerFavQuery) => ({
         url: serviceRoute + EndpointsRoutes.addGetUserFavoritesInfo,
+        params,
         method: 'GET',
       }),
       providesTags: [apiTags.favorites],
@@ -133,6 +135,7 @@ export const userApi = emptySplitApi.injectEndpoints({
         url: serviceRoute + EndpointsRoutes.freelancer,
         params,
       }),
+      providesTags: [apiTags.favorites],
     }),
     getFreelancerById: builder.query<FreelancerDataById, number>({
       query: (key: number) => ({

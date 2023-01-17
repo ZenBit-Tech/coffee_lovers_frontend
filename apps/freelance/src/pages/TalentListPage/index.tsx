@@ -17,14 +17,13 @@ import {
 import { filterRight, filterTop } from '@pages/FindJobs/constants';
 import { PageBar, PageBarRightSideContainer } from '@pages/FindJobs/styles';
 import { useSetFavoritesMutation } from 'redux/services/userApi';
-import { User } from 'redux/types/user.types';
+import { FreelancerListItem } from 'redux/types/user.types';
 import { baseTheme } from 'src/styles/theme';
 
 import { talentConsts } from './constants';
 import * as St from './styles';
 import useFindFreelancers from './useFindFreelancers';
-import { useFreelancerData } from './useFreelancerData';
-import { isFreelancerFav } from './utils';
+import { currentTab, useFreelancerData } from './useFreelancerData';
 
 const TalentListPage = (): ReactElement => {
   const {
@@ -33,6 +32,10 @@ const TalentListPage = (): ReactElement => {
     search,
     take,
     filtersVisibility,
+    pageFav,
+    pageHired,
+    setPageHired,
+    setPageFav,
     submitFilter,
     onSearch,
     setPage,
@@ -44,12 +47,15 @@ const TalentListPage = (): ReactElement => {
     freelancerRenderData,
     favoritesHandler,
     data,
-    favorites,
+    favoritesQuery,
     allFreelancerHanler,
+    allHires,
     allHiresHandler,
     hires,
     isHires,
-  } = useFreelancerData(page, search, take, filterPayload);
+    currentBtnPage,
+    getCurrentPagePagination,
+  } = useFreelancerData(page, search, take, pageFav, pageHired, filterPayload);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [addFavorites] = useSetFavoritesMutation();
@@ -61,6 +67,17 @@ const TalentListPage = (): ReactElement => {
     } catch (error) {
       alert(error);
     }
+  };
+
+  const getTotal = () => {
+    if (currentBtnPage === currentTab.favorites) {
+      return [favoritesQuery?.favorites] && favoritesQuery?.totalCount;
+    }
+    if (currentBtnPage === currentTab.hired) {
+      return [allHires?.allHiredFreelancers] && allHires?.totalCount;
+    }
+
+    return data && data[1];
   };
 
   const navFunc = (props: number) => {
@@ -121,10 +138,9 @@ const TalentListPage = (): ReactElement => {
             dataSource={
               isHires ? hires.map(el => el.user) : freelancerRenderData
             }
-            renderItem={(item: User) => (
+            renderItem={(item: FreelancerListItem) => (
               <St.StyledCard
                 theme={baseTheme}
-                key={item.id}
                 data-testid={talentsPageTestId.talentsCard}
               >
                 <St.StyledCardHeader>
@@ -168,7 +184,11 @@ const TalentListPage = (): ReactElement => {
                       <Rate
                         onChange={value => onChangeFavorite(item.id, value)}
                         count={talentConsts.starCount}
-                        value={isFreelancerFav(item, favorites)}
+                        value={
+                          item.isFavorite
+                            ? talentConsts.true
+                            : talentConsts.false
+                        }
                       />
                     </St.StyledRateBox>
                   </Row>
@@ -220,12 +240,21 @@ const TalentListPage = (): ReactElement => {
         )}
       </St.Container>
       <St.StyledPagination
+        current={getCurrentPagePagination()}
         data-testid={talentsPageTestId.talentsPagination}
         theme={baseTheme}
         onChange={page => {
-          setPage(page);
+          if (currentBtnPage === currentTab.favorites) {
+            setPageFav(page);
+          }
+          if (currentBtnPage === currentTab.all) {
+            setPage(page);
+          }
+          if (currentBtnPage === currentTab.hired) {
+            setPageHired(page);
+          }
         }}
-        total={data && data[1]}
+        total={getTotal()}
         defaultCurrent={1}
         defaultPageSize={10}
       />
