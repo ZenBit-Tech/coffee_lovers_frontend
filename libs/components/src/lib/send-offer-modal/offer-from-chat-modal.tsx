@@ -2,7 +2,7 @@ import { DatePicker, Form, Modal, ModalProps } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { NotificationType, StyledButton } from '@freelance/components';
-import { modalWidth, profileQ1 } from '@freelance/constants';
+import { modal, modalWidth } from '@freelance/constants';
 import { usePostOfferMutation } from 'src/redux/services/requestApi';
 import { ICurrentConversationInfo } from 'src/redux/types/chat.types';
 import { formatDate } from 'src/utils/dates';
@@ -81,7 +81,7 @@ export const OfferFromChatModal = ({
         name="basic"
         fields={[
           {
-            name: profileQ1.hR,
+            name: modal.hourRate,
             value: currentConversationInfo.jobRate,
           },
         ]}
@@ -92,7 +92,7 @@ export const OfferFromChatModal = ({
 
         <Form.Item
           label={t('job_details.start_date')}
-          name="date"
+          name={modal.dateFieldName}
           rules={[
             { required: true, message: `${t('description.profileQp1.mesHR')}` },
           ]}
@@ -101,16 +101,16 @@ export const OfferFromChatModal = ({
         </Form.Item>
 
         <Form.Item
-          label={t('job_details.setup_rate')}
-          name={profileQ1.hR}
+          label={t('hourlyRate.setupRate')}
+          name={modal.hourRate}
           rules={[
-            { required: true, message: `${t('description.profileQp1.mesHR')}` },
+            { required: true, message: `${t('hourlyRate.rateErrorMessage')}` },
           ]}
         >
           <StyledNumberInput
-            prefix={t('description.profileQp1.hRPrefix')}
-            addonAfter={t('description.profileQp1.hRSuffix')}
-            min={profileQ1.hRMin}
+            prefix={t('hourlyRate.ratePrefix')}
+            addonAfter={t('hourlyRate.rateSuffix')}
+            min={modal.min}
           />
         </Form.Item>
 

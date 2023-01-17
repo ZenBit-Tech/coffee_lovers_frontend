@@ -3,8 +3,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
   jobDataTestId,
+  modal,
+  modalWidth,
   NotificationType,
-  profileQ1,
   StyledButton,
 } from '@freelance/components';
 import { useSendProposalMutation } from 'src/redux/services/jobsApi';
@@ -60,8 +61,8 @@ export const ProposalModal = ({
       onCancel();
       openNotificationWithIcon(
         NotificationType.SUCCESS,
-        t('offers.receive.success'),
-        t('successMessage'),
+        t('proposalModal.success'),
+        t('proposalModal.successMessage'),
       );
     } catch (error) {
       openNotificationWithIcon(
@@ -79,14 +80,14 @@ export const ProposalModal = ({
         open={openModal}
         onCancel={onCancel}
         centered
-        width={800}
+        width={modalWidth}
         footer={null}
       >
         <StyledForm
           name="basic"
           fields={[
             {
-              name: profileQ1.hR,
+              name: modal.hourRate,
               value: rate,
             },
           ]}
@@ -94,50 +95,50 @@ export const ProposalModal = ({
           onFinish={values => handleSubmit(onFinish(values as IProposal))}
         >
           <StyledText>
-            <p>{t('job_details.Profile_rate')}</p>
+            <p>{t('hourlyRate.profileRate')}</p>
             <p data-testid={jobDataTestId.jobFreelancerRate}>
               {freelancer_rate} $
             </p>
           </StyledText>
 
           <RateWrapper
-            label={t('job_details.setup_rate')}
-            name={profileQ1.hR}
+            label={t('hourlyRate.setupRate')}
+            name={modal.hourRate}
             rules={[
               {
                 required: true,
-                message: `${t('description.profileQp1.mesHR')}`,
+                message: `${t('hourlyRate.rateErrorMessage')}`,
               },
             ]}
           >
             <StyledNumInput
               data-testid={jobDataTestId.jobNumberInput}
-              prefix={t('description.profileQp1.hRPrefix')}
-              addonAfter={t('description.profileQp1.hRSuffix')}
-              min={profileQ1.hRMin}
+              prefix={t('hourlyRate.ratePrefix')}
+              addonAfter={t('hourlyRate.rateSuffix')}
+              min={modal.min}
             />
           </RateWrapper>
 
-          <StyledText>{t('job_details.cover_letter')}</StyledText>
+          <StyledText>{t('proposalModal.coverLetter')}</StyledText>
 
           <Form.Item
-            name={profileQ1.descr}
+            name={modal.description}
             rules={[
               {
                 required: true,
-                message: `${t('description.profileQp1.mesDescr')}`,
+                message: `${t('proposalModal.coverLetterErrorMessage')}`,
               },
             ]}
           >
             <StyledTextArea
               data-testid={jobDataTestId.jobTextArea}
               rows={6}
-              placeholder={t('description.profileQp1.descr')}
+              placeholder={t('proposalModal.coverLetterText')}
             />
           </Form.Item>
 
           <StyledButton theme={baseTheme} htmlType="submit" type="primary">
-            {t('job_details.send_proposal')}
+            {t('proposalModal.sendProposal')}
           </StyledButton>
         </StyledForm>
       </Modal>
