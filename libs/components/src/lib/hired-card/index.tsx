@@ -7,10 +7,13 @@ import {
   routes,
   SecondaryButton,
 } from '@freelance/components';
+import { useOpenNotification } from '@freelance/components';
 import { Contract, ContractStatus } from 'src/redux/types/contracts.types';
 import { Job } from 'src/redux/types/jobs.types';
 import { User } from 'src/redux/types/user.types';
 import { getFileUrl } from 'src/utils/api';
+
+import RatingModal from '../add-rating-modal';
 
 import {
   FreelacerName,
@@ -35,7 +38,12 @@ export const HiredCard: FC<HiredCardProps> = ({
   contract,
   job,
 }) => {
-  const { closeContractHandler } = useHiredCard(contract, freelancer);
+  const { contextHolder, openNotificationWithIcon } = useOpenNotification();
+  const { closeContractHandler, setIsModalOpen, isModalOpen } = useHiredCard(
+    contract,
+    freelancer,
+    openNotificationWithIcon,
+  );
   const navigate = useNavigate();
 
   return (
@@ -59,6 +67,7 @@ export const HiredCard: FC<HiredCardProps> = ({
         </StyledStatus>
         {contract.status === ContractStatus.ACTIVE && (
           <>
+            {contextHolder}
             <SecondaryButton
               onClick={() =>
                 navigate(
@@ -74,6 +83,13 @@ export const HiredCard: FC<HiredCardProps> = ({
             <DangerButton onClick={closeContractHandler}>
               {t('postedJobDetails.btns.closeContract')}
             </DangerButton>
+            <RatingModal
+              contract={contract}
+              freelancer_id={freelancer.id}
+              job_id={job?.id}
+              setIsModalOpen={setIsModalOpen}
+              isModalOpen={isModalOpen}
+            />
           </>
         )}
       </RightSide>

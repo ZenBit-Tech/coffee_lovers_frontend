@@ -121,3 +121,10 @@ export interface FreelancerDataById extends User {
   workHistory?: GetWorkhistory[];
   educations?: GetEducation[];
 }
+
+export interface SetFreelancerRating {
+  freelancer_id: number;
+  freelancer_rating: number;
+  rating_comment: string;
+  job_id?: number;
+}

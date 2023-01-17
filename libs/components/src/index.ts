@@ -1,3 +1,4 @@
+export * from './lib/add-rating-modal';
 export * from './lib/app-bar/app-bar';
 export * from './lib/assets/Icon';
 export * from './lib/avatar';
