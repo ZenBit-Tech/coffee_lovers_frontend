@@ -95,6 +95,11 @@ export const Filters: FC<FiltersProps> = ({
                     allowClear
                     placeholder={t('filters.skills_placeholder')}
                     options={getOptionsForSelectWithId(skills)}
+                    filterOption={(input, option) =>
+                      (option?.label ?? '')
+                        .toLowerCase()
+                        .includes(input.toLowerCase())
+                    }
                     {...field}
                   />
                 </StyledFormItem>
@@ -114,6 +119,11 @@ export const Filters: FC<FiltersProps> = ({
                     allowClear
                     placeholder={t('filters.category_placeholder')}
                     options={getOptionsForSelectWithId(categories)}
+                    filterOption={(input, option) =>
+                      (option?.label ?? '')
+                        .toLowerCase()
+                        .includes(input.toLowerCase())
+                    }
                     {...field}
                   />
                 </StyledFormItem>
