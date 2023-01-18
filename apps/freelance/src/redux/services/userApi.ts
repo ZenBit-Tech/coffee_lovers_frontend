@@ -6,6 +6,7 @@ import {
   AddWorkhistory,
   FreelancerDataById,
   FreelancerQuery,
+  FreelancerRatingDataById,
   GetEducation,
   GetFavorites,
   GetUserProposals,
@@ -32,7 +33,7 @@ enum EndpointsRoutes {
   addGetUserWorkhistoryInfo = '/workhistory-info',
   addGetUserFavoritesInfo = '/favorites',
   freelancer = '/freelancer/',
-  freelancerRating = '/freelancerrating',
+  freelancerRating = '/freelancerrating/',
 }
 
 export const userApi = emptySplitApi.injectEndpoints({
@@ -145,6 +146,14 @@ export const userApi = emptySplitApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getFreelancerRatingsById: builder.query<FreelancerRatingDataById[], number>(
+      {
+        query: (key: number) => ({
+          url: serviceRoute + EndpointsRoutes.freelancerRating + key,
+          method: 'GET',
+        }),
+      },
+    ),
     setFreelancerRating: builder.mutation({
       query: (payload: SetFreelancerRating) => ({
         url: serviceRoute + EndpointsRoutes.freelancerRating,
@@ -174,4 +183,5 @@ export const {
   useGetFreelancerQuery,
   useGetFreelancerByIdQuery,
   useSetFreelancerRatingMutation,
+  useGetFreelancerRatingsByIdQuery,
 } = userApi;

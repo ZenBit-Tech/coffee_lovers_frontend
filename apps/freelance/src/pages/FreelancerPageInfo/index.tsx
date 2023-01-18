@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Avatar, Col, Row } from 'antd';
+import { Avatar, Col, Empty, Rate, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
@@ -11,7 +11,11 @@ import {
   profileQ1,
   SendOfferModal,
 } from '@freelance/components';
-import { useGetFreelancerByIdQuery } from 'redux/services/userApi';
+import { formatDate } from '@utils/dates';
+import {
+  useGetFreelancerByIdQuery,
+  useGetFreelancerRatingsByIdQuery,
+} from 'redux/services/userApi';
 
 import * as St from './styles';
 
@@ -23,6 +27,7 @@ const FreelancerPageInfo = () => {
   const [offerOpen, setOfferOpen] = useState<boolean>(false);
 
   const { data: userDataById, isLoading } = useGetFreelancerByIdQuery(id);
+  const { data: userRatingDataById } = useGetFreelancerRatingsByIdQuery(id);
   const showModal = () => {
     setOpen(true);
   };
@@ -155,6 +160,41 @@ const FreelancerPageInfo = () => {
             </St.StCol>
           </Col>
         </Row>
+        <Row>
+          <Col span={6}>
+            <St.ReviewLabel>{t('talent.reviews')}</St.ReviewLabel>
+          </Col>
+        </Row>
+        {userRatingDataById?.length ? (
+          userRatingDataById.map(el => (
+            <St.RatingCol key={el.id}>
+              <Col span={6}>
+                <Avatar
+                  src={`${baseUrl}/${el.job_owner.profile_image}`}
+                  size={profileQ1.avatarBigSize}
+                  icon={<UserOutlined />}
+                />
+              </Col>
+              <Col span={12}>
+                <St.JobOwnerNameRateWrapper>
+                  <St.JobOwnerNameDiv>
+                    {el.job_owner.first_name} {el.job_owner.last_name}
+                  </St.JobOwnerNameDiv>
+                  <Rate value={el.freelancer_rating} disabled />
+                </St.JobOwnerNameRateWrapper>
+                <St.JobOwnerNameRateWrapper>
+                  <div>{el.job.title}</div>
+                  <div>{formatDate(new Date(el.created_at))}</div>
+                </St.JobOwnerNameRateWrapper>
+                <St.StRatingCommentBox>
+                  {el.rating_comment}
+                </St.StRatingCommentBox>
+              </Col>
+            </St.RatingCol>
+          ))
+        ) : (
+          <Empty description={t('talent.noFeedback')} />
+        )}
       </St.FreelancerInfo>
       <St.ButtonWrapper>
         <Button onClick={showModal}>
