@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Avatar, Badge, Form, Row, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 import {
   baseUrl,
@@ -43,6 +44,7 @@ type Open = boolean;
 
 const ChatPage = () => {
   const { t } = useTranslation();
+  const location = useLocation();
 
   const [openModal, setOpenModal] = useState<Open>(false);
   const [openReceivedOfferModal, setOpenReceivedOfferModal] =
@@ -74,7 +76,7 @@ const ChatPage = () => {
     handleSend,
     handleClick,
     onSearch,
-  } = useChatData();
+  } = useChatData(location.state);
   const { contextHolder, openNotificationWithIcon } = useOpenNotification();
   const messageValue = Form.useWatch('message', form);
 

@@ -21,6 +21,17 @@ export default function PrivateRoute({
   if (!token) {
     return <Navigate to={routes.login} replace={true} />;
   }
+  if (data && !allowedRoles.includes(data.role) && !data.first_name) {
+    return (
+      <RoutesWrapper isAppBar={data.role !== roles.visitor}>
+        <Navigate
+          to={routes.ownerProfileQuestions}
+          state={{ from: location }}
+          replace
+        />
+      </RoutesWrapper>
+    );
+  }
 
   if (data && !allowedRoles.includes(data.role)) {
     return (

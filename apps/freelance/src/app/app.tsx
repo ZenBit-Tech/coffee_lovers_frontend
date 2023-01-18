@@ -25,6 +25,12 @@ const ExampleRootPage = lazy(
   () =>
     import(/* webpackChunkName: "ExampleRootPage" */ '@pages/ExampleRootPage'),
 );
+const JobOwnerProfileQuestions = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "JobOwnerProfileQuestions" */ '@pages/JobOwnerProfileQuestions'
+    ),
+);
 const ConditionsPage = lazy(() => import('@pages/ConditionsPage'));
 const LoginPage = lazy(
   () => import(/* webpackChunkName: "ExampleRootPage" */ '@pages/LoginPage'),
@@ -97,6 +103,10 @@ export function App() {
             <Route path={routes.talents} element={<TalentListPage />} />
             <Route path={routes.proposalsList} element={<ProposalsList />} />
             <Route path={routes.postedJob} element={<PostedJobDetails />} />
+            <Route
+              path={routes.ownerProfileQuestions}
+              element={<JobOwnerProfileQuestions />}
+            />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Route>

@@ -25,4 +25,5 @@ export const routes = {
   freelancerInfo: '/:id/freelancer-info',
   contracts: '/contracts',
   postedJob: '/postedjob/:id',
+  ownerProfileQuestions: '/ownerProfile',
 };

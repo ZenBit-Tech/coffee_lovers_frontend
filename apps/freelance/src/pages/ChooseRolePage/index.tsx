@@ -6,7 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { routes } from '@freelance/constants';
 import { roles } from '@freelance/constants';
 import { setRole } from 'redux/auth/auth-slice';
-import { useUpdateUserInfoMutation } from 'redux/services/userApi';
+import {
+  useGetUserInfoQuery,
+  useUpdateUserInfoMutation,
+} from 'redux/services/userApi';
 import { Role } from 'redux/types/user.types';
 
 import { FormWrap, InputsWrapper, InputText, Title } from './styles';
@@ -27,10 +30,12 @@ const ChooseRole = () => {
   const [freelancer, setFreelancer] = useState<RoleType>(false);
   const [jobOwner, setJobOwner] = useState<RoleType>(false);
   const [addUserRole] = useUpdateUserInfoMutation();
+  const { data: user } = useGetUserInfoQuery();
 
   const onClick = () => {
     addUserRole(userRole);
     dispatch(setRole(userRole));
+    !user?.first_name && navigate(`${routes.ownerProfileQuestions}`);
     freelancer ? navigate(`${routes.welcome}`) : navigate(`${routes.jobs}`);
   };
 

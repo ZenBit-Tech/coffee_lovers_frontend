@@ -1,5 +1,6 @@
 import { Empty } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@freelance/components';
 
 import { empty, many, SendInterviewPage } from './constants';
@@ -10,6 +11,7 @@ export function ChatListModalContent(props: Props) {
   const conversations = invitation?.data;
   const freelancer = invitation?.freelancer;
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -22,10 +24,15 @@ export function ChatListModalContent(props: Props) {
           })}
           <ul>
             {conversations?.map((item: Conversation) => (
-              <a key={item.id} href="/">
+              <Button
+                key={item.id}
+                onClick={() => {
+                  navigate('/chat', { state: item.id });
+                }}
+              >
                 {t('modalInvite.jobTitle', { job: item.job.title })}
                 <br />
-              </a>
+              </Button>
             ))}
           </ul>
           <br />

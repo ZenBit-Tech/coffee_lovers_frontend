@@ -33,6 +33,7 @@ enum EndpointsRoutes {
   addGetUserFavoritesInfo = '/favorites',
   freelancer = '/freelancer/',
   freelancerRating = '/freelancerrating',
+  update = '/update',
 }
 
 export const userApi = emptySplitApi.injectEndpoints({
@@ -65,6 +66,14 @@ export const userApi = emptySplitApi.injectEndpoints({
           serviceRoute + EndpointsRoutes.passwordResetCheckAvailability + key,
         method: 'GET',
       }),
+    }),
+    updateUserInitials: builder.mutation({
+      query: (payload: UpdateUser) => ({
+        url: serviceRoute + EndpointsRoutes.update,
+        method: 'PUT',
+        body: payload,
+      }),
+      invalidatesTags: [apiTags.user],
     }),
     getUserProposals: builder.query<GetUserProposals, void>({
       query: () => ({
@@ -176,4 +185,5 @@ export const {
   useGetFreelancerQuery,
   useGetFreelancerByIdQuery,
   useSetFreelancerRatingMutation,
+  useUpdateUserInitialsMutation,
 } = userApi;
