@@ -1,7 +1,7 @@
 import { Empty } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@freelance/components';
+import { Button, routes } from '@freelance/components';
 
 import { empty, many, SendInterviewPage } from './constants';
 import { Conversation, Props } from './types';
@@ -27,7 +27,7 @@ export function ChatListModalContent(props: Props) {
               <Button
                 key={item.id}
                 onClick={() => {
-                  navigate('/chat', { state: item.id });
+                  navigate(routes.chat, { state: item.id });
                 }}
               >
                 {t('modalInvite.jobTitle', { job: item.job.title })}

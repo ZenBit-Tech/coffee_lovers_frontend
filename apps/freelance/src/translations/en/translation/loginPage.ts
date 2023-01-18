@@ -25,6 +25,8 @@ export default {
     notificationDescr: 'Wrong email or password',
     notificationExistsDescr:
       'Email is already registered. Please, go to Login Page.',
+    notificationWrongDescr: 'Something went wrong',
+
     onlyLettersError: 'Invalid characters. Only letters are allowed.',
     google: 'Login with Google',
   },
