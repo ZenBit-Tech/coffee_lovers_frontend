@@ -3,6 +3,7 @@ import { Form, Modal } from 'antd';
 import { t } from 'i18next';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import {
+  modalProps,
   modalValues,
   modalWidth,
   PrimaryButton,
@@ -92,6 +93,7 @@ export const RatingModal: FC<IRatingModal> = props => {
                     maxRows: modalValues.txtAreaMaxSize,
                   }}
                   placeholder={t('ratingModal.textArea')}
+                  maxLength={modalProps.txAreaMaxLength}
                 />
               </St.StTextContainer>
             )}
