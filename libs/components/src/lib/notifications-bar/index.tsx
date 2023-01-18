@@ -6,17 +6,7 @@ import { Empty } from '@freelance/components';
 import { useMarkAllNotificationsAsReadMutation } from 'redux/services/notificationsApi';
 import { NotificationEvent } from 'redux/types/notifications.types';
 
-import {
-  ButtonsContainer,
-  ClearButton,
-  ItemContainer,
-  ItemDate,
-  ItemIconContainer,
-  ItemInfoContainer,
-  ItemText,
-  ItemTitle,
-  Wrapper,
-} from './styles';
+import { ButtonsContainer, ClearButton, Wrapper } from './styles';
 import { getNotificationData } from './utils';
 
 interface NotificationsBarProps {
@@ -47,18 +37,7 @@ export const NotificationsBar: FC<NotificationsBarProps> = ({
           </Button>
         </ButtonsContainer>
       )}
-      {notifications
-        ?.map(item => getNotificationData(item))
-        .map(item => (
-          <ItemContainer key={item.date}>
-            <ItemIconContainer>{item.icon}</ItemIconContainer>
-            <ItemInfoContainer>
-              <ItemTitle>{item.title}</ItemTitle>
-              <ItemText>{item.text}</ItemText>
-              <ItemDate>{item.date}</ItemDate>
-            </ItemInfoContainer>
-          </ItemContainer>
-        ))}
+      {notifications?.map(item => getNotificationData(item))}
       {!notifications?.length && (
         <Empty description={t('notifications.bar.noDataPlaceholder')} />
       )}

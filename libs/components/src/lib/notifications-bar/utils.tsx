@@ -14,69 +14,89 @@ import {
 import { getFileUrl } from 'src/utils/api';
 import { getTimeDate } from 'src/utils/dates';
 
-interface NotificationData {
-  title?: string;
-  icon?: ReactNode;
-  text?: string;
-  date?: string;
-}
+import {
+  ItemContainer,
+  ItemDate,
+  ItemIconContainer,
+  ItemInfoContainer,
+  ItemText,
+  ItemTitle,
+} from './styles';
 
 export const getNotificationData = (
   notification: NotificationEvent,
-): NotificationData => {
+): ReactNode => {
   switch (notification.type) {
     case NotificationType.MESSAGE:
-      return {
-        title: `${notification.user?.first_name} ${notification.user?.last_name}`,
-        icon: <Avatar src={getFileUrl(notification.user?.profile_image)} />,
-        text: notification.message,
-        date: getTimeDate(new Date(notification.created_at)),
-      };
+      return getNotificationItem(
+        `${notification.user?.first_name} ${notification.user?.last_name}`,
+        <Avatar src={getFileUrl(notification.user?.profile_image)} />,
+        notification.message || '',
+        notification.created_at,
+      );
       break;
     case NotificationType.NEW_OFFER:
-      return {
-        title: t('notifications.bar.newOffer'),
-        icon: <WalletOutlined />,
-        text: getJobTitleUserMessage(notification),
-        date: getTimeDate(new Date(notification.created_at)),
-      };
+      return getNotificationItem(
+        t('notifications.bar.newOffer'),
+        <WalletOutlined />,
+        getJobTitleUserMessage(notification),
+        notification.created_at,
+      );
       break;
     case NotificationType.ACCEPTED_OFFER:
-      return {
-        title: t('notifications.bar.acceptedOffer'),
-        icon: <CheckCircleOutlined />,
-        text: getUserJobTitleMessage(notification),
-        date: getTimeDate(new Date(notification.created_at)),
-      };
+      return getNotificationItem(
+        t('notifications.bar.acceptedOffer'),
+        <CheckCircleOutlined />,
+        getUserJobTitleMessage(notification),
+        notification.created_at,
+      );
       break;
     case NotificationType.DECLINED_OFFER:
-      return {
-        title: t('notifications.bar.declinedOffer'),
-        icon: <CloseCircleOutlined />,
-        text: getUserJobTitleMessage(notification),
-        date: getTimeDate(new Date(notification.created_at)),
-      };
+      return getNotificationItem(
+        t('notifications.bar.declinedOffer'),
+        <CloseCircleOutlined />,
+        getUserJobTitleMessage(notification),
+        notification.created_at,
+      );
       break;
     case NotificationType.NEW_PROPOSAL:
-      return {
-        title: t('notifications.bar.newProposal'),
-        icon: <PlusCircleOutlined />,
-        text: getUserJobTitleMessage(notification),
-        date: getTimeDate(new Date(notification.created_at)),
-      };
+      return getNotificationItem(
+        t('notifications.bar.newProposal'),
+        <PlusCircleOutlined />,
+        getUserJobTitleMessage(notification),
+        notification.created_at,
+      );
       break;
     case NotificationType.NEW_INTERVIEW:
-      return {
-        title: t('notifications.bar.newInterview'),
-        icon: <PlusCircleOutlined />,
-        text: getUserJobTitleMessage(notification),
-        date: getTimeDate(new Date(notification.created_at)),
-      };
+      return getNotificationItem(
+        t('notifications.bar.newInterview'),
+        <PlusCircleOutlined />,
+        getUserJobTitleMessage(notification),
+        notification.created_at,
+      );
       break;
     default:
-      return {};
+      return '';
       break;
   }
+};
+
+const getNotificationItem = (
+  title: string,
+  icon: ReactNode,
+  text: string,
+  created_at: string,
+): ReactNode => {
+  return (
+    <ItemContainer key={created_at}>
+      <ItemIconContainer>{icon}</ItemIconContainer>
+      <ItemInfoContainer>
+        <ItemTitle>{title}</ItemTitle>
+        <ItemText>{text}</ItemText>
+        <ItemDate>{getTimeDate(new Date(created_at))}</ItemDate>
+      </ItemInfoContainer>
+    </ItemContainer>
+  );
 };
 
 const getUserJobTitleMessage = (notification: NotificationEvent): string => {
