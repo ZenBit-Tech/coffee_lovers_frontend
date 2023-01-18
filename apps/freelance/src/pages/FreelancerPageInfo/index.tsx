@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Avatar, Col, Empty, Rate, Row } from 'antd';
+import { Avatar, Col, Rate, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 import {
   baseUrl,
   Button,
+  Empty,
   freelancerPageInfo,
   InterviewModal,
   profileQ1,
