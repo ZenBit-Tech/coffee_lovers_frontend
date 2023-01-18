@@ -15,7 +15,7 @@ export const ContactsList = styled.ul`
   overflow: scroll;
   max-height: 70vh;
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
   }
 
   ::-webkit-scrollbar-thumb {
