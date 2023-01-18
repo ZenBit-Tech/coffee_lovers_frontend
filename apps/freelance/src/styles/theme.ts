@@ -8,7 +8,7 @@ export const baseTheme: ITheme = {
     danger: '#f44336 ',
     lightGrey: '#d6d6d6',
     grey: '#bfbfbf',
-    lightBlue: '#2e38b320',
+    lightBlue: '#e5e6f5',
     white: '#fff',
 
     button: {

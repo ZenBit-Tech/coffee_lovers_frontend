@@ -1,3 +1,4 @@
+import { Badge } from 'antd';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -71,5 +72,30 @@ export const BarItem = styled.button`
     &::after {
       display: none;
     }
+  }
+`;
+
+export const NotificationBellContainer = styled.div`
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+
+  & > span > span > svg {
+    fill: ${({ theme }) => theme.colors.white};
+    transform: scale(1.5);
+    transition: all 0.1s ease-in;
+  }
+
+  &:hover {
+    & > span > span > svg {
+      transform: scale(1.7);
+    }
+  }
+`;
+export const StyledBadge = styled(Badge)`
+  .ant-badge-count {
+    transform: translate(70%, -70%);
   }
 `;
