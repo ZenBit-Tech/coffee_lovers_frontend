@@ -1,8 +1,3 @@
-export const requestApiTags = {
-  offer: 'Offer',
-  interview: 'Interview',
-};
-
 export const apiTags = {
   user: 'User',
   workInfo: 'WorkInfo',
@@ -15,4 +10,5 @@ export const apiTags = {
   favorites: 'Favorites',
   invite: 'Invite',
   freelancerrating: 'FreelancerRating',
+  notification: 'Notification',
 };

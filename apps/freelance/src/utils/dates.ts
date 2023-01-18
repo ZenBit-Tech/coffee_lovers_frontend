@@ -18,3 +18,7 @@ export const formatTime = (date: Date): string => {
 
   return [hours, min].join(':');
 };
+
+export const getTimeDate = (date: Date): string => {
+  return `${formatDate(date)} ${formatTime(date)}`;
+};
