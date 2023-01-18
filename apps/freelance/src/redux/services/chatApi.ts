@@ -115,7 +115,7 @@ const chatApi = emptySplitApi.injectEndpoints({
     ),
     createConversation: build.mutation({
       query: (body: CreateConversationPayload) => ({
-        url: EndpointsRoutes.createConversation,
+        url: serviceRoute + EndpointsRoutes.createConversation,
         method: 'POST',
         body,
       }),
