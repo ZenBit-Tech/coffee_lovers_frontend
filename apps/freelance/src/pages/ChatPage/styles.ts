@@ -13,7 +13,7 @@ export const StyledWrapper = styled.div`
 
 export const ContactsList = styled.ul`
   overflow: scroll;
-
+  max-height: 70vh;
   ::-webkit-scrollbar {
     width: 10px;
   }
@@ -68,6 +68,7 @@ export const InputSearchStyled = styled(InputSearch)`
 
 export const StyledLeftSide = styled(Col)`
   padding-top: 20px;
+  height: 85vh;
   background-color: ${baseTheme.colors.lightBlue};
   border: 1px ${({ theme }) => theme.colors.grey} solid;
   border-top-left-radius: 10px;
@@ -77,7 +78,6 @@ export const StyledLeftSide = styled(Col)`
 
 export const StyledRightSide = styled(StyledLeftSide)`
   padding: 0 10px;
-  height: 85vh;
   background-color: var(--white-color);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
