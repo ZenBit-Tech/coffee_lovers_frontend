@@ -14,5 +14,6 @@ export const apiTags = {
   postedJob: 'PostedJob',
   favorites: 'Favorites',
   invite: 'Invite',
+  proposal: 'Proposal',
   freelancerrating: 'FreelancerRating',
 };

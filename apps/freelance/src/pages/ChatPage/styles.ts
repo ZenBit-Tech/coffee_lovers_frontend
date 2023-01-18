@@ -11,6 +11,19 @@ export const StyledWrapper = styled.div`
   position: relative;
 `;
 
+export const ContactsList = styled.ul`
+  overflow: scroll;
+  max-height: 70vh;
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--blue);
+    border-radius: 50px;
+  }
+`;
+
 export const MessagesWrapper = styled.div`
   max-height: 70vh;
   vertical-align: bottom;
@@ -55,6 +68,7 @@ export const InputSearchStyled = styled(InputSearch)`
 
 export const StyledLeftSide = styled(Col)`
   padding-top: 20px;
+  height: 85vh;
   background-color: ${baseTheme.colors.lightBlue};
   border: 1px ${({ theme }) => theme.colors.grey} solid;
   border-top-left-radius: 10px;
@@ -64,7 +78,6 @@ export const StyledLeftSide = styled(Col)`
 
 export const StyledRightSide = styled(StyledLeftSide)`
   padding: 0 10px;
-  height: 85vh;
   background-color: var(--white-color);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;

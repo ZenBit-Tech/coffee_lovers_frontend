@@ -16,6 +16,7 @@ import { colors, defaultAvatarSize, message } from './constants';
 import { ReceivedOfferModal } from './receivedOffer';
 import {
   BottomWrapper,
+  ContactsList,
   FirstUserContainer,
   FirstUserText,
   HeaderContainer,
@@ -69,6 +70,7 @@ const ChatPage = () => {
     currentConversationInfo,
     pendingOffer,
     offer,
+    offers,
     handleSend,
     handleClick,
     onSearch,
@@ -85,7 +87,7 @@ const ChatPage = () => {
           onSearch={onSearch}
         />
         {conversations && conversations.length > 0 && (
-          <ul>
+          <ContactsList>
             {conversations?.map(item => (
               <li key={item.id} onClick={() => handleClick(item.id)}>
                 <UserWrapper
@@ -114,7 +116,7 @@ const ChatPage = () => {
                 </UserWrapper>
               </li>
             ))}
-          </ul>
+          </ContactsList>
         )}
       </StyledLeftSide>
       <StyledRightSide span={18}>
@@ -135,11 +137,14 @@ const ChatPage = () => {
                 </p>
               </div>
 
-              {user?.role === roles.jobOwner && !pendingOffer && (
-                <SendOfferBtn onClick={showModal}>
-                  {t('chat.sendOffer')}
-                </SendOfferBtn>
-              )}
+              {user?.role === roles.jobOwner &&
+                !offers?.find(
+                  offer => offer.job.id === currentConversationInfo.jobId,
+                ) && (
+                  <SendOfferBtn onClick={showModal}>
+                    {t('chat.sendOffer')}
+                  </SendOfferBtn>
+                )}
               {user?.role === roles.freelancer && pendingOffer && (
                 <SendOfferBtn onClick={showReceivedOfferModal}>
                   {t('chat.received_offer')}
