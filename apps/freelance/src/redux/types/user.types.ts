@@ -1,3 +1,4 @@
+import { Job } from './jobs.types';
 import { Property } from './properties.types';
 
 export interface PasswordResetPayload {
@@ -33,6 +34,8 @@ export interface User {
   category: Property;
   role: Role;
   skills: Property[];
+  reviews_amount?: number;
+  average_rating?: number;
 }
 
 export interface UpdateUser {
@@ -143,6 +146,15 @@ export interface FreelancerFavQuery {
 export interface FreelancerDataById extends User {
   workHistory?: GetWorkhistory[];
   educations?: GetEducation[];
+}
+
+export interface FreelancerRatingDataById {
+  id: number;
+  created_at: string;
+  freelancer_rating: number;
+  rating_comment: string;
+  job_owner: User;
+  job: Job;
 }
 
 export interface SetFreelancerRating {

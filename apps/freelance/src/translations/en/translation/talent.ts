@@ -12,5 +12,10 @@ export default {
     filter: 'Filter',
     name: '{{name}}',
     work_history: 'Work History:',
+    review: 'Review',
+    reviews: 'Reviews',
+    rating: 'Rating',
+    noRating: 'No rating',
+    noFeedback: 'No Reviews Yet',
   },
 };
