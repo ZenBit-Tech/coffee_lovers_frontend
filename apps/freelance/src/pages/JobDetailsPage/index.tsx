@@ -7,6 +7,7 @@ import {
   jobDataTestId,
   ProposalModal,
   StyledButton,
+  useOpenNotification,
 } from '@freelance/components';
 import { PageWrapper } from '@freelance/components';
 import { skills } from '@pages/JobDetailsPage/constants';
@@ -37,6 +38,7 @@ const JobDetailsPage = () => {
   const id = Number(params['id']);
 
   const { t } = useTranslation();
+  const { contextHolder, openNotificationWithIcon } = useOpenNotification();
   const [openModal, setOpenModal] = useState<Open>(false);
   const [isActive, setIsActive] = useState<Open>(false);
   const { data: userData } = useGetUserInfoQuery();
@@ -61,6 +63,7 @@ const JobDetailsPage = () => {
   return (
     <PageWrapper isLoading={isJobLoading || isProposalsLoading}>
       <Wrapper>
+        {contextHolder}
         <Space direction="vertical" size="middle">
           <h2 data-testid={jobDataTestId.testTitle}>{jobData?.job.title}</h2>
           <JobDetailsWrapper>
@@ -149,6 +152,7 @@ const JobDetailsPage = () => {
         onCancel={onCancel}
         freelancer_rate={userData?.hourly_rate}
         id={id}
+        openNotificationWithIcon={openNotificationWithIcon}
       />
     </PageWrapper>
   );

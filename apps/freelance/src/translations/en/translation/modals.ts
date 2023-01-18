@@ -25,4 +25,19 @@ export default {
     description: 'Job description',
     required: 'This field is required',
   },
+  proposalModal: {
+    coverLetter: 'Cover letter',
+    coverLetterText: 'Enter your cover letter',
+    coverLetterErrorMessage: 'Please, add your cover letter!',
+    sendProposal: 'Send proposal',
+    success: 'Success',
+    successMessage: 'Your proposal was successfully send',
+  },
+  hourlyRate: {
+    ratePrefix: '$',
+    profileRate: 'Your profile rate is',
+    setupRate: 'Setup rate',
+    rateSuffix: 'Per hour',
+    rateErrorMessage: 'Please, input hourly rate!',
+  },
 };

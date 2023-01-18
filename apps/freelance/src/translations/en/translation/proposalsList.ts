@@ -4,4 +4,5 @@ export default {
     start_chat: 'Start chat',
     empty_placeholder: 'No one has applied for this job',
   },
+  successMessage: 'Your proposal was successfully send',
 };
