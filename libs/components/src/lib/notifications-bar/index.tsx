@@ -52,12 +52,9 @@ export const NotificationsBar: FC<NotificationsBarProps> = ({
         .map(item => (
           <ItemContainer key={item.date}>
             <ItemIconContainer>{item.icon}</ItemIconContainer>
-
             <ItemInfoContainer>
               <ItemTitle>{item.title}</ItemTitle>
-
               <ItemText>{item.text}</ItemText>
-
               <ItemDate>{item.date}</ItemDate>
             </ItemInfoContainer>
           </ItemContainer>
