@@ -64,8 +64,6 @@ const ChatPage = () => {
   const { contextHolder, openNotificationWithIcon } = useOpenNotification();
   const messageValue = Form.useWatch('message', form);
 
-
-
   return (
     <Row>
       {contextHolder}
@@ -125,9 +123,11 @@ const ChatPage = () => {
                 </p>
               </div>
 
-              {user?.role === roles.jobOwner && sendOfferButtonShow() && <SendOfferBtn onClick={showModal}>
-          {t('chat.sendOffer')}
-        </SendOfferBtn>}
+              {user?.role === roles.jobOwner && sendOfferButtonShow() && 
+                <SendOfferBtn onClick={showModal}>
+                  {t('chat.sendOffer')}
+                </SendOfferBtn>
+              }
               {user?.role === roles.freelancer && pendingOffer && (
                 <SendOfferBtn onClick={showReceivedOfferModal}>
                   {t('chat.received_offer')}
