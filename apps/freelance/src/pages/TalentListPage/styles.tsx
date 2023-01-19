@@ -92,3 +92,14 @@ export const StyledRateBox = styled.div`
   top: 10px;
   right: 15px;
 `;
+
+export const StyledRatingInfoBox = styled.div`
+  font-size: ${baseTheme.fontSize.large};
+  display: flex;
+  position: absolute;
+  top: 10px;
+  right: 60px;
+  > p {
+    margin-right: 60px;
+  }
+`;

@@ -176,6 +176,21 @@ const TalentListPage = (): ReactElement => {
                         }
                       />
                     </St.StyledRateBox>
+                    <St.StyledRatingInfoBox>
+                      <p onClick={() => navFunc(item.id)}>
+                        {item.reviews_amount
+                          ? item.reviews_amount
+                          : talentConsts.noReviews}{' '}
+                        {item.reviews_amount === talentConsts.oneReview
+                          ? t('talent.review')
+                          : t('talent.reviews')}
+                      </p>
+                      <p>
+                        {item.average_rating
+                          ? `${t('talent.rating')}  ${item.average_rating}`
+                          : t('talent.noRating')}
+                      </p>
+                    </St.StyledRatingInfoBox>
                   </Row>
                 </St.StyledCardHeader>
                 <St.SmallCardContainer>

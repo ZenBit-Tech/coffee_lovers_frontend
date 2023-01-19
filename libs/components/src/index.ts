@@ -28,6 +28,7 @@ export * from './lib/login-form/login-form';
 export * from './lib/logo';
 export * from './lib/navigation';
 export * from './lib/navigation-bar';
+export * from './lib/notifications-bar';
 export * from './lib/offer-interview-card';
 export * from './lib/posted-job-card';
 export * from './lib/progress-bar/progress-bar';
