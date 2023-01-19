@@ -39,27 +39,8 @@ import useChatData from './useChatData';
 
 const { Text } = Typography;
 
-type Open = boolean;
-
 const ChatPage = () => {
   const { t } = useTranslation();
-
-  const [openModal, setOpenModal] = useState<Open>(false);
-  const [openReceivedOfferModal, setOpenReceivedOfferModal] =
-    useState<Open>(false);
-
-  const showModal = () => {
-    setOpenModal(true);
-  };
-
-  const showReceivedOfferModal = () => {
-    setOpenReceivedOfferModal(true);
-  };
-
-  const onCancel = () => {
-    setOpenModal(false);
-    setOpenReceivedOfferModal(false);
-  };
 
   const {
     user,
@@ -70,13 +51,20 @@ const ChatPage = () => {
     currentConversationInfo,
     pendingOffer,
     offer,
-    offers,
+    openModal,
+    openReceivedOfferModal,
+    showReceivedOfferModal,
+    onCancel,
+    showModal,
+    sendOfferButtonShow,
     handleSend,
     handleClick,
     onSearch,
   } = useChatData();
   const { contextHolder, openNotificationWithIcon } = useOpenNotification();
   const messageValue = Form.useWatch('message', form);
+
+
 
   return (
     <Row>
@@ -137,14 +125,9 @@ const ChatPage = () => {
                 </p>
               </div>
 
-              {user?.role === roles.jobOwner &&
-                !offers?.find(
-                  offer => offer.job.id === currentConversationInfo.jobId,
-                ) && (
-                  <SendOfferBtn onClick={showModal}>
-                    {t('chat.sendOffer')}
-                  </SendOfferBtn>
-                )}
+              {user?.role === roles.jobOwner && sendOfferButtonShow() && <SendOfferBtn onClick={showModal}>
+          {t('chat.sendOffer')}
+        </SendOfferBtn>}
               {user?.role === roles.freelancer && pendingOffer && (
                 <SendOfferBtn onClick={showReceivedOfferModal}>
                   {t('chat.received_offer')}

@@ -10,7 +10,7 @@ import { formatDate } from 'src/utils/dates';
 import { StyledDescr, StyledNumberInput, StyledTitle } from './styles';
 
 interface ISendOffer {
-  rate: number;
+  hourly_rate: number;
   date: string;
 }
 
@@ -36,7 +36,7 @@ export const OfferFromChatModal = ({
   const [postOffer] = usePostOfferMutation();
   const { handleSubmit } = useForm({
     defaultValues: {
-      rate: currentConversationInfo.jobRate,
+      hourly_rate: currentConversationInfo.jobRate,
       date: '',
     },
   });
@@ -45,7 +45,7 @@ export const OfferFromChatModal = ({
     try {
       const offerResponse = {
         data: {
-          hourly_rate: values.rate,
+          hourly_rate: values.hourly_rate,
           start: formatDate(new Date(values.date)),
         },
         freelancer: currentConversationInfo.freelancerId,
