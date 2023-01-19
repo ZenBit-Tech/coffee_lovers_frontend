@@ -23,10 +23,12 @@ export function GoogleLoginButton() {
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser({ access_token: data.access_token }));
-      if (user?.role) {
-        navigate(`${routes.jobs}`);
+      if (!user?.first_name && !user?.last_name && user?.role) {
+        navigate(routes.ownerProfileQuestions);
+      } else if (user?.role) {
+        navigate(routes.jobs);
       } else {
-        navigate(`${routes.role}`);
+        navigate(routes.role);
       }
     }
     if (isError) {

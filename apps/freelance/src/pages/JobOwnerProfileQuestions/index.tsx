@@ -41,7 +41,7 @@ function JobOwnerProfileQuestions() {
       openNotificationWithIcon(
         NotificationType.ERROR,
         `${t('loginPage.notificationMessage')}`,
-        `${t('loginPage.notificationExistsDescr')}`,
+        `${t('loginPage.notificationWrongDescr')}`,
       );
     }
   };

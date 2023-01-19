@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, routes } from '@freelance/components';
 
 import { empty, many, SendInterviewPage } from './constants';
+import { DecoratedLink } from './styles';
 import { Conversation, Props } from './types';
 
 export function ChatListModalContent(props: Props) {
@@ -24,7 +25,7 @@ export function ChatListModalContent(props: Props) {
           })}
           <ul>
             {conversations?.map((item: Conversation) => (
-              <Button
+              <DecoratedLink
                 key={item.id}
                 onClick={() => {
                   navigate(routes.chat, { state: item.id });
@@ -32,7 +33,7 @@ export function ChatListModalContent(props: Props) {
               >
                 {t('modalInvite.jobTitle', { job: item.job.title })}
                 <br />
-              </Button>
+              </DecoratedLink>
             ))}
           </ul>
           <br />
