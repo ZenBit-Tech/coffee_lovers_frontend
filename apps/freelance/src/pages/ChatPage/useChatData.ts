@@ -49,7 +49,7 @@ interface useChatDataReturns {
   onSearch: (value: string) => void;
 }
 
-const useChatData = (activeChat?: number): useChatDataReturns => {
+const useChatData = (): useChatDataReturns => {
   const [searchParams] = useSearchParams();
   const { access_token }: { access_token: string } = useAppSelector(
     state => state.user,
@@ -76,12 +76,6 @@ const useChatData = (activeChat?: number): useChatDataReturns => {
       leaveAllConversations();
     };
   }, []);
-
-  useEffect(() => {
-    if (activeChat) {
-      setConversation(activeChat);
-    }
-  }, [activeChat]);
 
   useEffect(() => {
     setConversationsRender(conversations || []);

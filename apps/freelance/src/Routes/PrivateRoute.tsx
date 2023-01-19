@@ -21,7 +21,8 @@ export default function PrivateRoute({
   if (!token) {
     return <Navigate to={routes.login} replace={true} />;
   }
-  if (data && !allowedRoles.includes(data.role) && !data.first_name) {
+
+  if (token && data && !allowedRoles.includes(data.role) && !data.first_name) {
     return (
       <RoutesWrapper isAppBar={data.role !== roles.visitor}>
         <Navigate

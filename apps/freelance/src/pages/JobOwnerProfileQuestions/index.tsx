@@ -13,7 +13,7 @@ import {
   useOpenNotification,
 } from '@freelance/components';
 import { Wrapper } from '@pages/SignupPage/styles';
-import { useUpdateUserInitialsMutation } from 'redux/services/userApi';
+import { useUpdateUserInfoMutation } from 'redux/services/userApi';
 
 type FormValues = {
   first_name: string;
@@ -27,7 +27,7 @@ function JobOwnerProfileQuestions() {
   const { handleSubmit, control } = useForm<FormValues>();
   const { contextHolder, openNotificationWithIcon } = useOpenNotification();
 
-  const [updateUser, { isSuccess, isError }] = useUpdateUserInitialsMutation();
+  const [updateUser, { isSuccess, isError }] = useUpdateUserInfoMutation();
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     try {

@@ -68,14 +68,7 @@ export const userApi = emptySplitApi.injectEndpoints({
         method: 'GET',
       }),
     }),
-    updateUserInitials: builder.mutation({
-      query: (payload: UpdateUser) => ({
-        url: serviceRoute + EndpointsRoutes.update,
-        method: 'PUT',
-        body: payload,
-      }),
-      invalidatesTags: [apiTags.user],
-    }),
+
     getUserProposals: builder.query<GetUserProposals, void>({
       query: () => ({
         url: serviceRoute + EndpointsRoutes.getUserProposals,
@@ -194,6 +187,5 @@ export const {
   useGetFreelancerQuery,
   useGetFreelancerByIdQuery,
   useSetFreelancerRatingMutation,
-  useUpdateUserInitialsMutation,
   useGetFreelancerRatingsByIdQuery,
 } = userApi;

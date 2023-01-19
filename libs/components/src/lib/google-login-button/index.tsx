@@ -8,14 +8,12 @@ import { GoogleIconUrl } from '@freelance/constants';
 import { useGoogleLogin } from '@react-oauth/google';
 import { setUser } from 'src/redux/auth/auth-slice';
 import { useAddUserGoogleMutation } from 'src/redux/services/authApi';
-import { useGetUserInfoQuery } from 'src/redux/services/userApi';
 
 import { ButtonContainer, GoogleButton } from './styles';
 
 export function GoogleLoginButton() {
   const [addUser, { data, isSuccess, isError, error }] =
     useAddUserGoogleMutation();
-  const { data: user } = useGetUserInfoQuery();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -23,10 +21,8 @@ export function GoogleLoginButton() {
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser({ access_token: data.access_token }));
-      if (!user?.first_name && !user?.last_name && user?.role) {
-        navigate(routes.ownerProfileQuestions);
-      } else if (user?.role) {
-        navigate(routes.jobs);
+      if (data.role) {
+        navigate(`${routes.jobs}`);
       } else {
         navigate(routes.role);
       }
