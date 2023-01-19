@@ -1,4 +1,4 @@
-import { ApiRoutes, baseUrl } from '@freelance/constants';
+import { ApiRoutes, apiTags, baseUrl } from '@freelance/constants';
 import { emptySplitApi } from 'redux/emptySplitApi';
 import { NotificationEvent } from 'redux/types/notifications.types';
 
@@ -7,6 +7,7 @@ const serviceRoute = ApiRoutes.NOTIFICATIONS;
 enum EndpointsRoutes {
   subscribe = '/subscribe?token=',
   getNotifications = '/',
+  markAllNotificationsAsRead = '/markall',
 }
 
 const notificationApi = emptySplitApi.injectEndpoints({
@@ -25,12 +26,27 @@ const notificationApi = emptySplitApi.injectEndpoints({
 
         eventSource.onmessage = (payload: MessageEvent<string>) => {
           updateCachedData(draft => {
-            draft.push(JSON.parse(payload.data));
+            const event = JSON.parse(payload.data);
+            draft.unshift({ ...event, emitted: true });
           });
         };
+
+        await cacheEntryRemoved;
+        eventSource.close();
       },
+      providesTags: [apiTags.notification],
+    }),
+    markAllNotificationsAsRead: builder.mutation<void, void>({
+      query: () => ({
+        url: serviceRoute + EndpointsRoutes.markAllNotificationsAsRead,
+        method: 'POST',
+      }),
+      invalidatesTags: [apiTags.notification],
     }),
   }),
 });
 
-export const { useGetNotificationsQuery } = notificationApi;
+export const {
+  useGetNotificationsQuery,
+  useMarkAllNotificationsAsReadMutation,
+} = notificationApi;

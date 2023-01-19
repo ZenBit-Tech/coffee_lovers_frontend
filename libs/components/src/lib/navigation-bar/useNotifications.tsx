@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { Avatar, notification } from 'antd';
 import { t } from 'i18next';
 import { UserOutlined } from '@ant-design/icons';
@@ -11,14 +11,22 @@ import {
 import useAppSelector from 'src/hooks/useAppSelector';
 import { getFileUrl } from 'src/utils/api';
 
-import { lastElementIndex, notificationPlacement } from './constants';
+import { firstElementIndex, notificationPlacement } from './constants';
 
-const useNotifications = () => {
+interface UseNotificationsReturn {
+  notifications: NotificationEvent[];
+  contextHolder: ReactElement<string>;
+  isOpen: boolean;
+  clickHandler: () => void;
+}
+
+const useNotifications = (): UseNotificationsReturn => {
   const { access_token }: { access_token: string } = useAppSelector(
     state => state.user,
   );
   const { data } = useGetNotificationsQuery(access_token);
   const [api, contextHolder] = notification.useNotification();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const openNotification = (
     message?: string,
@@ -52,8 +60,8 @@ const useNotifications = () => {
   };
 
   useEffect(() => {
-    const notification = data?.at(lastElementIndex);
-    if (notification) {
+    const notification = data?.at(firstElementIndex);
+    if (notification && notification.emitted) {
       switch (notification.type) {
         case NotificationType.MESSAGE:
           openNotification(
@@ -111,7 +119,12 @@ const useNotifications = () => {
     (${notification.job?.title})`;
   };
 
-  return { contextHolder };
+  return {
+    notifications: data || [],
+    contextHolder,
+    isOpen,
+    clickHandler: () => setIsOpen(prev => !prev),
+  };
 };
 
 export default useNotifications;
