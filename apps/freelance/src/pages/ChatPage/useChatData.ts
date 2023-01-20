@@ -43,7 +43,12 @@ interface useChatDataReturns {
   currentConversationInfo: ICurrentConversationInfo;
   pendingOffer: boolean;
   offer?: Offer;
-  offers?: Offer[];
+  openModal: boolean;
+  openReceivedOfferModal: boolean;
+  onCancel: () => void;
+  showModal: () => void;
+  showReceivedOfferModal: () => void;
+  sendOfferButtonShow: () => boolean;
   handleSend: (values: InputType) => void;
   handleClick: (id: number) => number;
   onSearch: (value: string) => void;
@@ -63,6 +68,9 @@ const useChatData = (): useChatDataReturns => {
   const { data: offers } = useGetOffersQuery();
   const [pendingOffer, setPendingOffer] = useState<boolean>(false);
   const [offer, setOffer] = useState<Offer>();
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openReceivedOfferModal, setOpenReceivedOfferModal] =
+  useState<boolean>(false);
   const [conversation, setConversation] = useState<IConversation>(
     conversations && conversations?.length > 0 ? conversations[zero].id : zero,
   );
@@ -70,6 +78,30 @@ const useChatData = (): useChatDataReturns => {
     ConversationResponse[]
   >([]);
   const [createConversation] = useCreateConversationMutation();
+
+  const showModal = () => {
+    setOpenModal(true);
+  };
+  const showReceivedOfferModal = () => {
+    setOpenReceivedOfferModal(true);
+  };
+  const onCancel = () => {
+    setOpenModal(false);
+    setOpenReceivedOfferModal(false);
+  };
+
+  const sendOfferButtonShow = () => {
+    const freelancerOffers = offers?.filter(offer => 
+      offer.freelancer.id === currentConversationInfo.freelancerId)
+    if (!freelancerOffers?.find(
+      offer => offer.job.id === currentConversationInfo.jobId,
+    )) {
+
+      return true;
+      }
+
+      return false; 
+  }
 
   useEffect(() => {
     return () => {
@@ -175,7 +207,12 @@ const useChatData = (): useChatDataReturns => {
     currentConversationInfo,
     pendingOffer,
     offer,
-    offers,
+    openModal,
+    openReceivedOfferModal,
+    showReceivedOfferModal,
+    onCancel,
+    showModal,
+    sendOfferButtonShow,
     handleSend,
     handleClick,
     onSearch,
