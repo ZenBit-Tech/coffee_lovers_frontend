@@ -52,10 +52,11 @@ const jobsApi = emptySplitApi.injectEndpoints({
       query: id => ({
         url: serviceRoute + `/${id}` + EndpointsRoutes.getJob,
       }),
+      providesTags: [apiTags.job],
     }),
     getPostedJobs: builder.query<GetPostedJobsResponse[], void>({
       query: () => serviceRoute + EndpointsRoutes.getPostedJobs,
-      providesTags: [apiTags.postedJob],
+      providesTags: [apiTags.postedJob, apiTags.job],
     }),
     getPostedJobDetails: builder.query<GetPostedJobDetailsResponse, string>({
       query: (id: string) =>
@@ -68,6 +69,7 @@ const jobsApi = emptySplitApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: [apiTags.job],
     }),
     updateJob: builder.mutation({
       query: (body: JobUpdateValues) => ({
@@ -75,6 +77,7 @@ const jobsApi = emptySplitApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: [apiTags.job],
     }),
     stopHiring: builder.mutation({
       query: (jobId: number) => ({
