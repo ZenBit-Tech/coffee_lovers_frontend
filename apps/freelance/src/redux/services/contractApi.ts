@@ -19,16 +19,18 @@ export const contractApi = emptySplitApi.injectEndpoints({
   endpoints: builder => ({
     getActiveConracts: builder.query<ContractsResponse[], void>({
       query: () => serviceRoute + ContractsEndpoints.opened,
+      providesTags: [apiTags.job],
     }),
     getClosedContracts: builder.query<ContractsResponse[], void>({
       query: () => serviceRoute + ContractsEndpoints.closed,
+      providesTags: [apiTags.job],
     }),
     closeContract: builder.mutation({
       query: (contractId: number) => ({
         url: serviceRoute + ContractsEndpoints.closeContract + contractId,
         method: 'POST',
       }),
-      invalidatesTags: [apiTags.postedJob],
+      invalidatesTags: [apiTags.postedJob, apiTags.job],
     }),
     getAllContracts: builder.query<GetHiresContracts, HiresQuery>({
       query: (params: HiresQuery) => ({
@@ -36,7 +38,7 @@ export const contractApi = emptySplitApi.injectEndpoints({
         method: 'GET',
         params,
       }),
-      providesTags: [apiTags.favorites],
+      providesTags: [apiTags.favorites, apiTags.job],
     }),
   }),
 });
