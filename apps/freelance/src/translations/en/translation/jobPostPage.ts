@@ -6,7 +6,7 @@ export default {
     title_label_placeholder: 'Add a title for your project',
 
     description_label: 'Tell more about your project*',
-    description_label_placeholder: 'Max length is 250 symbols',
+    description_label_placeholder: 'Max length is 1000 symbols',
 
     hourly_rate: 'Hourly rate',
 
