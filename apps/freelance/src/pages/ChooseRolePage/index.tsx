@@ -35,9 +35,7 @@ const ChooseRole = () => {
   const onClick = () => {
     addUserRole(userRole);
     dispatch(setRole(userRole));
-    jobOwner &&
-      !user?.first_name &&
-      navigate(`${routes.ownerProfileQuestions}`);
+    jobOwner && !user?.first_name && navigate(`${routes.userFirstLastName}`);
     freelancer ? navigate(`${routes.welcome}`) : navigate(`${routes.jobs}`);
   };
 

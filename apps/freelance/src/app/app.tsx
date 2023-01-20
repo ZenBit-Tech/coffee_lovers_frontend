@@ -77,7 +77,7 @@ export function App() {
             <Route path={routes.chat} element={<ChatPage />} />
             <Route path={routes.jobs} element={<JobsPage />} />
             <Route
-              path={routes.ownerProfileQuestions}
+              path={routes.userFirstLastName}
               element={<JobOwnerProfileQuestions />}
             />
           </Route>

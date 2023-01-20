@@ -34,7 +34,6 @@ enum EndpointsRoutes {
   addGetUserFavoritesInfo = '/favorites',
   freelancer = '/freelancer/',
   freelancerRating = '/freelancerrating/',
-  update = '/update',
 }
 
 export const userApi = emptySplitApi.injectEndpoints({
@@ -44,7 +43,7 @@ export const userApi = emptySplitApi.injectEndpoints({
         url: serviceRoute + EndpointsRoutes.getUserInfo,
         method: 'GET',
       }),
-      keepUnusedDataFor: 0.001,
+      keepUnusedDataFor: 0.0001,
       providesTags: [apiTags.user],
     }),
     getUserWorkInfo: builder.query<GetWorkhistory[], void>({

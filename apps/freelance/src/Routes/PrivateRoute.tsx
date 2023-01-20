@@ -26,7 +26,7 @@ export default function PrivateRoute({
 
   useEffect(() => {
     if (token && data?.role && !data?.first_name) {
-      navigate(routes.ownerProfileQuestions);
+      navigate(routes.userFirstLastName);
     }
   }, [data?.first_name, data?.role, navigate, token]);
 
@@ -38,7 +38,7 @@ export default function PrivateRoute({
     return (
       <RoutesWrapper isAppBar={false}>
         <Navigate
-          to={routes.ownerProfileQuestions}
+          to={routes.userFirstLastName}
           state={{ from: location }}
           replace
         />
