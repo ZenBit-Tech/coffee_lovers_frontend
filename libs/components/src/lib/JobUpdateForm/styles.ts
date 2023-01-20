@@ -1,6 +1,8 @@
 import styled from 'styled-components';
+
 export const FormWrapper = styled.div`
   width: 500px;
+  margin: 0 auto;
 `;
 
 export const TitleWrapper = styled.div`
