@@ -14,7 +14,7 @@ import {
 } from 'redux/services/contractApi';
 import { ContractsResponse } from 'redux/types/contracts.types';
 
-import { active, closed, dateFormat } from './constants';
+import { active, closed } from './constants';
 import { DateText } from './styles';
 
 const ContractsList = () => {
@@ -67,8 +67,14 @@ const ContractsList = () => {
                   </Col>
                   <Col className="gutter-row" span={4}>
                     <div>{t('contracts.start')}</div>
-                    <DateText>{dateFormat(el.offer.start)}</DateText>
+                    <DateText>{el.offer.start}</DateText>
                   </Col>
+                  {i === closed && (
+                    <Col className="gutter-row" span={4}>
+                      <div>{t('contracts.end')}</div>
+                      <DateText>{el.end}</DateText>
+                    </Col>
+                  )}
                 </Row>
               </StyledCardReusable>
             )),
