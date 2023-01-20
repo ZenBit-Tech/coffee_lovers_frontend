@@ -15,6 +15,7 @@ import {
   StyledTextArea,
   title,
 } from '@freelance/components';
+import { jobDescriptionMaxLength } from '@freelance/constants';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   useGetJobQuery,
@@ -112,7 +113,7 @@ export const JobUpdateForm = () => {
                     placeholder={t(
                       'job_post_page.description_label_placeholder',
                     )}
-                    maxLength={250}
+                    maxLength={jobDescriptionMaxLength}
                     autoSize={true}
                   />
                   {errors.description && (

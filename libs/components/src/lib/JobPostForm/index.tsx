@@ -12,6 +12,7 @@ import {
   StyledSelect,
   StyledTextArea,
 } from '@freelance/components';
+import { jobDescriptionMaxLength } from '@freelance/constants';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useProperties from 'src/hooks/useProperties';
 import { usePostJobMutation } from 'src/redux/services/jobsApi';
@@ -93,7 +94,7 @@ export function JobPostForm() {
                 allowClear
                 size="large"
                 placeholder={t('job_post_page.description_label_placeholder')}
-                maxLength={250}
+                maxLength={jobDescriptionMaxLength}
                 autoSize={true}
               />
               {errors.description && (
@@ -138,6 +139,11 @@ export function JobPostForm() {
                 placeholder={t('job_post_page.select_to_search')}
                 style={{ width: '100%' }}
                 options={getOptionsForSelectWithId(categories)}
+                filterOption={(input, option) =>
+                  (option?.label ?? '')
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
               />
               {errors.category && (
                 <StyledErrorMessage>
@@ -161,6 +167,11 @@ export function JobPostForm() {
                 style={{ width: '100%' }}
                 options={getOptionsForSelectWithId(skills)}
                 placeholder={t('job_post_page.skills_placeholder')}
+                filterOption={(input, option) =>
+                  (option?.label ?? '')
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
                 tokenSeparators={[',']}
               />
 
