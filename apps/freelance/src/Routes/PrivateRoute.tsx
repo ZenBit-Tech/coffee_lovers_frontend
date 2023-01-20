@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { NavigationBar, roles } from '@freelance/components';
 import { routes } from '@freelance/constants';
 import { selectAuthToken, setRole } from 'redux/auth/auth-slice';
@@ -12,11 +13,22 @@ export default function PrivateRoute({
 }: {
   allowedRoles: Role[];
 }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const { data } = useGetUserInfoQuery();
   const token = useSelector(selectAuthToken);
-  data && dispatch(setRole({ role: data.role }));
+  useEffect(() => {
+    if (data?.role) {
+      dispatch(setRole({ role: data.role }));
+    }
+  }, [data, dispatch]);
+
+  useEffect(() => {
+    if (token && data?.role && !data?.first_name) {
+      navigate(routes.ownerProfileQuestions);
+    }
+  }, [data?.first_name, data?.role, navigate, token]);
 
   if (!token) {
     return <Navigate to={routes.login} replace={true} />;
@@ -24,7 +36,7 @@ export default function PrivateRoute({
 
   if (data && !allowedRoles.includes(data.role) && !data.first_name) {
     return (
-      <RoutesWrapper isAppBar={data.role !== roles.visitor}>
+      <RoutesWrapper isAppBar={false}>
         <Navigate
           to={routes.ownerProfileQuestions}
           state={{ from: location }}
@@ -45,7 +57,9 @@ export default function PrivateRoute({
 
   return (
     <RoutesWrapper isAppBar={data && data.role !== roles.visitor}>
-      {data && data.role !== roles.visitor && <NavigationBar />}
+      {data && data.role !== roles.visitor && data.first_name && (
+        <NavigationBar />
+      )}
       <Outlet />
     </RoutesWrapper>
   );

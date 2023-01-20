@@ -8,12 +8,16 @@ import {
   authLastName,
   nameValidationRegExp,
   NotificationType,
+  roles,
   routes,
   StyledInput,
   useOpenNotification,
 } from '@freelance/components';
 import { Wrapper } from '@pages/SignupPage/styles';
-import { useUpdateUserInfoMutation } from 'redux/services/userApi';
+import {
+  useGetUserInfoQuery,
+  useUpdateUserInfoMutation,
+} from 'redux/services/userApi';
 
 type FormValues = {
   first_name: string;
@@ -21,6 +25,7 @@ type FormValues = {
 };
 
 function JobOwnerProfileQuestions() {
+  const { data: user } = useGetUserInfoQuery();
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const navigate = useNavigate();
@@ -48,7 +53,12 @@ function JobOwnerProfileQuestions() {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate(`${routes.jobs}`);
+      user?.first_name &&
+        user?.role === roles.freelancer &&
+        navigate(`${routes.welcome}`);
+      user?.first_name &&
+        user?.role === roles.jobOwner &&
+        navigate(`${routes.jobs}`);
     }
     if (isError) {
       openNotificationWithIcon(
@@ -57,7 +67,7 @@ function JobOwnerProfileQuestions() {
         `${t('loginPage.notificationWrongDescr')}`,
       );
     }
-  }, [isSuccess, isError]);
+  }, [user?.first_name]);
 
   return (
     <Wrapper>

@@ -44,7 +44,7 @@ export const userApi = emptySplitApi.injectEndpoints({
         url: serviceRoute + EndpointsRoutes.getUserInfo,
         method: 'GET',
       }),
-      keepUnusedDataFor: 0.0001,
+      keepUnusedDataFor: 0.001,
       providesTags: [apiTags.user],
     }),
     getUserWorkInfo: builder.query<GetWorkhistory[], void>({
