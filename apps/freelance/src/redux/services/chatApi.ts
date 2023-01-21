@@ -101,6 +101,7 @@ const chatApi = emptySplitApi.injectEndpoints({
           message: payload.message,
           conversation: payload.conversation,
           to: payload.to,
+          job: payload.job,
         };
 
         return new Promise(resolve => {
