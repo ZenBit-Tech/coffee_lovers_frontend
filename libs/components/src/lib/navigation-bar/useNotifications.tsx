@@ -37,11 +37,16 @@ const useNotifications = (): UseNotificationsReturn => {
     clickHandler?: () => void,
     avatar?: string,
   ) => {
+    const key = `${Date.now()}`;
     const notificationPayload = {
       message,
       description,
       placement: notificationPlacement,
-      onClick: clickHandler,
+      key,
+      onClick: () => {
+        clickHandler && clickHandler();
+        api.destroy(key);
+      },
     };
 
     switch (type) {
@@ -49,6 +54,7 @@ const useNotifications = (): UseNotificationsReturn => {
         api.info({
           ...notificationPayload,
           icon: <Avatar src={getFileUrl(avatar)} icon={<UserOutlined />} />,
+          className: 'cursor-pointer',
         });
         break;
       case NotificationIconType.SUCCESS:
