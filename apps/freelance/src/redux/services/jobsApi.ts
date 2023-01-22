@@ -52,6 +52,7 @@ const jobsApi = emptySplitApi.injectEndpoints({
       query: id => ({
         url: serviceRoute + `/${id}` + EndpointsRoutes.getJob,
       }),
+      keepUnusedDataFor: 0.0001,
       providesTags: [apiTags.job],
     }),
     getPostedJobs: builder.query<GetPostedJobsResponse[], void>({
