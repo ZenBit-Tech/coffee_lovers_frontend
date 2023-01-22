@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Avatar, Badge, Form, Row, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
@@ -125,11 +124,11 @@ const ChatPage = () => {
                 </p>
               </div>
 
-              {user?.role === roles.jobOwner && sendOfferButtonShow() && 
+              {user?.role === roles.jobOwner && sendOfferButtonShow() && (
                 <SendOfferBtn onClick={showModal}>
                   {t('chat.sendOffer')}
                 </SendOfferBtn>
-              }
+              )}
               {user?.role === roles.freelancer && pendingOffer && (
                 <SendOfferBtn onClick={showReceivedOfferModal}>
                   {t('chat.received_offer')}

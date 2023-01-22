@@ -1,17 +1,18 @@
 import { Space } from 'antd';
 import { GoogleLoginButton, LoginForm } from '@freelance/components';
+import { baseTheme } from 'src/styles/theme';
 
 import { Wrapper } from './styles';
 
-function LoginPage() {
+const LoginPage = () => {
   return (
-    <Wrapper>
+    <Wrapper theme={baseTheme}>
       <Space align="start">
         <LoginForm />
         <GoogleLoginButton />
       </Space>
     </Wrapper>
   );
-}
+};
 
 export default LoginPage;

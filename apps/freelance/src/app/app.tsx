@@ -9,6 +9,7 @@ import FreelancerProfile from '@pages/FreelancerEditProfile';
 import FreelancerPageInfo from '@pages/FreelancerPageInfo';
 import JobDetailsPage from '@pages/JobDetailsPage';
 import JobsPage from '@pages/JobsPage';
+import LoginPage from '@pages/LoginPage';
 import NotFoundPage from '@pages/NotFoundPage';
 import OffersPage from '@pages/OffersPage';
 import PasswordReset from '@pages/PasswordReset';
@@ -26,11 +27,8 @@ const ExampleRootPage = lazy(
     import(/* webpackChunkName: "ExampleRootPage" */ '@pages/ExampleRootPage'),
 );
 const ConditionsPage = lazy(() => import('@pages/ConditionsPage'));
-const LoginPage = lazy(
-  () => import(/* webpackChunkName: "ExampleRootPage" */ '@pages/LoginPage'),
-);
 const SignupPage = lazy(
-  () => import(/* webpackChunkName: "ExampleRootPage" */ '@pages/SignupPage'),
+  () => import(/* webpackChunkName: "SignupPage" */ '@pages/SignupPage'),
 );
 const JobPostPage = lazy(
   () => import(/* webpackChunkName: "JobPostPage" */ '@pages/JobPostPage'),

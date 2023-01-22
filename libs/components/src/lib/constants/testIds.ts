@@ -64,3 +64,11 @@ export const jobDataTestId = {
   jobSendProposalBtn: 'jobDataSendProposalBtn',
   jobProposalModal: 'jobDataProposalModal',
 };
+
+export const authTestId = {
+  loginEmailField: 'loginEmailField',
+  loginPasswordField: 'loginPasswordField',
+  loginButton: 'loginButton',
+  haveAccountButton: 'haveAccountButton',
+  forgetPasswordButton: 'forgetPasswordButton',
+};
