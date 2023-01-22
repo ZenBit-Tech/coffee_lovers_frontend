@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Avatar, Badge, Form, Row, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
@@ -13,7 +12,7 @@ import {
 import { baseTheme } from 'src/styles/theme';
 import { formatDate, formatTime } from 'src/utils/dates';
 
-import { colors, defaultAvatarSize, message } from './constants';
+import { colors, defaultAvatarSize, message, visible, zero } from './constants';
 import { ReceivedOfferModal } from './receivedOffer';
 import {
   BottomWrapper,
@@ -32,6 +31,7 @@ import {
   StyledRightSide,
   StyledText,
   StyledWrapper,
+  TypeMessage,
   UserDateStyled,
   UserDivStyled,
   UserWrapper,
@@ -62,6 +62,9 @@ const ChatPage = () => {
     handleSend,
     handleClick,
     onSearch,
+    handleTyping,
+    userIsTyping,
+    setInputValue,
   } = useChatData(location.state);
   const { contextHolder, openNotificationWithIcon } = useOpenNotification();
   const messageValue = Form.useWatch('message', form);
@@ -125,11 +128,11 @@ const ChatPage = () => {
                 </p>
               </div>
 
-              {user?.role === roles.jobOwner && sendOfferButtonShow() && 
+              {user?.role === roles.jobOwner && sendOfferButtonShow() && (
                 <SendOfferBtn onClick={showModal}>
                   {t('chat.sendOffer')}
                 </SendOfferBtn>
-              }
+              )}
               {user?.role === roles.freelancer && pendingOffer && (
                 <SendOfferBtn onClick={showReceivedOfferModal}>
                   {t('chat.received_offer')}
@@ -171,6 +174,9 @@ const ChatPage = () => {
                   ),
                 )}
             </ul>
+            <TypeMessage opacity={userIsTyping ? visible : zero}>
+              {t('chat.typing')}
+            </TypeMessage>
           </MessagesWrapper>
         </StyledWrapper>
 
@@ -178,7 +184,13 @@ const ChatPage = () => {
           {!!conversation && (
             <BottomWrapper>
               <StyledFormItem name={message}>
-                <StyledInput placeholder={t('chat.message')} />
+                <StyledInput
+                  onChange={e => {
+                    handleTyping();
+                    setInputValue(e.target.value);
+                  }}
+                  placeholder={t('chat.message')}
+                />
               </StyledFormItem>
 
               <Form.Item>

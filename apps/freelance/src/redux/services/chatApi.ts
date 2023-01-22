@@ -2,6 +2,7 @@ import { io, Socket } from 'socket.io-client';
 import {
   ApiRoutes,
   apiTags,
+  baseUrl,
   keepUnusedDataFor,
   websocketUrl,
 } from '@freelance/constants';
@@ -15,6 +16,8 @@ import {
   GetMessagesPayload,
   MessageResponse,
   SendMessagePayload,
+  SetTypingPayload,
+  TypingPayload,
 } from 'redux/types/chat.types';
 
 const serviceRoute = ApiRoutes.CHAT;
@@ -23,6 +26,8 @@ enum EndpointsRoutes {
   getConversation = '/',
   getMessages = '/messages/',
   createConversation = '/',
+  getTypeEvent = '/type?token=',
+  sendType = '/typing',
 }
 
 export enum ChatEvents {
@@ -30,6 +35,7 @@ export enum ChatEvents {
   MESSAGE = 'message',
   JOIN_CONVERSATION = 'joinConversation',
   LEAVE_CONVERSATION = 'leaveConversation',
+  SENDTYPE = 'typing',
 }
 
 let socket: Socket;
@@ -108,6 +114,42 @@ const chatApi = emptySplitApi.injectEndpoints({
         });
       },
     }),
+    sendTypeEvent: build.mutation<void, SetTypingPayload>({
+      queryFn: (payload: SetTypingPayload) => {
+        const socket = getSocket(payload.token);
+        const message: SetTypingPayload = {
+          ...payload,
+        };
+
+        return new Promise(resolve => {
+          socket.emit(ChatEvents.SENDTYPE, message);
+        });
+      },
+    }),
+    getTypeEvent: build.query<string[], string>({
+      queryFn: (token: string) => ({ data: [] }),
+      async onCacheEntryAdded(
+        token,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
+      ) {
+        await cacheDataLoaded;
+
+        const eventSource = new EventSource(
+          baseUrl + serviceRoute + EndpointsRoutes.getTypeEvent + token,
+        );
+
+        eventSource.onmessage = (payload: TypingPayload) => {
+          const event = JSON.parse(payload.data);
+          updateCachedData(draft => {
+            draft.unshift(event.type);
+          });
+        };
+
+        await cacheEntryRemoved;
+        eventSource.close();
+      },
+    }),
+
     getConversation: build.query<ConversationResponse[], GetConversationParams>(
       {
         query: params => ({
@@ -134,4 +176,6 @@ export const {
   useGetConversationQuery,
   useSendMessageMutation,
   useCreateConversationMutation,
+  useGetTypeEventQuery,
+  useSendTypeEventMutation,
 } = chatApi;

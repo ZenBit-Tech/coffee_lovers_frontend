@@ -1,5 +1,6 @@
 import { ApiRoutes, apiTags, baseUrl } from '@freelance/constants';
 import { emptySplitApi } from 'redux/emptySplitApi';
+import { TypingEvents } from 'redux/types/chat.types';
 import { NotificationEvent } from 'redux/types/notifications.types';
 
 const serviceRoute = ApiRoutes.NOTIFICATIONS;
@@ -27,7 +28,12 @@ const notificationApi = emptySplitApi.injectEndpoints({
         eventSource.onmessage = (payload: MessageEvent<string>) => {
           updateCachedData(draft => {
             const event = JSON.parse(payload.data);
-            draft.unshift({ ...event, emitted: true });
+            if (
+              event.type !== TypingEvents.STARTTYPING &&
+              event.type !== TypingEvents.ENDTYPING
+            ) {
+              draft.unshift({ ...event, emitted: true });
+            }
           });
         };
 
