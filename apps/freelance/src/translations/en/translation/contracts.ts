@@ -5,5 +5,6 @@ export default {
     header: 'My contracts',
     active: 'Active',
     closed: 'Closed',
+    feedback: 'Add feedback',
   },
 };

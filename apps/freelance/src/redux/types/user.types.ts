@@ -148,18 +148,22 @@ export interface FreelancerDataById extends User {
   educations?: GetEducation[];
 }
 
-export interface FreelancerRatingDataById {
+export interface UserRatingDataById {
   id: number;
   created_at: string;
-  freelancer_rating: number;
+  rating: number;
   rating_comment: string;
-  job_owner: User;
   job: Job;
+  job_owner?: User;
+  freelancer?: User;
 }
 
-export interface SetFreelancerRating {
-  freelancer_id: number;
-  freelancer_rating: number;
+export interface SetUserRating {
+  rating: number;
   rating_comment: string;
+  freelancer_id?: number;
+  job_owner_id?: number;
   job_id?: number;
 }
+
+export type JobOwnerId = number | undefined;

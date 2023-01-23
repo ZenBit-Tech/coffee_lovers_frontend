@@ -12,5 +12,10 @@ export default {
     owners_name: "Job owner's name",
     error_msg: 'You have already submitted a proposal for this job',
     start_date: 'Start of Project',
+    review: 'Review',
+    reviews: 'Reviews',
+    rating: 'Rating',
+    noRating: 'No rating',
+    noFeedback: 'No Reviews Yet',
   },
 };
