@@ -19,7 +19,7 @@ From main default branch:
 ```bash
 $ git pull
 $ npm run build
-$ npm sync (update remote s3 bucket)
+$ npm run sync (update remote s3 bucket)
 ```
 
 (in order for sync script to work user needs to get access to remote website, once, then it will always work)
