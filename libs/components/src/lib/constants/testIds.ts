@@ -71,4 +71,9 @@ export const authTestId = {
   loginButton: 'loginButton',
   haveAccountButton: 'haveAccountButton',
   forgetPasswordButton: 'forgetPasswordButton',
+  signUpEmailField: 'signUpEmailField',
+  signUpPasswordField: 'signUpPasswordField',
+  signUpFirstNameField: 'signUpFirstNameField',
+  signUpLastNameField: 'signUpLastNameField',
+  signUpButton: 'signUpButton',
 };

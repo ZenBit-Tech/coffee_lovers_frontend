@@ -64,7 +64,7 @@ export const JobUpdateForm = () => {
     try {
       const JobUpdateData = { id: jobId, ...data };
       await updateJob(JobUpdateData);
-      navigate(routes.talents);
+      navigate(routes.jobs);
     } catch (error) {
       alert(JSON.stringify(error));
     }
@@ -139,7 +139,7 @@ export const JobUpdateForm = () => {
                   />
                   {errors.hourly_rate && (
                     <StyledErrorMessage>
-                      {errors.hourly_rate?.message}
+                      {t('errors.requiredError')}
                     </StyledErrorMessage>
                   )}
                 </Form.Item>
