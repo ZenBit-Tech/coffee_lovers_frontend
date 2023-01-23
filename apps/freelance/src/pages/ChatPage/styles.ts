@@ -12,7 +12,7 @@ export const StyledWrapper = styled.div`
 `;
 
 export const TypeMessage = styled.div`
-  color: blue;
+  color: var(--blue);
   opacity: ${(props: { opacity: number }) => props.opacity};
 `;
 
