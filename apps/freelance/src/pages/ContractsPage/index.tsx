@@ -26,7 +26,6 @@ const ContractsList = () => {
   const { data: activeContracts } = useGetActiveConractsQuery();
   const [closeContract] = useCloseContractMutation();
   const { data: user } = useGetUserInfoQuery();
-  console.log(closedContracts);
 
   return (
     <PageWrapper>
