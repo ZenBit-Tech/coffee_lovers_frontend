@@ -178,7 +178,7 @@ const JobDetailsPage = () => {
                     <St.StRatingCommentBox>
                       <Typography.Paragraph
                         ellipsis={{
-                          rows: 5,
+                          rows: jobDetailsPageConsts.defaultRawAmount,
                           expandable: true,
                           symbol: t('textVisibility.more'),
                         }}
