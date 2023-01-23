@@ -1,4 +1,4 @@
-import { Col, Row, Tabs } from 'antd';
+import { Button, Col, Row, Tabs } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import {
@@ -9,9 +9,11 @@ import {
 } from '@freelance/components';
 import { selectRole } from 'redux/auth/auth-slice';
 import {
+  useCloseContractMutation,
   useGetActiveConractsQuery,
   useGetClosedContractsQuery,
 } from 'redux/services/contractApi';
+import { useGetUserInfoQuery } from 'redux/services/userApi';
 import { ContractsResponse } from 'redux/types/contracts.types';
 
 import { active, closed } from './constants';
@@ -22,6 +24,9 @@ const ContractsList = () => {
   const role = useSelector(selectRole);
   const { data: closedContracts } = useGetClosedContractsQuery();
   const { data: activeContracts } = useGetActiveConractsQuery();
+  const [closeContract] = useCloseContractMutation();
+  const { data: user } = useGetUserInfoQuery();
+  console.log(closedContracts);
 
   return (
     <PageWrapper>
@@ -74,6 +79,15 @@ const ContractsList = () => {
                       <div>{t('contracts.end')}</div>
                       <DateText>{el.end}</DateText>
                     </Col>
+                  )}
+                  {i !== closed && user?.role === roles.freelancer && (
+                    <Button
+                      onClick={() => {
+                        closeContract(el.id);
+                      }}
+                    >
+                      {t('contracts.close')}
+                    </Button>
                   )}
                 </Row>
               </StyledCardReusable>
