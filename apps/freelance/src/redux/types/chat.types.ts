@@ -30,7 +30,6 @@ export interface TypingPayload {
 
 export interface SetTypingPayload {
   token: string;
-  conversation: number;
   to?: number;
   type: TypingEvents;
 }

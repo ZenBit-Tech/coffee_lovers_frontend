@@ -210,7 +210,6 @@ const useChatData = (activeChat?: number): useChatDataReturns => {
 
       sendTyping({
         token: access_token,
-        conversation,
         to: currentConversation?.user.id,
         type: TypingEvents.STARTTYPING,
       });
@@ -232,7 +231,6 @@ const useChatData = (activeChat?: number): useChatDataReturns => {
       setTypingStatus(false);
       sendTyping({
         token: access_token,
-        conversation,
         to: currentConversation?.user.id,
         type: TypingEvents.ENDTYPING,
       });
