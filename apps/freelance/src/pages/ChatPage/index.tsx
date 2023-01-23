@@ -1,4 +1,4 @@
-import { Avatar, Badge, Form, Row, Typography } from 'antd';
+import { Avatar, Badge, Empty, Form, Row, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
@@ -17,6 +17,7 @@ import { ReceivedOfferModal } from './receivedOffer';
 import {
   BottomWrapper,
   ContactsList,
+  EmptyDataWrapper,
   FirstUserContainer,
   FirstUserText,
   HeaderContainer,
@@ -37,7 +38,7 @@ import {
 } from './styles';
 import useChatData from './useChatData';
 
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 const ChatPage = () => {
   const { t } = useTranslation();
@@ -136,7 +137,10 @@ const ChatPage = () => {
               )}
             </>
           ) : (
-            <h2>{t('chat.chooseChat')}</h2>
+            <EmptyDataWrapper>
+              <Title level={2}>{t('chat.chooseChat')}</Title>
+              <Empty imageStyle={{ height: 200 }} description={false} />
+            </EmptyDataWrapper>
           )}
         </HeaderContainer>
 

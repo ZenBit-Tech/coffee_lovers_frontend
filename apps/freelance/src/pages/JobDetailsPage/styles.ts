@@ -27,7 +27,7 @@ export const JobOptionsText = styled.div`
 `;
 
 export const LabelText = styled.p`
-  font-size: ${baseTheme.fontSize.large};
+  font-size: ${baseTheme.fontSize.medium};
 `;
 
 export const StyledText = styled.p`

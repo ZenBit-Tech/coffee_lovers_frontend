@@ -189,6 +189,7 @@ const useChatData = (activeChat?: number): useChatDataReturns => {
 
   const onSearch = (value: string) => {
     setSearch(value.trim());
+    setConversation(zero);
   };
 
   useEffect(() => {
