@@ -2,6 +2,7 @@ import { Empty } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Button, routes } from '@freelance/components';
+import { baseTheme } from 'src/styles/theme';
 
 import { empty, many, SendInterviewPage } from './constants';
 import { DecoratedLink } from './styles';
@@ -26,6 +27,7 @@ export function ChatListModalContent(props: Props) {
           <ul>
             {conversations?.map((item: Conversation) => (
               <DecoratedLink
+                theme={baseTheme}
                 key={item.id}
                 onClick={() => {
                   navigate(routes.chat, { state: item.id });

@@ -9,6 +9,7 @@ import UseModalOpenHook from 'src/hooks/useModalOpen';
 import { useGetInvitationDetailsQuery } from 'src/redux/services/invitationApi';
 import { useGetJobQuery } from 'src/redux/services/jobsApi';
 import { useFindUserJobsWithoutInviteQuery } from 'src/redux/services/requestApi';
+import { OffersJobs } from 'src/redux/types/withoutoffer.types.ts';
 
 import { ChatListPage } from './constants';
 import { StyledModal, StyledSelect, StyledSpace } from './styles';
@@ -31,6 +32,7 @@ export function InterviewModal(props: Props) {
   const { data } = useFindUserJobsWithoutInviteQuery({
     id,
   });
+  console.log(data);
   const { handleCancel, handleOk } = UseModalOpenHook({
     setOpen,
     setConfirmLoading,
@@ -72,14 +74,17 @@ export function InterviewModal(props: Props) {
               control={control}
               render={({ field }) => (
                 <Row justify="start">
-                  <Col span={8}>
+                  <Col span={10}>
                     <p>{t('modalInvite.choose')}</p>
                   </Col>
-                  <Col span={6}>
+                  <Col span={14}>
                     <StyledSelect
                       {...field}
                       options={data
-                        ?.filter(el => el.count === 0)
+                        ?.filter(
+                          (el: OffersJobs) =>
+                            el.count === 0 && el.conversationCount === 0,
+                        )
                         .map((el: { id: number; title: string }) => ({
                           ...el,
                           value: el.id,
@@ -103,10 +108,10 @@ export function InterviewModal(props: Props) {
               control={control}
               render={({ field }) => (
                 <Row justify="start">
-                  <Col span={8}>
+                  <Col span={10}>
                     <p>{t('modalInvite.rate')}</p>
                   </Col>
-                  <Col span={6}>
+                  <Col span={14}>
                     <Input
                       type="number"
                       placeholder={t('modalInvite.placeholder')}

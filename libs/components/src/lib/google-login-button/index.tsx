@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Avatar } from 'antd';
-import { useTranslation } from 'react-i18next';
+import { ReactI18NextChild } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '@freelance/constants';
@@ -11,12 +11,16 @@ import { useAddUserGoogleMutation } from 'src/redux/services/authApi';
 
 import { ButtonContainer, GoogleButton } from './styles';
 
-export function GoogleLoginButton() {
+export function GoogleLoginButton({
+  children,
+}: {
+  children: ReactI18NextChild;
+}) {
   const [addUser, { data, isSuccess, isError, error }] =
     useAddUserGoogleMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   useEffect(() => {
     if (isSuccess) {
@@ -46,7 +50,7 @@ export function GoogleLoginButton() {
     <ButtonContainer>
       <GoogleButton onClick={() => login()}>
         <Avatar src={GoogleIconUrl} size="default" />
-        {t('loginPage.google')}
+        {children}
       </GoogleButton>
     </ButtonContainer>
   );
