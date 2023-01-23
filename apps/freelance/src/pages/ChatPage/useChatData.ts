@@ -26,6 +26,7 @@ type MessageType = {
   conversation: number;
   message: string;
   to?: number;
+  job?: number;
 };
 
 type InputType = {
@@ -182,6 +183,7 @@ const useChatData = (activeChat?: number): useChatDataReturns => {
       conversation: conversation,
       message: values.message,
       to: currentConversation?.user.id,
+      job: currentConversation?.job.id,
     };
     message.token && sendMessage(message);
     form.resetFields();

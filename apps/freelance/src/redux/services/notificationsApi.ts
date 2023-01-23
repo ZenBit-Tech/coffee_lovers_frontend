@@ -8,6 +8,7 @@ enum EndpointsRoutes {
   subscribe = '/subscribe?token=',
   getNotifications = '/',
   markAllNotificationsAsRead = '/markall',
+  markNotificationsAsRead = '/mark',
 }
 
 const notificationApi = emptySplitApi.injectEndpoints({
@@ -43,10 +44,19 @@ const notificationApi = emptySplitApi.injectEndpoints({
       }),
       invalidatesTags: [apiTags.notification],
     }),
+    markNotificationsAsRead: builder.mutation<void, number[]>({
+      query: body => ({
+        url: serviceRoute + EndpointsRoutes.markNotificationsAsRead,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [apiTags.notification],
+    }),
   }),
 });
 
 export const {
   useGetNotificationsQuery,
   useMarkAllNotificationsAsReadMutation,
+  useMarkNotificationsAsReadMutation,
 } = notificationApi;
