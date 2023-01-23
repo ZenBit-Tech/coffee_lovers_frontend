@@ -20,7 +20,6 @@ export function GoogleLoginButton({
     useAddUserGoogleMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { t } = useTranslation();
 
   useEffect(() => {
     if (isSuccess) {

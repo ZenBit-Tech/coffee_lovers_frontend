@@ -70,7 +70,7 @@ const useChatData = (activeChat?: number): useChatDataReturns => {
   const [offer, setOffer] = useState<Offer>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openReceivedOfferModal, setOpenReceivedOfferModal] =
-  useState<boolean>(false);
+    useState<boolean>(false);
   const [conversation, setConversation] = useState<IConversation>(
     conversations && conversations?.length > 0 ? conversations[zero].id : zero,
   );
@@ -91,17 +91,19 @@ const useChatData = (activeChat?: number): useChatDataReturns => {
   };
 
   const sendOfferButtonShow = () => {
-    const freelancerOffers = offers?.filter(offer => 
-      offer.freelancer.id === currentConversationInfo.freelancerId)
-    if (!freelancerOffers?.find(
-      offer => offer.job.id === currentConversationInfo.jobId,
-    )) {
-
+    const freelancerOffers = offers?.filter(
+      offer => offer.freelancer.id === currentConversationInfo.freelancerId,
+    );
+    if (
+      !freelancerOffers?.find(
+        offer => offer.job.id === currentConversationInfo.jobId,
+      )
+    ) {
       return true;
-      }
+    }
 
-      return false; 
-  }
+    return false;
+  };
 
   useEffect(() => {
     return () => {

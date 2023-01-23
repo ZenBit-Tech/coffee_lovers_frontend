@@ -32,7 +32,6 @@ export function InterviewModal(props: Props) {
   const { data } = useFindUserJobsWithoutInviteQuery({
     id,
   });
-  console.log(data);
   const { handleCancel, handleOk } = UseModalOpenHook({
     setOpen,
     setConfirmLoading,

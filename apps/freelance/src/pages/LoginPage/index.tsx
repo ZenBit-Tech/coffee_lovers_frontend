@@ -12,7 +12,6 @@ function LoginPage() {
       <Space align="start">
         <LoginForm />
         <GoogleLoginButton> {t('loginPage.google')}</GoogleLoginButton>
-        {/* <GoogleLoginButton /> */}
       </Space>
     </Wrapper>
   );
