@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Button, Checkbox, Form } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import useFormPersist from 'react-hook-form-persist';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +39,9 @@ export function SignUpForm() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { handleSubmit, control } = useForm<FormValues>();
+
+  const { handleSubmit, getValues, control, watch, setValue } =
+    useForm<FormValues>();
   const { contextHolder, openNotificationWithIcon } = useOpenNotification();
 
   const [registerUser, { data: registerData, isSuccess, isError }] =
@@ -54,6 +57,7 @@ export function SignUpForm() {
       if (first_name && last_name && password && email) {
         await registerUser({ email, first_name, last_name, password });
       }
+      sessionStorage.clear();
     } catch (error) {
       openNotificationWithIcon(
         NotificationType.ERROR,
@@ -62,6 +66,12 @@ export function SignUpForm() {
       );
     }
   };
+
+  useFormPersist('basic', {
+    watch,
+    setValue,
+    exclude: [authPassword, authConfirmPassword],
+  });
 
   useEffect(() => {
     if (isSuccess) {
@@ -83,6 +93,20 @@ export function SignUpForm() {
       form={form}
       wrapperCol={{ span: 24 }}
       onFinish={handleSubmit(onSubmit)}
+      fields={[
+        {
+          name: authEmail,
+          value: getValues().email || '',
+        },
+        {
+          name: authFirstName,
+          value: getValues().first_name || '',
+        },
+        {
+          name: authLastName,
+          value: getValues().last_name || '',
+        },
+      ]}
     >
       {contextHolder}
       <Controller
