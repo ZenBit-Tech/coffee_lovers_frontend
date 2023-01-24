@@ -27,8 +27,6 @@ const ContractsList = () => {
   const { data: activeContracts } = useGetActiveConractsQuery();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  console.log(activeContracts);
-
   return (
     <PageWrapper>
       <h3>{t('contracts.header')}</h3>
