@@ -101,6 +101,9 @@ export const StyledReviewsBox = styled.div`
 `;
 
 export const FreelancerNameDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-weight: ${({ theme }) => theme.weight?.bold};
 `;
 

@@ -19,7 +19,7 @@ import {
 } from 'redux/services/userApi';
 import { useGetUserInfoQuery } from 'redux/services/userApi';
 import { baseTheme } from 'src/styles/theme';
-import { formatDate } from 'src/utils/dates';
+import { formatDate, getJobDuration } from 'src/utils/dates';
 
 import * as St from './styles';
 
@@ -79,7 +79,10 @@ const JobDetailsPage = () => {
               <St.JobOptionsText>
                 <St.LabelText>{t('job_details.duration')}:</St.LabelText>
                 <St.StyledText data-testid={jobDataTestId.jobDuration}>
-                  {jobData?.job.duration_amount || t('findJobs.no_duration')}
+                  {getJobDuration(
+                    jobData?.job.duration,
+                    jobData?.job.duration_amount,
+                  ) || t('findJobs.no_duration')}
                 </St.StyledText>
               </St.JobOptionsText>
               <St.JobOptionsText>
@@ -164,11 +167,10 @@ const JobDetailsPage = () => {
               {userRatingDataById?.length ? (
                 userRatingDataById.map(el => (
                   <St.StyledReviewsWrapper key={el.id}>
-                    <St.StyledRatingBox>
-                      <St.FreelancerNameDiv>
-                        {el.freelancer?.first_name} {el.freelancer?.last_name}
-                      </St.FreelancerNameDiv>
-                    </St.StyledRatingBox>
+                    <St.FreelancerNameDiv>
+                      {el.freelancer?.first_name} {el.freelancer?.last_name}
+                    </St.FreelancerNameDiv>
+                    {el.job.title}
                     <St.StyledRatingBox>
                       <St.StyledDateWrapper>
                         {formatDate(new Date(el.created_at))}
