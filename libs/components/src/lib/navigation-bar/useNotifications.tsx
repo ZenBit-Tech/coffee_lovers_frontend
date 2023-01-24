@@ -9,6 +9,7 @@ import {
   NotificationType,
 } from 'redux/types/notifications.types';
 import useAppSelector from 'src/hooks/useAppSelector';
+import useNotificationClick from 'src/hooks/useNotificationClick';
 import { getFileUrl } from 'src/utils/api';
 
 import { firstElementIndex, notificationPlacement } from './constants';
@@ -27,17 +28,25 @@ const useNotifications = (): UseNotificationsReturn => {
   const { data } = useGetNotificationsQuery(access_token);
   const [api, contextHolder] = notification.useNotification();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { notificationClickHandlers } = useNotificationClick();
 
   const openNotification = (
     message?: string,
     description?: string,
     type?: NotificationIconType,
+    clickHandler?: () => void,
     avatar?: string,
   ) => {
+    const key = `${Date.now()}`;
     const notificationPayload = {
       message,
       description,
       placement: notificationPlacement,
+      key,
+      onClick: () => {
+        clickHandler && clickHandler();
+        api.destroy(key);
+      },
     };
 
     switch (type) {
@@ -45,6 +54,7 @@ const useNotifications = (): UseNotificationsReturn => {
         api.info({
           ...notificationPayload,
           icon: <Avatar src={getFileUrl(avatar)} icon={<UserOutlined />} />,
+          className: 'cursor-pointer',
         });
         break;
       case NotificationIconType.SUCCESS:
@@ -68,6 +78,7 @@ const useNotifications = (): UseNotificationsReturn => {
             `${notification.user?.first_name} ${notification.user?.last_name}`,
             notification?.message,
             NotificationIconType.MESSAGE,
+            notificationClickHandlers.message.bind(null, notification),
             notification.user?.profile_image,
           );
           break;
@@ -75,6 +86,8 @@ const useNotifications = (): UseNotificationsReturn => {
           openNotification(
             t('notifications.newOffer'),
             getJobTitleUserMessage(notification),
+            NotificationIconType.INFO,
+            notificationClickHandlers.offerPage.bind(null, notification),
           );
           break;
         case NotificationType.ACCEPTED_OFFER:
@@ -82,6 +95,7 @@ const useNotifications = (): UseNotificationsReturn => {
             t('notifications.acceptedOffer'),
             getJobTitleUserMessage(notification),
             NotificationIconType.SUCCESS,
+            notificationClickHandlers.contractsPage.bind(null, notification),
           );
           break;
         case NotificationType.DECLINED_OFFER:
@@ -89,18 +103,23 @@ const useNotifications = (): UseNotificationsReturn => {
             t('notifications.declinedOffer'),
             getJobTitleUserMessage(notification),
             NotificationIconType.ERROR,
+            notificationClickHandlers.markAsRead.bind(null, notification),
           );
           break;
         case NotificationType.NEW_PROPOSAL:
           openNotification(
             t('notifications.newProposal'),
             getUserJobTitleMessage(notification),
+            NotificationIconType.INFO,
+            notificationClickHandlers.proposal.bind(null, notification),
           );
           break;
         case NotificationType.NEW_INTERVIEW:
           openNotification(
             t('notifications.newInterview'),
             getUserJobTitleMessage(notification),
+            NotificationIconType.INFO,
+            notificationClickHandlers.offerPage.bind(null, notification),
           );
           break;
         default:

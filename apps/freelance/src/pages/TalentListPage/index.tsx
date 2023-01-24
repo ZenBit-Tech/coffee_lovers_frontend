@@ -17,6 +17,7 @@ import { filterRight, filterTop } from '@pages/FindJobs/constants';
 import { PageBar, PageBarRightSideContainer } from '@pages/FindJobs/styles';
 import { useSetFavoritesMutation } from 'redux/services/userApi';
 import { FreelancerListItem } from 'redux/types/user.types';
+import { baseTheme } from 'src/styles/theme';
 
 import { talentConsts } from './constants';
 import * as St from './styles';
@@ -143,7 +144,10 @@ const TalentListPage = (): ReactElement => {
                       />
                     </Col>
                     <Col span={8}>
-                      <St.StyledName onClick={() => navFunc(item.id)}>
+                      <St.StyledName
+                        theme={baseTheme}
+                        onClick={() => navFunc(item.id)}
+                      >
                         {t('talent.name', {
                           name: item.first_name + ' ' + item.last_name,
                         })}

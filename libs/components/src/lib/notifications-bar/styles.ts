@@ -32,6 +32,7 @@ export const ItemContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   margin-bottom: 10px;
   border-radius: 5px;
+  cursor: pointer;
 
   &:last-child {
     margin-bottom: 0;

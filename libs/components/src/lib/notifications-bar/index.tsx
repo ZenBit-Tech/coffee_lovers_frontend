@@ -5,6 +5,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import { Empty } from '@freelance/components';
 import { useMarkAllNotificationsAsReadMutation } from 'redux/services/notificationsApi';
 import { NotificationEvent } from 'redux/types/notifications.types';
+import useNotificationClick from 'src/hooks/useNotificationClick';
 
 import { ButtonsContainer, ClearButton, Wrapper } from './styles';
 import { getNotificationData } from './utils';
@@ -19,6 +20,7 @@ export const NotificationsBar: FC<NotificationsBarProps> = ({
   closeHandler,
 }) => {
   const [markAllNotificationsAsRead] = useMarkAllNotificationsAsReadMutation();
+  const { notificationClickHandlers } = useNotificationClick();
 
   return (
     <Wrapper onClick={e => e.stopPropagation()}>
@@ -37,7 +39,9 @@ export const NotificationsBar: FC<NotificationsBarProps> = ({
           </Button>
         </ButtonsContainer>
       )}
-      {notifications?.map(item => getNotificationData(item))}
+      {notifications?.map(item =>
+        getNotificationData(item, notificationClickHandlers, closeHandler),
+      )}
       {!notifications?.length && (
         <Empty description={t('notifications.bar.noDataPlaceholder')} />
       )}

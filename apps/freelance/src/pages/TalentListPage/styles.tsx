@@ -42,6 +42,11 @@ export const StyledName = styled.p`
   font-weight: ${baseTheme.weight.bold};
   min-width: 100%;
   margin-left: 50px;
+
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 export const StyledWhContainer = styled.p`

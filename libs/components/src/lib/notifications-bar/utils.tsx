@@ -11,6 +11,7 @@ import {
   NotificationEvent,
   NotificationType,
 } from 'redux/types/notifications.types';
+import { NotificationClickHandlers } from 'src/hooks/useNotificationClick';
 import { getFileUrl } from 'src/utils/api';
 import { getTimeDate } from 'src/utils/dates';
 
@@ -25,6 +26,8 @@ import {
 
 export const getNotificationData = (
   notification: NotificationEvent,
+  clickHandlers: NotificationClickHandlers,
+  closeHandler: () => void,
 ): ReactNode => {
   switch (notification.type) {
     case NotificationType.MESSAGE:
@@ -33,6 +36,11 @@ export const getNotificationData = (
         <Avatar src={getFileUrl(notification.user?.profile_image)} />,
         notification.message || '',
         notification.created_at,
+        clickHandler.bind(
+          null,
+          clickHandlers.message.bind(null, notification),
+          closeHandler,
+        ),
       );
       break;
     case NotificationType.NEW_OFFER:
@@ -41,6 +49,11 @@ export const getNotificationData = (
         <WalletOutlined />,
         getJobTitleUserMessage(notification),
         notification.created_at,
+        clickHandler.bind(
+          null,
+          clickHandlers.offerPage.bind(null, notification),
+          closeHandler,
+        ),
       );
       break;
     case NotificationType.ACCEPTED_OFFER:
@@ -49,6 +62,11 @@ export const getNotificationData = (
         <CheckCircleOutlined />,
         getUserJobTitleMessage(notification),
         notification.created_at,
+        clickHandler.bind(
+          null,
+          clickHandlers.contractsPage.bind(null, notification),
+          closeHandler,
+        ),
       );
       break;
     case NotificationType.DECLINED_OFFER:
@@ -57,6 +75,11 @@ export const getNotificationData = (
         <CloseCircleOutlined />,
         getUserJobTitleMessage(notification),
         notification.created_at,
+        clickHandler.bind(
+          null,
+          clickHandlers.markAsRead.bind(null, notification),
+          closeHandler,
+        ),
       );
       break;
     case NotificationType.NEW_PROPOSAL:
@@ -65,6 +88,11 @@ export const getNotificationData = (
         <PlusCircleOutlined />,
         getUserJobTitleMessage(notification),
         notification.created_at,
+        clickHandler.bind(
+          null,
+          clickHandlers.proposal.bind(null, notification),
+          closeHandler,
+        ),
       );
       break;
     case NotificationType.NEW_INTERVIEW:
@@ -73,6 +101,11 @@ export const getNotificationData = (
         <PlusCircleOutlined />,
         getUserJobTitleMessage(notification),
         notification.created_at,
+        clickHandler.bind(
+          null,
+          clickHandlers.offerPage.bind(null, notification),
+          closeHandler,
+        ),
       );
       break;
     default:
@@ -86,9 +119,10 @@ const getNotificationItem = (
   icon: ReactNode,
   text: string,
   created_at: string,
+  clickHandler?: () => void,
 ): ReactNode => {
   return (
-    <ItemContainer key={created_at}>
+    <ItemContainer key={created_at} onClick={clickHandler}>
       <ItemIconContainer>{icon}</ItemIconContainer>
       <ItemInfoContainer>
         <ItemTitle>{title}</ItemTitle>
@@ -97,6 +131,14 @@ const getNotificationItem = (
       </ItemInfoContainer>
     </ItemContainer>
   );
+};
+
+const clickHandler = (
+  notificationHandler: () => void,
+  closeHandler: () => void,
+): void => {
+  notificationHandler();
+  closeHandler();
 };
 
 const getUserJobTitleMessage = (notification: NotificationEvent): string => {

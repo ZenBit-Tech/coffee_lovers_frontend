@@ -37,6 +37,7 @@ const PostedJobsList = () => {
             status={job.status}
             description={job.description}
             proposals={job.proposalsCount}
+            hired={job.hiresCount}
           />
         ))}
       </JobListContainer>

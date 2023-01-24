@@ -26,6 +26,12 @@ const ExampleRootPage = lazy(
   () =>
     import(/* webpackChunkName: "ExampleRootPage" */ '@pages/ExampleRootPage'),
 );
+const JobOwnerProfileQuestions = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "JobOwnerProfileQuestions" */ '@pages/JobOwnerProfileQuestions'
+    ),
+);
 const ConditionsPage = lazy(() => import('@pages/ConditionsPage'));
 const SignupPage = lazy(
   () => import(/* webpackChunkName: "SignupPage" */ '@pages/SignupPage'),
@@ -68,6 +74,10 @@ export function App() {
             <Route path={routes.contracts} element={<ContractsList />} />
             <Route path={routes.chat} element={<ChatPage />} />
             <Route path={routes.jobs} element={<JobsPage />} />
+            <Route
+              path={routes.userFirstLastName}
+              element={<JobOwnerProfileQuestions />}
+            />
           </Route>
 
           {/* Freelancer's routes */}
