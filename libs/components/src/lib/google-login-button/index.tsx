@@ -27,7 +27,7 @@ export function GoogleLoginButton({
       if (data.role) {
         navigate(`${routes.jobs}`);
       } else {
-        navigate(`${routes.role}`);
+        navigate(routes.role);
       }
     }
     if (isError) {
