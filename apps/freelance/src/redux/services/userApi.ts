@@ -67,6 +67,7 @@ export const userApi = emptySplitApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+
     getUserProposals: builder.query<GetUserProposals, void>({
       query: () => ({
         url: serviceRoute + EndpointsRoutes.getUserProposals,

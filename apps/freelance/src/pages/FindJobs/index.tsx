@@ -6,6 +6,7 @@ import {
   JobCard,
   PrimaryButton,
 } from '@freelance/components';
+import { getJobDuration } from '@utils/dates';
 import { useFindJobsQuery } from 'redux/services/jobsApi';
 import { baseTheme } from 'src/styles/theme';
 
@@ -79,7 +80,10 @@ const FindJobs = () => {
             description={item.description || t('findJobs.no_description')}
             category={item.category?.name || t('findJobs.no_category')}
             date={new Date(item.created_at)}
-            duration={t('findJobs.no_duration')}
+            duration={
+              getJobDuration(item.duration, item.duration_amount) ||
+              t('findJobs.no_duration')
+            }
             owner={`${item.owner?.first_name || ''} ${
               item.owner?.last_name || ''
             }`}

@@ -11,6 +11,11 @@ export const StyledWrapper = styled.div`
   position: relative;
 `;
 
+export const TypeMessage = styled.div`
+  color: var(--blue);
+  opacity: ${(props: { opacity: number }) => props.opacity};
+`;
+
 export const ContactsList = styled.ul`
   overflow-y: scroll;
   max-height: 75vh;

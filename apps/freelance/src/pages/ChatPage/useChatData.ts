@@ -7,7 +7,9 @@ import {
   useCreateConversationMutation,
   useGetConversationQuery,
   useGetMessagesQuery,
+  useGetTypeEventQuery,
   useSendMessageMutation,
+  useSendTypeEventMutation,
 } from 'redux/services/chatApi';
 import { useGetOffersQuery } from 'redux/services/requestApi';
 import { useGetUserInfoQuery } from 'redux/services/userApi';
@@ -15,17 +17,24 @@ import {
   ConversationResponse,
   ICurrentConversationInfo,
   MessageResponse,
+  TypingEvents,
 } from 'redux/types/chat.types';
 import { Offer, OfferStatus } from 'redux/types/request.types';
 import { User } from 'redux/types/user.types';
 
-import { jobSearchParam, userSearchParam, zero } from './constants';
+import {
+  delayTimeMs,
+  jobSearchParam,
+  userSearchParam,
+  zero,
+} from './constants';
 
 type MessageType = {
   token: string;
   conversation: number;
   message: string;
   to?: number;
+  job?: number;
 };
 
 type InputType = {
@@ -52,6 +61,9 @@ interface useChatDataReturns {
   handleSend: (values: InputType) => void;
   handleClick: (id: number) => number;
   onSearch: (value: string) => void;
+  handleTyping: () => void;
+  userIsTyping: boolean;
+  setInputValue: (value: string) => void;
 }
 
 const useChatData = (activeChat?: number): useChatDataReturns => {
@@ -61,11 +73,16 @@ const useChatData = (activeChat?: number): useChatDataReturns => {
   );
   const token = access_token;
   const [search, setSearch] = useState<string>();
+  const [typingStatus, setTypingStatus] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>('');
+  const [userIsTyping, setIsTyping] = useState<boolean>(false);
   const { data: conversations } = useGetConversationQuery({
     ...(search && { search }),
   });
   const { data: user } = useGetUserInfoQuery();
   const { data: offers } = useGetOffersQuery();
+  const { data: typing } = useGetTypeEventQuery(token);
+
   const [pendingOffer, setPendingOffer] = useState<boolean>(false);
   const [offer, setOffer] = useState<Offer>();
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -78,6 +95,7 @@ const useChatData = (activeChat?: number): useChatDataReturns => {
     ConversationResponse[]
   >([]);
   const [createConversation] = useCreateConversationMutation();
+  const [sendTyping] = useSendTypeEventMutation();
 
   const showModal = () => {
     setOpenModal(true);
@@ -182,10 +200,46 @@ const useChatData = (activeChat?: number): useChatDataReturns => {
       conversation: conversation,
       message: values.message,
       to: currentConversation?.user.id,
+      job: currentConversation?.job.id,
     };
     message.token && sendMessage(message);
     form.resetFields();
   };
+
+  const handleTyping = () => {
+    if (typingStatus === false) {
+      setTypingStatus(true);
+
+      sendTyping({
+        token: access_token,
+        to: currentConversation?.user.id,
+        type: TypingEvents.STARTTYPING,
+      });
+    }
+  };
+
+  useEffect(() => {
+    const notification = typing?.at(zero);
+    if (notification === TypingEvents.STARTTYPING) {
+      setIsTyping(true);
+    }
+    if (notification === TypingEvents.ENDTYPING) {
+      setIsTyping(false);
+    }
+  }, [typing]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTypingStatus(false);
+      sendTyping({
+        token: access_token,
+        to: currentConversation?.user.id,
+        type: TypingEvents.ENDTYPING,
+      });
+    }, delayTimeMs);
+
+    return () => clearTimeout(timer);
+  }, [inputValue]);
 
   const onSearch = (value: string) => {
     setSearch(value.trim());
@@ -224,6 +278,9 @@ const useChatData = (activeChat?: number): useChatDataReturns => {
     handleSend,
     handleClick,
     onSearch,
+    handleTyping,
+    userIsTyping,
+    setInputValue,
   };
 };
 
