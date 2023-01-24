@@ -6,6 +6,11 @@ export enum TypingEvents {
   STARTTYPING = 'typing',
 }
 
+export interface GetTypingPayload {
+  type: TypingEvents;
+  to: number;
+}
+
 export interface CreateMessagePayload {
   conversation: number;
   message: string;
