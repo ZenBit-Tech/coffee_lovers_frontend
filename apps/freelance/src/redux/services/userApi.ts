@@ -6,11 +6,13 @@ import {
   AddWorkhistory,
   FreelancerDataById,
   FreelancerQuery,
+  FreelancerRatingDataById,
   GetEducation,
   GetFavorites,
   GetUserProposals,
   GetWorkhistory,
   PasswordResetPayload,
+  SetFreelancerRating,
   SetProfileImageResponse,
   UpdateUser,
   User,
@@ -31,6 +33,7 @@ enum EndpointsRoutes {
   addGetUserWorkhistoryInfo = '/workhistory-info',
   addGetUserFavoritesInfo = '/favorites',
   freelancer = '/freelancer/',
+  freelancerRating = '/freelancerrating/',
 }
 
 export const userApi = emptySplitApi.injectEndpoints({
@@ -40,6 +43,7 @@ export const userApi = emptySplitApi.injectEndpoints({
         url: serviceRoute + EndpointsRoutes.getUserInfo,
         method: 'GET',
       }),
+      keepUnusedDataFor: 0.0001,
       providesTags: [apiTags.user],
     }),
     getUserWorkInfo: builder.query<GetWorkhistory[], void>({
@@ -63,11 +67,13 @@ export const userApi = emptySplitApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+
     getUserProposals: builder.query<GetUserProposals, void>({
       query: () => ({
         url: serviceRoute + EndpointsRoutes.getUserProposals,
         method: 'GET',
       }),
+      providesTags: [apiTags.proposal],
     }),
     getFavorites: builder.query<GetFavorites, FreelancerFavQuery>({
       query: (params: FreelancerFavQuery) => ({
@@ -143,6 +149,22 @@ export const userApi = emptySplitApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getFreelancerRatingsById: builder.query<FreelancerRatingDataById[], number>(
+      {
+        query: (key: number) => ({
+          url: serviceRoute + EndpointsRoutes.freelancerRating + key,
+          method: 'GET',
+        }),
+      },
+    ),
+    setFreelancerRating: builder.mutation({
+      query: (payload: SetFreelancerRating) => ({
+        url: serviceRoute + EndpointsRoutes.freelancerRating,
+        method: 'POST',
+        body: payload,
+      }),
+      invalidatesTags: [apiTags.workInfo],
+    }),
   }),
 });
 
@@ -163,4 +185,6 @@ export const {
   useGetFavoritesQuery,
   useGetFreelancerQuery,
   useGetFreelancerByIdQuery,
+  useSetFreelancerRatingMutation,
+  useGetFreelancerRatingsByIdQuery,
 } = userApi;

@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { Avatar, Badge, Form, Row, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 import {
   baseUrl,
@@ -12,10 +12,11 @@ import {
 import { baseTheme } from 'src/styles/theme';
 import { formatDate, formatTime } from 'src/utils/dates';
 
-import { colors, defaultAvatarSize, message } from './constants';
+import { colors, defaultAvatarSize, message, visible, zero } from './constants';
 import { ReceivedOfferModal } from './receivedOffer';
 import {
   BottomWrapper,
+  ContactsList,
   FirstUserContainer,
   FirstUserText,
   HeaderContainer,
@@ -30,6 +31,7 @@ import {
   StyledRightSide,
   StyledText,
   StyledWrapper,
+  TypeMessage,
   UserDateStyled,
   UserDivStyled,
   UserWrapper,
@@ -38,27 +40,9 @@ import useChatData from './useChatData';
 
 const { Text } = Typography;
 
-type Open = boolean;
-
 const ChatPage = () => {
   const { t } = useTranslation();
-
-  const [openModal, setOpenModal] = useState<Open>(false);
-  const [openReceivedOfferModal, setOpenReceivedOfferModal] =
-    useState<Open>(false);
-
-  const showModal = () => {
-    setOpenModal(true);
-  };
-
-  const showReceivedOfferModal = () => {
-    setOpenReceivedOfferModal(true);
-  };
-
-  const onCancel = () => {
-    setOpenModal(false);
-    setOpenReceivedOfferModal(false);
-  };
+  const location = useLocation();
 
   const {
     user,
@@ -69,10 +53,19 @@ const ChatPage = () => {
     currentConversationInfo,
     pendingOffer,
     offer,
+    openModal,
+    openReceivedOfferModal,
+    showReceivedOfferModal,
+    onCancel,
+    showModal,
+    sendOfferButtonShow,
     handleSend,
     handleClick,
     onSearch,
-  } = useChatData();
+    handleTyping,
+    userIsTyping,
+    setInputValue,
+  } = useChatData(location.state);
   const { contextHolder, openNotificationWithIcon } = useOpenNotification();
   const messageValue = Form.useWatch('message', form);
 
@@ -85,7 +78,7 @@ const ChatPage = () => {
           onSearch={onSearch}
         />
         {conversations && conversations.length > 0 && (
-          <ul>
+          <ContactsList>
             {conversations?.map(item => (
               <li key={item.id} onClick={() => handleClick(item.id)}>
                 <UserWrapper
@@ -114,7 +107,7 @@ const ChatPage = () => {
                 </UserWrapper>
               </li>
             ))}
-          </ul>
+          </ContactsList>
         )}
       </StyledLeftSide>
       <StyledRightSide span={18}>
@@ -135,7 +128,7 @@ const ChatPage = () => {
                 </p>
               </div>
 
-              {user?.role === roles.jobOwner && !pendingOffer && (
+              {user?.role === roles.jobOwner && sendOfferButtonShow() && (
                 <SendOfferBtn onClick={showModal}>
                   {t('chat.sendOffer')}
                 </SendOfferBtn>
@@ -181,6 +174,9 @@ const ChatPage = () => {
                   ),
                 )}
             </ul>
+            <TypeMessage opacity={userIsTyping ? visible : zero}>
+              {t('chat.typing')}
+            </TypeMessage>
           </MessagesWrapper>
         </StyledWrapper>
 
@@ -188,7 +184,13 @@ const ChatPage = () => {
           {!!conversation && (
             <BottomWrapper>
               <StyledFormItem name={message}>
-                <StyledInput placeholder={t('chat.message')} />
+                <StyledInput
+                  onChange={e => {
+                    handleTyping();
+                    setInputValue(e.target.value);
+                  }}
+                  placeholder={t('chat.message')}
+                />
               </StyledFormItem>
 
               <Form.Item>

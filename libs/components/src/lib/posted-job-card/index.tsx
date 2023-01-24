@@ -91,7 +91,9 @@ export const PostedJobCard: FC<PostedJobProps> = ({
             })}
           </StyledAction>
           {status !== JobStatus.PENDING && (
-            <StyledAction>
+            <StyledAction
+              onClick={() => navigate(generatePath(routes.postedJob, { id }))}
+            >
               {t('postedJobs.btn.hired', { amount: hired || defaultAmount })}
             </StyledAction>
           )}

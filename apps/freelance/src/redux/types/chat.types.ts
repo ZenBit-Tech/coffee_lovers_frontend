@@ -1,9 +1,16 @@
 import { Job } from './jobs.types';
 import { User } from './user.types';
 
+export enum TypingEvents {
+  ENDTYPING = 'endtype',
+  STARTTYPING = 'typing',
+}
+
 export interface CreateMessagePayload {
   conversation: number;
   message: string;
+  to?: number;
+  job?: number;
 }
 
 export interface GetMessagesPayload {
@@ -15,6 +22,18 @@ export interface SendMessagePayload {
   token: string;
   conversation: number;
   message: string;
+  to?: number;
+  job?: number;
+}
+
+export interface TypingPayload {
+  data: string;
+}
+
+export interface SetTypingPayload {
+  token: string;
+  to?: number;
+  type: TypingEvents;
 }
 
 export interface CreateConversationPayload {

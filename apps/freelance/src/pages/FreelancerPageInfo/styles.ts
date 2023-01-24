@@ -1,4 +1,4 @@
-import { Button, Space } from 'antd';
+import { Row, Space } from 'antd';
 import styled from 'styled-components';
 import { PageWrapper } from '@freelance/components';
 
@@ -26,6 +26,12 @@ export const StCol = styled.div`
 export const Label = styled.p`
   font-weight: ${({ theme }) => theme.weight?.bold};
   font-size: ${({ theme }) => theme.fontSize?.large};
+`;
+
+export const ReviewLabel = styled.p`
+  margin-top: 50px;
+  font-weight: ${({ theme }) => theme.weight?.bold};
+  font-size: ${({ theme }) => theme.fontSize?.extraLarge};
 `;
 
 export const Hr = styled.p`
@@ -96,26 +102,10 @@ export const Skill = styled.p`
   }
 `;
 
-export const StyledButton = styled(Button)`
-  height: ${({ theme }) => theme.sizes?.button?.height};
-  min-width: ${({ theme }) => theme.sizes?.button?.width};
-  font-weight: ${({ theme }) => theme.weight?.bold};
-  font-size: ${({ theme }) => theme.fontSize?.large};
-  outline: 0;
-  border: none;
-  border-radius: 8px;
-
-  color: white;
-  box-shadow: 0px 3px 5px -3px rgba(66, 75, 178, 0.36);
-
-  transition: var(--animation-cubic-bezier);
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors?.button?.hover};
-  }
-`;
-
 export const ButtonWrapper = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 250px;
   display: flex;
   justify-content: flex-end;
   & > *:first-child {
@@ -128,4 +118,29 @@ export const LogoWrapper = styled(Space)`
   margin-top: 5px;
   font-weight: ${({ theme }) => theme.weight?.bold};
   font-size: ${({ theme }) => theme.fontSize?.large};
+`;
+
+export const RatingCol = styled(Row)`
+  margin-bottom: 50px;
+`;
+
+export const JobOwnerNameRateWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
+
+export const JobOwnerNameDiv = styled.div`
+  font-weight: ${({ theme }) => theme.weight?.bold};
+  font-size: ${({ theme }) => theme.fontSize?.large};
+`;
+
+export const JobOwnerJobDiv = styled.div`
+  font-size: ${({ theme }) => theme.fontSize?.large};
+`;
+export const StRatingCommentBox = styled.div`
+  border: 1px solid var(--grey);
+  box-shadow: 2px 2px 2px var(--grey);
+  padding: 5px 10px;
+  min-height: 100px;
 `;

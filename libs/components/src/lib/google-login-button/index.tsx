@@ -1,14 +1,21 @@
 import { useEffect } from 'react';
+import { Avatar } from 'antd';
+import { ReactI18NextChild } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '@freelance/constants';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleIconUrl } from '@freelance/constants';
+import { useGoogleLogin } from '@react-oauth/google';
 import { setUser } from 'src/redux/auth/auth-slice';
 import { useAddUserGoogleMutation } from 'src/redux/services/authApi';
 
-import { ButtonContainer } from './styles';
+import { ButtonContainer, GoogleButton } from './styles';
 
-export function GoogleLoginButton() {
+export function GoogleLoginButton({
+  children,
+}: {
+  children: ReactI18NextChild;
+}) {
   const [addUser, { data, isSuccess, isError, error }] =
     useAddUserGoogleMutation();
   const dispatch = useDispatch();
@@ -20,7 +27,7 @@ export function GoogleLoginButton() {
       if (data.role) {
         navigate(`${routes.jobs}`);
       } else {
-        navigate(`${routes.role}`);
+        navigate(routes.role);
       }
     }
     if (isError) {
@@ -28,17 +35,22 @@ export function GoogleLoginButton() {
     }
   }, [data, dispatch, error, isError, isSuccess, navigate]);
 
+  const login = useGoogleLogin({
+    onSuccess: async credentialResponse => {
+      try {
+        await addUser(credentialResponse);
+      } catch (err) {
+        alert(err);
+      }
+    },
+  });
+
   return (
     <ButtonContainer>
-      <GoogleLogin
-        onSuccess={async credentialResponse => {
-          try {
-            await addUser(credentialResponse);
-          } catch (err) {
-            alert(err);
-          }
-        }}
-      />
+      <GoogleButton onClick={() => login()}>
+        <Avatar src={GoogleIconUrl} size="default" />
+        {children}
+      </GoogleButton>
     </ButtonContainer>
   );
 }

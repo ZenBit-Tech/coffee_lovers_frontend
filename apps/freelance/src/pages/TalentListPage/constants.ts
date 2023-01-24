@@ -8,4 +8,6 @@ export const talentConsts = {
   starCount: 1,
   true: 1,
   false: 0,
+  oneReview: 1,
+  noReviews: 0,
 };

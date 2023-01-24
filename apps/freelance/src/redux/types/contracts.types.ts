@@ -11,12 +11,12 @@ export interface ContractsResponse {
   id: number;
   created_at: string;
   status: ContractStatus;
-  end: Date;
+  end: string;
   offer: {
     id: number;
     hourly_rate: number;
     status: OfferStatus;
-    start: Date;
+    start: string;
     created_at: string;
     job: Job;
     freelancer: User;

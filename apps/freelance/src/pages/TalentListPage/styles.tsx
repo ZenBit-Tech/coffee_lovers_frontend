@@ -42,6 +42,11 @@ export const StyledName = styled.p`
   font-weight: ${baseTheme.weight.bold};
   min-width: 100%;
   margin-left: 50px;
+
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 export const StyledWhContainer = styled.p`
@@ -91,4 +96,15 @@ export const StyledRateBox = styled.div`
   position: absolute;
   top: 10px;
   right: 15px;
+`;
+
+export const StyledRatingInfoBox = styled.div`
+  font-size: ${baseTheme.fontSize.large};
+  display: flex;
+  position: absolute;
+  top: 10px;
+  right: 60px;
+  > p {
+    margin-right: 60px;
+  }
 `;

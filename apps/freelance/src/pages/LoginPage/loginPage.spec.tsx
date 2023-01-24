@@ -1,5 +1,5 @@
 import { unmountComponentAtNode } from 'react-dom';
-import { render } from '@testing-library/react';
+import { render } from '@utils/test-utils';
 
 import '@testing-library/jest-dom';
 

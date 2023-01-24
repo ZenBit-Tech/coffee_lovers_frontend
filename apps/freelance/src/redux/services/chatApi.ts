@@ -2,6 +2,7 @@ import { io, Socket } from 'socket.io-client';
 import {
   ApiRoutes,
   apiTags,
+  baseUrl,
   keepUnusedDataFor,
   websocketUrl,
 } from '@freelance/constants';
@@ -15,6 +16,8 @@ import {
   GetMessagesPayload,
   MessageResponse,
   SendMessagePayload,
+  SetTypingPayload,
+  TypingPayload,
 } from 'redux/types/chat.types';
 
 const serviceRoute = ApiRoutes.CHAT;
@@ -23,6 +26,8 @@ enum EndpointsRoutes {
   getConversation = '/',
   getMessages = '/messages/',
   createConversation = '/',
+  getTypeEvent = '/type?token=',
+  sendType = '/typing',
 }
 
 export enum ChatEvents {
@@ -30,6 +35,7 @@ export enum ChatEvents {
   MESSAGE = 'message',
   JOIN_CONVERSATION = 'joinConversation',
   LEAVE_CONVERSATION = 'leaveConversation',
+  SENDTYPE = 'typing',
 }
 
 let socket: Socket;
@@ -53,6 +59,17 @@ const joinConversation = (conversationId: number): void => {
   joinedConversations.push(conversationId);
 };
 
+export const leaveAllConversations = (): void => {
+  if (joinedConversations.length) {
+    joinedConversations.forEach(conversationId => {
+      socket.emit(ChatEvents.LEAVE_CONVERSATION, {
+        conversation: conversationId,
+      });
+    });
+    joinedConversations = [];
+  }
+};
+
 const chatApi = emptySplitApi.injectEndpoints({
   endpoints: build => ({
     getMessages: build.query<MessageResponse[], GetMessagesPayload>({
@@ -66,16 +83,8 @@ const chatApi = emptySplitApi.injectEndpoints({
         await cacheDataLoaded;
 
         const socket = getSocket(payload.token);
-
-        if (joinedConversations.length) {
-          joinedConversations.forEach(conversationId => {
-            socket.emit(ChatEvents.LEAVE_CONVERSATION, {
-              conversation: conversationId,
-            });
-          });
-          joinedConversations = [];
-          joinConversation(payload.conversation);
-        }
+        leaveAllConversations();
+        joinConversation(payload.conversation);
 
         socket.on(ChatEvents.CONNECT, () => {
           joinConversation(payload.conversation);
@@ -97,6 +106,8 @@ const chatApi = emptySplitApi.injectEndpoints({
         const message: CreateMessagePayload = {
           message: payload.message,
           conversation: payload.conversation,
+          to: payload.to,
+          job: payload.job,
         };
 
         return new Promise(resolve => {
@@ -104,6 +115,42 @@ const chatApi = emptySplitApi.injectEndpoints({
         });
       },
     }),
+    sendTypeEvent: build.mutation<void, SetTypingPayload>({
+      queryFn: (payload: SetTypingPayload) => {
+        const socket = getSocket(payload.token);
+        const message: SetTypingPayload = {
+          ...payload,
+        };
+
+        return new Promise(resolve => {
+          socket.emit(ChatEvents.SENDTYPE, message);
+        });
+      },
+    }),
+    getTypeEvent: build.query<string[], string>({
+      queryFn: (token: string) => ({ data: [] }),
+      async onCacheEntryAdded(
+        token,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
+      ) {
+        await cacheDataLoaded;
+
+        const eventSource = new EventSource(
+          baseUrl + serviceRoute + EndpointsRoutes.getTypeEvent + token,
+        );
+
+        eventSource.onmessage = (payload: TypingPayload) => {
+          const event = JSON.parse(payload.data);
+          updateCachedData(draft => {
+            draft.unshift(event.type);
+          });
+        };
+
+        await cacheEntryRemoved;
+        eventSource.close();
+      },
+    }),
+
     getConversation: build.query<ConversationResponse[], GetConversationParams>(
       {
         query: params => ({
@@ -111,11 +158,12 @@ const chatApi = emptySplitApi.injectEndpoints({
           params,
         }),
         providesTags: [apiTags.conversation],
+        keepUnusedDataFor,
       },
     ),
     createConversation: build.mutation({
       query: (body: CreateConversationPayload) => ({
-        url: EndpointsRoutes.createConversation,
+        url: serviceRoute + EndpointsRoutes.createConversation,
         method: 'POST',
         body,
       }),
@@ -129,4 +177,6 @@ export const {
   useGetConversationQuery,
   useSendMessageMutation,
   useCreateConversationMutation,
+  useGetTypeEventQuery,
+  useSendTypeEventMutation,
 } = chatApi;

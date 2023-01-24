@@ -1,3 +1,5 @@
+import { DurationAmount } from 'redux/types/properties.types';
+
 export const formatDate = (date: Date): string => {
   let month = '' + (date.getMonth() + 1);
   let day = '' + date.getDate();
@@ -17,4 +19,19 @@ export const formatTime = (date: Date): string => {
   if (min.length < 2) min = '0' + min;
 
   return [hours, min].join(':');
+};
+
+export const getTimeDate = (date: Date): string => {
+  return `${formatDate(date)} ${formatTime(date)}`;
+};
+
+export const getJobDuration = (
+  duration?: number,
+  durationAmount?: string | DurationAmount,
+): string | null => {
+  if (!duration || !durationAmount) {
+    return null;
+  }
+
+  return `${duration} ${durationAmount}${duration > 1 ? 's' : ''}`;
 };
