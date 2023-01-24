@@ -77,6 +77,7 @@ export interface GetPostedJobsResponse {
   created_at: string;
   category: Property;
   proposalsCount: number;
+  hiresCount: number;
 }
 
 export interface HireItem {
