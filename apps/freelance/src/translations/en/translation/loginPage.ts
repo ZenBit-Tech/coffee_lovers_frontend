@@ -10,6 +10,7 @@ export default {
     email_error_req: 'Email is required',
     password_error: 'Please enter a valid password',
     name_error: 'Invalid characters. Only letters are allowed.',
+    googlesignup: 'Sign up with Google',
     signUp: 'Create my account',
     forgot_password: 'Forgot password?',
     have_account: 'I already have an account',
@@ -26,7 +27,7 @@ export default {
     notificationExistsDescr:
       'Email is already registered. Please, go to Login Page.',
     onlyLettersError: 'Invalid characters. Only letters are allowed.',
-    google: 'Login with Google',
+    google: 'Log in with Google',
   },
   conditions: {
     title: 'Terms & Conditions',

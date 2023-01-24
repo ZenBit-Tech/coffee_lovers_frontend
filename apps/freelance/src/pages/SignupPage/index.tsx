@@ -25,7 +25,7 @@ export default function SignupPage() {
           </ButtonWrap>
         </Col>
         <Col span={6}>
-          <GoogleLoginButton />
+          <GoogleLoginButton> {t('loginPage.googlesignup')}</GoogleLoginButton>
         </Col>
       </Row>
     </Wrapper>

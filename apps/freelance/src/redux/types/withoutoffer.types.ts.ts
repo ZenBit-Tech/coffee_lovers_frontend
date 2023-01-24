@@ -10,4 +10,5 @@ export interface OffersJobs {
   duration_amount: string;
   available_time: string;
   count: number;
+  conversationCount: number;
 }
