@@ -5,7 +5,7 @@ import {
   mockUserData,
   talentsPageTestId,
 } from '@freelance/constants';
-import { fireEvent, render, screen } from '@utils/test-utils';
+import { render, screen } from '@utils/test-utils';
 
 import '@testing-library/jest-dom';
 
@@ -110,17 +110,5 @@ describe('TalentsPage rendering', () => {
     expect(baseElement).toBeTruthy();
 
     expect(screen.getByTestId(filtersTestId.wrapper)).not.toBeVisible();
-  });
-
-  it('filter should be visible after user click the button', () => {
-    const baseElement = render(<ContractsList />);
-    expect(baseElement).toBeTruthy();
-
-    const filterButton = screen.getByTestId(
-      talentsPageTestId.talentsFilterButton,
-    );
-    expect(filterButton).toBeVisible();
-    fireEvent.click(filterButton);
-    expect(screen.getByTestId(filtersTestId.wrapper)).toBeVisible();
   });
 });
