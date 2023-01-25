@@ -238,6 +238,7 @@ export function SignUpForm() {
               {...field}
             >
               <StyledPasswordInput
+                data-testid={authTestId.signUpConfirmPasswordField}
                 size="large"
                 type="password"
                 id="confirmPassword-field"
@@ -261,14 +262,16 @@ export function SignUpForm() {
           },
         ]}
       >
-        <Checkbox>
+        <Checkbox data-testid={authTestId.signUpAcceptField}>
           {t('loginPage.terms_agree')}{' '}
-          <a href={routes.conditions}>{t('loginPage.terms')}</a>
+          <a data-testid={authTestId.signUpConditions} href={routes.conditions}>
+            {t('loginPage.terms')}
+          </a>
         </Checkbox>
       </Form.Item>
       <Form.Item>
         <Button
-          data-testid={authTestId.signUpFirstNameField}
+          data-testid={authTestId.signUpButton}
           size="large"
           type="primary"
           block
