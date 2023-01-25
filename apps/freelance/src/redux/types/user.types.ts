@@ -39,6 +39,8 @@ export interface User {
 }
 
 export interface UpdateUser {
+  first_name?: string;
+  last_name?: string;
   available_time?: string;
   description?: string;
   hourly_rate?: number;

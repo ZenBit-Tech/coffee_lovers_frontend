@@ -36,6 +36,7 @@ export * from './lib/proposal-card';
 export * from './lib/proposal-modal/index';
 export * from './lib/send-offer-modal/offer-from-chat-modal';
 export * from './lib/send-offer-modal/send-offer-modal';
+export * from './lib/signup-form/constants';
 export * from './lib/signup-form/signup-form';
 export * from './lib/small-card/small-card';
 export * from './lib/some-element/some-element';
