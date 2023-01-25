@@ -12,36 +12,56 @@ import {
 } from '@freelance/components';
 import { NotificationType, useOpenNotification } from '@freelance/components';
 import { useCloseContractMutation } from 'src/redux/services/contractApi';
-import { useSetFreelancerRatingMutation } from 'src/redux/services/userApi';
-import { SetFreelancerRating } from 'src/redux/types/user.types';
+import {
+  useSetFreelancerRatingMutation,
+  useSetJobOwnerRatingMutation,
+} from 'src/redux/services/userApi';
+import { SetUserRating } from 'src/redux/types/user.types';
 
 import * as St from './styles';
 import { IRatingModal } from './types';
 
 export const RatingModal: FC<IRatingModal> = props => {
-  const { isModalOpen, setIsModalOpen, job_id, freelancer_id, contract } =
-    props;
+  const {
+    isModalOpen,
+    setIsModalOpen,
+    job_id,
+    freelancer_id,
+    contract,
+    job_owner_id,
+  } = props;
   const [form] = Form.useForm();
-  const { handleSubmit, control } = useForm<SetFreelancerRating>();
+  const { handleSubmit, control } = useForm<SetUserRating>();
   const [setFreelancerRating] = useSetFreelancerRatingMutation();
+  const [setJobOwnerRating] = useSetJobOwnerRatingMutation();
   const { contextHolder, openNotificationWithIcon } = useOpenNotification();
   const [closeContract] = useCloseContractMutation();
-
   const messageValue = Form.useWatch(ratingFieldName, form);
 
-  const onFinishHandler: SubmitHandler<SetFreelancerRating> = async (
+  const onFinishHandler: SubmitHandler<SetUserRating> = async (
     values,
   ): Promise<void> => {
-    const payload: SetFreelancerRating = {
+    const payload: SetUserRating = {
       ...values,
       job_id,
-      freelancer_id,
+      ...(freelancer_id && {
+        freelancer_id,
+      }),
+      ...(job_owner_id && {
+        job_owner_id,
+      }),
     };
     try {
       form.resetFields();
-      await setFreelancerRating(payload);
-      setIsModalOpen(false);
-      closeContract(contract.id);
+      if (payload.freelancer_id) {
+        await setFreelancerRating(payload);
+        setIsModalOpen(false);
+        closeContract(contract.id);
+      } else if (payload.job_owner_id) {
+        await setJobOwnerRating(payload);
+        setIsModalOpen(false);
+        closeContract(contract.id);
+      }
     } catch (error) {
       openNotificationWithIcon(
         NotificationType.ERROR,
@@ -67,7 +87,7 @@ export const RatingModal: FC<IRatingModal> = props => {
       <Form
         name={modalValues.formName}
         form={form}
-        onFinish={(values: SetFreelancerRating) =>
+        onFinish={(values: SetUserRating) =>
           handleSubmit(onFinishHandler(values))
         }
       >

@@ -1,9 +1,13 @@
-import { Col, Row, Tabs } from 'antd';
+import { useState } from 'react';
+import { Col, Modal, Row, Space, Tabs } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { CheckCircleOutlined } from '@ant-design/icons';
 import {
   contractsPageTestId,
+  DangerButton,
   PageWrapper,
+  RatingModal,
   roles,
   StyledCardReusable,
 } from '@freelance/components';
@@ -12,6 +16,7 @@ import {
   useGetActiveConractsQuery,
   useGetClosedContractsQuery,
 } from 'redux/services/contractApi';
+import { useGetUserInfoQuery } from 'redux/services/userApi';
 import { ContractsResponse } from 'redux/types/contracts.types';
 
 import { active, closed } from './constants';
@@ -22,6 +27,21 @@ const ContractsList = () => {
   const role = useSelector(selectRole);
   const { data: closedContracts } = useGetClosedContractsQuery();
   const { data: activeContracts } = useGetActiveConractsQuery();
+  const { data: user } = useGetUserInfoQuery();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const closeContractHandler = (name: string, lastname: string): void => {
+    Modal.confirm({
+      title: t('contracts.closeContract'),
+      icon: <CheckCircleOutlined />,
+      content: `${name} ${lastname}`,
+      okText: t('postedJobDetails.modal.confirm'),
+      cancelText: t('postedJobDetails.modal.cancel'),
+      onOk() {
+        setIsModalOpen(true);
+      },
+    });
+  };
 
   return (
     <PageWrapper>
@@ -30,11 +50,14 @@ const ContractsList = () => {
         data-testid={contractsPageTestId.contractsTab}
         defaultActiveKey={`${active}`}
         centered
-        items={new Array(2).fill(null).map((_, i) => {
-          const id = String(i + 1);
-          const pageItems = i === closed ? closedContracts : activeContracts;
+        items={new Array(2).fill(null).map((_, contractsPage) => {
+          const id = String(contractsPage + 1);
+          const pageItems =
+            contractsPage === closed ? closedContracts : activeContracts;
           const pageName =
-            i === closed ? t('contracts.closed') : t('contracts.active');
+            contractsPage === closed
+              ? t('contracts.closed')
+              : t('contracts.active');
 
           return {
             label: pageName,
@@ -52,7 +75,7 @@ const ContractsList = () => {
                       {el.offer.job.title}
                     </div>
                   </Col>
-                  <Col className="gutter-row" span={8}>
+                  <Col className="gutter-row" span={6}>
                     <div
                       data-testid={contractsPageTestId.freelancerNameContract}
                     >
@@ -69,12 +92,40 @@ const ContractsList = () => {
                     <div>{t('contracts.start')}</div>
                     <DateText>{el.offer.start}</DateText>
                   </Col>
-                  {i === closed && (
+                  <RatingModal
+                    contract={el}
+                    job_owner_id={el.offer.job_owner?.id}
+                    job_id={el.offer.job.id}
+                    setIsModalOpen={setIsModalOpen}
+                    isModalOpen={isModalOpen}
+                  />
+
+                  {contractsPage === closed && (
                     <Col className="gutter-row" span={4}>
                       <div>{t('contracts.end')}</div>
                       <DateText>{el.end}</DateText>
                     </Col>
                   )}
+
+                  <Col span={4}>
+                    <Space size={'small'}>
+                      <Row>
+                        {contractsPage !== closed &&
+                          user?.role === roles.freelancer && (
+                            <DangerButton
+                              onClick={() =>
+                                closeContractHandler(
+                                  el.offer.job_owner.first_name,
+                                  el.offer.job_owner.last_name,
+                                )
+                              }
+                            >
+                              {t('contracts.close')}
+                            </DangerButton>
+                          )}
+                      </Row>
+                    </Space>
+                  </Col>
                 </Row>
               </StyledCardReusable>
             )),

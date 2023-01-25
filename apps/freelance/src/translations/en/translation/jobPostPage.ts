@@ -30,5 +30,9 @@ export default {
     select_to_search: 'Select to search',
 
     update_title: 'Job update form',
+
+    success: 'Success',
+    successEditMessage: 'You successfully edited your project',
+    successPostMessage: 'You successfully added a new project',
   },
 };

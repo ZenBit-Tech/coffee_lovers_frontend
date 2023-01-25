@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { DatePicker, Form, Modal, ModalProps } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -33,7 +34,8 @@ export const OfferFromChatModal = ({
   const { t } = useTranslation();
   const [form] = Form.useForm();
 
-  const [postOffer] = usePostOfferMutation();
+  const [postOffer, { isSuccess: sendOfferSuccess, isError: sendOfferError }] =
+    usePostOfferMutation();
   const { handleSubmit } = useForm({
     defaultValues: {
       hourly_rate: currentConversationInfo.jobRate,
@@ -54,11 +56,6 @@ export const OfferFromChatModal = ({
       await postOffer(offerResponse);
       form.resetFields();
       onCancel();
-      openNotificationWithIcon(
-        NotificationType.SUCCESS,
-        t('offers.receive.success'),
-        t('offers.receive.successMessage'),
-      );
     } catch (error) {
       openNotificationWithIcon(
         NotificationType.ERROR,
@@ -67,6 +64,22 @@ export const OfferFromChatModal = ({
       );
     }
   };
+
+  useEffect(() => {
+    sendOfferSuccess &&
+      openNotificationWithIcon(
+        NotificationType.SUCCESS,
+        t('offers.receive.success'),
+        t('offers.receive.successMessage'),
+      );
+
+    sendOfferError &&
+      openNotificationWithIcon(
+        NotificationType.ERROR,
+        t('description.profileQp1.notifFailed'),
+        t('description.profileQp1.notifFailedMsg'),
+      );
+  }, [sendOfferSuccess, sendOfferError]);
 
   return (
     <Modal

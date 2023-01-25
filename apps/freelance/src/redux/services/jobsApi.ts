@@ -32,6 +32,7 @@ const jobsApi = emptySplitApi.injectEndpoints({
         url: serviceRoute + EndpointsRoutes.findJobs,
         params,
       }),
+      keepUnusedDataFor: 0.0001,
       providesTags: [apiTags.job],
     }),
     sendProposal: builder.mutation({
@@ -52,10 +53,12 @@ const jobsApi = emptySplitApi.injectEndpoints({
       query: id => ({
         url: serviceRoute + `/${id}` + EndpointsRoutes.getJob,
       }),
+      keepUnusedDataFor: 0.0001,
       providesTags: [apiTags.job],
     }),
     getPostedJobs: builder.query<GetPostedJobsResponse[], void>({
       query: () => serviceRoute + EndpointsRoutes.getPostedJobs,
+      keepUnusedDataFor: 0.0001,
       providesTags: [apiTags.postedJob, apiTags.job],
     }),
     getPostedJobDetails: builder.query<GetPostedJobDetailsResponse, string>({

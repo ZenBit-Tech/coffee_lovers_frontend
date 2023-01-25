@@ -1,4 +1,5 @@
-import { Modal, ModalProps, Space } from 'antd';
+import { useEffect } from 'react';
+import { Modal, ModalProps, Space, Typography } from 'antd';
 import { t } from 'i18next';
 import {
   DangerButton,
@@ -11,6 +12,10 @@ import {
   useDeclineOfferMutation,
 } from 'redux/services/requestApi';
 import { Offer } from 'redux/types/request.types';
+
+import { ReceivedOfferWrapper } from './styles';
+
+const { Paragraph, Text, Title } = Typography;
 
 export const ReceivedOfferModal = ({
   openModal,
@@ -28,18 +33,19 @@ export const ReceivedOfferModal = ({
     description: string,
   ) => void;
 } & ModalProps) => {
-  const [acceptOffer] = useAcceptOfferMutation();
-  const [declineOffer] = useDeclineOfferMutation();
+  const [
+    acceptOffer,
+    { isSuccess: acceptOfferSuccess, isError: acceptOfferError },
+  ] = useAcceptOfferMutation();
+  const [
+    declineOffer,
+    { isSuccess: declineOfferSuccess, isError: declineOfferError },
+  ] = useDeclineOfferMutation();
 
   const onAccept = () => {
     try {
       offer && acceptOffer(offer.id);
       onCancel();
-      openNotificationWithIcon(
-        NotificationType.SUCCESS,
-        t('offers.receive.accepted'),
-        t('offers.receive.acceptedMessage'),
-      );
     } catch (error) {
       openNotificationWithIcon(
         NotificationType.ERROR,
@@ -53,11 +59,6 @@ export const ReceivedOfferModal = ({
     try {
       offer && declineOffer(offer.id);
       onCancel();
-      openNotificationWithIcon(
-        NotificationType.INFO,
-        t('offers.receive.declined'),
-        t('offers.receive.declinedMessage'),
-      );
     } catch (error) {
       openNotificationWithIcon(
         NotificationType.ERROR,
@@ -66,6 +67,35 @@ export const ReceivedOfferModal = ({
       );
     }
   };
+
+  useEffect(() => {
+    if (acceptOfferSuccess) {
+      openNotificationWithIcon(
+        NotificationType.SUCCESS,
+        t('offers.receive.accepted'),
+        t('offers.receive.acceptedMessage'),
+      );
+    }
+    if (declineOfferSuccess) {
+      openNotificationWithIcon(
+        NotificationType.INFO,
+        t('offers.receive.declined'),
+        t('offers.receive.declinedMessage'),
+      );
+    }
+    if (acceptOfferError || declineOfferError) {
+      openNotificationWithIcon(
+        NotificationType.ERROR,
+        t('description.profileQp1.notifFailed'),
+        t('description.profileQp1.notifFailedMsg'),
+      );
+    }
+  }, [
+    acceptOfferSuccess,
+    declineOfferSuccess,
+    acceptOfferError,
+    declineOfferError,
+  ]);
 
   return (
     <Modal
@@ -76,22 +106,24 @@ export const ReceivedOfferModal = ({
       width={modalWidth}
       footer={null}
     >
-      <Space align="center" direction="vertical">
-        <h2>{t('offers.receive.title')}</h2>
+      <ReceivedOfferWrapper align="center" direction="vertical">
+        <Title level={2}>{t('offers.receive.title')}</Title>
 
         {offer && (
           <>
-            <p>{offer.job.title}</p>
-            <p>
-              <b>{t('offers.receive.rate')} </b>${offer.job.hourly_rate}
-            </p>
-            <p>
-              <b>{t('offers.receive.start')} </b>
-              {offer.start}
-            </p>
-            <p>
-              <b>{t('offers.receive.description')} </b> {offer.job.description}
-            </p>
+            <Title level={3}>{offer.job.title}</Title>
+            <Paragraph>
+              <Text strong>{t('offers.receive.rate')} </Text>
+              <Text>${offer.job.hourly_rate} </Text>
+            </Paragraph>
+            <Paragraph>
+              <Text strong>{t('offers.receive.start')}</Text>
+              <Text> {offer.start}</Text>
+            </Paragraph>
+            <Paragraph>
+              <Text strong>{t('offers.receive.description')}</Text>{' '}
+              {offer.job.description}
+            </Paragraph>
           </>
         )}
         <Space size={60}>
@@ -102,7 +134,7 @@ export const ReceivedOfferModal = ({
             {t('offers.receive.decline')}
           </DangerButton>
         </Space>
-      </Space>
+      </ReceivedOfferWrapper>
     </Modal>
   );
 };
