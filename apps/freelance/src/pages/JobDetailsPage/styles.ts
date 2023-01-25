@@ -27,7 +27,7 @@ export const JobOptionsText = styled.div`
 `;
 
 export const LabelText = styled.p`
-  font-size: ${baseTheme.fontSize.large};
+  font-size: ${baseTheme.fontSize.medium};
 `;
 
 export const StyledText = styled.p`
@@ -58,7 +58,7 @@ export const SkillsWrapper = styled(Space)`
   margin-bottom: 20px;
 `;
 
-export const LogoWrapper = styled.div`
+export const RightColWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: auto;
@@ -74,4 +74,42 @@ export const ButtonWrapper = styled.div`
 
 export const ErrorText = styled(Text)`
   margin-left: 20px;
+`;
+
+export const StyledRatingWrapper = styled.div`
+  width: 300px;
+`;
+
+export const StyledRatingBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+`;
+
+export const StyledReviewsWrapper = styled.div`
+  margin-top: 40px;
+`;
+
+export const StyledDateWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const StyledReviewsBox = styled.div`
+  margin-top: 100px;
+`;
+
+export const FreelancerNameDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: ${({ theme }) => theme.weight?.bold};
+`;
+
+export const StRatingCommentBox = styled.div`
+  border: 1px solid var(--grey);
+  box-shadow: 2px 2px 2px var(--grey);
+  padding: 5px 10px;
+  min-height: 100px;
 `;

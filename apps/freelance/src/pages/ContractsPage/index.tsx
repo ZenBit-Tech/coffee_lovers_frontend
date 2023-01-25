@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { Col, Row, Tabs } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import {
   contractsPageTestId,
   PageWrapper,
+  PrimaryButton,
+  RatingModal,
   roles,
   StyledCardReusable,
 } from '@freelance/components';
@@ -22,6 +25,7 @@ const ContractsList = () => {
   const role = useSelector(selectRole);
   const { data: closedContracts } = useGetClosedContractsQuery();
   const { data: activeContracts } = useGetActiveConractsQuery();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
     <PageWrapper>
@@ -69,6 +73,20 @@ const ContractsList = () => {
                     <div>{t('contracts.start')}</div>
                     <DateText>{el.offer.start}</DateText>
                   </Col>
+                  <Col className="gutter-row" span={4}>
+                    <PrimaryButton
+                      onClick={() => setIsModalOpen(value => !value)}
+                    >
+                      {t('contracts.feedback')}
+                    </PrimaryButton>
+                  </Col>
+                  <RatingModal
+                    contract={el}
+                    job_owner_id={el.offer.job_owner.id}
+                    job_id={el.offer.job.id}
+                    setIsModalOpen={setIsModalOpen}
+                    isModalOpen={isModalOpen}
+                  />
                   {i === closed && (
                     <Col className="gutter-row" span={4}>
                       <div>{t('contracts.end')}</div>
