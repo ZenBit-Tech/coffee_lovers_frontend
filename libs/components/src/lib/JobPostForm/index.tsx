@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
 import { Form, Space, Typography } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
   InputsValues,
+  NotificationType,
+  openNotificationWithIcon,
   routes,
   schema,
   StyledButton,
@@ -48,16 +51,31 @@ export function JobPostForm() {
     resolver: yupResolver(schema),
   });
   const navigate = useNavigate();
-  const [postJob] = usePostJobMutation();
+  const [postJob, { isSuccess, isError }] = usePostJobMutation();
 
   const onSubmit: SubmitHandler<InputsValues> = async data => {
     try {
       await postJob(data);
-      navigate(routes.talents);
+      navigate(routes.jobs);
     } catch (error) {
       alert(JSON.stringify(error));
     }
   };
+
+  useEffect(() => {
+    isSuccess &&
+      openNotificationWithIcon(
+        NotificationType.SUCCESS,
+        t('job_post_page.success'),
+        t('job_post_page.successPostMessage'),
+      );
+    isError &&
+      openNotificationWithIcon(
+        NotificationType.ERROR,
+        t('description.profileQp1.notifFailed'),
+        t('description.profileQp1.notifFailedMsg'),
+      );
+  }, [isSuccess, isError]);
 
   return (
     <FormWrapper>

@@ -140,7 +140,11 @@ const JobDetailsPage = () => {
         </Space>
 
         <St.RightColWrapper>
-          <Avatar size={64} icon={<UserOutlined />} />
+          <Avatar
+            src={jobData?.job.owner.profile_image}
+            size={80}
+            icon={<UserOutlined />}
+          />
           <St.LabelText data-testid={jobDataTestId.jobOwner}>
             {jobData?.job.owner.first_name} {jobData?.job.owner.last_name}
           </St.LabelText>
