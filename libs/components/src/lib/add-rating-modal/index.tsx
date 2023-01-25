@@ -60,6 +60,7 @@ export const RatingModal: FC<IRatingModal> = props => {
       } else if (payload.job_owner_id) {
         await setJobOwnerRating(payload);
         setIsModalOpen(false);
+        closeContract(contract.id);
       }
     } catch (error) {
       openNotificationWithIcon(

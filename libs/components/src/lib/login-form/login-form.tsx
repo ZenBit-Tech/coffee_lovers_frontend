@@ -12,7 +12,7 @@ import {
   StyledPasswordInput,
   useOpenNotification,
 } from '@freelance/components';
-import { routes } from '@freelance/constants';
+import { authTestId, routes } from '@freelance/constants';
 import { useLoginUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 import { baseTheme } from 'src/styles/theme';
@@ -90,6 +90,7 @@ export const LoginForm = () => {
               {...field}
             >
               <StyledInput
+                data-testid={authTestId.loginEmailField}
                 size="large"
                 type="email"
                 id="email-field"
@@ -111,6 +112,7 @@ export const LoginForm = () => {
               {...field}
             >
               <StyledPasswordInput
+                data-testid={authTestId.loginPasswordField}
                 type="password"
                 size="large"
                 id="password-field"
@@ -123,6 +125,7 @@ export const LoginForm = () => {
         <Form.Item>
           <StyledButton
             theme={baseTheme}
+            data-testid={authTestId.loginButton}
             size="large"
             type="primary"
             block
@@ -136,6 +139,7 @@ export const LoginForm = () => {
       <Form.Item>
         <StyledButton
           theme={baseTheme}
+          data-testid={authTestId.haveAccountButton}
           type="link"
           htmlType="button"
           onClick={() => navigate(`${routes.signup}`)}
@@ -144,6 +148,7 @@ export const LoginForm = () => {
         </StyledButton>
         <StyledButton
           theme={baseTheme}
+          data-testid={authTestId.forgetPasswordButton}
           type="link"
           htmlType="button"
           onClick={() => navigate(`${routes.passwordreset}`)}
@@ -154,5 +159,3 @@ export const LoginForm = () => {
     </Form>
   );
 };
-
-export default LoginForm;

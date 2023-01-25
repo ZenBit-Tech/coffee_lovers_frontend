@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Button, Checkbox, Form } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import useFormPersist from 'react-hook-form-persist';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +12,7 @@ import {
   authFirstName,
   authLastName,
   authPassword,
+  authTestId,
   NotificationType,
   routes,
   StyledInput,
@@ -21,7 +23,7 @@ import { passwordValidationRegExp } from 'src/pages/PasswordReset/constants';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
-import { nameValidationRegExp } from './constants';
+import { formName, nameValidationRegExp } from './constants';
 import { FormItem } from './styles';
 
 type FormValues = {
@@ -38,7 +40,9 @@ export function SignUpForm() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { handleSubmit, control } = useForm<FormValues>();
+
+  const { handleSubmit, getValues, control, watch, setValue } =
+    useForm<FormValues>();
   const { contextHolder, openNotificationWithIcon } = useOpenNotification();
 
   const [registerUser, { data: registerData, isSuccess, isError }] =
@@ -54,6 +58,7 @@ export function SignUpForm() {
       if (first_name && last_name && password && email) {
         await registerUser({ email, first_name, last_name, password });
       }
+      sessionStorage.clear();
     } catch (error) {
       openNotificationWithIcon(
         NotificationType.ERROR,
@@ -62,6 +67,12 @@ export function SignUpForm() {
       );
     }
   };
+
+  useFormPersist(formName, {
+    watch,
+    setValue,
+    exclude: [authPassword, authConfirmPassword],
+  });
 
   useEffect(() => {
     if (isSuccess) {
@@ -79,10 +90,24 @@ export function SignUpForm() {
 
   return (
     <Form
-      name="basic"
+      name={formName}
       form={form}
       wrapperCol={{ span: 24 }}
       onFinish={handleSubmit(onSubmit)}
+      fields={[
+        {
+          name: authEmail,
+          value: getValues().email,
+        },
+        {
+          name: authFirstName,
+          value: getValues().first_name,
+        },
+        {
+          name: authLastName,
+          value: getValues().last_name,
+        },
+      ]}
     >
       {contextHolder}
       <Controller
@@ -101,6 +126,7 @@ export function SignUpForm() {
             {...field}
           >
             <StyledInput
+              data-testid={authTestId.signUpEmailField}
               size="large"
               type="email"
               id="email-field"
@@ -126,6 +152,7 @@ export function SignUpForm() {
               {...field}
             >
               <StyledInput
+                data-testid={authTestId.signUpFirstNameField}
                 size="large"
                 type="firstName"
                 id="firstName-field"
@@ -151,6 +178,7 @@ export function SignUpForm() {
               {...field}
             >
               <StyledInput
+                data-testid={authTestId.signUpLastNameField}
                 size="large"
                 type="lastName"
                 id="lastName-field"
@@ -177,6 +205,7 @@ export function SignUpForm() {
               {...field}
             >
               <StyledPasswordInput
+                data-testid={authTestId.signUpPasswordField}
                 size="large"
                 type="password"
                 id="password-field"
@@ -238,7 +267,13 @@ export function SignUpForm() {
         </Checkbox>
       </Form.Item>
       <Form.Item>
-        <Button size="large" type="primary" block htmlType="submit">
+        <Button
+          data-testid={authTestId.signUpFirstNameField}
+          size="large"
+          type="primary"
+          block
+          htmlType="submit"
+        >
           {t('loginPage.signUp')}
         </Button>
       </Form.Item>

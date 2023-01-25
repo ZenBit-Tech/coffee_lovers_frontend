@@ -17,17 +17,14 @@ enum ContractsEndpoints {
 
 export const contractApi = emptySplitApi.injectEndpoints({
   endpoints: builder => ({
-    getActiveConracts: builder.query<ContractsResponse[], number | null | void>(
-      {
-        query: () => serviceRoute + ContractsEndpoints.opened,
-        providesTags: [apiTags.job],
-      },
-    ),
-    getClosedContracts: builder.query<
-      ContractsResponse[],
-      number | null | void
-    >({
+    getActiveConracts: builder.query<ContractsResponse[], void>({
+      query: () => serviceRoute + ContractsEndpoints.opened,
+      keepUnusedDataFor: 0.0001,
+      providesTags: [apiTags.job],
+    }),
+    getClosedContracts: builder.query<ContractsResponse[], void>({
       query: () => serviceRoute + ContractsEndpoints.closed,
+      keepUnusedDataFor: 0.0001,
       providesTags: [apiTags.job],
     }),
     closeContract: builder.mutation({

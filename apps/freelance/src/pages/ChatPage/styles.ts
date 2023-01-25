@@ -167,6 +167,14 @@ export const SendOfferBtn = styled(PrimaryButton)`
   margin-right: 10px;
 `;
 
+export const EmptyDataWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+`;
+
 export const ReceivedOfferWrapper = styled(Space)`
   display: flex;
 `;

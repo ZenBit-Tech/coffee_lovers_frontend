@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Space, Typography } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,9 @@ import {
   hourly_rate,
   jobUpdateSchema,
   JobUpdateValues,
+  NotificationType,
+  openNotificationWithIcon,
+  PageWrapper,
   routes,
   StyledButton,
   StyledInput,
@@ -50,8 +53,12 @@ export const JobUpdateForm = () => {
 
   const navigate = useNavigate();
 
-  const [updateJob] = useUpdateJobMutation();
+  const [
+    updateJob,
+    { isSuccess: isUpdateJobSuccess, isError: isUpdateJobError },
+  ] = useUpdateJobMutation();
   const { data, isLoading } = useGetJobQuery(jobId);
+  const [isFormChanged, setIsFormChanged] = useState<boolean>(false);
 
   useEffect(() => {
     const awd = () => {
@@ -60,22 +67,55 @@ export const JobUpdateForm = () => {
     awd();
   }, [data, job]);
 
+  useEffect(() => {
+    const handler = (event: BeforeUnloadEvent) => {
+      event.returnValue = '';
+    };
+    if (isFormChanged) {
+      window.addEventListener('beforeunload', handler);
+    }
+
+    return () => {
+      window.removeEventListener('beforeunload', handler);
+    };
+  }, [isFormChanged]);
+
   const jobUpdateOnSubmit: SubmitHandler<JobUpdateValues> = async data => {
     try {
       const JobUpdateData = { id: jobId, ...data };
       await updateJob(JobUpdateData);
-      navigate(routes.talents);
+      setIsFormChanged(false);
+      navigate(routes.jobs);
     } catch (error) {
       alert(JSON.stringify(error));
     }
   };
 
+  useEffect(() => {
+    isUpdateJobSuccess &&
+      openNotificationWithIcon(
+        NotificationType.SUCCESS,
+        t('job_post_page.success'),
+        t('job_post_page.successEditMessage'),
+      );
+    isUpdateJobError &&
+      openNotificationWithIcon(
+        NotificationType.ERROR,
+        t('description.profileQp1.notifFailed'),
+        t('description.profileQp1.notifFailedMsg'),
+      );
+  }, [isUpdateJobSuccess, isUpdateJobError]);
+
   return (
-    <Fragment>
-      {isLoading && <p>Loading</p>}
+    <PageWrapper isLoading={isLoading}>
       {job && (
         <FormWrapper>
-          <Form onFinish={jobUpdateHandleSubmit(jobUpdateOnSubmit)}>
+          <Form
+            onFinish={jobUpdateHandleSubmit(jobUpdateOnSubmit)}
+            onChange={() => {
+              setIsFormChanged(true);
+            }}
+          >
             <Form.Item>
               <TitleWrapper>
                 <Title level={2}>{t('job_post_page.update_title')}</Title>
@@ -139,7 +179,7 @@ export const JobUpdateForm = () => {
                   />
                   {errors.hourly_rate && (
                     <StyledErrorMessage>
-                      {errors.hourly_rate?.message}
+                      {t('errors.requiredError')}
                     </StyledErrorMessage>
                   )}
                 </Form.Item>
@@ -186,6 +226,6 @@ export const JobUpdateForm = () => {
           </Form>
         </FormWrapper>
       )}
-    </Fragment>
+    </PageWrapper>
   );
 };

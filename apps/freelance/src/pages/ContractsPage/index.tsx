@@ -1,20 +1,18 @@
-import { useEffect, useState } from 'react';
-import { Button, Col, Row, Space, Tabs } from 'antd';
+import { useState } from 'react';
+import { Col, Modal, Row, Space, Tabs } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { CheckCircleOutlined } from '@ant-design/icons';
 import {
   contractsPageTestId,
-  NotificationType,
+  DangerButton,
   PageWrapper,
-  PrimaryButton,
   RatingModal,
   roles,
   StyledCardReusable,
-  useOpenNotification,
 } from '@freelance/components';
 import { selectRole } from 'redux/auth/auth-slice';
 import {
-  useCloseContractMutation,
   useGetActiveConractsQuery,
   useGetClosedContractsQuery,
 } from 'redux/services/contractApi';
@@ -27,29 +25,27 @@ import { DateText } from './styles';
 const ContractsList = () => {
   const { t } = useTranslation();
   const role = useSelector(selectRole);
-  const [closeContract, { isSuccess }] = useCloseContractMutation();
+  const { data: closedContracts } = useGetClosedContractsQuery();
+  const { data: activeContracts } = useGetActiveConractsQuery();
   const { data: user } = useGetUserInfoQuery();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { contextHolder, openNotificationWithIcon } = useOpenNotification();
-  const { data: closedContracts } = useGetClosedContractsQuery(
-    user?.id || null,
-  );
-  const { data: activeContracts } = useGetActiveConractsQuery(user?.id || null);
 
-  useEffect(() => {
-    if (isSuccess) {
-      openNotificationWithIcon(
-        NotificationType.SUCCESS,
-        `${t('contracts.headerInfo')}`,
-        `${t('contracts.closeInfo')}`,
-      );
-    }
-  }, [isSuccess]);
+  const closeContractHandler = (name: string, lastname: string): void => {
+    Modal.confirm({
+      title: t('contracts.closeContract'),
+      icon: <CheckCircleOutlined />,
+      content: `${name} ${lastname}`,
+      okText: t('postedJobDetails.modal.confirm'),
+      cancelText: t('postedJobDetails.modal.cancel'),
+      onOk() {
+        setIsModalOpen(true);
+      },
+    });
+  };
 
   return (
     <PageWrapper>
       <h3>{t('contracts.header')}</h3>
-      {contextHolder}
       <Tabs
         data-testid={contractsPageTestId.contractsTab}
         defaultActiveKey={`${active}`}
@@ -98,7 +94,7 @@ const ContractsList = () => {
                   </Col>
                   <RatingModal
                     contract={el}
-                    job_owner_id={el.offer.job_owner.id}
+                    job_owner_id={el.offer.job_owner?.id}
                     job_id={el.offer.job.id}
                     setIsModalOpen={setIsModalOpen}
                     isModalOpen={isModalOpen}
@@ -114,22 +110,18 @@ const ContractsList = () => {
                   <Col span={4}>
                     <Space size={'small'}>
                       <Row>
-                        <PrimaryButton
-                          onClick={() => setIsModalOpen(value => !value)}
-                        >
-                          {t('contracts.feedback')}
-                        </PrimaryButton>
-                      </Row>
-                      <Row>
                         {contractsPage !== closed &&
                           user?.role === roles.freelancer && (
-                            <Button
-                              onClick={() => {
-                                closeContract(el.id);
-                              }}
+                            <DangerButton
+                              onClick={() =>
+                                closeContractHandler(
+                                  el.offer.job_owner.first_name,
+                                  el.offer.job_owner.last_name,
+                                )
+                              }
                             >
                               {t('contracts.close')}
-                            </Button>
+                            </DangerButton>
                           )}
                       </Row>
                     </Space>

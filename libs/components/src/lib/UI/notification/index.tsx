@@ -35,3 +35,14 @@ export const useOpenNotification = (): useOpenNotificationReturns => {
     openNotificationWithIcon,
   };
 };
+
+export const openNotificationWithIcon = (
+  type: NotificationType,
+  message: string,
+  description: string,
+) => {
+  notification[type]({
+    message,
+    description,
+  });
+};
