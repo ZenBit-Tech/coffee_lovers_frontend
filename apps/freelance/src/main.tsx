@@ -21,7 +21,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <GoogleOAuthProvider clientId={process.env['NX_CLIENT_ID'] as string}>
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div></div>}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <ThemeProvider theme={baseTheme}>
