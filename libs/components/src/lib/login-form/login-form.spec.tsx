@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
 
-import LoginForm from './login-form';
+import { LoginForm } from './login-form';
 
 jest.mock('src/redux/auth/auth-api', () => ({
   loginUser: () => ({

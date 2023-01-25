@@ -171,7 +171,7 @@ const FreelancerPageInfo = () => {
             <St.RatingCol key={el.id}>
               <Col span={6}>
                 <Avatar
-                  src={`${baseUrl}/${el.job_owner.profile_image}`}
+                  src={`${baseUrl}/${el.job_owner?.profile_image}`}
                   size={profileQ1.avatarBigSize}
                   icon={<UserOutlined />}
                 />
@@ -179,9 +179,9 @@ const FreelancerPageInfo = () => {
               <Col span={12}>
                 <St.JobOwnerNameRateWrapper>
                   <St.JobOwnerNameDiv>
-                    {el.job_owner.first_name} {el.job_owner.last_name}
+                    {el.job_owner?.first_name} {el.job_owner?.last_name}
                   </St.JobOwnerNameDiv>
-                  <Rate value={el.freelancer_rating} disabled />
+                  <Rate value={el.rating} disabled />
                 </St.JobOwnerNameRateWrapper>
                 <St.JobOwnerNameRateWrapper>
                   <div>{el.job.title}</div>

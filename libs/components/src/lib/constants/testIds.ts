@@ -33,6 +33,17 @@ export const contractsPageTestId = {
   freelancerNameContract: 'freelancerNameContract',
 };
 
+export const talentsPageTestId = {
+  talentsBar: 'TalentsBarTestId',
+  talentsCard: 'TalentsCard',
+  talentName: 'TalentName',
+  listOfTalents: 'listOfTalents',
+  talentRate: 'talentRate',
+  talentsPagination: 'talentsPagination',
+  talentsFilterButton: 'talentsFilterButton',
+  talentsFilter: 'talentsFilter',
+};
+
 export const jobCardTestId = {
   wrapper: 'jobCardWrapper',
   title: 'jobCardTitle',
@@ -63,4 +74,17 @@ export const jobDataTestId = {
   jobNumberInput: 'jobDataNumberInput',
   jobSendProposalBtn: 'jobDataSendProposalBtn',
   jobProposalModal: 'jobDataProposalModal',
+};
+
+export const authTestId = {
+  loginEmailField: 'loginEmailField',
+  loginPasswordField: 'loginPasswordField',
+  loginButton: 'loginButton',
+  haveAccountButton: 'haveAccountButton',
+  forgetPasswordButton: 'forgetPasswordButton',
+  signUpEmailField: 'signUpEmailField',
+  signUpPasswordField: 'signUpPasswordField',
+  signUpFirstNameField: 'signUpFirstNameField',
+  signUpLastNameField: 'signUpLastNameField',
+  signUpButton: 'signUpButton',
 };

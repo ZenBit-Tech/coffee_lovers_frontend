@@ -21,7 +21,7 @@ jest.mock('redux/services/jobsApi', () => ({
   useSendProposalMutation: () => [sendProposal],
 }));
 
-jest.mock('redux/services/user', () => ({
+jest.mock('redux/services/userApi', () => ({
   useGetUserProposalsQuery: () => ({ data: mockProposals, isLoading: false }),
   useGetUserInfoQuery: () => ({ data: mockOneUser }),
 }));

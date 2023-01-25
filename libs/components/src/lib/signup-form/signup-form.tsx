@@ -12,6 +12,7 @@ import {
   authFirstName,
   authLastName,
   authPassword,
+  authTestId,
   NotificationType,
   routes,
   StyledInput,
@@ -125,6 +126,7 @@ export function SignUpForm() {
             {...field}
           >
             <StyledInput
+              data-testid={authTestId.signUpEmailField}
               size="large"
               type="email"
               id="email-field"
@@ -150,6 +152,7 @@ export function SignUpForm() {
               {...field}
             >
               <StyledInput
+                data-testid={authTestId.signUpFirstNameField}
                 size="large"
                 type="firstName"
                 id="firstName-field"
@@ -175,6 +178,7 @@ export function SignUpForm() {
               {...field}
             >
               <StyledInput
+                data-testid={authTestId.signUpLastNameField}
                 size="large"
                 type="lastName"
                 id="lastName-field"
@@ -201,6 +205,7 @@ export function SignUpForm() {
               {...field}
             >
               <StyledPasswordInput
+                data-testid={authTestId.signUpPasswordField}
                 size="large"
                 type="password"
                 id="password-field"
@@ -262,7 +267,13 @@ export function SignUpForm() {
         </Checkbox>
       </Form.Item>
       <Form.Item>
-        <Button size="large" type="primary" block htmlType="submit">
+        <Button
+          data-testid={authTestId.signUpFirstNameField}
+          size="large"
+          type="primary"
+          block
+          htmlType="submit"
+        >
           {t('loginPage.signUp')}
         </Button>
       </Form.Item>
