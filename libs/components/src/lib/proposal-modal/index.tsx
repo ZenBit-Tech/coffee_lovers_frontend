@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Form, Modal, ModalProps } from 'antd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -47,7 +48,10 @@ export const ProposalModal = ({
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const { handleSubmit } = useForm<IProposal>();
-  const [sendProposal] = useSendProposalMutation();
+  const [
+    sendProposal,
+    { isSuccess: sendProposalSuccess, isError: sendProposalError },
+  ] = useSendProposalMutation();
 
   const onFinish: SubmitHandler<IProposal> = async values => {
     try {
@@ -59,11 +63,6 @@ export const ProposalModal = ({
       await sendProposal(proposalResponse);
       form.resetFields();
       onCancel();
-      openNotificationWithIcon(
-        NotificationType.SUCCESS,
-        t('proposalModal.success'),
-        t('proposalModal.successMessage'),
-      );
     } catch (error) {
       openNotificationWithIcon(
         NotificationType.ERROR,
@@ -72,6 +71,21 @@ export const ProposalModal = ({
       );
     }
   };
+
+  useEffect(() => {
+    sendProposalSuccess &&
+      openNotificationWithIcon(
+        NotificationType.SUCCESS,
+        t('proposalModal.success'),
+        t('proposalModal.successMessage'),
+      );
+    sendProposalError &&
+      openNotificationWithIcon(
+        NotificationType.ERROR,
+        t('description.profileQp1.notifFailed'),
+        t('description.profileQp1.notifFailedMsg'),
+      );
+  }, [sendProposalSuccess, sendProposalError]);
 
   return (
     <div data-testid={jobDataTestId.jobProposalModal}>
