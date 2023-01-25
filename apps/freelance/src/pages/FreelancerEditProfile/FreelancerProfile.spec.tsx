@@ -21,7 +21,7 @@ const AddUserEduInfo = (educationPayloadArr: AddEducation[]) =>
   educationPayloadArr;
 const AddUserWorkhistory = (workPayloadArr: AddWorkhistory[]) => workPayloadArr;
 
-jest.mock('redux/services/user', () => ({
+jest.mock('redux/services/userApi', () => ({
   useGetUserInfoQuery: () => ({
     data: mockFreelancerProfileData,
     isLoading: false,
@@ -34,6 +34,7 @@ jest.mock('redux/services/user', () => ({
   useUpdateUserInfoMutation: () => [UpdateUserInfo],
   useAddUserEduInfoMutation: () => [AddUserEduInfo],
   useAddUserWorkhistoryInfoMutation: () => [AddUserWorkhistory],
+  useSetProfileImageMutation: () => [() => ({}), { data: {} }],
 }));
 
 describe('FreelancerProfile rendering component using data from rtk query', () => {
