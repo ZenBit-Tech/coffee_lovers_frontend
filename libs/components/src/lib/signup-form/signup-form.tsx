@@ -22,7 +22,7 @@ import { passwordValidationRegExp } from 'src/pages/PasswordReset/constants';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
-import { nameValidationRegExp } from './constants';
+import { formName, nameValidationRegExp } from './constants';
 import { FormItem } from './styles';
 
 type FormValues = {
@@ -67,7 +67,7 @@ export function SignUpForm() {
     }
   };
 
-  useFormPersist('basic', {
+  useFormPersist(formName, {
     watch,
     setValue,
     exclude: [authPassword, authConfirmPassword],
@@ -89,7 +89,7 @@ export function SignUpForm() {
 
   return (
     <Form
-      name="basic"
+      name={formName}
       form={form}
       wrapperCol={{ span: 24 }}
       onFinish={handleSubmit(onSubmit)}
