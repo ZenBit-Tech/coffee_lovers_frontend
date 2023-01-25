@@ -34,11 +34,14 @@ const ContractsList = () => {
         data-testid={contractsPageTestId.contractsTab}
         defaultActiveKey={`${active}`}
         centered
-        items={new Array(2).fill(null).map((_, i) => {
-          const id = String(i + 1);
-          const pageItems = i === closed ? closedContracts : activeContracts;
+        items={new Array(2).fill(null).map((_, contractsPage) => {
+          const id = String(contractsPage + 1);
+          const pageItems =
+            contractsPage === closed ? closedContracts : activeContracts;
           const pageName =
-            i === closed ? t('contracts.closed') : t('contracts.active');
+            contractsPage === closed
+              ? t('contracts.closed')
+              : t('contracts.active');
 
           return {
             label: pageName,
@@ -73,13 +76,13 @@ const ContractsList = () => {
                     <div>{t('contracts.start')}</div>
                     <DateText>{el.offer.start}</DateText>
                   </Col>
-                  {i === closed && (
+                  {contractsPage === closed && (
                     <Col className="gutter-row" span={4}>
                       <div>{t('contracts.end')}</div>
                       <DateText>{el.end}</DateText>
                     </Col>
                   )}
-                  {i !== closed && user?.role === roles.freelancer && (
+                  {contractsPage !== closed && user?.role === roles.freelancer && (
                     <Button
                       onClick={() => {
                         closeContract(el.id);
