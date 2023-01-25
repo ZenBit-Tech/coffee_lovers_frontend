@@ -32,7 +32,7 @@ const ContractsList = () => {
 
   const closeContractHandler = (name: string, lastname: string): void => {
     Modal.confirm({
-      title: t('postedJobDetails.modal.closeContract'),
+      title: t('contracts.closeContract'),
       icon: <CheckCircleOutlined />,
       content: `${name} ${lastname}`,
       okText: t('postedJobDetails.modal.confirm'),

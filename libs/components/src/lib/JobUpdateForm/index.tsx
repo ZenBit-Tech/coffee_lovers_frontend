@@ -58,6 +58,7 @@ export const JobUpdateForm = () => {
     { isSuccess: isUpdateJobSuccess, isError: isUpdateJobError },
   ] = useUpdateJobMutation();
   const { data, isLoading } = useGetJobQuery(jobId);
+  const [isFormChanged, setIsFormChanged] = useState<boolean>(false);
 
   useEffect(() => {
     const awd = () => {
@@ -66,10 +67,24 @@ export const JobUpdateForm = () => {
     awd();
   }, [data, job]);
 
+  useEffect(() => {
+    const handler = (event: BeforeUnloadEvent) => {
+      event.returnValue = '';
+    };
+    if (isFormChanged) {
+      window.addEventListener('beforeunload', handler);
+    }
+
+    return () => {
+      window.removeEventListener('beforeunload', handler);
+    };
+  }, [isFormChanged]);
+
   const jobUpdateOnSubmit: SubmitHandler<JobUpdateValues> = async data => {
     try {
       const JobUpdateData = { id: jobId, ...data };
       await updateJob(JobUpdateData);
+      setIsFormChanged(false);
       navigate(routes.jobs);
     } catch (error) {
       alert(JSON.stringify(error));
@@ -95,7 +110,12 @@ export const JobUpdateForm = () => {
     <PageWrapper isLoading={isLoading}>
       {job && (
         <FormWrapper>
-          <Form onFinish={jobUpdateHandleSubmit(jobUpdateOnSubmit)}>
+          <Form
+            onFinish={jobUpdateHandleSubmit(jobUpdateOnSubmit)}
+            onChange={() => {
+              setIsFormChanged(true);
+            }}
+          >
             <Form.Item>
               <TitleWrapper>
                 <Title level={2}>{t('job_post_page.update_title')}</Title>
