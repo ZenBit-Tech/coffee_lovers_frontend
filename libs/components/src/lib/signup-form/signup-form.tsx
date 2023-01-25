@@ -96,15 +96,15 @@ export function SignUpForm() {
       fields={[
         {
           name: authEmail,
-          value: getValues().email || '',
+          value: getValues().email,
         },
         {
           name: authFirstName,
-          value: getValues().first_name || '',
+          value: getValues().first_name,
         },
         {
           name: authLastName,
-          value: getValues().last_name || '',
+          value: getValues().last_name,
         },
       ]}
     >
