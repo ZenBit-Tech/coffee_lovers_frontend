@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Button, Checkbox, Form } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import useFormPersist from 'react-hook-form-persist';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +23,7 @@ import { passwordValidationRegExp } from 'src/pages/PasswordReset/constants';
 import { useRegisterUserMutation } from 'src/redux/auth/auth-api';
 import { setUser } from 'src/redux/auth/auth-slice';
 
-import { nameValidationRegExp } from './constants';
+import { formName, nameValidationRegExp } from './constants';
 import { FormItem } from './styles';
 
 type FormValues = {
@@ -39,7 +40,9 @@ export function SignUpForm() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { handleSubmit, control } = useForm<FormValues>();
+
+  const { handleSubmit, getValues, control, watch, setValue } =
+    useForm<FormValues>();
   const { contextHolder, openNotificationWithIcon } = useOpenNotification();
 
   const [registerUser, { data: registerData, isSuccess, isError }] =
@@ -55,6 +58,7 @@ export function SignUpForm() {
       if (first_name && last_name && password && email) {
         await registerUser({ email, first_name, last_name, password });
       }
+      sessionStorage.clear();
     } catch (error) {
       openNotificationWithIcon(
         NotificationType.ERROR,
@@ -63,6 +67,12 @@ export function SignUpForm() {
       );
     }
   };
+
+  useFormPersist(formName, {
+    watch,
+    setValue,
+    exclude: [authPassword, authConfirmPassword],
+  });
 
   useEffect(() => {
     if (isSuccess) {
@@ -80,10 +90,24 @@ export function SignUpForm() {
 
   return (
     <Form
-      name="basic"
+      name={formName}
       form={form}
       wrapperCol={{ span: 24 }}
       onFinish={handleSubmit(onSubmit)}
+      fields={[
+        {
+          name: authEmail,
+          value: getValues().email,
+        },
+        {
+          name: authFirstName,
+          value: getValues().first_name,
+        },
+        {
+          name: authLastName,
+          value: getValues().last_name,
+        },
+      ]}
     >
       {contextHolder}
       <Controller
