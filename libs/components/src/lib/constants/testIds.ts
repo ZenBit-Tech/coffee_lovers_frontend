@@ -33,6 +33,17 @@ export const contractsPageTestId = {
   freelancerNameContract: 'freelancerNameContract',
 };
 
+export const talentsPageTestId = {
+  talentsBar: 'TalentsBarTestId',
+  talentsCard: 'TalentsCard',
+  talentName: 'TalentName',
+  listOfTalents: 'listOfTalents',
+  talentRate: 'talentRate',
+  talentsPagination: 'talentsPagination',
+  talentsFilterButton: 'talentsFilterButton',
+  talentsFilter: 'talentsFilter',
+};
+
 export const jobCardTestId = {
   wrapper: 'jobCardWrapper',
   title: 'jobCardTitle',
