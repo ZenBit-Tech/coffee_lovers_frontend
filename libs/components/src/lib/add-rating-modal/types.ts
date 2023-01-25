@@ -4,7 +4,8 @@ import { Contract } from 'src/redux/types/contracts.types';
 export interface IRatingModal {
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-  freelancer_id: number;
   contract: Contract;
+  freelancer_id?: number;
+  job_owner_id?: number;
   job_id?: number;
 }
