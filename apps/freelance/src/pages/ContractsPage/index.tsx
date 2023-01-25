@@ -27,12 +27,14 @@ import { DateText } from './styles';
 const ContractsList = () => {
   const { t } = useTranslation();
   const role = useSelector(selectRole);
-  const { data: closedContracts } = useGetClosedContractsQuery();
-  const { data: activeContracts } = useGetActiveConractsQuery();
   const [closeContract, { isSuccess }] = useCloseContractMutation();
   const { data: user } = useGetUserInfoQuery();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { contextHolder, openNotificationWithIcon } = useOpenNotification();
+  const { data: closedContracts } = useGetClosedContractsQuery(
+    user?.id || null,
+  );
+  const { data: activeContracts } = useGetActiveConractsQuery(user?.id || null);
 
   useEffect(() => {
     if (isSuccess) {
