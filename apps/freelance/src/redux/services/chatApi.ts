@@ -14,6 +14,7 @@ import {
   CreateMessagePayload,
   GetConversationParams,
   GetMessagesPayload,
+  GetTypingPayload,
   MessageResponse,
   SendMessagePayload,
   SetTypingPayload,
@@ -127,7 +128,7 @@ const chatApi = emptySplitApi.injectEndpoints({
         });
       },
     }),
-    getTypeEvent: build.query<string[], string>({
+    getTypeEvent: build.query<GetTypingPayload[], string>({
       queryFn: (token: string) => ({ data: [] }),
       async onCacheEntryAdded(
         token,
@@ -142,7 +143,7 @@ const chatApi = emptySplitApi.injectEndpoints({
         eventSource.onmessage = (payload: TypingPayload) => {
           const event = JSON.parse(payload.data);
           updateCachedData(draft => {
-            draft.unshift(event.type);
+            draft.unshift(event);
           });
         };
 

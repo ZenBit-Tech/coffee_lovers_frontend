@@ -220,13 +220,20 @@ const useChatData = (activeChat?: number): useChatDataReturns => {
 
   useEffect(() => {
     const notification = typing?.at(zero);
-    if (notification === TypingEvents.STARTTYPING) {
+
+    if (
+      notification?.type === TypingEvents.STARTTYPING &&
+      notification?.to === currentConversation?.user.id
+    ) {
       setIsTyping(true);
     }
-    if (notification === TypingEvents.ENDTYPING) {
+    if (
+      notification?.type === TypingEvents.ENDTYPING &&
+      notification?.to === currentConversation?.user.id
+    ) {
       setIsTyping(false);
     }
-  }, [typing]);
+  }, [typing, currentConversation]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
