@@ -1,4 +1,4 @@
-import { Col, Form, Typography } from 'antd';
+import { Col, Form, Space, Typography } from 'antd';
 import styled from 'styled-components';
 import { InputSearch, PrimaryButton } from '@freelance/components';
 import { baseTheme } from 'src/styles/theme';
@@ -17,8 +17,8 @@ export const TypeMessage = styled.div`
 `;
 
 export const ContactsList = styled.ul`
-  overflow: scroll;
-  max-height: 70vh;
+  overflow-y: scroll;
+  max-height: 75vh;
   ::-webkit-scrollbar {
     width: 5px;
   }
@@ -173,4 +173,8 @@ export const EmptyDataWrapper = styled.div`
   margin-top: 20px;
   margin-right: auto;
   margin-left: auto;
+`;
+
+export const ReceivedOfferWrapper = styled(Space)`
+  display: flex;
 `;

@@ -1,35 +1,27 @@
 import { useEffect, useState } from 'react';
-import { Avatar, Space } from 'antd';
+import { Avatar, Rate, Space, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 import {
+  Empty,
   jobDataTestId,
   ProposalModal,
   StyledButton,
   useOpenNotification,
 } from '@freelance/components';
 import { PageWrapper } from '@freelance/components';
-import { skills } from '@pages/JobDetailsPage/constants';
+import { jobDetailsPageConsts, skills } from '@pages/JobDetailsPage/constants';
 import { useGetJobQuery } from 'redux/services/jobsApi';
-import { useGetUserProposalsQuery } from 'redux/services/userApi';
+import {
+  useGetJobOwnerRatingsByIdQuery,
+  useGetUserProposalsQuery,
+} from 'redux/services/userApi';
 import { useGetUserInfoQuery } from 'redux/services/userApi';
 import { baseTheme } from 'src/styles/theme';
-import { formatDate } from 'src/utils/dates';
+import { formatDate, getJobDuration } from 'src/utils/dates';
 
-import {
-  ButtonWrapper,
-  ErrorText,
-  JobDescrText,
-  JobDetailsWrapper,
-  JobOptionsText,
-  JobSkillsText,
-  LabelText,
-  LogoWrapper,
-  SkillsWrapper,
-  StyledText,
-  Wrapper,
-} from './styles';
+import * as St from './styles';
 
 type Open = boolean;
 
@@ -45,6 +37,10 @@ const JobDetailsPage = () => {
   const { data: jobData, isLoading: isJobLoading } = useGetJobQuery(id);
   const { data: userProposals, isLoading: isProposalsLoading } =
     useGetUserProposalsQuery();
+
+  const { data: userRatingDataById } = useGetJobOwnerRatingsByIdQuery(
+    jobData?.job?.owner?.id,
+  );
 
   useEffect(() => {
     setIsActive(
@@ -62,68 +58,71 @@ const JobDetailsPage = () => {
 
   return (
     <PageWrapper isLoading={isJobLoading || isProposalsLoading}>
-      <Wrapper>
+      <St.Wrapper>
         {contextHolder}
         <Space direction="vertical" size="middle">
           <h2 data-testid={jobDataTestId.testTitle}>{jobData?.job.title}</h2>
-          <JobDetailsWrapper>
+          <St.JobDetailsWrapper>
             <Space>
-              <JobOptionsText>
-                <LabelText>{t('job_details.date')}:</LabelText>
-                <StyledText data-testid={jobDataTestId.jobDate}>
+              <St.JobOptionsText>
+                <St.LabelText>{t('job_details.date')}:</St.LabelText>
+                <St.StyledText data-testid={jobDataTestId.jobDate}>
                   {jobData && formatDate(new Date(jobData.job.created_at))}
-                </StyledText>
-              </JobOptionsText>
-              <JobOptionsText>
-                <LabelText>{t('job_details.category')}:</LabelText>
-                <StyledText data-testid={jobDataTestId.jobCategory}>
+                </St.StyledText>
+              </St.JobOptionsText>
+              <St.JobOptionsText>
+                <St.LabelText>{t('job_details.category')}:</St.LabelText>
+                <St.StyledText data-testid={jobDataTestId.jobCategory}>
                   {jobData?.job.category?.name}
-                </StyledText>
-              </JobOptionsText>
-              <JobOptionsText>
-                <LabelText>{t('job_details.duration')}:</LabelText>
-                <StyledText data-testid={jobDataTestId.jobDuration}>
-                  {jobData?.job.duration_amount || t('findJobs.no_duration')}
-                </StyledText>
-              </JobOptionsText>
-              <JobOptionsText>
-                <LabelText> {t('job_details.rate')}:</LabelText>
-                <StyledText data-testid={jobDataTestId.jobRate}>
+                </St.StyledText>
+              </St.JobOptionsText>
+              <St.JobOptionsText>
+                <St.LabelText>{t('job_details.duration')}:</St.LabelText>
+                <St.StyledText data-testid={jobDataTestId.jobDuration}>
+                  {getJobDuration(
+                    jobData?.job.duration,
+                    jobData?.job.duration_amount,
+                  ) || t('findJobs.no_duration')}
+                </St.StyledText>
+              </St.JobOptionsText>
+              <St.JobOptionsText>
+                <St.LabelText> {t('job_details.rate')}:</St.LabelText>
+                <St.StyledText data-testid={jobDataTestId.jobRate}>
                   {jobData?.job.hourly_rate}
-                </StyledText>
-              </JobOptionsText>
-              <JobOptionsText>
-                <LabelText>{t('job_details.time')}:</LabelText>
-                <StyledText data-testid={jobDataTestId.jobTime}>
+                </St.StyledText>
+              </St.JobOptionsText>
+              <St.JobOptionsText>
+                <St.LabelText>{t('job_details.time')}:</St.LabelText>
+                <St.StyledText data-testid={jobDataTestId.jobTime}>
                   {jobData?.job.available_time}
-                </StyledText>
-              </JobOptionsText>
-              <JobOptionsText>
-                <LabelText>
+                </St.StyledText>
+              </St.JobOptionsText>
+              <St.JobOptionsText>
+                <St.LabelText>
                   {t('description.profileQp2.english_level')}:
-                </LabelText>
-                <StyledText data-testid={jobDataTestId.jobEnglish}>
+                </St.LabelText>
+                <St.StyledText data-testid={jobDataTestId.jobEnglish}>
                   {jobData?.job.english_level}
-                </StyledText>
-              </JobOptionsText>
+                </St.StyledText>
+              </St.JobOptionsText>
             </Space>
-          </JobDetailsWrapper>
-          <JobDescrText>
-            <StyledText data-testid={jobDataTestId.jobDescription}>
+          </St.JobDetailsWrapper>
+          <St.JobDescrText>
+            <St.StyledText data-testid={jobDataTestId.jobDescription}>
               {jobData?.job.description}
-            </StyledText>
-          </JobDescrText>
+            </St.StyledText>
+          </St.JobDescrText>
 
-          <LabelText>{t('job_details.skills')}</LabelText>
-          <SkillsWrapper>
+          <St.LabelText>{t('job_details.skills')}</St.LabelText>
+          <St.SkillsWrapper>
             {skills?.map(skill => (
-              <JobSkillsText data-testid={jobDataTestId.jobSkills}>
+              <St.JobSkillsText data-testid={jobDataTestId.jobSkills}>
                 {skill}
-              </JobSkillsText>
+              </St.JobSkillsText>
             ))}
-          </SkillsWrapper>
+          </St.SkillsWrapper>
 
-          <ButtonWrapper>
+          <St.ButtonWrapper>
             <StyledButton
               data-testid={jobDataTestId.jobSendProposalBtn}
               theme={baseTheme}
@@ -133,22 +132,76 @@ const JobDetailsPage = () => {
               {t('job_details.send_proposal')}
             </StyledButton>
             {isActive && (
-              <ErrorText type="danger">{t('job_details.error_msg')}</ErrorText>
+              <St.ErrorText type="danger">
+                {t('job_details.error_msg')}
+              </St.ErrorText>
             )}
-          </ButtonWrapper>
+          </St.ButtonWrapper>
         </Space>
 
-        <LogoWrapper>
+        <St.RightColWrapper>
           <Avatar
             src={jobData?.job.owner.profile_image}
             size={80}
             icon={<UserOutlined />}
           />
-          <LabelText data-testid={jobDataTestId.jobOwner}>
+          <St.LabelText data-testid={jobDataTestId.jobOwner}>
             {jobData?.job.owner.first_name} {jobData?.job.owner.last_name}
-          </LabelText>
-        </LogoWrapper>
-      </Wrapper>
+          </St.LabelText>
+          <St.StyledRatingWrapper>
+            <St.StyledRatingBox>
+              <p>
+                {jobData?.job.owner.reviews_amount
+                  ? jobData?.job.owner.reviews_amount
+                  : jobDetailsPageConsts.noReviews}{' '}
+                {jobData?.job.owner.reviews_amount ===
+                jobDetailsPageConsts.oneReview
+                  ? t('job_details.review')
+                  : t('job_details.reviews')}
+              </p>
+              <p>
+                {jobData?.job.owner.average_rating
+                  ? `${t('job_details.rating')}  ${
+                      jobData?.job.owner.average_rating
+                    }`
+                  : t('job_details.noRating')}
+              </p>
+            </St.StyledRatingBox>
+            <St.StyledReviewsBox>
+              {userRatingDataById?.length ? (
+                userRatingDataById.map(el => (
+                  <St.StyledReviewsWrapper key={el.id}>
+                    <St.FreelancerNameDiv>
+                      {el.freelancer?.first_name} {el.freelancer?.last_name}
+                    </St.FreelancerNameDiv>
+                    {el.job.title}
+                    <St.StyledRatingBox>
+                      <St.StyledDateWrapper>
+                        {formatDate(new Date(el.created_at))}
+                      </St.StyledDateWrapper>
+                      <Rate value={el.rating} disabled />
+                    </St.StyledRatingBox>
+                    <St.StRatingCommentBox>
+                      <Typography.Paragraph
+                        ellipsis={{
+                          rows: jobDetailsPageConsts.defaultRawAmount,
+                          expandable: true,
+                          symbol: t('textVisibility.more'),
+                        }}
+                      >
+                        {el.rating_comment}
+                      </Typography.Paragraph>
+                    </St.StRatingCommentBox>
+                  </St.StyledReviewsWrapper>
+                ))
+              ) : (
+                <Empty description={t('job_details.noFeedback')} />
+              )}
+            </St.StyledReviewsBox>
+          </St.StyledRatingWrapper>
+          <St.StyledRatingWrapper></St.StyledRatingWrapper>
+        </St.RightColWrapper>
+      </St.Wrapper>
 
       <ProposalModal
         openModal={openModal}

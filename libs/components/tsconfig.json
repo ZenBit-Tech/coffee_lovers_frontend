@@ -14,6 +14,7 @@
     "baseUrl": ".",
     "paths": {
       "src/*": ["../../apps/freelance/src/*"],
+      "redux/*": ["../../apps/freelance/src/redux/*"],
       "@freelance/components*": ["../../libs/components/src/index.ts"],
       "@freelance/constants": [
         "../../libs/components/src/lib/constants/index.ts"

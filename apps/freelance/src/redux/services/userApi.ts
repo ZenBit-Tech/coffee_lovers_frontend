@@ -6,16 +6,17 @@ import {
   AddWorkhistory,
   FreelancerDataById,
   FreelancerQuery,
-  FreelancerRatingDataById,
   GetEducation,
   GetFavorites,
   GetUserProposals,
   GetWorkhistory,
+  JobOwnerId,
   PasswordResetPayload,
-  SetFreelancerRating,
   SetProfileImageResponse,
+  SetUserRating,
   UpdateUser,
   User,
+  UserRatingDataById,
 } from 'redux/types/user.types';
 import { FreelancerFavQuery } from 'redux/types/user.types';
 
@@ -34,6 +35,7 @@ enum EndpointsRoutes {
   addGetUserFavoritesInfo = '/favorites',
   freelancer = '/freelancer/',
   freelancerRating = '/freelancerrating/',
+  jobOwnerRating = '/jobownerrating/',
 }
 
 export const userApi = emptySplitApi.injectEndpoints({
@@ -149,21 +151,32 @@ export const userApi = emptySplitApi.injectEndpoints({
         method: 'GET',
       }),
     }),
-    getFreelancerRatingsById: builder.query<FreelancerRatingDataById[], number>(
-      {
-        query: (key: number) => ({
-          url: serviceRoute + EndpointsRoutes.freelancerRating + key,
-          method: 'GET',
-        }),
-      },
-    ),
+    getFreelancerRatingsById: builder.query<UserRatingDataById[], number>({
+      query: (key: number) => ({
+        url: serviceRoute + EndpointsRoutes.freelancerRating + key,
+        method: 'GET',
+      }),
+    }),
+    getJobOwnerRatingsById: builder.query<UserRatingDataById[], JobOwnerId>({
+      query: (key: JobOwnerId) => ({
+        url: serviceRoute + EndpointsRoutes.jobOwnerRating + key,
+        method: 'GET',
+      }),
+    }),
     setFreelancerRating: builder.mutation({
-      query: (payload: SetFreelancerRating) => ({
+      query: (payload: SetUserRating) => ({
         url: serviceRoute + EndpointsRoutes.freelancerRating,
         method: 'POST',
         body: payload,
       }),
       invalidatesTags: [apiTags.workInfo],
+    }),
+    setJobOwnerRating: builder.mutation({
+      query: (payload: SetUserRating) => ({
+        url: serviceRoute + EndpointsRoutes.jobOwnerRating,
+        method: 'POST',
+        body: payload,
+      }),
     }),
   }),
 });
@@ -187,4 +200,6 @@ export const {
   useGetFreelancerByIdQuery,
   useSetFreelancerRatingMutation,
   useGetFreelancerRatingsByIdQuery,
+  useSetJobOwnerRatingMutation,
+  useGetJobOwnerRatingsByIdQuery,
 } = userApi;
