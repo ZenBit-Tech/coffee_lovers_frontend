@@ -21,7 +21,10 @@ const PostedJobsList = () => {
     <Wrapper isLoading={isJobsLoading}>
       <PageHeader>
         <PageTitle theme={baseTheme}>{t('postedJobs.title')}</PageTitle>
-        <PostJobButton onClick={postJobHandler}>
+        <PostJobButton
+          onClick={postJobHandler}
+          data-testid={postedJobsTestId.postJobButton}
+        >
           {t('postedJobs.btn.postJob')}
         </PostJobButton>
       </PageHeader>

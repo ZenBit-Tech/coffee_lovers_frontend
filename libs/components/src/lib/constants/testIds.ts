@@ -90,6 +90,7 @@ export const authTestId = {
 };
 
 export const postedJobsTestId = {
+  postJobButton: 'postJobButton',
   postedJobCard: 'postedJobCard',
   postedJobCardStatus: 'postedJobCardStatus',
   postedJobCardTitle: 'postedJobCardTitle',

@@ -25,7 +25,7 @@ jest.mock('react-i18next', () => ({
   },
 }));
 
-describe('FindJobs page rendering', () => {
+describe('Posted jobs page rendering', () => {
   const container: Element = document.createElement('div');
 
   beforeAll(() => {
@@ -53,7 +53,7 @@ describe('FindJobs page rendering', () => {
     container.remove();
   });
 
-  it('renders a component ContractsPage', () => {
+  it('renders a component PostedJobsList', () => {
     const baseElement = render(<PostedJobsList />);
     expect(baseElement).toBeTruthy();
   });
@@ -63,6 +63,14 @@ describe('FindJobs page rendering', () => {
 
     const postedJobCard = screen.getAllByTestId(postedJobsTestId.postedJobCard);
     expect(postedJobCard).toHaveLength(mockPostedJobsResponse.length);
+  });
+
+  it('post new job button renders', () => {
+    render(<PostedJobsList />);
+
+    expect(
+      screen.getByTestId(postedJobsTestId.postJobButton).textContent,
+    ).toContain('postedJobs.btn.postJob');
   });
 
   it('posted job card should display correct data', () => {
