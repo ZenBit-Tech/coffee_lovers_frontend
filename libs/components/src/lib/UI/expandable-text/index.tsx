@@ -7,11 +7,13 @@ import { StyledParagraph } from './styles';
 interface ExpandableTextProps {
   children?: ReactNode;
   className?: string;
+  'data-testid'?: string;
 }
 
 export const ExpandableText: FC<ExpandableTextProps> = ({
   children,
   className,
+  ...props
 }) => {
   const { t } = useTranslation();
 
@@ -23,6 +25,7 @@ export const ExpandableText: FC<ExpandableTextProps> = ({
         symbol: t('textVisibility.more'),
       }}
       className={className}
+      {...props}
     >
       {children}
     </StyledParagraph>

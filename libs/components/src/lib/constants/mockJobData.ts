@@ -1,6 +1,7 @@
 import {
   FindJobsResponse,
   GetJobResponse,
+  GetPostedJobsResponse,
   Job,
   JobStatus,
 } from 'src/redux/types/jobs.types';
@@ -51,6 +52,22 @@ export const mockFindJobsResponse: FindJobsResponse = {
     totalCount: 2,
   },
 };
+
+export const mockPostedJobsResponse: GetPostedJobsResponse[] = [
+  {
+    id: 1,
+    title: 'test1',
+    description: 'test1',
+    hourly_rate: 30,
+    available_time: 'Full-time',
+    english_level: 'Intermediate',
+    status: JobStatus.IN_PROGRESS,
+    created_at: '2022-12-21T15:38:55.906Z',
+    category: { id: 1, name: 'Front-end' },
+    proposalsCount: 2,
+    hiresCount: 3,
+  },
+];
 
 export const mockJobData: GetJobResponse = {
   job: {

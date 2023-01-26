@@ -88,3 +88,12 @@ export const authTestId = {
   signUpLastNameField: 'signUpLastNameField',
   signUpButton: 'signUpButton',
 };
+
+export const postedJobsTestId = {
+  postedJobCard: 'postedJobCard',
+  postedJobCardStatus: 'postedJobCardStatus',
+  postedJobCardTitle: 'postedJobCardTitle',
+  postedJobCardDescription: 'postedJobCardDescription',
+  postedJobCardProposals: 'postedJobCardProposals',
+  postedJobCardHired: 'postedJobCardHired',
+};
