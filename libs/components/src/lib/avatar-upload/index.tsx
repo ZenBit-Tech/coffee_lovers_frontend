@@ -3,6 +3,7 @@ import { Avatar } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { useTranslation } from 'react-i18next';
 import { UserOutlined } from '@ant-design/icons';
+import { baseTheme } from 'src/styles/theme';
 
 import { avatarSize, uploadName } from './constants';
 import { StyledUpload, StyledUploadLine } from './styles';
@@ -43,7 +44,9 @@ export const AvatarUpload: FC<AvatarUploadProps> = ({
           src={imageUrl ? imageUrl : null}
         />
         {!hideUploadText && (
-          <StyledUploadLine>{t('uploadImage.uploadText')}</StyledUploadLine>
+          <StyledUploadLine theme={baseTheme}>
+            {t('uploadImage.uploadText')}
+          </StyledUploadLine>
         )}
       </StyledUpload>
     </ImgCrop>

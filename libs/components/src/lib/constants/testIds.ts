@@ -15,6 +15,20 @@ export const freelancerPageInfo = {
   skills: 'fpiskillsArr',
 };
 
+export const freelancerForm = {
+  categoryName: 'ffcategoryName',
+  hr: 'ffhourlyRate',
+  descr: 'ffdescription',
+  pos: 'ffposition',
+  avtime: 'ffavailableTime',
+  englevel: 'ffenglishLevel',
+  edu: 'ffeducationArr',
+  work: 'ffworkhistoryArr',
+  skills: 'ffskillsArr',
+  other_experience: 'ffotherExp',
+  submit_btn: 'ffsubmitBtn',
+};
+
 export const freelancerProfile = {
   profileImage: 'fpprofileImage',
   email: 'fpemail',

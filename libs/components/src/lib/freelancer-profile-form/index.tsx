@@ -3,6 +3,7 @@ import { Form, Select } from 'antd';
 import { t } from 'i18next';
 import {
   DefInput,
+  freelancerForm,
   profileQ1,
   profileQ2,
   StyledSelect,
@@ -75,6 +76,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
         ]}
       >
         <St.StInputNumber
+          data-testid={freelancerForm.hr}
           prefix={t('description.profileQp1.hRPrefix')}
           placeholder={t('description.profileQp1.hRSuffix')}
           min={profileQ1.hRMin}
@@ -94,6 +96,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
         }}
       >
         <St.StTextArea
+          data-testid={freelancerForm.descr}
           placeholder={t('description.profileQp1.descr')}
           allowClear
           rows={4}
@@ -110,7 +113,10 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
           },
         ]}
       >
-        <DefInput placeholder={t('description.profileQp1.pos')} />
+        <DefInput
+          data-testid={freelancerForm.pos}
+          placeholder={t('description.profileQp1.pos')}
+        />
       </Form.Item>
       <Form.Item
         label={t('description.profileQp1.avTime')}
@@ -125,6 +131,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
         <StyledSelect
           placeholder={t('description.profileQp1.avTime')}
           allowClear
+          data-testid={freelancerForm.avtime}
         >
           <Select.Option value={profileQ1.partTime}>
             {t('description.profileQp1.partTime')}
@@ -158,6 +165,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
         }}
       >
         <Select
+          data-testid={freelancerForm.skills}
           mode="multiple"
           size="large"
           options={getOptionsForSelectWithId(skills)}
@@ -187,6 +195,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
         ]}
       >
         <Select
+          data-testid={freelancerForm.categoryName}
           size="large"
           showSearch
           placeholder={t('description.profileQp2.category')}
@@ -207,6 +216,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
         label={t('description.profileQp2.english_level')}
       >
         <Select
+          data-testid={freelancerForm.englevel}
           placeholder={t('description.profileQp2.english_level_descr')}
           size="large"
           options={getOptionsForSelectString(englishLevels)}
@@ -226,6 +236,7 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
         }}
       >
         <St.StTextArea
+          data-testid={freelancerForm.other_experience}
           placeholder={t('description.profileQp2.other_exp_descr')}
           allowClear
           rows={4}
@@ -238,7 +249,12 @@ export const FreelancerForm: FC<freelancerFormProps> = ({
           lg: { span: 3, offset: 15 },
         }}
       >
-        <St.StSubButton size="large" type="primary" htmlType="submit">
+        <St.StSubButton
+          data-testid={freelancerForm.submit_btn}
+          size="large"
+          type="primary"
+          htmlType="submit"
+        >
           {submitText}
         </St.StSubButton>
       </Form.Item>

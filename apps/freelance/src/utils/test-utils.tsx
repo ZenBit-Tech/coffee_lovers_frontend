@@ -2,11 +2,14 @@ import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { render, RenderOptions } from '@testing-library/react';
-import { store } from 'redux/store';
+import { persistor, store } from 'redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => (
   <Provider store={store}>
-    <BrowserRouter>{children}</BrowserRouter>
+    <PersistGate persistor={persistor}>
+      <BrowserRouter>{children}</BrowserRouter>
+    </PersistGate>
   </Provider>
 );
 
