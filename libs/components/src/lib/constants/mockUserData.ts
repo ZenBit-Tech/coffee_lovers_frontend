@@ -123,7 +123,7 @@ export const mockFreelancerProfileData: User = {
   last_name: 'Doe',
   profile_image: 'https://localhost:4200/image.img',
   role: 'Freelancer',
-  available_time: 'Full-Time',
+  available_time: 'Part-Time',
   description: 'Front-end developer',
   position: 'Front-end developer',
   hourly_rate: 30,

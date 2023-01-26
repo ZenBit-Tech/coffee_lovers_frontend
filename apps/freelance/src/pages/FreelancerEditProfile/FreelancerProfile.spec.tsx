@@ -1,11 +1,12 @@
 import { unmountComponentAtNode } from 'react-dom';
 import {
+  freelancerForm,
   freelancerProfile,
   mockFreelacerEducation,
   mockFreelancerProfileData,
   mockFreelancerWH,
 } from '@freelance/components';
-import { render, screen } from '@utils/test-utils';
+import { fireEvent, render, screen } from '@utils/test-utils';
 import {
   AddEducation,
   AddWorkhistory,
@@ -37,7 +38,7 @@ jest.mock('redux/services/userApi', () => ({
   useSetProfileImageMutation: () => [() => ({}), { data: {} }],
 }));
 
-describe('FreelancerProfile rendering component using data from rtk query', () => {
+describe('FreelancerProfile renders all fields and displays correct data after user sets it', () => {
   const container: Element = document.createElement('div');
 
   beforeAll(() => {
@@ -81,5 +82,75 @@ describe('FreelancerProfile rendering component using data from rtk query', () =
     expect(screen.getByTestId(freelancerProfile.email).textContent).toBe(
       `${mockFreelancerProfileData?.email}`,
     );
+  });
+
+  it('freelancer form fields displays correct data after user sets values', () => {
+    render(<FreelancerProfile />);
+
+    const descriptionField = screen.getByTestId(freelancerForm.descr);
+    const hrField = screen.getByTestId(freelancerForm.hr);
+    const posField = screen.getByTestId(freelancerForm.pos);
+    const otherExpField = screen.getByTestId(freelancerForm.other_experience);
+
+    expect(descriptionField).toBeInTheDocument();
+    expect(hrField).toBeInTheDocument();
+    expect(posField).toBeInTheDocument();
+    expect(otherExpField).toBeInTheDocument();
+
+    expect(descriptionField).toContainHTML('');
+    fireEvent.input(descriptionField, {
+      target: { value: mockFreelancerProfileData.description },
+    });
+    expect(descriptionField).toContainHTML(
+      mockFreelancerProfileData.description,
+    );
+    expect(descriptionField).not.toBe('');
+
+    expect(hrField).toContainHTML('');
+    fireEvent.input(hrField, {
+      target: { value: mockFreelancerProfileData.hourly_rate },
+    });
+    expect(hrField).toContainHTML(
+      String(mockFreelancerProfileData.hourly_rate),
+    );
+    expect(hrField).not.toBe('');
+
+    expect(posField).toContainHTML('');
+    fireEvent.input(posField, {
+      target: { value: mockFreelancerProfileData.position },
+    });
+    expect(posField).toContainHTML(mockFreelancerProfileData.position);
+    expect(posField).not.toBe('');
+
+    expect(otherExpField).toContainHTML('');
+    fireEvent.input(otherExpField, {
+      target: { value: mockFreelancerProfileData.other_experience },
+    });
+    expect(otherExpField).toContainHTML(
+      mockFreelancerProfileData.other_experience,
+    );
+    expect(otherExpField).not.toBe('');
+  });
+
+  it('freelancer form select fields displays in the document', async () => {
+    render(<FreelancerProfile />);
+
+    const avTimeSelect = screen.getByTestId(freelancerForm.avtime);
+    const skillsSelect = screen.getByTestId(freelancerForm.skills);
+    const categorySelect = screen.getByTestId(freelancerForm.categoryName);
+    const engLevelSelectField = screen.getByTestId(freelancerForm.englevel);
+
+    expect(avTimeSelect).toBeVisible();
+    expect(skillsSelect).toBeVisible();
+    expect(categorySelect).toBeVisible();
+    expect(engLevelSelectField).toBeVisible();
+  });
+
+  it('should not submit with empty fields', async () => {
+    render(<FreelancerProfile />);
+    const submit = jest.fn();
+
+    fireEvent.click(screen.getByTestId(freelancerForm.submit_btn));
+    expect(submit).not.toHaveBeenCalled();
   });
 });
