@@ -38,7 +38,7 @@ const ContractsList = () => {
             key: id,
             children: pageItems?.map((el: ContractsResponse, index: number) => (
               <ContractCard
-                el={el}
+                element={el}
                 index={index}
                 contractsPage={contractsPage}
                 user={user}

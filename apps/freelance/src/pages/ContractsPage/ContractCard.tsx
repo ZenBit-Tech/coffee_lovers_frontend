@@ -19,14 +19,14 @@ import { closed } from './constants';
 import { DateText } from './styles';
 
 interface IContractCard {
-  el: ContractsResponse;
+  element: ContractsResponse;
   index: number;
   contractsPage: number;
   user?: User;
 }
 
 export const ContractCard: FC<IContractCard> = ({
-  el,
+  element,
   index,
   contractsPage,
   user,
@@ -57,29 +57,29 @@ export const ContractCard: FC<IContractCard> = ({
       >
         <Col className="gutter-row" span={6}>
           <div data-testid={contractsPageTestId.contractsWrapper}>
-            {el.offer.job.title}
+            {element.offer.job.title}
           </div>
         </Col>
         <Col className="gutter-row" span={6}>
           <div data-testid={contractsPageTestId.freelancerNameContract}>
             {role === roles.freelancer
-              ? el.offer.job_owner.first_name +
+              ? element.offer.job_owner.first_name +
                 ' ' +
-                el.offer.job_owner.last_name
-              : el.offer.freelancer.first_name +
+                element.offer.job_owner.last_name
+              : element.offer.freelancer.first_name +
                 ' ' +
-                el.offer.freelancer.last_name}
+                element.offer.freelancer.last_name}
           </div>
         </Col>
         <Col className="gutter-row" span={4}>
           <div>{t('contracts.start')}</div>
-          <DateText>{el.offer.start}</DateText>
+          <DateText>{element.offer.start}</DateText>
         </Col>
         <RatingModal
-          contract={el}
-          job_owner_id={el.offer.job_owner?.id}
-          freelancer_id={el.offer.freelancer?.id}
-          job_id={el.offer.job.id}
+          contract={element}
+          job_owner_id={element.offer.job_owner?.id}
+          freelancer_id={element.offer.freelancer?.id}
+          job_id={element.offer.job.id}
           setIsModalOpen={setIsModalOpen}
           isModalOpen={isModalOpen}
         />
@@ -87,7 +87,7 @@ export const ContractCard: FC<IContractCard> = ({
         {contractsPage === closed && (
           <Col className="gutter-row" span={4}>
             <div>{t('contracts.end')}</div>
-            <DateText>{el.end}</DateText>
+            <DateText>{element.end}</DateText>
           </Col>
         )}
 
@@ -98,8 +98,8 @@ export const ContractCard: FC<IContractCard> = ({
                 <DangerButton
                   onClick={() =>
                     closeContractHandler(
-                      el.offer.job_owner.first_name,
-                      el.offer.job_owner.last_name,
+                      element.offer.job_owner.first_name,
+                      element.offer.job_owner.last_name,
                     )
                   }
                 >
@@ -108,7 +108,7 @@ export const ContractCard: FC<IContractCard> = ({
               )}
               {contractsPage === closed &&
                 user?.role === roles.freelancer &&
-                !el.offer.isRated && (
+                !element.offer.isRated && (
                   <PrimaryButton
                     onClick={() => setIsModalOpen(value => !value)}
                   >
@@ -117,7 +117,7 @@ export const ContractCard: FC<IContractCard> = ({
                 )}
               {contractsPage === closed &&
                 user?.role === roles.jobOwner &&
-                !el.offer.isRated && (
+                !element.offer.isRated && (
                   <PrimaryButton
                     onClick={() => setIsModalOpen(value => !value)}
                   >
