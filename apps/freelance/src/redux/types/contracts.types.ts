@@ -1,6 +1,6 @@
 import { Job } from './jobs.types';
 import { Offer, OfferStatus } from './request.types';
-import { User } from './user.types';
+import { SetUserRating, User } from './user.types';
 
 export enum ContractStatus {
   ACTIVE = 'Active',
@@ -21,6 +21,7 @@ export interface ContractsResponse {
     job: Job;
     freelancer: User;
     job_owner: User;
+    isRated: SetUserRating;
   };
 }
 
