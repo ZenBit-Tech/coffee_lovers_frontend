@@ -75,15 +75,23 @@ export const ContractCard: FC<IContractCard> = ({
           <div>{t('contracts.start')}</div>
           <DateText>{element.offer.start}</DateText>
         </Col>
-        <RatingModal
-          contract={element}
-          job_owner_id={element.offer.job_owner?.id}
-          freelancer_id={element.offer.freelancer?.id}
-          job_id={element.offer.job.id}
-          setIsModalOpen={setIsModalOpen}
-          isModalOpen={isModalOpen}
-        />
-
+        {role === roles.freelancer ? (
+          <RatingModal
+            contract={element}
+            job_owner_id={element.offer.job_owner?.id}
+            job_id={element.offer.job.id}
+            setIsModalOpen={setIsModalOpen}
+            isModalOpen={isModalOpen}
+          />
+        ) : (
+          <RatingModal
+            contract={element}
+            freelancer_id={element.offer.freelancer?.id}
+            job_id={element.offer.job.id}
+            setIsModalOpen={setIsModalOpen}
+            isModalOpen={isModalOpen}
+          />
+        )}
         {contractsPage === closed && (
           <Col className="gutter-row" span={4}>
             <div>{t('contracts.end')}</div>
