@@ -19,6 +19,11 @@ export const activeContractsMock: ContractsResponse[] = [
       freelancer: { id: 5, first_name: 'Roman' } as User,
       job: { id: 3, title: 'Active job title' } as Job,
       job_owner: { id: 3 } as User,
+      isRated: {
+        rating: 5,
+        rating_comment: 'rated',
+        job_id: 4,
+      },
     },
   },
 ];
@@ -38,6 +43,11 @@ export const closedContractsMock: ContractsResponse[] = [
       freelancer: { id: 5, first_name: 'Ann' } as User,
       job: { id: 3, title: 'Closed job title' } as Job,
       job_owner: { id: 3 } as User,
+      isRated: {
+        rating: 5,
+        rating_comment: 'rated',
+        job_id: 4,
+      },
     },
   },
 ];

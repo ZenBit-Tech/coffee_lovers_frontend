@@ -11,7 +11,7 @@ export const ContainerWrapper = styled.div`
   }
 
   @media screen and (min-width: ${({ theme }) => theme.media.medium}) {
-    width: ${({ theme }) => theme.media.medium};
+    width: 100%;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.media.large}) {
