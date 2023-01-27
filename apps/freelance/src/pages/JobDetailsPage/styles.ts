@@ -35,7 +35,7 @@ export const StyledText = styled.p`
 `;
 
 export const JobDescrText = styled.div`
-  max-width: 900px;
+  max-width: 830px;
   padding: 15px;
   min-height: 100px;
   border: 1px solid var(--grey);
