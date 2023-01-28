@@ -12,6 +12,7 @@ import {
 } from '@freelance/components';
 import { PageWrapper } from '@freelance/components';
 import { jobDetailsPageConsts, skills } from '@pages/JobDetailsPage/constants';
+import { getFileUrl } from '@utils/api';
 import { useGetJobQuery } from 'redux/services/jobsApi';
 import {
   useGetJobOwnerRatingsByIdQuery,
@@ -141,7 +142,7 @@ const JobDetailsPage = () => {
 
         <St.RightColWrapper>
           <Avatar
-            src={jobData?.job.owner.profile_image}
+            src={getFileUrl(jobData?.job.owner.profile_image)}
             size={80}
             icon={<UserOutlined />}
           />
