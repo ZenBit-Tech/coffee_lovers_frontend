@@ -87,4 +87,8 @@ export const authTestId = {
   signUpFirstNameField: 'signUpFirstNameField',
   signUpLastNameField: 'signUpLastNameField',
   signUpButton: 'signUpButton',
+  signUpConfirmPasswordField: 'signUpConfirmPasswordField',
+  signUpAcceptField: 'signUpAcceptField',
+  signUpConditions: 'signUpConditions',
+  toLogin: 'toLogin',
 };

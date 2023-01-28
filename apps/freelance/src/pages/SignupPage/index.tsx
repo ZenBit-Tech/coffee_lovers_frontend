@@ -1,11 +1,18 @@
+import { ReactElement } from 'react';
 import { Button, Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { GoogleLoginButton, routes, SignUpForm } from '@freelance/components';
+import {
+  authTestId,
+  GoogleLoginButton,
+  routes,
+  SignUpForm,
+} from '@freelance/components';
+import { baseTheme } from 'src/styles/theme';
 
 import { ButtonWrap, Wrapper } from './styles';
 
-export default function SignupPage() {
+const SignupPage = (): ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -14,8 +21,9 @@ export default function SignupPage() {
       <Row justify="space-around">
         <Col span={12}>
           <SignUpForm />
-          <ButtonWrap>
+          <ButtonWrap theme={baseTheme}>
             <Button
+              data-testid={authTestId.toLogin}
               type="link"
               htmlType="button"
               onClick={() => navigate(`${routes.login}`)}
@@ -30,4 +38,6 @@ export default function SignupPage() {
       </Row>
     </Wrapper>
   );
-}
+};
+
+export default SignupPage;
