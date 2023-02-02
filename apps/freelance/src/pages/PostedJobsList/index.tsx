@@ -1,4 +1,6 @@
 import { PostedJobCard } from '@freelance/components';
+import { postedJobsTestId } from '@freelance/constants';
+import { baseTheme } from 'src/styles/theme';
 
 import { getSortOptions, SortOptions } from './constants';
 import {
@@ -18,8 +20,11 @@ const PostedJobsList = () => {
   return (
     <Wrapper isLoading={isJobsLoading}>
       <PageHeader>
-        <PageTitle>{t('postedJobs.title')}</PageTitle>
-        <PostJobButton onClick={postJobHandler}>
+        <PageTitle theme={baseTheme}>{t('postedJobs.title')}</PageTitle>
+        <PostJobButton
+          onClick={postJobHandler}
+          data-testid={postedJobsTestId.postJobButton}
+        >
           {t('postedJobs.btn.postJob')}
         </PostJobButton>
       </PageHeader>
@@ -38,6 +43,7 @@ const PostedJobsList = () => {
             description={job.description}
             proposals={job.proposalsCount}
             hired={job.hiresCount}
+            data-testid={postedJobsTestId.postedJobCard}
           />
         ))}
       </JobListContainer>
